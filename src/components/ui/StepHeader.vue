@@ -1,6 +1,11 @@
 <template>
-  <div>
-    {{icon}} {{text}}
+  <div class="kv-content__header">
+    <div class="kv-content__icon">
+      <!-- TODO: пусть к иконке - встроить иконки инлайново -->
+      <svg><use :href="`img/icons/icons.svg#${icon}`"></use></svg>
+    </div>
+
+    <div class="kv-content__title">{{text}}</div>
   </div>
 </template>
 

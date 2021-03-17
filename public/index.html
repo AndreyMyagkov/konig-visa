@@ -11,13 +11,37 @@
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
+
+    <!-- TODO: подключать скриптом -->
+    <link rel="preload" href="./fonts/OpenSans-Bold.woff" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="./fonts/OpenSans-Regular.woff" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="prefetch" href="/img/icons/icons.svg" as="image" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- TODO: вынос -->
+    <style>
+        .kv-container {
+            width: 1250px;
+            max-width: 100%;
+            position: relative;
+            margin: 0 auto;
+        }
+
+    </style>
     <script>
         __KV_CONFIG =  {
             clientId: '{8B8CB112-716B-41E1-9748-9A193D45A36D}',
             //css: '/css/widgete.dev.css'
         }
     </script>
-    <div id="kv-app"></div>
+
+    <div class="kv-container">
+
+        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias atque corporis dolore eveniet facere inventore modi nostrum. Alias cupiditate eveniet facilis fuga hic impedit ipsam, nobis quibusdam repellat. Culpa, totam.</div>
+        <br><br>
+        <div id="kv-app"></div>
+
+    </div>
     <!-- built files will be auto injected -->
   </body>
 </html>

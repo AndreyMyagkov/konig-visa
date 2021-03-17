@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <div v-for="(item, i) in crumbs" :key="i">
-      {{item}}
+  <div class="kv-header__item kv-breadcrumps">
+    <div class="kv-breadcrumps__inner">
+      <div class="kv-breadcrumps__item" v-for="(item, i) in crumbs" :key="i">
+        <span>{{item}}</span>&nbsp;
+      </div>
     </div>
   </div>
 </template>
@@ -14,8 +16,6 @@ export default {
   }
 }
 </script>
-
-
 <style scoped lang="scss">
 
 </style>
