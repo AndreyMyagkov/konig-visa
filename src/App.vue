@@ -221,7 +221,10 @@
         <Step2
             :serviceDetails="serviceDetails"
             :nationalities="nationalities"
+            :nationality="CONFIG.nationality"
+            :residenceRegions="CONFIG.residenceRegions"
             @active="loadStep2Data"
+            @updateStep2Data="updateStep2Data"
             v-if="currentStep === 2"/>
         <!-- /STEP 2 -->
 
@@ -392,7 +395,8 @@ export default {
     initiateWidgete() {
 
       if (__KV_CONFIG && __KV_CONFIG.clientId) {
-        this.CONFIG.clientId = __KV_CONFIG.clientId;
+        //this.CONFIG.clientId = __KV_CONFIG.clientId;
+        this.CONFIG = Object.assign(this.CONFIG,__KV_CONFIG);
       } else {
         return false
       }
@@ -528,6 +532,11 @@ export default {
         console.log(err)
       }
 
+    },
+
+    updateStep2Data(data){
+      console.log('Обновились данные 2 шага:');
+      console.log(data)
     },
   //  ПО выбору смотреть тип. Выбирать группу или сервис и открывать шаг
     /**

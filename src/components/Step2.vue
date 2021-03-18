@@ -16,7 +16,7 @@
 
           <!-- item -->
           <div class="kv-staying__item" v-for="item in serviceDetails.durations" :key="item.name" @click="selectDurations(item)">
-            <div class="kv-staying-chb" :class="{'kv-staying-chb__active' : item.name === duration.name}">
+            <div class="kv-staying-chb" :class="{'kv-staying-chb__active' : item.name === selectedDuration.name}">
               <div class="kv-staying-chb__text" v-html="item.nameHTML"></div>
               <div class="kv-staying-chb__info">
                 <svg class="kv-staying-chb__info-icon"><use href="img/icons/icons.svg#info"></use></svg>
@@ -28,17 +28,17 @@
         </div>
         <!-- /Staying list -->
 
-        <div class="kv-staying__info" v-if="duration.description">
+        <div class="kv-staying__info" v-if="selectedDuration.description">
           <svg class="kv-staying__info-icon"><use href="img/icons/icons.svg#info"></use></svg>
 
-          <div class="kv-staying__text" v-html="duration.description"></div>
+          <div class="kv-staying__text" v-html="selectedDuration.description"></div>
         </div>
 
       </div>
       <!-- /Staying-->
 
       <!-- Processing-->
-      <div class="kv-processing">
+      <div class="kv-processing" v-if="selectedDuration.name">
         <div class="kv-processing__caption">
 
           <div class="kv-processing__btn">
@@ -72,8 +72,8 @@
               <div class="kv-select__badge">
                 <svg class="kv-select__icon"><use href="img/icons/icons.svg#home"></use></svg>
               </div>
-              <select class="kv-select__input">
-                <option value="0" label="Выберите"></option>
+              <select class="kv-select__input" v-model="nationalitiesModel" @change="update">
+                <option value="null" label="Выберите"></option>
                 <option :value="item.codeA3" v-for="item in nationalities" :key="item.codeA3">{{item.name}}</option>
               </select>
               <svg class="kv-selct__arrow"><use href="img/icons/icons.svg#arrow_down"></use></svg>
@@ -81,15 +81,15 @@
           </div>
 
           <!-- Место жительства -->
-          <div class="kv-processing__item">
+          <div class="kv-processing__item" v-if="serviceDetails.servedResidenceRegions !== null">
             <div class="kv-processing__label">Место жительства:</div>
             <div class="kv-processing__select kv-select">
 
               <div class="kv-select__badge">
                 <svg class="kv-select__icon"><use href="img/icons/icons.svg#pin"></use></svg>
               </div>
-              <select class="kv-select__input">
-                <option value="0" selected="selected" label="Выберите"></option>
+              <select class="kv-select__input" v-model="residenceRegionsModel" @change="update">
+                <option value="null" selected="selected" label="Выберите"></option>
                 <option :value="item.code" v-for="item in serviceDetails.servedResidenceRegions" :key="item.code">{{item.name}}</option>
               </select>
               <svg class="kv-selct__arrow"><use href="img/icons/icons.svg#arrow_down"></use></svg>
@@ -98,11 +98,11 @@
         </div>
         <!-- /selects -->
 
-      </div>
+      </div >
       <!-- /Processing-->
 
       <!-- Processing days-->
-      <div class="kv-processing-days">
+      <div class="kv-processing-days"  v-if="selectedDuration.name">
 
          <!-- day -->
         <div class="kv-processing-days__item" v-for="item in serviceDetails.processDurations" :key="item.hours">
@@ -194,7 +194,7 @@
       <!-- /Processing days-->
 
       <!-- Calc bloc info-->
-      <div class="kv-calc-block__info">
+      <div class="kv-calc-block__info"  v-if="selectedDuration.name">
 
         <div class="kv-calc-info">
 
@@ -228,14 +228,26 @@ export default {
     nationalities: {
       type: Array,
       required: true
+    },
+    nationality: {
+      type: String,
+      required: true
+    },
+    residenceRegions: {
+      type: String,
+      required: true
     }
   },
   data() {
     return {
-      duration: {
+      // Выбранная продолжительность
+      selectedDuration: {
         name: '',
         description: ''
       },
+
+      //selectedNationalities: null,
+      //selectedResidenceRegions: null
     }
   },
   methods: {
@@ -244,13 +256,42 @@ export default {
      * @param item
      */
     selectDurations(item) {
-      this.duration = item;
-      //TODO: emit родителю
+      this.selectedDuration = item;
+      this.update();
+    },
+
+    update() {
+      this.$emit('updateStep2Data',
+          {
+            duration: this.selectedDuration.name,
+            nationalities: this.nationalitiesModel, //selectedNationalities,
+            residenceRegions: this.residenceRegionsModel //selectedResidenceRegions
+          }
+      )
     }
   },
   computed: {
+
+    nationalitiesModel: {
+      get () {
+        return this.nationality
+      },
+      set (value) {
+        this.selectedNationalities = value
+      },
+    },
+
+    residenceRegionsModel: {
+      get () {
+        return this.residenceRegions
+      },
+      set (value) {
+        this.selectedResidenceRegions = value
+      },
+    },
+
     durationDescription() {
-      return serviceDetails.durations
+      return this.serviceDetails.durations
     }//
   },
   mounted() {
