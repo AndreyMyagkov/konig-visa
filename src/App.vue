@@ -218,507 +218,11 @@
 
 
         <!-- STEP 2 -->
-        <div  class="kv-content__body" v-if="currentStep === 2">
-
-          <div class="kv-calc-block">
-            <!-- Staying-->
-            <div class="kv-staying">
-
-              <!-- text -->
-              <div class="kv-staying__text">
-                <span class="kv-staying__text_bold">СРОК ПРЕБЫВАНИЯ</span> is simply dummy text of the
-                printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
-                ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-                a type specimen book.
-              </div>
-              <!-- /text -->
-
-              <!-- Staying list -->
-              <div class="kv-staying__list">
-
-                <div class="kv-staying__item">
-                  <label class="kv-staying-chb">
-                    <input type="radio" checked name="kv-staying"                                                                                      aria-label="checkbox" required>
-                    <span class="kv-staying-chb__caption">bis zu <span>10</span>* Tage</span>
-                  </label>
-                </div>
-
-                <div class="kv-staying__item"> <label class="kv-staying-chb"> <input type="radio" name="kv-staying"
-                                                                                     aria-label="checkbox" required>
-
-                  <span class="kv-staying-chb__caption">bis zu <span>20</span>* Tage</span> </label>
-                </div>
-
-                <div class="kv-staying__item"> <label class="kv-staying-chb"> <input type="radio" name="kv-staying"
-                                                                                     aria-label="checkbox" required>
-
-                  <span class="kv-staying-chb__caption">bis zu <span>30</span>* Tage</span> </label>
-                </div>
-
-                <div class="kv-staying__item"> <label class="kv-staying-chb"> <input type="radio" name="kv-staying"
-                                                                                     aria-label="checkbox" required>
-
-                  <span class="kv-staying-chb__caption">bis zu <span>40</span>* Tage</span> </label>
-                </div>
-
-                <div class="kv-staying__item"> <label class="kv-staying-chb"> <input type="radio" name="kv-staying"
-                                                                                     aria-label="checkbox" required>
-
-                  <span class="kv-staying-chb__caption">bis zu <span>50</span>* Tage</span> </label>
-                </div>
-
-                <div class="kv-staying__item"> <label class="kv-staying-chb"> <input type="radio" name="kv-staying"
-                                                                                     aria-label="checkbox" required>
-
-                  <span class="kv-staying-chb__caption">bis zu <span>60</span>* Tage</span> </label>
-                </div>
-              </div>
-              <!-- /Staying list -->
-
-            </div>
-            <!-- /Staying-->
-
-            <!-- Processing-->
-            <div class="kv-processing">
-              <div class="kv-processing__caption">
-
-                <div class="kv-processing__btn">
-
-                  <div class="kv-btn-info"> <svg>
-                    <use href="img/icons/icons.svg#ask"></use>
-                  </svg>Инфо-кнопка </div>
-                </div>
-
-                <div class="kv-processing__text">
-
-                  <span class="kv-processing__text_bold">СРОК ОБРАБОТКИ</span> is simply dummy text of the
-                  printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
-                  text ever since the 1500s, when an unknown printer took a galley of type and scrambled
-                  it to make a type specimen book.
-                </div>
-
-                <div class="kv-processing__text">Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since
-                  the 1500s, when an unknown printer took a galley of type and scrambled it to make a type
-                  specimen book.</div>
-              </div>
-
-
-              <!-- selects -->
-              <div class="kv-processing__row">
-
-                <div class="kv-processing__item">
-
-                  <div class="kv-processing__label">Гражданство:</div>
-
-                  <div class="kv-processing__select kv-select">
-
-                    <div class="kv-select__badge">
-                      <svg class="kv-select__icon"><use href="img/icons/icons.svg#home"></use></svg>
-                    </div>
-                    <select class="kv-select__input">
-                      <option value="0" label="Выберите"></option>
-                      <option :value="item.codeA3" v-for="item in nationalities" :key="item.codeA3">{{item.name}}</option>
-                    </select>
-                    <svg class="kv-selct__arrow"><use href="img/icons/icons.svg#arrow_down"></use></svg>
-                  </div>
-                </div>
-
-                <div class="kv-processing__item">
-
-                  <div class="kv-processing__label">Место жительства:</div>
-
-                  <div class="kv-processing__select kv-select">
-
-                    <div class="kv-select__badge"> <svg class="kv-select__icon">
-                      <use href="img/icons/icons.svg#pin"></use>
-                    </svg> </div> <select class="kv-select__input" name="form[]" id="select" required>
-                    <option value="" selected="selected" label="Россия"></option>
-                    <option value="2">option 1</option>
-                    <option value="3">option 2</option>
-                    <option value="4">option 3</option>
-                    <option value="5">option 4</option>
-                    <option value="6">option 5</option>
-                    <option value="5">option 6</option>
-                    <option value="6">option 7</option>
-                    <option value="3">option 2</option>
-                    <option value="4">option 3</option>
-                    <option value="5">option 4</option>
-                    <option value="6">option 5</option>
-                    <option value="5">option 6</option>
-                    <option value="6">option 7</option>
-                  </select> <svg class="kv-selct__arrow">
-                    <use href="img/icons/icons.svg#arrow_down"></use>
-                  </svg>
-                  </div>
-                </div>
-              </div>
-              <!-- /selects -->
-
-            </div>
-            <!-- /Processing-->
-
-            <!-- Processing days-->
-            <div class="kv-processing-days">
-
-              <!-- Processing day-->
-              <div class="kv-processing-days__item">
-                <label class="kv-processing-day"> <input type="radio" disabled
-                                                         name="kv-processing-day" aria-label="checkbox" required>
-
-                  <div class="kv-processing-day__header">
-
-                    <div class="kv-processing-day__title">Bearbeitungszeit</div>
-
-                    <div class="kv-processing-day__nuber">15</div>
-
-                    <div class="kv-processing-day__subtitle">Werktage</div>
-                  </div>
-
-                  <div class="kv-processing-day__body">
-
-                    <div class="kv-processing-day__text">Lorem Ipsum is simply dummy text of the
-                      printing and typesetting industry. Lorem Ipsum has been the industry's standard
-                      dummy text ever since the 1500s, when an unknown printer took a galley of type
-                      and scrambled it to make a type specimen book.</div>
-
-                    <div class="kv-processing-day__item"> <label class="kv-processing-day-chb"> <input type="radio"
-                                                                                                       name="kv-processing-day-chb" aria-label="checkbox" required>
-
-                      <span class="kv-processing-day-chb__inner"><span class="kv-processing-day-chb__box"> <svg>
-                                        <use href="img/icons/icons.svg#radio"></use>
-                                    </svg></span>
-
-                                <span class="kv-processing-day-chb__caption"><span
-                                    class="kv-processing-day-chb__text">1-malige Einreise</span>
-
-                                    <span class="kv-processing-day-chb__title">135 <span>€</span></span></span></span>
-                    </label> </div>
-                  </div>
-                </label>
-              </div>
-              <!-- /Processing day-->
-
-              <!-- Processing day-->
-              <div class="kv-processing-days__item">
-                <label class="kv-processing-day"> <input type="radio"
-                                                         name="kv-processing-day" aria-label="checkbox" required>
-
-                  <div class="kv-processing-day__header">
-
-                    <div class="kv-processing-day__title">Bearbeitungszeit</div>
-
-                    <div class="kv-processing-day__nuber">15</div>
-
-                    <div class="kv-processing-day__subtitle">Werktage</div>
-                  </div>
-
-                  <div class="kv-processing-day__body">
-
-                    <div class="kv-processing-day__text">Lorem Ipsum is simply dummy text of the
-                      printing and typesetting industry. Lorem Ipsum has been the industry's standard
-                      dummy text ever since the 1500s, when an unknown printer took a galley of type
-                      and scrambled it to make a type specimen book.</div>
-
-                    <div class="kv-processing-day__item"> <label class="kv-processing-day-chb"> <input type="radio"
-                                                                                                       name="kv-processing-day-chb" aria-label="checkbox" required>
-
-                      <span class="kv-processing-day-chb__inner"><span class="kv-processing-day-chb__box"> <svg>
-                                        <use href="img/icons/icons.svg#radio"></use>
-                                    </svg></span>
-
-                                <span class="kv-processing-day-chb__caption"><span
-                                    class="kv-processing-day-chb__text">1-malige Einreise</span>
-
-                                    <span class="kv-processing-day-chb__title">135 <span>€</span></span></span></span>
-                    </label> </div>
-
-                    <div class="kv-processing-day__item"> <label class="kv-processing-day-chb"> <input type="radio"
-                                                                                                       name="kv-processing-day-chb" aria-label="checkbox" required>
-
-                      <span class="kv-processing-day-chb__inner"><span class="kv-processing-day-chb__box"> <svg>
-                                        <use href="img/icons/icons.svg#radio"></use>
-                                    </svg></span>
-
-                                <span class="kv-processing-day-chb__caption"><span
-                                    class="kv-processing-day-chb__text">2-malige Einreise</span>
-
-                                    <span class="kv-processing-day-chb__title">145 <span>€</span></span></span></span>
-                    </label> </div>
-
-                    <div class="kv-processing-day__item"> <label class="kv-processing-day-chb"> <input type="radio"
-                                                                                                       name="kv-processing-day-chb" aria-label="checkbox" required>
-
-                      <span class="kv-processing-day-chb__inner"><span class="kv-processing-day-chb__box"> <svg>
-                                        <use href="img/icons/icons.svg#radio"></use>
-                                    </svg></span>
-
-                                <span class="kv-processing-day-chb__caption"><span
-                                    class="kv-processing-day-chb__text">x-malige Einreise</span>
-
-                                    <span class="kv-processing-day-chb__title">155 <span>€</span></span></span></span>
-                    </label> </div>
-
-                    <div class="kv-processing-day__item"> <label class="kv-processing-day-chb"> <input type="radio"
-                                                                                                       name="kv-processing-day-chb" aria-label="checkbox" required>
-
-                      <span class="kv-processing-day-chb__inner"><span class="kv-processing-day-chb__box"> <svg>
-                                        <use href="img/icons/icons.svg#radio"></use>
-                                    </svg></span>
-
-                                <span class="kv-processing-day-chb__caption"><span
-                                    class="kv-processing-day-chb__text">y-malige Einreise</span>
-
-                                    <span class="kv-processing-day-chb__title">165 <span>€</span></span></span></span>
-                    </label> </div>
-                  </div>
-                </label> </div>
-              <!-- Processing day-->
-
-              <div class="kv-processing-days__item"> <label class="kv-processing-day"> <input type="radio"
-                                                                                              name="kv-processing-day" aria-label="checkbox" required>
-
-                <div class="kv-processing-day__header">
-
-                  <div class="kv-processing-day__title">Bearbeitungszeit</div>
-
-                  <div class="kv-processing-day__nuber">15</div>
-
-                  <div class="kv-processing-day__subtitle">Werktage</div>
-                </div>
-
-                <div class="kv-processing-day__body">
-
-                  <div class="kv-processing-day__text">Lorem Ipsum is simply dummy text of the
-                    printing and typesetting industry. Lorem Ipsum has been the industry's standard
-                    dummy text ever since the 1500s, when an unknown printer took a galley of type
-                    and scrambled it to make a type specimen book.</div>
-
-                  <div class="kv-processing-day__item"> <label class="kv-processing-day-chb"> <input type="radio"
-                                                                                                     name="kv-processing-day-chb" aria-label="checkbox" required>
-
-                    <span class="kv-processing-day-chb__inner"><span class="kv-processing-day-chb__box"> <svg>
-                                        <use href="img/icons/icons.svg#radio"></use>
-                                    </svg></span>
-
-                                <span class="kv-processing-day-chb__caption"><span
-                                    class="kv-processing-day-chb__text">1-malige Einreise</span>
-
-                                    <span class="kv-processing-day-chb__title">135 <span>€</span></span></span></span>
-                  </label> </div>
-
-                  <div class="kv-processing-day__item"> <label class="kv-processing-day-chb"> <input type="radio"
-                                                                                                     name="kv-processing-day-chb" aria-label="checkbox" required>
-
-                    <span class="kv-processing-day-chb__inner"><span class="kv-processing-day-chb__box"> <svg>
-                                        <use href="img/icons/icons.svg#radio"></use>
-                                    </svg></span>
-
-                                <span class="kv-processing-day-chb__caption"><span
-                                    class="kv-processing-day-chb__text">2-malige Einreise</span>
-
-                                    <span class="kv-processing-day-chb__title">145 <span>€</span></span></span></span>
-                  </label> </div>
-
-                  <div class="kv-processing-day__item"> <label class="kv-processing-day-chb"> <input type="radio"
-                                                                                                     name="kv-processing-day-chb" aria-label="checkbox" required>
-
-                    <span class="kv-processing-day-chb__inner"><span class="kv-processing-day-chb__box"> <svg>
-                                        <use href="img/icons/icons.svg#radio"></use>
-                                    </svg></span>
-
-                                <span class="kv-processing-day-chb__caption"><span
-                                    class="kv-processing-day-chb__text">x-malige Einreise</span>
-
-                                    <span class="kv-processing-day-chb__title">155 <span>€</span></span></span></span>
-                  </label> </div>
-
-                  <div class="kv-processing-day__item"> <label class="kv-processing-day-chb"> <input type="radio"
-                                                                                                     name="kv-processing-day-chb" aria-label="checkbox" required>
-
-                    <span class="kv-processing-day-chb__inner"><span class="kv-processing-day-chb__box"> <svg>
-                                        <use href="img/icons/icons.svg#radio"></use>
-                                    </svg></span>
-
-                                <span class="kv-processing-day-chb__caption"><span
-                                    class="kv-processing-day-chb__text">y-malige Einreise</span>
-
-                                    <span class="kv-processing-day-chb__title">165 <span>€</span></span></span></span>
-                  </label> </div>
-                </div>
-              </label> </div> <!-- Processing day-->
-
-              <div class="kv-processing-days__item"> <label class="kv-processing-day"> <input type="radio"
-                                                                                              name="kv-processing-day" aria-label="checkbox" required>
-
-                <div class="kv-processing-day__header">
-
-                  <div class="kv-processing-day__title">Bearbeitungszeit</div>
-
-                  <div class="kv-processing-day__nuber">15</div>
-
-                  <div class="kv-processing-day__subtitle">Werktage</div>
-                </div>
-
-                <div class="kv-processing-day__body">
-
-                  <div class="kv-processing-day__text">Lorem Ipsum is simply dummy text of the
-                    printing and typesetting industry. Lorem Ipsum has been the industry's standard
-                    dummy text ever since the 1500s, when an unknown printer took a galley of type
-                    and scrambled it to make a type specimen book.</div>
-
-                  <div class="kv-processing-day__item"> <label class="kv-processing-day-chb"> <input type="radio"
-                                                                                                     name="kv-processing-day-chb" aria-label="checkbox" required>
-
-                    <span class="kv-processing-day-chb__inner"><span class="kv-processing-day-chb__box"> <svg>
-                                        <use href="img/icons/icons.svg#radio"></use>
-                                    </svg></span>
-
-                                <span class="kv-processing-day-chb__caption"><span
-                                    class="kv-processing-day-chb__text">1-malige Einreise</span>
-
-                                    <span class="kv-processing-day-chb__title">135 <span>€</span></span></span></span>
-                  </label> </div>
-
-                  <div class="kv-processing-day__item"> <label class="kv-processing-day-chb"> <input type="radio"
-                                                                                                     name="kv-processing-day-chb" aria-label="checkbox" required>
-
-                    <span class="kv-processing-day-chb__inner"><span class="kv-processing-day-chb__box"> <svg>
-                                        <use href="img/icons/icons.svg#radio"></use>
-                                    </svg></span>
-
-                                <span class="kv-processing-day-chb__caption"><span
-                                    class="kv-processing-day-chb__text">2-malige Einreise</span>
-
-                                    <span class="kv-processing-day-chb__title">145 <span>€</span></span></span></span>
-                  </label> </div>
-
-                  <div class="kv-processing-day__item"> <label class="kv-processing-day-chb"> <input type="radio"
-                                                                                                     name="kv-processing-day-chb" aria-label="checkbox" required>
-
-                    <span class="kv-processing-day-chb__inner"><span class="kv-processing-day-chb__box"> <svg>
-                                        <use href="img/icons/icons.svg#radio"></use>
-                                    </svg></span>
-
-                                <span class="kv-processing-day-chb__caption"><span
-                                    class="kv-processing-day-chb__text">x-malige Einreise</span>
-
-                                    <span class="kv-processing-day-chb__title">155 <span>€</span></span></span></span>
-                  </label> </div>
-
-                  <div class="kv-processing-day__item"> <label class="kv-processing-day-chb"> <input type="radio"
-                                                                                                     name="kv-processing-day-chb" aria-label="checkbox" required>
-
-                    <span class="kv-processing-day-chb__inner"><span class="kv-processing-day-chb__box"> <svg>
-                                        <use href="img/icons/icons.svg#radio"></use>
-                                    </svg></span>
-
-                                <span class="kv-processing-day-chb__caption"><span
-                                    class="kv-processing-day-chb__text">y-malige Einreise</span>
-
-                                    <span class="kv-processing-day-chb__title">165 <span>€</span></span></span></span>
-                  </label> </div>
-                </div>
-              </label> </div> <!-- Processing day-->
-
-              <div class="kv-processing-days__item"> <label class="kv-processing-day"> <input type="radio"
-                                                                                              name="kv-processing-day" aria-label="checkbox" required>
-
-                <div class="kv-processing-day__header">
-
-                  <div class="kv-processing-day__title">Bearbeitungszeit</div>
-
-                  <div class="kv-processing-day__nuber">15</div>
-
-                  <div class="kv-processing-day__subtitle">Werktage</div>
-                </div>
-
-                <div class="kv-processing-day__body">
-
-                  <div class="kv-processing-day__text">Lorem Ipsum is simply dummy text of the
-                    printing and typesetting industry. Lorem Ipsum has been the industry's standard
-                    dummy text ever since the 1500s, when an unknown printer took a galley of type
-                    and scrambled it to make a type specimen book.</div>
-
-                  <div class="kv-processing-day__item"> <label class="kv-processing-day-chb"> <input type="radio"
-                                                                                                     name="kv-processing-day-chb" aria-label="checkbox" required>
-
-                    <span class="kv-processing-day-chb__inner"><span class="kv-processing-day-chb__box"> <svg>
-                                        <use href="img/icons/icons.svg#radio"></use>
-                                    </svg></span>
-
-                                <span class="kv-processing-day-chb__caption"><span
-                                    class="kv-processing-day-chb__text">1-malige Einreise</span>
-
-                                    <span class="kv-processing-day-chb__title">135 <span>€</span></span></span></span>
-                  </label> </div>
-
-                  <div class="kv-processing-day__item"> <label class="kv-processing-day-chb"> <input type="radio"
-                                                                                                     name="kv-processing-day-chb" aria-label="checkbox" required>
-
-                    <span class="kv-processing-day-chb__inner"><span class="kv-processing-day-chb__box"> <svg>
-                                        <use href="img/icons/icons.svg#radio"></use>
-                                    </svg></span>
-
-                                <span class="kv-processing-day-chb__caption"><span
-                                    class="kv-processing-day-chb__text">2-malige Einreise</span>
-
-                                    <span class="kv-processing-day-chb__title">145 <span>€</span></span></span></span>
-                  </label> </div>
-
-                  <div class="kv-processing-day__item"> <label class="kv-processing-day-chb"> <input type="radio"
-                                                                                                     name="kv-processing-day-chb" aria-label="checkbox" required>
-
-                    <span class="kv-processing-day-chb__inner"><span class="kv-processing-day-chb__box"> <svg>
-                                        <use href="img/icons/icons.svg#radio"></use>
-                                    </svg></span>
-
-                                <span class="kv-processing-day-chb__caption"><span
-                                    class="kv-processing-day-chb__text">x-malige Einreise</span>
-
-                                    <span class="kv-processing-day-chb__title">155 <span>€</span></span></span></span>
-                  </label> </div>
-
-                  <div class="kv-processing-day__item"> <label class="kv-processing-day-chb"> <input type="radio"
-                                                                                                     name="kv-processing-day-chb" aria-label="checkbox" required>
-
-                    <span class="kv-processing-day-chb__inner"><span class="kv-processing-day-chb__box"> <svg>
-                                        <use href="img/icons/icons.svg#radio"></use>
-                                    </svg></span>
-
-                                <span class="kv-processing-day-chb__caption"><span
-                                    class="kv-processing-day-chb__text">y-malige Einreise</span>
-
-                                    <span class="kv-processing-day-chb__title">165 <span>€</span></span></span></span>
-                  </label> </div>
-                </div>
-              </label>
-              </div>
-            </div>
-            <!-- /Processing days-->
-
-            <!-- Calc bloc info-->
-            <div class="kv-calc-block__info">
-
-              <div class="kv-calc-info">
-
-                <div class="kv-calc-info__icon">
-                  <svg>
-                    <use href="img/icons/icons.svg#surface"></use>
-                  </svg>
-                </div>
-
-                <div class="kv-calc-info__text">В стоимость входит:
-                  <span class="kv-calc-info__text_bold"> консульский сбор, сервисный сбор, сбор за приглашение</span>
-                </div>
-
-              </div>
-            </div>
-            <!-- /Calc bloc info-->
-          </div>
-
-
-        </div>
+        <Step2
+            :serviceDetails="serviceDetails"
+            :nationalities="nationalities"
+            @active="loadStep2Data"
+            v-if="currentStep === 2"/>
         <!-- /STEP 2 -->
 
         <!-- STEP 3 -->
@@ -797,12 +301,13 @@
 </template>
 
 <script>
-import BreadCrumbs from './components/BreadCrumbs.vue';
-import ProgressBar from './components/ui/ProgressBar.vue';
-import StepHeader from './components/ui/StepHeader';
-import kvSelect from './components/ui/kvSelect';
+import BreadCrumbs from '@/components/BreadCrumbs.vue';
+import ProgressBar from '@/components/ui/ProgressBar.vue';
+import StepHeader from '@/components/ui/StepHeader';
+import kvSelect from '@/components/ui/kvSelect';
 import VisaTypes from "@/components/ui/VisaTypes";
 import Loading from 'vue-loading-overlay';
+import Step2 from "@/components/Step2";
 
 // TODO: стили изолировать
 import 'vue-loading-overlay/dist/vue-loading.css';
@@ -815,7 +320,8 @@ export default {
     StepHeader,
     VisaTypes,
     kvSelect,
-    Loading
+    Loading,
+    Step2
   },
   data() {
     return {
@@ -828,7 +334,7 @@ export default {
         {
           crumb: 'Aufenthaltsdauer',
           header: 'Расчет примерной стоимости для одного человека',
-          icon: 'icon 2'
+          icon: 'step_2'
         },
         {
           crumb: 'Заполнение данных о туристах',
@@ -862,7 +368,9 @@ export default {
       countries: [],
       services: [],
       serviceGroups: [],
+      // Шаг 2
       nationalities: [],
+      serviceDetails: {},
 
       //TODO: Препарированные. Сверху убрать?
       serviceGroupsPrepared: [],
@@ -946,6 +454,34 @@ export default {
         this.isLoading = false;
         console.log(err)
       }
+    },
+
+    /**
+     * Загружает детальное инфо по сервису
+     */
+    async loadServiceDetails() {
+      try {
+        this.isLoading = true;
+        let response = await fetch(`${this.CONFIG.API_URL}getCSServiceDetails?clientId=${this.CONFIG.clientId}&serviceId=${this.selectedService}`);
+        let serviceDetails = await response.json();
+        if (response.status >= 400 && response.status < 600) {
+          throw new Error(countries.Message);
+        }
+        // Случай, если недоступны цены
+        if (serviceDetails.processDurations === null) {
+          serviceDetails.processDurations = []
+        }
+        this.serviceDetails = serviceDetails.service;
+        this.isLoading = false;
+      } catch (err) {
+        this.isLoading = false;
+        console.log(err)
+      }
+    },
+
+    async loadStep2Data() {
+      await this.loadServiceDetails();
+      await this.loadNationalities();
     },
 
     /**
@@ -1169,7 +705,7 @@ export default {
 
     // Загрузка списка гражданств
     // TODO: вынос в mount шага 2, кеш
-    this.loadNationalities()
+    //this.loadNationalities()
 
   }
 }
