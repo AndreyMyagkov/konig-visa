@@ -112,8 +112,8 @@
 
             <div class="kv-processing-day__header">
               <div class="kv-processing-day__title">Bearbeitungszeit</div>
-              <div class="kv-processing-day__nuber">{{item.info.quantity}}{{item.info.dimension}}</div>
-              <div class="kv-processing-day__subtitle">Werktage</div>
+              <div class="kv-processing-day__nuber">{{item.info.quantity}}</div>
+              <div class="kv-processing-day__subtitle">{{item.info.duration}}</div>
             </div>
 
             <div class="kv-processing-day__body">
@@ -242,6 +242,10 @@ export default {
       this.selectedPriceId = id;
     },
 
+    /**
+     * Текщий блок активный?
+     * @param {integer} index - индекс блока процесса
+     */
     isCurrentPriceBlock(index) {
       const prices = this.prepareProductsPricesArr[index].prices;
       console.log('цены блока');
@@ -252,6 +256,17 @@ export default {
       }) >= 0;
     },
 
+    /**
+     * Продолжительность обработки словами
+     * @param {char} code - код продолжительности
+     */
+    processDurationsToWords(code) {
+      return {
+        h: "Stunden",
+        d: "Werktage",
+        m: "Monat"
+      }[code]
+    },
     /**
      *  Возращает Цену по id продукта
      *  TODO: подгрузить цену
@@ -339,7 +354,10 @@ export default {
           )
         }
         tmpArr.push({
-              info: this.serviceDetails.processDurations[d],
+              info: {
+                ...this.serviceDetails.processDurations[d],
+                duration: this.processDurationsToWords(this.serviceDetails.processDurations[d].dimension)
+              },
               prices: tmpArr2
             }
         )
