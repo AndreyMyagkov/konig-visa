@@ -378,7 +378,7 @@ export default {
       // Шаг 2
       nationalities: [],
       serviceDetails: {},
-      prices: [],
+      prices: {},
 
       //TODO: Препарированные. Сверху убрать?
       serviceGroupsPrepared: [],
@@ -503,7 +503,7 @@ export default {
         if (prices.prices === null) {
           prices.prices = []
         }
-        this.prices = prices.prices;
+        this.prices = prices;
         this.isLoading = false;
       } catch (err) {
         this.isLoading = false;

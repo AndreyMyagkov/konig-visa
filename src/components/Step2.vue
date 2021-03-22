@@ -102,7 +102,7 @@
       <!-- /Processing-->
 
       <!-- Processing days-->
-      <div class="kv-processing-days"  v-if="selectedDuration.name">
+      <div class="kv-processing-days"  v-if="selectedDuration.name && prices.state === 0">
 
         <!-- day -->
         <div class="kv-processing-days__item" v-for="(item, i) in prepareProductsPricesArr" :key="i">
@@ -146,6 +146,12 @@
       </div>
       <!-- /Processing days-->
 
+      <div class="kv-alert"
+           style="padding: 20px; margin: 20px 0; background-color: var(--c-prim_light)"
+           v-if="prices.state !== 0 && selectedDurationIndex !== null"
+           v-html="prices.stateDescription"
+      >
+      </div>
 
 
       <!-- Calc bloc info-->
@@ -193,7 +199,7 @@ export default {
       required: true
     },
     prices: {
-      type: Array,
+      type: Object,
       required: true
     }
   },
@@ -272,10 +278,10 @@ export default {
      *  TODO: подгрузить цену
      */
     getpriceByProductId(id) {
-      if (!this.prices.length) {
+      if (!this.prices.prices.length) {
         return '';
       }
-      return this.prices.find(_ => _.productId === id).price
+      return this.prices.prices.find(_ => _.productId === id).price
 
     },
 
