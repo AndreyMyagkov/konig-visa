@@ -223,8 +223,12 @@
             :nationalities="nationalities"
             :nationality="CONFIG.nationality"
             :residenceRegions="CONFIG.residenceRegions"
+            :prices="prices"
             @active="loadStep2Data"
-            @updateStep2Data="updateStep2Data"
+            @update:nationality="updateNationality"
+            @update:residenceRegions="updateResidenceRegions"
+            @update:duration="updateStep2Data"
+            @load:prices="loadPrices"
             v-if="currentStep === 2"/>
         <!-- /STEP 2 -->
 
@@ -374,6 +378,7 @@ export default {
       // Шаг 2
       nationalities: [],
       serviceDetails: {},
+      prices: [],
 
       //TODO: Препарированные. Сверху убрать?
       serviceGroupsPrepared: [],
@@ -382,8 +387,11 @@ export default {
       selectedServiceGroup: null,
       selectedService: null,
 
+
       CONFIG: {
         clientId: '',
+        nationality: null,
+        residenceRegions: null,
         API_URL: 'https://apisrv.ideo-software.com/Ideo/KoenigVN/Web/api/OrderPortal/'
       }
     }
@@ -483,6 +491,26 @@ export default {
       }
     },
 
+    async loadPrices() {
+      try {
+        this.isLoading = true;
+        let response = await fetch(`${this.CONFIG.API_URL}getCSPrices?clientId=${this.CONFIG.clientId}&serviceId=${this.selectedService}&nationalityA2=${this.CONFIG.nationality}&residenceCode=${this.CONFIG.residenceRegions}&withDetails=false`);
+        let prices = await response.json();
+        if (response.status >= 400 && response.status < 600) {
+          throw new Error(countries.Message);
+        }
+        // Случай, если недоступны цены TODO: ???
+        if (prices.prices === null) {
+          prices.prices = []
+        }
+        this.prices = prices.prices;
+        this.isLoading = false;
+      } catch (err) {
+        this.isLoading = false;
+        console.log(err)
+      }
+    },
+
     async loadStep2Data() {
       await this.loadServiceDetails();
       await this.loadNationalities();
@@ -534,9 +562,27 @@ export default {
 
     },
 
+
+    updateNationality(data){
+      console.log('Обновились данные 2 шага: нац');
+      console.log(data)
+
+      this.CONFIG.nationality = data;
+    },
+
+    updateResidenceRegions(data){
+      console.log('Обновились данные 2 шага: место');
+      console.log(data)
+      this.CONFIG.residenceRegions = data;
+    },
+
     updateStep2Data(data){
       console.log('Обновились данные 2 шага:');
       console.log(data)
+
+      //this.CONFIG.nationality = data.nationalities;
+      //this.CONFIG.residenceRegions = data.residenceRegions;
+
     },
   //  ПО выбору смотреть тип. Выбирать группу или сервис и открывать шаг
     /**

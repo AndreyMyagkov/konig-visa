@@ -15,7 +15,7 @@
         <div class="kv-staying__list">
 
           <!-- item -->
-          <div class="kv-staying__item" v-for="item in serviceDetails.durations" :key="item.name" @click="selectDurations(item)">
+          <div class="kv-staying__item" v-for="(item, index) in serviceDetails.durations" :key="item.name" @click="selectDurations(item, index)">
             <div class="kv-staying-chb" :class="{'kv-staying-chb__active' : item.name === selectedDuration.name}">
               <div class="kv-staying-chb__text" v-html="item.nameHTML"></div>
               <div class="kv-staying-chb__info">
@@ -72,7 +72,7 @@
               <div class="kv-select__badge">
                 <svg class="kv-select__icon"><use href="img/icons/icons.svg#home"></use></svg>
               </div>
-              <select class="kv-select__input" v-model="nationalitiesModel" @change="update">
+              <select class="kv-select__input" v-model="nationalitiesModel"  >
                 <option value="null" label="Выберите"></option>
                 <option :value="item.codeA3" v-for="item in nationalities" :key="item.codeA3">{{item.name}}</option>
               </select>
@@ -88,7 +88,7 @@
               <div class="kv-select__badge">
                 <svg class="kv-select__icon"><use href="img/icons/icons.svg#pin"></use></svg>
               </div>
-              <select class="kv-select__input" v-model="residenceRegionsModel" @change="update">
+              <select class="kv-select__input" v-model="residenceRegionsModel">
                 <option value="null" selected="selected" label="Выберите"></option>
                 <option :value="item.code" v-for="item in serviceDetails.servedResidenceRegions" :key="item.code">{{item.name}}</option>
               </select>
@@ -104,20 +104,20 @@
       <!-- Processing days-->
       <div class="kv-processing-days"  v-if="selectedDuration.name">
 
-         <!-- day -->
-        <div class="kv-processing-days__item" v-for="item in serviceDetails.processDurations" :key="item.hours">
+        <!-- day -->
+        <div class="kv-processing-days__item" v-for="(item, i) in prepareProductsPricesArr" :key="i">
           <div class="kv-processing-day">
 
             <div class="kv-processing-day__header">
               <div class="kv-processing-day__title">Bearbeitungszeit</div>
-              <div class="kv-processing-day__nuber">{{item.quantity}}{{item.dimension}}</div>
+              <div class="kv-processing-day__nuber">{{item.info.quantity}}{{item.info.dimension}}</div>
               <div class="kv-processing-day__subtitle">Werktage</div>
             </div>
 
             <div class="kv-processing-day__body">
 
               <!-- item -->
-              <div class="kv-processing-day__item">
+              <div class="kv-processing-day__item" v-for="price in item.prices" :key="price.id">
                 <label class="kv-processing-day-chb">
                   <input type="radio" name="kv-processing-day-chb" aria-label="checkbox">
                   <span class="kv-processing-day-chb__inner">
@@ -125,64 +125,15 @@
                       <svg><use href="img/icons/icons.svg#radio"></use></svg>
                     </span>
                     <span class="kv-processing-day-chb__caption">
-                      <span class="kv-processing-day-chb__text">1-malige Einreise</span>
-                      <span class="kv-processing-day-chb__title">135 <span>€</span></span>
+                      <span class="kv-processing-day-chb__text">{{price.m}}-malige Einreise</span>
+                      <span class="kv-processing-day-chb__title">{{price.price}} <span>€</span></span>
                     </span>
                   </span>
                 </label>
               </div>
               <!-- /item -->
 
-              <!-- item -->
-              <div class="kv-processing-day__item">
-                <label class="kv-processing-day-chb">
-                  <input type="radio" name="kv-processing-day-chb" aria-label="checkbox">
-                  <span class="kv-processing-day-chb__inner">
-                    <span class="kv-processing-day-chb__box">
-                      <svg><use href="img/icons/icons.svg#radio"></use></svg>
-                    </span>
-                    <span class="kv-processing-day-chb__caption">
-                      <span class="kv-processing-day-chb__text">1-malige Einreise</span>
-                      <span class="kv-processing-day-chb__title">135 <span>€</span></span>
-                    </span>
-                  </span>
-                </label>
-              </div>
-              <!-- /item -->
 
-              <!-- item -->
-              <div class="kv-processing-day__item">
-                <label class="kv-processing-day-chb">
-                  <input type="radio" name="kv-processing-day-chb" aria-label="checkbox">
-                  <span class="kv-processing-day-chb__inner">
-                    <span class="kv-processing-day-chb__box">
-                      <svg><use href="img/icons/icons.svg#radio"></use></svg>
-                    </span>
-                    <span class="kv-processing-day-chb__caption">
-                      <span class="kv-processing-day-chb__text">1-malige Einreise</span>
-                      <span class="kv-processing-day-chb__title">135 <span>€</span></span>
-                    </span>
-                  </span>
-                </label>
-              </div>
-              <!-- /item -->
-
-              <!-- item -->
-              <div class="kv-processing-day__item">
-                <label class="kv-processing-day-chb">
-                  <input type="radio" name="kv-processing-day-chb" aria-label="checkbox">
-                  <span class="kv-processing-day-chb__inner">
-                    <span class="kv-processing-day-chb__box">
-                      <svg><use href="img/icons/icons.svg#radio"></use></svg>
-                    </span>
-                    <span class="kv-processing-day-chb__caption">
-                      <span class="kv-processing-day-chb__text">1-malige Einreise</span>
-                      <span class="kv-processing-day-chb__title">135 <span>€</span></span>
-                    </span>
-                  </span>
-                </label>
-              </div>
-              <!-- /item -->
             </div>
 
           </div>
@@ -192,6 +143,8 @@
 
       </div>
       <!-- /Processing days-->
+
+
 
       <!-- Calc bloc info-->
       <div class="kv-calc-block__info"  v-if="selectedDuration.name">
@@ -236,6 +189,10 @@ export default {
     residenceRegions: {
       type: String,
       required: true
+    },
+    prices: {
+      type: String,
+      required: true
     }
   },
   data() {
@@ -243,51 +200,126 @@ export default {
       // Выбранная продолжительность
       selectedDuration: {
         name: '',
-        description: ''
+        description: '',
+        multiplicities: []
       },
+      // Индекс выбранной продолжительности
+      selectedDurationIndex: null,
 
       //selectedNationalities: null,
-      //selectedResidenceRegions: null
+     // selectedResidenceRegions: ''
     }
   },
   methods: {
     /**
      * Выбрать длительность пребывания
-     * @param item
+     * @param item - объект выбранной продолжительности
+     * @param index - индекс
      */
-    selectDurations(item) {
+    selectDurations(item, index) {
       this.selectedDuration = item;
-      this.update();
+      this.selectedDurationIndex = index;
+      //this.update();
+      this.$emit('update:duration',
+          {
+            duration: this.selectedDuration.name,
+            //nationalities: this.selectedNationalities,
+            //residenceRegions: this.selectedResidenceRegions
+          }
+      );
+      this.$emit('load:prices');
+
     },
 
+    /**
+     *  Возращает Цену по id продукта
+     *  TODO: подгрузить цену
+     */
+    getpriceByProductId(id) {
+      return this.prices.find(_ => _.productId === id).price
+    },
+
+
+/*
     update() {
       this.$emit('updateStep2Data',
           {
             duration: this.selectedDuration.name,
-            nationalities: this.nationalitiesModel, //selectedNationalities,
-            residenceRegions: this.residenceRegionsModel //selectedResidenceRegions
+            //nationalities: this.selectedNationalities,
+            //residenceRegions: this.selectedResidenceRegions
           }
       )
-    }
+    }*/
   },
   computed: {
 
+    // v-model для селекта национальности
     nationalitiesModel: {
       get () {
         return this.nationality
       },
       set (value) {
-        this.selectedNationalities = value
+        this.$emit('update:nationality', value);
+        this.$emit('load:prices');
       },
     },
 
+    // v-model для селекта региона жительства
     residenceRegionsModel: {
       get () {
         return this.residenceRegions
       },
       set (value) {
-        this.selectedResidenceRegions = value
+        this.$emit('update:residenceRegions', value)
       },
+    },
+
+    /**
+     * Возвращает кол-во кратностей выбранной продолжительности
+     */
+    selectedDurationsMultipliciesLength() {
+      if (this.selectedDurationIndex === null) {
+        return 0
+      }
+      return this.selectedDuration.multiplicities.length
+    },
+
+    /**
+     * Возращает массив id цен для выбранных параметров
+     */
+    processesArr() {
+      return this.serviceDetails.products[this.selectedDurationIndex] || []
+    },
+
+    /**
+     * Возращает готовый массив процессов с ценами
+     */
+    prepareProductsPricesArr() {
+      const tmpArr = [];
+
+      // Цикл по кратности
+      for (let d = 0; d < this.serviceDetails.processDurations.length; d++) {
+
+        const tmpArr2 = [];
+        // Цикл по длительности обработки
+        for (let m = 0; m < this.selectedDurationsMultipliciesLength; m++) {
+          const product = this.processesArr[m][d];
+          tmpArr2.push(
+              {
+                id: product,
+                price: this.getpriceByProductId(product),
+                m: this.selectedDuration.multiplicities[m]
+              }
+          )
+        }
+        tmpArr.push({
+              info: this.serviceDetails.processDurations[d],
+              prices: tmpArr2
+            }
+        )
+      }
+
+      return tmpArr.reverse();
     },
 
     durationDescription() {
