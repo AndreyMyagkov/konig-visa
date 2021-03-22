@@ -514,6 +514,7 @@ export default {
     async loadStep2Data() {
       await this.loadServiceDetails();
       await this.loadNationalities();
+      await this.loadPrices();
     },
 
     /**

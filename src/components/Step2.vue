@@ -74,7 +74,7 @@
               </div>
               <select class="kv-select__input" v-model="nationalitiesModel"  >
                 <option value="null" label="Выберите"></option>
-                <option :value="item.codeA3" v-for="item in nationalities" :key="item.codeA3">{{item.name}}</option>
+                <option :value="item.codeA2" v-for="item in nationalities" :key="item.codeA3">{{item.name}}</option>
               </select>
               <svg class="kv-selct__arrow"><use href="img/icons/icons.svg#arrow_down"></use></svg>
             </div>
@@ -106,7 +106,9 @@
 
         <!-- day -->
         <div class="kv-processing-days__item" v-for="(item, i) in prepareProductsPricesArr" :key="i">
-          <div class="kv-processing-day">
+          <div class="kv-processing-day" :class="{
+            'kv-processing-day__active': isCurrentPriceBlock(i)
+          }">
 
             <div class="kv-processing-day__header">
               <div class="kv-processing-day__title">Bearbeitungszeit</div>
@@ -118,8 +120,8 @@
 
               <!-- item -->
               <div class="kv-processing-day__item" v-for="price in item.prices" :key="price.id">
-                <label class="kv-processing-day-chb">
-                  <input type="radio" name="kv-processing-day-chb" aria-label="checkbox">
+                <label class="kv-processing-day-chb" @click="selectPrice(price.id)">
+                  <input type="radio" name="kv-processing-day-chb" aria-label="checkbox" :checked="price.id === selectedPriceId">
                   <span class="kv-processing-day-chb__inner">
                     <span class="kv-processing-day-chb__box">
                       <svg><use href="img/icons/icons.svg#radio"></use></svg>
@@ -191,7 +193,7 @@ export default {
       required: true
     },
     prices: {
-      type: String,
+      type: Array,
       required: true
     }
   },
@@ -205,6 +207,7 @@ export default {
       },
       // Индекс выбранной продолжительности
       selectedDurationIndex: null,
+      selectedPriceId: null,
 
       //selectedNationalities: null,
      // selectedResidenceRegions: ''
@@ -227,8 +230,26 @@ export default {
             //residenceRegions: this.selectedResidenceRegions
           }
       );
-      this.$emit('load:prices');
+      //this.$emit('load:prices');
 
+    },
+
+    /**
+     * Выбрать id цены
+     * @param id - id процесса
+     */
+    selectPrice(id) {
+      this.selectedPriceId = id;
+    },
+
+    isCurrentPriceBlock(index) {
+      const prices = this.prepareProductsPricesArr[index].prices;
+      console.log('цены блока');
+      console.log(prices);
+      console.log(this.selectedPriceId);
+      return prices.findIndex(_ => {
+        return _.id === this.selectedPriceId
+      }) >= 0;
     },
 
     /**
@@ -236,7 +257,11 @@ export default {
      *  TODO: подгрузить цену
      */
     getpriceByProductId(id) {
+      if (!this.prices.length) {
+        return '';
+      }
       return this.prices.find(_ => _.productId === id).price
+
     },
 
 
@@ -250,6 +275,7 @@ export default {
           }
       )
     }*/
+
   },
   computed: {
 
@@ -321,10 +347,12 @@ export default {
 
       return tmpArr.reverse();
     },
-
+/*
     durationDescription() {
       return this.serviceDetails.durations
     }//
+    */
+
   },
   mounted() {
 
