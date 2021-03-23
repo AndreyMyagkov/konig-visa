@@ -120,8 +120,8 @@
             <div class="kv-processing-day__body">
 
               <!-- item -->
-              <div class="kv-processing-day__item" v-for="price in item.prices" :key="price.id">
-                <label class="kv-processing-day-chb" @click="selectPrice(price.id)">
+              <div class="kv-processing-day__item" v-for="(price, j) in item.prices" :key="`price-${j}`">
+                <label class="kv-processing-day-chb" @click="selectPrice(price.id)" v-if="price.price">
                   <input type="radio" name="kv-processing-day-chb" aria-label="checkbox" :checked="price.id === selectedPriceId">
                   <span class="kv-processing-day-chb__inner">
                     <span class="kv-processing-day-chb__box">
@@ -133,6 +133,9 @@
                     </span>
                   </span>
                 </label>
+                <div v-else>
+                  ---
+                </div>
               </div>
               <!-- /item -->
 
@@ -256,9 +259,13 @@ export default {
      * @param {integer} index - индекс блока процесса
      */
     isActiveCurrentPriceBlock(index) {
+      if (!this.selectedPriceId) {
+        return false
+      }
       const prices = this.prepareProductsPricesArr[index].prices;
       console.log('цены блока');
       console.log(prices);
+      console.log('Выбранный процесс')
       console.log(this.selectedPriceId);
       return prices.findIndex(_ => {
         return _.id === this.selectedPriceId
@@ -271,7 +278,7 @@ export default {
     isEnabledCurrentPriceBlock(index) {
       const pricesBlock = this.prepareProductsPricesArr[index];
       console.log(pricesBlock);
-      return (this.prices.minProcessDuration > 0 && pricesBlock.info.hours <= this.prices.minProcessDuration)
+      return !(this.prices.minProcessDuration > 0 && pricesBlock.info.hours < this.prices.minProcessDuration)
     },
 
     /**
@@ -289,12 +296,16 @@ export default {
      *  Возращает Цену по id продукта
      *  TODO: подгрузить цену
      */
-    getpriceByProductId(id) {
+    getPriceByProductId(id) {
       if (!this.prices.prices.length) {
-        return '';
+        return null;
       }
-      return this.prices.prices.find(_ => _.productId === id).price
-
+      const price = this.prices.prices.find(_ => _.productId === id);
+      if (price && 'price' in price) {
+        return price.price
+      } else {
+        return null
+      }
     },
 
 
@@ -366,7 +377,7 @@ export default {
           tmpArr2.push(
               {
                 id: product,
-                price: this.getpriceByProductId(product),
+                price: this.getPriceByProductId(product),
                 m: this.selectedDuration.multiplicities[m]
               }
           )
