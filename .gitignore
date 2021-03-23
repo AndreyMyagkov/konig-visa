@@ -3,6 +3,7 @@ node_modules
 /dist
 
 /todo.txt
+/ftpdeploy/hist.json
 
 # local env files
 .env.local
