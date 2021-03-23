@@ -107,7 +107,8 @@
         <!-- day -->
         <div class="kv-processing-days__item" v-for="(item, i) in prepareProductsPricesArr" :key="i">
           <div class="kv-processing-day" :class="{
-            'kv-processing-day__active': isCurrentPriceBlock(i)
+            'kv-processing-day__active': isActiveCurrentPriceBlock(i),
+            'kv-processing-day__disabled': !isEnabledCurrentPriceBlock(i)
           }">
 
             <div class="kv-processing-day__header">
@@ -134,6 +135,8 @@
                 </label>
               </div>
               <!-- /item -->
+
+              <div class="kv-processing-day__text kv-user-text" v-html="prices.stateDescription" v-if="!isEnabledCurrentPriceBlock(i)"></div>
 
 
             </div>
@@ -252,7 +255,7 @@ export default {
      * Текщий блок активный?
      * @param {integer} index - индекс блока процесса
      */
-    isCurrentPriceBlock(index) {
+    isActiveCurrentPriceBlock(index) {
       const prices = this.prepareProductsPricesArr[index].prices;
       console.log('цены блока');
       console.log(prices);
@@ -260,6 +263,15 @@ export default {
       return prices.findIndex(_ => {
         return _.id === this.selectedPriceId
       }) >= 0;
+    },
+
+    /**
+     * Текущий блок цен доступен для выбора?
+     */
+    isEnabledCurrentPriceBlock(index) {
+      const pricesBlock = this.prepareProductsPricesArr[index];
+      console.log(pricesBlock);
+      return (this.prices.minProcessDuration > 0 && pricesBlock.info.hours <= this.prices.minProcessDuration)
     },
 
     /**
