@@ -7,7 +7,7 @@
 
         <!-- text -->
         <div class="kv-staying__text">
-          <span class="kv-staying__text_bold">СРОК ПРЕБЫВАНИЯ</span> <span v-html="serviceDetails.durationsInfo"></span>
+          <span class="kv-user-text" v-html="serviceDetails.durationsInfo"></span>
         </div>
         <!-- /text -->
 
@@ -234,6 +234,8 @@ export default {
     selectDurations(item, index) {
       this.selectedDuration = item;
       this.selectedDurationIndex = index;
+      this.selectedPriceId = null;
+      // TODO: эмитнуть priceId
       //this.update();
       this.$emit('update:duration',
           {
