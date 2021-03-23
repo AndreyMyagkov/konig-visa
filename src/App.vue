@@ -19,7 +19,7 @@
 
             <div class="kv-step-values__item" v-if="serviceNameSelected">
               <span>{{serviceNameSelected}}</span>
-              <!--<span>30 дней | 2-х кратная</span>-->
+              <span v-if="selectedDurationName">{{selectedDurationName}} <!--| 2-х кратная--></span>
             </div>
 
           </div>
@@ -227,7 +227,7 @@
             @active="loadStep2Data"
             @update:nationality="updateNationality"
             @update:residenceRegions="updateResidenceRegions"
-            @update:duration="updateStep2Data"
+            @update:duration="updateDuration"
             @load:prices="loadPrices"
             v-if="currentStep === 2"/>
         <!-- /STEP 2 -->
@@ -386,6 +386,9 @@ export default {
       selectedCountryId: 0,
       selectedServiceGroup: null,
       selectedService: null,
+
+      // Название выбранной продолжительности
+      selectedDurationName: '',
 
 
       CONFIG: {
@@ -577,13 +580,10 @@ export default {
       this.CONFIG.residenceRegions = data;
     },
 
-    updateStep2Data(data){
-      console.log('Обновились данные 2 шага:');
+    updateDuration(data){
+      console.log('Обновилась продолжительность:');
       console.log(data)
-
-      //this.CONFIG.nationality = data.nationalities;
-      //this.CONFIG.residenceRegions = data.residenceRegions;
-
+      this.selectedDurationName = data.duration
     },
   //  ПО выбору смотреть тип. Выбирать группу или сервис и открывать шаг
     /**
