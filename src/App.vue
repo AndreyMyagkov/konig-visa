@@ -19,7 +19,7 @@
 
             <div class="kv-step-values__item" v-if="serviceNameSelected">
               <span>{{serviceNameSelected}}</span>
-              <span v-if="selectedDurationName">{{selectedDurationName}} <!--| 2-х кратная--></span>
+              <span v-if="selectedDurationName">{{selectedDurationName}} <span v-if="selectedPrice.m">| {{selectedPrice.m}}-malige Einreise</span></span>
             </div>
 
           </div>
@@ -228,6 +228,7 @@
             @update:nationality="updateNationality"
             @update:residenceRegions="updateResidenceRegions"
             @update:duration="updateDuration"
+            @update:price="updatePrice"
             @load:prices="loadPrices"
             v-if="currentStep === 2"/>
         <!-- /STEP 2 -->
@@ -389,6 +390,12 @@ export default {
 
       // Название выбранной продолжительности
       selectedDurationName: '',
+      // TODO: вынос в хелпер-констркутор прайса
+      selectedPrice: {
+        id: null,
+        m: '',
+        price: ''
+      },
 
 
       CONFIG: {
@@ -584,6 +591,13 @@ export default {
       console.log('Обновилась продолжительность:');
       console.log(data)
       this.selectedDurationName = data.duration
+    },
+
+
+    updatePrice(data) {
+      console.log('Обновилась цена:');
+      console.log(data)
+      this.selectedPrice = data
     },
   //  ПО выбору смотреть тип. Выбирать группу или сервис и открывать шаг
     /**

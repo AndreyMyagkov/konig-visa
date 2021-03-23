@@ -121,7 +121,7 @@
 
               <!-- item -->
               <div class="kv-processing-day__item" v-for="(price, j) in item.prices" :key="`price-${j}`">
-                <label class="kv-processing-day-chb" @click="selectPrice(price.id)" v-if="price.price">
+                <label class="kv-processing-day-chb" @click="selectPrice(price)" v-if="price.price">
                   <input type="radio" name="kv-processing-day-chb" aria-label="checkbox" :checked="price.id === selectedPriceId">
                   <span class="kv-processing-day-chb__inner">
                     <span class="kv-processing-day-chb__box">
@@ -234,8 +234,19 @@ export default {
     selectDurations(item, index) {
       this.selectedDuration = item;
       this.selectedDurationIndex = index;
-      this.selectedPriceId = null;
-      // TODO: эмитнуть priceId
+
+      this.selectPrice({
+        id: null,
+
+      });
+     // this.selectedPriceId = null;
+      this.selectPrice(
+  {
+          id: null,
+          m: '',
+          price: ''
+        }
+      )
       //this.update();
       this.$emit('update:duration',
           {
@@ -252,8 +263,9 @@ export default {
      * Выбрать id цены
      * @param id - id процесса
      */
-    selectPrice(id) {
-      this.selectedPriceId = id;
+    selectPrice(price) {
+      this.selectedPriceId = price.id;
+      this.$emit('update:price', price)
     },
 
     /**
