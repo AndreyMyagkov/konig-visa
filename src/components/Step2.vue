@@ -121,21 +121,28 @@
 
               <!-- item -->
               <div class="kv-processing-day__item" v-for="(price, j) in item.prices" :key="`price-${j}`">
-                <label class="kv-processing-day-chb" @click="selectPrice(price)" v-if="price.price">
-                  <input type="radio" name="kv-processing-day-chb" aria-label="checkbox" :checked="price.id === selectedPriceId">
+                <label class="kv-processing-day-chb" @click="selectPrice(price)">
+                  <input type="radio"
+                         name="kv-processing-day-chb"
+                         aria-label="checkbox"
+                         :checked="price.id === selectedPriceId"
+                         :disabled="price.price === null"
+                  >
                   <span class="kv-processing-day-chb__inner">
                     <span class="kv-processing-day-chb__box">
                       <svg><use href="img/icons/icons.svg#radio"></use></svg>
                     </span>
                     <span class="kv-processing-day-chb__caption">
                       <span class="kv-processing-day-chb__text">{{price.m}}-malige Einreise</span>
-                      <span class="kv-processing-day-chb__title">{{price.price}} <span>€</span></span>
+                      <span class="kv-processing-day-chb__title">
+                        <template  v-if="price.price !== null">{{price.price}}</template>
+                        <template v-else>- </template>
+                        <span> €</span>
+                      </span>
                     </span>
                   </span>
                 </label>
-                <div v-else>
-                  ---
-                </div>
+
               </div>
               <!-- /item -->
 
@@ -235,10 +242,7 @@ export default {
       this.selectedDuration = item;
       this.selectedDurationIndex = index;
 
-      this.selectPrice({
-        id: null,
 
-      });
      // this.selectedPriceId = null;
       this.selectPrice(
   {

@@ -234,9 +234,9 @@
         <!-- /STEP 2 -->
 
         <!-- STEP 3 -->
-        <div  class="kv-content__body" v-if="currentStep === 3">
-          ШАГ {{currentStep}}
-        </div>
+        <Step3 v-if="currentStep === 3">
+
+        </Step3>
         <!-- /STEP 3 -->
 
         <!-- STEP 4 -->
@@ -264,34 +264,34 @@
         <!-- /STEP 7 -->
 
 
-        <div class="kv-buch__bottom" style="margin-top: 30px;display: flex;justify-content: center;">
-
-          <div class="kv-content__prev" v-if="currentStep > 1">
-            <button
-                type="button"
-                class="kv-step-button"
-                :disabled="false"
-                @click="currentStep = currentStep - 1"
-                >
-                <svg>
-                  <use href="img/icons/icons.svg#back"></use>
-                </svg>
-                <span>Назад</span>
-            </button>
+        <div class="kv-content__bottom">
+          <div class="kv-content__prev"  v-if="currentStep > 1">
+            <div class="kv-content__btn">
+              <button
+                  type="button"
+                  class="kv-step-button kv-step-button_left"
+                  :disabled="false"
+                  @click="currentStep = currentStep - 1">
+                <svg class="kv-step-button__icon"><use href="img/icons/icons.svg#back"></use></svg>
+                <span class="kv-step-button__text">Назад</span>
+              </button>
+            </div>
           </div>
 
-          <div class="kv-content__next" v-if="currentStep < 7">
-            <button
-                type="button"
-                class="kv-step-button"
-                :disabled="!allowNext"
-                @click="currentStep = currentStep + 1"
-                >
-                <span>Вперёд</span>
-                <svg><use href="img/icons/icons.svg#next"></use></svg>
-            </button>
+          <div class="kv-content__next"  v-if="currentStep < 7">
+            <div class="kv-content__btn">
+              <button
+                  type="button"
+                  class="kv-step-button kv-step-button_right"
+                  :class="{'kv-step-button_success': allowNext}"
+                  @click="currentStep = currentStep + 1">
+                <span class="kv-step-button__text">Вперёд</span>
+                <svg class="kv-step-button__icon"><use href="img/icons/icons.svg#next"></use></svg></button>
+            </div>
           </div>
         </div>
+
+
 
       </div>
     </div>
@@ -316,6 +316,7 @@ import kvSelect from '@/components/ui/kvSelect';
 import VisaTypes from "@/components/ui/VisaTypes";
 import Loading from 'vue-loading-overlay';
 import Step2 from "@/components/Step2";
+import Step3 from "@/components/Step3";
 
 // TODO: стили изолировать
 import 'vue-loading-overlay/dist/vue-loading.css';
@@ -329,7 +330,8 @@ export default {
     VisaTypes,
     kvSelect,
     Loading,
-    Step2
+    Step2,
+    Step3
   },
   data() {
     return {
@@ -347,27 +349,27 @@ export default {
         {
           crumb: 'Заполнение данных о туристах',
           header: 'Заполнение данных',
-          icon: 'icon 3'
+          icon: 'step_3'
         },
         {
           crumb: 'Заполнение данных о клиентах',
           header: 'Информация о заказчике',
-          icon: 'icon 4'
+          icon: 'step_4'
         },
         {
           crumb: 'Способ отправки',
           header: 'Способ отправки',
-          icon: 'icon 5'
+          icon: 'step_5'
         },
         {
           crumb: 'Проверка данных',
           header: 'Проверка данных',
-          icon: 'icon 6'
+          icon: 'step_6'
         },
         {
           crumb: 'Способ оплаты',
           header: 'Способ оплаты',
-          icon: 'icon 7'
+          icon: 'step_7'
         }
       ],
       currentStep: 1,
