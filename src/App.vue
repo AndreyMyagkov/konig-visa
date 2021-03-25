@@ -263,35 +263,13 @@
         </div>
         <!-- /STEP 7 -->
 
-
-        <div class="kv-content__bottom">
-          <div class="kv-content__prev"  v-if="currentStep > 1">
-            <div class="kv-content__btn">
-              <button
-                  type="button"
-                  class="kv-step-button kv-step-button_left"
-                  :disabled="false"
-                  @click="currentStep = currentStep - 1">
-                <svg class="kv-step-button__icon"><use href="img/icons/icons.svg#back"></use></svg>
-                <span class="kv-step-button__text">Назад</span>
-              </button>
-            </div>
-          </div>
-
-          <div class="kv-content__next"  v-if="currentStep < 7">
-            <div class="kv-content__btn">
-              <button
-                  type="button"
-                  class="kv-step-button kv-step-button_right"
-                  :class="{'kv-step-button_success': allowNext}"
-                  @click="currentStep = currentStep + 1">
-                <span class="kv-step-button__text">Вперёд</span>
-                <svg class="kv-step-button__icon"><use href="img/icons/icons.svg#next"></use></svg></button>
-            </div>
-          </div>
-        </div>
-
-
+        <!-- Bottom buttons -->
+        <PrevNextButtons
+            :currentStep="currentStep"
+            :allowNext="allowNext"
+            @setStep="setStep"
+        ></PrevNextButtons>
+        <!-- /Bottom buttons -->
 
       </div>
     </div>
@@ -317,6 +295,7 @@ import VisaTypes from "@/components/ui/VisaTypes";
 import Loading from 'vue-loading-overlay';
 import Step2 from "@/components/Step2";
 import Step3 from "@/components/Step3";
+import PrevNextButtons from "@/components/PrevNextButtons";
 
 // TODO: стили изолировать
 import 'vue-loading-overlay/dist/vue-loading.css';
@@ -331,7 +310,8 @@ export default {
     kvSelect,
     Loading,
     Step2,
-    Step3
+    Step3,
+    PrevNextButtons
   },
   data() {
     return {
@@ -440,6 +420,14 @@ export default {
       return true
     },
 
+    /**
+     * Устанавливает номер текущего шага
+     */
+    setStep(step) {
+      if (this.currentStep >= 1 || this.currentStep < this.steps.length) {
+        this.currentStep = step
+      }
+    },
 
     /**
      * Загружает справочник стран
@@ -699,8 +687,6 @@ export default {
      * Можно ли преейти на следующий шаг из текущего
      */
     allowNext() {
-      // FIXME: to debug true
-      return true
       if (this.currentStep === 1) {
         if (this.selectedCountryId && this.selectedService) {
           return true
