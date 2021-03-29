@@ -25,100 +25,41 @@
           </div>
 
           <!-- cart -->
-          <!--
-          <div class="kv-step-values__aside">
 
-            <div class="kv-participants"> <svg class="kv-participants__icon">
-              <use href="img/icons/icons.svg#user"></use>
-            </svg>
+          <div class="kv-step-values__aside" v-if="calculate.calculation.participants.length">
 
-              <div class="kv-participants__multiply"> <svg>
-                <use href="img/icons/icons.svg#multiply"></use>
-              </svg> </div>
-
-              <div class="kv-participants__counter">2</div>
+            <div class="kv-participants">
+              <svg class="kv-participants__icon"><use href="img/icons/icons.svg#user"></use></svg>
+              <div class="kv-participants__multiply">
+                <svg><use href="img/icons/icons.svg#multiply"></use></svg>
+              </div>
+              <div class="kv-participants__counter">{{calculate.calculation.participants.length}}</div>
             </div>
 
             <div class="kv-cart drop">
 
-              <div class="kv-cart__head"> <svg class="kv-cart__icon">
-                <use href="img/icons/icons.svg#cart"></use>
-              </svg>
+              <div class="kv-cart__head">
+                <svg class="kv-cart__icon"><use href="img/icons/icons.svg#cart"></use></svg>
 
-                <div class="kv-cart__price" data-kv-cart-price="€"> 420</div> <svg
-                    class="kv-cart__arrow drop__angle">
-                  <use href="img/icons/icons.svg#arrow_down"></use>
-                </svg>
+                <div class="kv-cart__price" data-kv-cart-price="€"> {{totalAmount}}</div>
+                <svg class="kv-cart__arrow drop__angle"><use href="img/icons/icons.svg#arrow_down"></use></svg>
               </div>
 
               <div class="kv-cart__body drop__body">
 
                 <div class="kv-cart-table">
 
-                  <div class="kv-cart-table__row">
-
-                    <div class="kv-cart-table__item">1</div>
-
-                    <div class="kv-cart-table__item kv-cart-table__item_col">herr Иванов Иван</div>
-
-                    <div class="kv-cart-table__item kv-cart-table__item_price"
-                         data-kv-cart-price="€">100</div>
+                  <div class="kv-cart-table__row" v-for="(item, i) in calculate.calculation.participants" :key="i">
+                    <div class="kv-cart-table__item">{{item.nr}}</div>
+                    <div class="kv-cart-table__item kv-cart-table__item_col">{{ touristInfo(i) }}</div>
+                    <div class="kv-cart-table__item kv-cart-table__item_price" data-kv-cart-price="€">{{item.price}}</div>
                   </div>
 
-                  <div class="kv-cart-table__row">
-
-                    <div class="kv-cart-table__item">1</div>
-
-                    <div class="kv-cart-table__item kv-cart-table__item_col">herr Иванов Иван</div>
-
-                    <div class="kv-cart-table__item kv-cart-table__item_price"
-                         data-kv-cart-price="€">100</div>
-                  </div>
-
-                  <div class="kv-cart-table__row">
-
-                    <div class="kv-cart-table__item">1</div>
-
-                    <div class="kv-cart-table__item kv-cart-table__item_col">herr Иванов Иван</div>
-
-                    <div class="kv-cart-table__item kv-cart-table__item_price"
-                         data-kv-cart-price="€">100</div>
-                  </div>
-
-                  <div class="kv-cart-table__row">
-
-                    <div class="kv-cart-table__item">1</div>
-
-                    <div class="kv-cart-table__item kv-cart-table__item_col">herr Иванов Иван</div>
-
-                    <div class="kv-cart-table__item kv-cart-table__item_price"
-                         data-kv-cart-price="€">100</div>
-                  </div>
-
-                  <div class="kv-cart-table__row">
-
-                    <div class="kv-cart-table__item">1</div>
-
-                    <div class="kv-cart-table__item kv-cart-table__item_col">herr Иванов Иван</div>
-
-                    <div class="kv-cart-table__item kv-cart-table__item_price"
-                         data-kv-cart-price="€">100</div>
-                  </div>
-
-                  <div class="kv-cart-table__row">
-
-                    <div class="kv-cart-table__item">1</div>
-
-                    <div class="kv-cart-table__item kv-cart-table__item_col">herr Иванов Иван</div>
-
-                    <div class="kv-cart-table__item kv-cart-table__item_price"
-                         data-kv-cart-price="€">100</div>
-                  </div>
                 </div>
               </div>
             </div>
           </div>
-          -->
+
           <!-- /cart -->
 
         </div>
@@ -234,8 +175,14 @@
         <!-- /STEP 2 -->
 
         <!-- STEP 3 -->
-        <Step3 v-if="currentStep === 3">
-
+        <Step3 v-if="currentStep === 3"
+               :tourists="tourists"
+               :nationalities="nationalities"
+               :productDetails="productDetails"
+               @update:tourists="updateTourists"
+               @active="loadProductDetails"
+               @change="sendCalculateAndValidate"
+        >
         </Step3>
         <!-- /STEP 3 -->
 
@@ -297,9 +244,10 @@ import Step2 from "@/components/Step2";
 import Step3 from "@/components/Step3";
 import PrevNextButtons from "@/components/PrevNextButtons";
 
+import * as network from '@/helpers/network';
+
 // TODO: стили изолировать
 import 'vue-loading-overlay/dist/vue-loading.css';
-
 export default {
   name: 'App',
   components: {
@@ -363,12 +311,28 @@ export default {
       serviceDetails: {},
       prices: {},
 
+      //Шаг 3
+      productDetails: {
+        id: null,
+        servedResidenceRegions: null,
+        discounts: null
+      },
+
       //TODO: Препарированные. Сверху убрать?
       serviceGroupsPrepared: [],
 
       selectedCountryId: 0,
       selectedServiceGroup: null,
       selectedService: null,
+
+      calculate: {
+        amount: 0,
+        calculation: {
+          participants: []
+        },
+        state: 0,
+        stateDescription: ''
+      },
 
       // Название выбранной продолжительности
       selectedDurationName: '',
@@ -378,6 +342,9 @@ export default {
         m: '',
         price: ''
       },
+
+      // Список туристов
+      tourists: [],
 
 
       CONFIG: {
@@ -491,6 +458,9 @@ export default {
       }
     },
 
+    /**
+     * Загружает прайсы
+     */
     async loadPrices() {
       try {
         this.isLoading = true;
@@ -504,6 +474,66 @@ export default {
           prices.prices = []
         }
         this.prices = prices;
+        this.isLoading = false;
+      } catch (err) {
+        this.isLoading = false;
+        console.log(err)
+      }
+    },
+
+    /**
+     * Загружает детальную инфо по продукту
+     */
+    async loadProductDetails() {
+      try {
+        this.isLoading = true;
+        let response = await fetch(`${this.CONFIG.API_URL}getCSProductDetails?clientId=${this.CONFIG.clientId}&productId=${this.selectedPrice.id}`);
+        let productDetails = await response.json();
+        if (response.status >= 400 && response.status < 600) {
+          throw new Error(countries.Message);
+        }
+
+        this.productDetails = productDetails.product;
+        this.isLoading = false;
+      } catch (err) {
+        this.isLoading = false;
+        console.log(err)
+      }
+    },
+
+    async sendCalculateAndValidate() {
+      console.log('Калькуляция, валидация');
+
+      const headers = new Headers();
+      headers.append("Content-Type", "application/x-www-form-urlencoded");
+
+      const requestOptions = {
+        method: 'POST',
+        headers: headers,
+        body: network.toFormUrlEncoded(
+            {
+              productId: this.selectedPrice.id,
+              participants: this.tourists.map((item, i) => {
+                return {
+                  nr: i + 1,
+                  nationalityA2: item.nationality || this.CONFIG.nationality,
+                  residenceCode: item.residenceRegions || this.CONFIG.residenceRegions,
+                  discountCode: item.discount
+                }
+              })
+            }
+        ),
+        redirect: 'follow'
+      };
+      try {
+        this.isLoading = true;
+        let response = await fetch(`${this.CONFIG.API_URL}calculateAndValidate?clientId=${this.CONFIG.clientId}`, requestOptions);
+        let calculate = await response.json();
+        if (response.status >= 400 && response.status < 600) {
+          throw new Error(countries.Message);
+        }
+
+        this.calculate = calculate;
         this.isLoading = false;
       } catch (err) {
         this.isLoading = false;
@@ -660,6 +690,25 @@ export default {
     selectService(id) {
       this.selectedService = id;
       console.log('Выбран тип виз '+ id)
+    },
+
+    /**
+     * Обновить массив туристов
+     */
+    updateTourists(data) {
+      console.log('Туристы обновлены')
+      this.tourists = data;
+    },
+    /**
+     * Возращает информацию по туристу для корзины
+     */
+    touristInfo(i) {
+      if (this.tourists.length) {
+        const tourist = this.tourists[i];
+        console.log('турист', i)
+        console.log(tourist)
+        return `${tourist.gender} ${tourist.sname} ${tourist.name}`
+      }
     }
 
   },
@@ -748,6 +797,18 @@ export default {
      */
     serviceGroupsSelected() {
       return this.services.filter(item => item.srvGrpId  && item.srvGrpId === this.selectedServiceGroup)
+    },
+
+
+    /* STEP 3 */
+
+    totalAmount() {
+      let amount = this.calculate.amount;
+      if (amount !== null) {
+        return amount
+      } else {
+        return "-"
+      }
     }
 
 

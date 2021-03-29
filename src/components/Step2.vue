@@ -72,7 +72,7 @@
               <div class="kv-select__badge">
                 <svg class="kv-select__icon"><use href="img/icons/icons.svg#home"></use></svg>
               </div>
-              <select class="kv-select__input" v-model="nationalitiesModel"  >
+              <select class="kv-select__input" v-model="nationalitiesModel" >
                 <option value="null" label="Выберите"></option>
                 <option :value="item.codeA2" v-for="item in nationalities" :key="item.codeA3">{{item.name}}</option>
               </select>

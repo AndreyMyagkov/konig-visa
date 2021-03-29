@@ -687,7 +687,7 @@ body {
 .kv-app .kv-form__item > textarea.disabled:disabled {
   background-color: #EFEFEF;
 }
-
+/*
 .kv-app .kv-form__item input:not(:-moz-placeholder-shown) ~ .kv-form__label {
   top: 7px;
   font-size: 14px;
@@ -705,7 +705,7 @@ body {
   font-size: 14px;
   color: var(--c-disabled_dark);
 }
-
+*/
 .kv-app .kv-form__item input:focus ~ .kv-form__label {
   top: 7px;
   font-size: 14px;
