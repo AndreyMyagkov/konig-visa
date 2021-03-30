@@ -18,7 +18,7 @@
           <div class="kv-staying__item" v-for="(item, index) in serviceDetails.durations" :key="item.name" @click="selectDurations(item, index)">
             <div class="kv-staying-chb" :class="{'kv-staying-chb__active' : item.name === selectedDuration.name}">
               <div class="kv-staying-chb__text" v-html="item.nameHTML"></div>
-              <div class="kv-staying-chb__info">
+              <div class="kv-staying-chb__info" @click="$emit('showModal', item.nameHTML, item.name)">
                 <svg class="kv-staying-chb__info-icon"><use href="img/icons/icons.svg#info"></use></svg>
               </div>
             </div>

@@ -12,8 +12,8 @@
       <div class="kv-header__item kv-step-values">
         <div class="kv-step-values__inner">
           <div class="kv-step-values__row">
-            <div class="kv-step-values__item" v-if="countrySelected.name">
-              <span>{{countrySelected.name}}</span>
+            <div class="kv-step-values__item" v-if="selectedCountry.name">
+              <span>{{selectedCountry.name}}</span>
             </div>
 
 
@@ -80,10 +80,21 @@
       <StepHeader :icon="stepInfo.icon" :text="stepInfo.header"/>
       <!-- /Step Header -->
 
+      <simple-modal v-model="isModalShow" :title="modal.title" size="small">
+        <template slot="body">
+          <div v-html="modal.content"></div>
+        </template>
+
+      </simple-modal>
+
 
       <div class="kv-content__body">
         <!-- Step 1 -->
           <div class="kv-buch"  v-if="currentStep === 1">
+
+
+
+
 
             <div class="kv-buch__row">
 
@@ -95,6 +106,7 @@
                   <div class="kv-buch__list">
 
                     <!-- select -->
+                    <!--
                     <div class="kv-select">
                       <div class="kv-select__badge">
                         <svg class="kv-select__icon"><use href="img/icons/icons.svg#pin"></use></svg>
@@ -107,6 +119,27 @@
                         <use href="img/icons/icons.svg#arrow_down"></use>
                       </svg>
                     </div>
+                    -->
+                    <!-- /select -->
+
+
+                    <!-- select -->
+                    <div class="kv-select">
+                      <div class="kv-select__badge">
+                        <svg class="kv-select__icon"><use href="img/icons/icons.svg#pin"></use></svg>
+                      </div>
+                      <div class="kv-select__input">
+                        <v-select
+                            :options="countries"
+                            label="name"
+                            placeholder="Выберите"
+                            v-model="selectedCountry"
+                            :clearable="false"
+                            @option:selected="countryChange"
+
+                        />
+                      </div>
+                    </div>
                     <!-- /select -->
 
                   </div>
@@ -118,7 +151,14 @@
               <div class="kv-buch__col">
                 <div class="kv-buch__col-inner" v-if="serviceGroups.length">
                   <div class="kv-buch__title">Выберите группу:</div>
-                  <VisaTypes :data="serviceGroups" :selected="[selectedServiceGroup, selectedService]" @change="selectVisaType"></VisaTypes>
+                  <VisaTypes
+                      :data="serviceGroups"
+                      :selected="[selectedServiceGroup, selectedService]"
+                      @change="selectVisaType"
+                      @showModal="showModal"
+                  >
+
+                  </VisaTypes>
                 </div>
               </div>
               <!-- /Groups -->
@@ -127,7 +167,13 @@
               <div class="kv-buch__col">
                 <div class="kv-buch__col-inner"  v-if="serviceGroupsSelected.length">
                   <div class="kv-buch__title">Выберите подтип визы:</div>
-                  <VisaTypes :data="serviceGroupsSelected"  :selected="[selectedService]" @change="selectVisaType"></VisaTypes>
+                  <VisaTypes
+                      :data="serviceGroupsSelected"
+                      :selected="[selectedService]"
+                      @change="selectVisaType"
+                      @showModal="showModal"
+                  >
+                  </VisaTypes>
                   <!--
                   <div class="kv-buch__list kv-buch__list_scroll">
 
@@ -158,6 +204,7 @@
         <!-- /Step 1 -->
 
 
+
         <!-- STEP 2 -->
         <Step2
             :serviceDetails="serviceDetails"
@@ -171,6 +218,7 @@
             @update:duration="updateDuration"
             @update:price="updatePrice"
             @load:prices="loadPrices"
+            @showModal="showModal"
             v-if="currentStep === 2"/>
         <!-- /STEP 2 -->
 
@@ -234,6 +282,7 @@
 </template>
 
 <script>
+import '@/assets/css/style.css';
 import BreadCrumbs from '@/components/BreadCrumbs.vue';
 import ProgressBar from '@/components/ui/ProgressBar.vue';
 import StepHeader from '@/components/ui/StepHeader';
@@ -243,6 +292,11 @@ import Loading from 'vue-loading-overlay';
 import Step2 from "@/components/Step2";
 import Step3 from "@/components/Step3";
 import PrevNextButtons from "@/components/PrevNextButtons";
+import SimpleModal from "simple-modal-vue";
+
+import vSelect from 'vue-select'
+import 'vue-select/dist/vue-select.css';
+//@import "vue-select/src/scss/vue-select.scss"; в scss
 
 import * as network from '@/helpers/network';
 
@@ -259,10 +313,21 @@ export default {
     Loading,
     Step2,
     Step3,
-    PrevNextButtons
+    PrevNextButtons,
+    SimpleModal,
+    vSelect
   },
   data() {
     return {
+      // select test
+      selData: [{id:1, name: 'foo'}, {id:2, name: 'bar'}, {id:3, name: 'baz'}],
+      selModel: '',
+      isModalShow: false,
+      modal: {
+        title: '',
+        content: ''
+      },
+
       steps: [
         {
           crumb: 'Buchungsauftrag',
@@ -321,6 +386,7 @@ export default {
       //TODO: Препарированные. Сверху убрать?
       serviceGroupsPrepared: [],
 
+      selectedCountry: [],
       selectedCountryId: 0,
       selectedServiceGroup: null,
       selectedService: null,
@@ -393,6 +459,21 @@ export default {
     setStep(step) {
       if (this.currentStep >= 1 || this.currentStep < this.steps.length) {
         this.currentStep = step
+      }
+    },
+
+    /**
+     * Показывает модальное окно с текстом
+     * @param content
+     * @param title
+     */
+    showModal(content = '', title = '') {
+      console.log('модалка')
+      console.log(content)
+      this.modal.title = title;
+      this.modal.content = content;
+      if (content.length) {
+        this.isModalShow = true;
       }
     },
 
@@ -549,8 +630,11 @@ export default {
 
     /**
      *  Смена страны: загрузка справочника достуных типов виз
+     *  TODO: разделить логику
      */
     async countryChange() {
+      this.selectedCountryId = this.selectedCountry.codeA3;
+
       console.log('Изменилась страна ' + this.selectedCountryId);
       if (!this.selectedCountryId) {
         console.log('Страна не выбрана'); // TODO: что делаем?
@@ -775,12 +859,13 @@ export default {
      * Возращает информация по выбранной стране
      * @return {}
      */
+    /*
     countrySelected() {
       //console.log(this.countries.filter(item => item.codeA3 == this.selectedCountryId))
       const country = this.countries.find(item => item.codeA3 == this.selectedCountryId)
       return country || {name: ''}
     },
-
+  */
     /**
      * Возращает название выбранного типа визы
      * @return {String}
@@ -847,4 +932,35 @@ export default {
   overflow: hidden;
   z-index: 9999;
 }
+
+
+/* select */
+.kv-app .kv-select .kv-select__input {
+  padding: 0;
+}
+.kv-app .kv-select select.kv-select__input,
+.kv-app .kv-select input.kv-select__input {
+  padding: 7px 32px 7px 10px;
+}
+.kv-app .kv-select .vs__dropdown-toggle {
+  border: none;
+}
+.kv-select__input .vs__selected {
+  color: var(--c-second);
+}
+.kv-select__input .vs__clear,
+.kv-select__input .vs__open-indicator {
+  fill: var(--c-second);
+}
+.kv-select__input .vs__dropdown-option--highlight{
+  background:#ADE1F5;
+}
+.vs__dropdown-menu {
+  border-color: var(--c-second);
+}
+
+.vsm-modal .btn-close {
+  font-size: 30px;
+}
+
 </style>

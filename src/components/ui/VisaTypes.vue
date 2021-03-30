@@ -13,7 +13,7 @@
             {{item.name}}
             <svg class="kv-buch-chb__icon"><use href="img/icons/icons.svg#next"></use></svg>
           </span>
-          <span class="kv-buch-chb__badge" :title="item.description">
+          <span class="kv-buch-chb__badge" @click="$emit('showModal', item.description, item.name)">
             <svg class="kv-buch-chb__info" v-if="item.description"><use href="img/icons/icons.svg#info"></use></svg>
             <!-- TODO: info окно -->
             <span v-html="item.description" style="display: none"></span>
