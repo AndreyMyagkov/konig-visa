@@ -299,6 +299,10 @@ export default {
      * @param id - id процесса
      */
     setPrice(price) {
+      // Если цены нет
+      if (price.price === null) {
+        return
+      }
       this.selectedPriceId = price.id;
       this.$emit('update:price', price)
     },
@@ -398,7 +402,7 @@ export default {
         return this.nationalities.find(item => item.codeA2 === this.nationality)
       },
       set (value) {
-        this.resetPrice();
+        //this.resetPrice();
         this.$emit('update:nationality', value.codeA2);
        // this.$emit('load:prices');
       },
@@ -420,7 +424,7 @@ export default {
         return this.serviceDetails.servedResidenceRegions.find(item => item.code === this.residenceRegions)
       },
       set (value) {
-        this.resetPrice();
+        //this.resetPrice();
         this.$emit('update:residenceRegions', value.code)
       },
     },
@@ -491,5 +495,7 @@ export default {
 </script>
 
 <style scoped>
-
+.kv-app .kv-processing-day.kv-processing-day_disabled.kv-processing-day_active .kv-processing-day__body {
+  border: 3px solid var(--c-disabled_dark);
+}
 </style>
