@@ -238,7 +238,7 @@ class PriceDefault {
   constructor() {
     this.id = null;
     this.m = '';
-    this.price = '';
+    this.price = null;
   }
 }
 
@@ -497,5 +497,8 @@ export default {
 <style scoped>
 .kv-app .kv-processing-day.kv-processing-day_disabled.kv-processing-day_active .kv-processing-day__body {
   border: 3px solid var(--c-disabled_dark);
+}
+.kv-app .kv-processing-day-chb input[disabled]:checked ~ .kv-processing-day-chb__inner {
+  background-color: hsl(0deg 0% 0% / 10%);
 }
 </style>

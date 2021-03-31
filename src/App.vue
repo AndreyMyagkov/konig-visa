@@ -332,9 +332,6 @@ export default {
   },
   data() {
     return {
-      // select test
-      selData: [{id:1, name: 'foo'}, {id:2, name: 'bar'}, {id:3, name: 'baz'}],
-      selModel: '',
       isModalShow: false,
       modal: {
         title: '',
@@ -419,7 +416,7 @@ export default {
       selectedPrice: {
         id: null,
         m: '',
-        price: ''
+        price: null
       },
 
       // Список туристов
@@ -843,7 +840,9 @@ export default {
 
       // TODO: проверка
       if (this.currentStep === 2) {
-        return true
+        if (this.selectedPrice.price !== null) {
+          return true
+        }
       }
       // TODO: проверка
       if (this.currentStep === 3) {
