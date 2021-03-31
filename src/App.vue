@@ -203,6 +203,11 @@
           </div>
         <!-- /Step 1 -->
 
+        <!--
+        <Step1
+            :countries="countries"
+        ></Step1>
+        -->
 
 
         <!-- STEP 2 -->
@@ -289,6 +294,7 @@ import StepHeader from '@/components/ui/StepHeader';
 import kvSelect from '@/components/ui/kvSelect';
 import VisaTypes from "@/components/ui/VisaTypes";
 import Loading from 'vue-loading-overlay';
+import Step1 from "@/components/Step1";
 import Step2 from "@/components/Step2";
 import Step3 from "@/components/Step3";
 import PrevNextButtons from "@/components/PrevNextButtons";
@@ -302,6 +308,7 @@ import * as network from '@/helpers/network';
 
 // TODO: стили изолировать
 import 'vue-loading-overlay/dist/vue-loading.css';
+
 export default {
   name: 'App',
   components: {
@@ -311,6 +318,7 @@ export default {
     VisaTypes,
     kvSelect,
     Loading,
+    Step1,
     Step2,
     Step3,
     PrevNextButtons,
