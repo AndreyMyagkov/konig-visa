@@ -148,8 +148,8 @@
         <!-- day -->
         <div class="kv-processing-days__item" v-for="(item, i) in prepareProductsPricesArr" :key="i">
           <div class="kv-processing-day" :class="{
-            'kv-processing-day__active': isActiveCurrentPriceBlock(i),
-            'kv-processing-day__disabled': !isEnabledCurrentPriceBlock(i)
+            'kv-processing-day_active': isActiveCurrentPriceBlock(i),
+            'kv-processing-day_disabled': !isEnabledCurrentPriceBlock(i)
           }">
 
             <div class="kv-processing-day__header">
@@ -162,7 +162,7 @@
 
               <!-- item -->
               <div class="kv-processing-day__item" v-for="(price, j) in item.prices" :key="`price-${j}`">
-                <label class="kv-processing-day-chb" @click="selectPrice(price)">
+                <label class="kv-processing-day-chb" @click="setPrice(price)">
                   <input type="radio"
                          name="kv-processing-day-chb"
                          aria-label="checkbox"
@@ -232,6 +232,17 @@
 
 <script>
 import vSelect from "vue-select";
+
+// Конструктор пустой цены
+class PriceDefault {
+  constructor() {
+    this.id = null;
+    this.m = '';
+    this.price = '';
+  }
+}
+
+
 export default {
   name: "Step2",
   components: {
@@ -277,6 +288,22 @@ export default {
   },
   methods: {
     /**
+     * Сбрасывает цену
+     */
+    resetPrice() {
+      this.setPrice(new PriceDefault());
+    },
+
+    /**
+     * Устанавливает цену
+     * @param id - id процесса
+     */
+    setPrice(price) {
+      this.selectedPriceId = price.id;
+      this.$emit('update:price', price)
+    },
+
+    /**
      * Выбрать длительность пребывания
      * @param item - объект выбранной продолжительности
      * @param index - индекс
@@ -285,38 +312,18 @@ export default {
       this.selectedDuration = item;
       this.selectedDurationIndex = index;
 
+      this.resetPrice();
 
-     // this.selectedPriceId = null;
-      this.selectPrice(
-  {
-          id: null,
-          m: '',
-          price: ''
-        }
-      )
-      //this.update();
       this.$emit('update:duration',
           {
             duration: this.selectedDuration.name,
-            //nationalities: this.selectedNationalities,
-            //residenceRegions: this.selectedResidenceRegions
           }
       );
-      //this.$emit('load:prices');
-
     },
 
-    /**
-     * Выбрать id цены
-     * @param id - id процесса
-     */
-    selectPrice(price) {
-      this.selectedPriceId = price.id;
-      this.$emit('update:price', price)
-    },
 
     /**
-     * Текщий блок активный?
+     * Текщий блок процесса активный?
      * @param {integer} index - индекс блока процесса
      */
     isActiveCurrentPriceBlock(index) {
@@ -370,17 +377,6 @@ export default {
     },
 
 
-/*
-    update() {
-      this.$emit('updateStep2Data',
-          {
-            duration: this.selectedDuration.name,
-            //nationalities: this.selectedNationalities,
-            //residenceRegions: this.selectedResidenceRegions
-          }
-      )
-    }*/
-
   },
   computed: {
 
@@ -402,6 +398,7 @@ export default {
         return this.nationalities.find(item => item.codeA2 === this.nationality)
       },
       set (value) {
+        this.resetPrice();
         this.$emit('update:nationality', value.codeA2);
        // this.$emit('load:prices');
       },
@@ -423,6 +420,7 @@ export default {
         return this.serviceDetails.servedResidenceRegions.find(item => item.code === this.residenceRegions)
       },
       set (value) {
+        this.resetPrice();
         this.$emit('update:residenceRegions', value.code)
       },
     },
