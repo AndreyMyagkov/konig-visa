@@ -93,7 +93,6 @@
                     placeholder="Выберите"
                     v-model="nationalitiesModel"
                     :clearable="false"
-
                 />
               </div>
             </div>
@@ -106,8 +105,9 @@
           <!-- Место жительства -->
           <div class="kv-processing__item" v-if="serviceDetails.servedResidenceRegions !== null">
             <div class="kv-processing__label">Место жительства:</div>
-            <div class="kv-processing__select kv-select">
 
+            <!--
+            <div class="kv-processing__select kv-select">
               <div class="kv-select__badge">
                 <svg class="kv-select__icon"><use href="img/icons/icons.svg#pin"></use></svg>
               </div>
@@ -117,6 +117,24 @@
               </select>
               <svg class="kv-selct__arrow"><use href="img/icons/icons.svg#arrow_down"></use></svg>
             </div>
+            -->
+
+            <div class="kv-processing__select kv-select">
+              <div class="kv-select__badge">
+                <svg class="kv-select__icon"><use href="img/icons/icons.svg#pin"></use></svg>
+              </div>
+              <div class="kv-select__input">
+                <v-select
+                    :options="serviceDetails.servedResidenceRegions"
+                    label="name"
+                    placeholder="Выберите"
+                    v-model="residenceRegionsModel"
+                    :clearable="false"
+                />
+              </div>
+            </div>
+
+
           </div>
         </div>
         <!-- /selects -->
@@ -385,17 +403,27 @@ export default {
       },
       set (value) {
         this.$emit('update:nationality', value.codeA2);
-        this.$emit('load:prices');
+       // this.$emit('load:prices');
       },
     },
 
     // v-model для селекта региона жительства
+    /*
     residenceRegionsModel: {
       get () {
         return this.residenceRegions
       },
       set (value) {
         this.$emit('update:residenceRegions', value)
+      },
+    },
+*/
+    residenceRegionsModel: {
+      get () {
+        return this.serviceDetails.servedResidenceRegions.find(item => item.code === this.residenceRegions)
+      },
+      set (value) {
+        this.$emit('update:residenceRegions', value.code)
       },
     },
 

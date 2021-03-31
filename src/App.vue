@@ -696,12 +696,14 @@ export default {
       console.log(data)
 
       this.CONFIG.nationality = data;
+      this.loadPrices();
     },
 
     updateResidenceRegions(data){
       console.log('Обновились данные 2 шага: место');
       console.log(data)
       this.CONFIG.residenceRegions = data;
+      this.loadPrices();
     },
 
     updateDuration(data){
