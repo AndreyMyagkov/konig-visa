@@ -80,6 +80,15 @@
       <StepHeader :icon="stepInfo.icon" :text="stepInfo.header"/>
       <!-- /Step Header -->
 
+      <!-- Top buttons -->
+      <PrevNextButtons
+          :currentStep="currentStep"
+          :allowNext="allowNext"
+          @setStep="setStep"
+      ></PrevNextButtons>
+      <!-- /Top buttons -->
+
+
       <simple-modal v-model="isModalShow" :title="modal.title" size="small">
         <template slot="body">
           <div v-html="modal.content"></div>
@@ -91,10 +100,6 @@
       <div class="kv-content__body">
         <!-- Step 1 -->
           <div class="kv-buch"  v-if="currentStep === 1">
-
-
-
-
 
             <div class="kv-buch__row">
 
@@ -967,7 +972,7 @@ export default {
   border-color: var(--c-second);
 }
 
-.vsm-modal .btn-close {
+.vsm-modal .btn-close span {
   font-size: 30px;
 }
 

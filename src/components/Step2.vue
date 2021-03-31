@@ -15,10 +15,10 @@
         <div class="kv-staying__list">
 
           <!-- item -->
-          <div class="kv-staying__item" v-for="(item, index) in serviceDetails.durations" :key="item.name" @click="selectDurations(item, index)">
+          <div class="kv-staying__item" v-for="(item, index) in serviceDetails.durations" :key="item.name">
             <div class="kv-staying-chb" :class="{'kv-staying-chb__active' : item.name === selectedDuration.name}">
-              <div class="kv-staying-chb__text" v-html="item.nameHTML"></div>
-              <div class="kv-staying-chb__info" @click="$emit('showModal', item.nameHTML, item.name)">
+              <div class="kv-staying-chb__text" v-html="item.nameHTML" @click="selectDurations(item, index)"></div>
+              <div class="kv-staying-chb__info" @click="$emit('showModal', item.description, item.name)">
                 <svg class="kv-staying-chb__info-icon"><use href="img/icons/icons.svg#info"></use></svg>
               </div>
             </div>
@@ -43,9 +43,10 @@
 
           <div class="kv-processing__btn">
 
-            <div class="kv-btn-info"> <svg>
-              <use href="img/icons/icons.svg#ask"></use>
-            </svg>Инфо-кнопка </div>
+            <div class="kv-btn-info" @click="$emit('showModal', '<b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.', 'Информация')">
+              <svg><use href="img/icons/icons.svg#ask"></use></svg>Инфо-кнопка
+            </div>
+
           </div>
 
           <div class="kv-processing__text">
