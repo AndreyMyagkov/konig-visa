@@ -69,6 +69,7 @@
           <div class="kv-processing__item">
             <div class="kv-processing__label">Гражданство:</div>
 
+            <!--
             <div class="kv-processing__select kv-select">
               <div class="kv-select__badge">
                 <svg class="kv-select__icon"><use href="img/icons/icons.svg#home"></use></svg>
@@ -79,6 +80,27 @@
               </select>
               <svg class="kv-selct__arrow"><use href="img/icons/icons.svg#arrow_down"></use></svg>
             </div>
+            -->
+
+            <div class="kv-processing__select kv-select">
+              <div class="kv-select__badge">
+                <svg class="kv-select__icon"><use href="img/icons/icons.svg#home"></use></svg>
+              </div>
+              <div class="kv-select__input">
+                <v-select
+                    :options="nationalities"
+                    label="name"
+                    placeholder="Выберите"
+                    v-model="nationalitiesModel"
+                    :clearable="false"
+
+                />
+              </div>
+            </div>
+
+
+
+
           </div>
 
           <!-- Место жительства -->
@@ -169,14 +191,12 @@
 
 
       <!-- Calc bloc info-->
-      <div class="kv-calc-block__info"  v-if="selectedDuration.name">
+      <div class="kv-calc-block__info"  v-if="selectedDuration.name  && prices.state === 0">
 
         <div class="kv-calc-info">
 
           <div class="kv-calc-info__icon">
-            <svg>
-              <use href="img/icons/icons.svg#surface"></use>
-            </svg>
+            <svg><use href="img/icons/icons.svg#surface"></use></svg>
           </div>
 
           <div class="kv-calc-info__text">В стоимость входит:
@@ -193,8 +213,12 @@
 </template>
 
 <script>
+import vSelect from "vue-select";
 export default {
   name: "Step2",
+  components: {
+    vSelect
+  },
   props: {
     serviceDetails: {
       type: Object,
@@ -343,12 +367,24 @@ export default {
   computed: {
 
     // v-model для селекта национальности
-    nationalitiesModel: {
+    /*
+    nationalitiesModelDEL: {
       get () {
         return this.nationality
       },
       set (value) {
         this.$emit('update:nationality', value);
+        this.$emit('load:prices');
+      },
+    },*/
+
+    // v-model для селекта национальности
+    nationalitiesModel: {
+      get () {
+        return this.nationalities.find(item => item.codeA2 === this.nationality)
+      },
+      set (value) {
+        this.$emit('update:nationality', value.codeA2);
         this.$emit('load:prices');
       },
     },
