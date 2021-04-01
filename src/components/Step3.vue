@@ -1,12 +1,6 @@
 <template>
   <div class="kv-content__body">
 
-    <!--
-    <div class="container" style="padding-top:50px;">
-      <autocomplete  >      </autocomplete>
-    </div>
-    -->
-
     <div class="kv-form">
 
 
@@ -41,48 +35,79 @@
 
           <div class="kv-col-plug"></div>
           <div class="kv-form__item-wrap kv-form__item-wrap_right kv-from__col">
-            <div class="kv-form-title kv-form-title_hv" @click="deleteTourist(index)" v-if="index">Удалить</div>
+            <div class="kv-form-title kv-form-title_hv" @click="deleteTourist(index)" v-if="tourists.length > 1">Удалить</div>
           </div>
         </div>
 
         <div class="kv-form__row kv-row">
+          <!-- SName -->
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item">
               <input type="text" id="sname" v-model="tourists[index].sname">
               <label class="kv-form__label" for="sname">Фамилия</label>
             </div>
           </div>
+          <!-- /SName -->
 
+          <!-- Name -->
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item">
               <input type="text" id="name" v-model="tourists[index].name">
               <label class="kv-form__label" for="name">Имя</label>
             </div>
           </div>
+          <!-- /Name -->
         </div>
 
         <div class="kv-form__row kv-row">
+          <!-- Nationality -->
           <div class="kv-form__item-wrap kv-from__col">
-            <div class="kv-form__item">
-              <select class="kv-form__sel" v-model="tourists[index].nationality" @change="calculateAndValidate">
-                  <option value="null" label="Выберите"></option>
-                  <option :value="item.codeA2" v-for="item in nationalities" :key="item.codeA3">{{item.name}}</option>
-                </select>
-
+            <div class="kv-form__item kv_is-focused"
+                 :class="{
+                    'kv_is-focused-': tourists[index].nationalityIsFocused,
+                 }"
+            >
+              <v-select
+                  :options="nationalities"
+                  label="name"
+                  placeholder="Выберите"
+                  v-model="tourists[index].nationality"
+                  :clearable="false"
+                  @option:selected="calculateAndValidate"
+                  @search:focus="tourists[index].nationalityIsFocused = true"
+                  @search:blur="tourists[index].nationalityIsFocused = false"
+              />
+<!-- @search:focus="tourists[index].nationalityIsFocused = true" -->
               <label class="kv-form__label" for="name">Гражданство</label>
-              <svg class="kv-form__sel-arrow">
-                <use href="img/icons/icons.svg#select"></use>
-              </svg>
             </div>
           </div>
+          <!-- Nationality -->
 
+          <!-- Residence -->
           <div class="kv-form__item-wrap kv-from__col">
-            <div class="kv-form__item" v-if="productDetails.servedResidenceRegions !== null">
+            <div
+                class="kv-form__item kv_is-focused"
+                :class="{
+                    'kv_is-focused-': tourists[index].residenceRegionsFocused,
+                 }"
+                 v-if="productDetails.servedResidenceRegions !== null"
+            >
+              <!--
               <input list="nationalities" v-model="tourists[index].residenceRegions" @input="calculateAndValidate"/>
               <datalist id="nationalities">
                 <option :value="item.name" v-for="item in productDetails.servedResidenceRegions" :key="item.code"></option>
               </datalist>
-
+              -->
+              <v-select
+                  :options="productDetails.servedResidenceRegions"
+                  label="name"
+                  placeholder="Выберите"
+                  v-model="tourists[index].residenceRegion"
+                  :clearable="false"
+                  @option:selected="calculateAndValidate"
+                  @search:focus="tourists[index].residenceRegionsFocused = true"
+                  @search:blur="tourists[index].residenceRegionsFocused = false"
+              />
 
               <!--
               <select class="kv-form__sel" v-model="tourists[index].residenceRegions">
@@ -98,36 +123,39 @@
               </select>
               -->
               <label class="kv-form__label" for="name">Место жительства</label>
-              <svg class="kv-form__sel-arrow">
-                <use href="img/icons/icons.svg#select"></use>
-              </svg>
-
             </div>
           </div>
+          <!-- /Residence -->
         </div>
 
         <div class="kv-form__row kv-row">
 
+          <!-- Discounts -->
           <div class="kv-form__item-wrap kv-from__col">
-            <div class="kv-form__item" v-if="productDetails.discounts !== null">
+            <div class="kv-form__item kv_is-focused" v-if="productDetails.discounts !== null">
               <select class="kv-form__sel" v-model="tourists[index].discount" @change="calculateAndValidate">
-                <option value="null" label="Скидка"></option>
+                <option value="null" label="Нет"></option>
                 <option :value="item.code" v-for="item in productDetails.discounts" :key="`${item.code}-${index}`">{{item.name}}</option>
               </select>
+              <label class="kv-form__label" for="name">Скидка</label>
               <svg class="kv-form__sel-arrow">
                 <use href="img/icons/icons.svg#select"></use>
               </svg>
 
             </div>
           </div>
+          <!-- /Discounts -->
 
+          <!-- BirthDate -->
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item" v-if="isRequireBirthDate(index)">
               <input type="date" v-model="tourists[index].birthDate">
               <label class="kv-form__label" for="name">Дата рождения</label>
             </div>
-            <div class="" v-else v-html="getDiscountDescription(index)"></div>
+            <div class="" v-html="getDiscountDescription(index)"></div>
           </div>
+          <!-- /BirthDate -->
+
         </div>
       </div>
       <!-- Form card-->
@@ -142,23 +170,26 @@
 </template>
 
 <script>
-import Autocomplete from '@/components/ui/Autocomplete';
+import vSelect from "vue-select";
 class Toursit {
-  constructor() {
+  constructor(nationality = []) {
     //this.gender = ['herr', 'frau'];
     this.gender = '';
     this.name = '';
     this.sname = '';
-    this.nationality = null;
-    this.residenceRegions = null;
+    this.nationality = nationality;
+    this.residenceRegion = [];
     this.discount = null;
     this.birthDate = '';
+
+    this.nationalityIsFocused = true;
+    this.residenceRegionsFocused = true;
   }
 }
 export default {
   name: "Step3",
   components: {
-    Autocomplete
+    vSelect
   },
   props: {
     tourists: {
@@ -169,10 +200,19 @@ export default {
       type: Array,
       required: true
     },
+    // nationality: {
+    //   type: String,
+    //   required: true
+    // },
+    // residenceRegions: {
+    //   type: String,
+    //   required: true
+    // },
     productDetails: {
       type: Object,
       required: true
-    }
+    },
+
   },
   data() {
     return {
@@ -184,12 +224,23 @@ export default {
      * Добавляет туриста
      */
     addTourist() {
-      this.$emit('update:tourists', [...this.tourists, new Toursit()]);
+      // Национальность по умолчанию
+      //const nationality = this.nationalities.find(item => item.codeA2 === this.nationality);
+
+      this.$emit('update:tourists',
+          [
+            ...this.tourists,
+            new Toursit()
+          ]);
       this.calculateAndValidate();
     },
-    deleteTourist() {
-      //this.tourists = this.tourists.slice(0,-1);
-      this.$emit('update:tourists', this.tourists.slice(0,-1));
+    /**
+     * Удаляет участника под номером Index
+     * @param {Number} index
+     */
+    deleteTourist(index) {
+      this.tourists.splice(index, 1);
+      this.$emit('update:tourists', this.tourists);
       this.calculateAndValidate();
     },
     /**
@@ -252,6 +303,18 @@ export default {
 }
 </script>
 
-<style scoped>
+<style >
+.kv-form__item .vs__dropdown-toggle,
+.vs__dropdown-toggle {
+  border: none;
+}
+
+.kv-app .kv-form__item input:focus ~ .kv-form__label,
+.kv-app .kv-form__item select:focus ~ .kv-form__label,
+.kv-app .kv-form__item.kv_is-focused .kv-form__label {
+  top: 7px;
+  font-size: 14px;
+  color: var(--c-disabled_dark);
+}
 
 </style>

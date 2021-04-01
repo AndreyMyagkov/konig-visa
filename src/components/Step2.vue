@@ -43,7 +43,11 @@
 
           <div class="kv-processing__btn">
 
-            <div class="kv-btn-info" @click="$emit('showModal', '<b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.', 'Информация')">
+            <div class="kv-btn-info"
+                 @click="$emit(
+                     'showModal',
+                      '<b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.<p><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.</p> <br><br><br><br><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book. <b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.<p><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.</p> <br><br><br><br><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book. <b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.<p><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.</p> <br><br><br><br><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book. <b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.<p><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.</p> <br><br><br><br><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.',
+                       'Информация')">
               <svg><use href="img/icons/icons.svg#ask"></use></svg>Инфо-кнопка
             </div>
 
@@ -69,19 +73,6 @@
           <div class="kv-processing__item">
             <div class="kv-processing__label">Гражданство:</div>
 
-            <!--
-            <div class="kv-processing__select kv-select">
-              <div class="kv-select__badge">
-                <svg class="kv-select__icon"><use href="img/icons/icons.svg#home"></use></svg>
-              </div>
-              <select class="kv-select__input" v-model="nationalitiesModel" >
-                <option value="null" label="Выберите"></option>
-                <option :value="item.codeA2" v-for="item in nationalities" :key="item.codeA3">{{item.name}}</option>
-              </select>
-              <svg class="kv-selct__arrow"><use href="img/icons/icons.svg#arrow_down"></use></svg>
-            </div>
-            -->
-
             <div class="kv-processing__select kv-select">
               <div class="kv-select__badge">
                 <svg class="kv-select__icon"><use href="img/icons/icons.svg#home"></use></svg>
@@ -97,44 +88,28 @@
               </div>
             </div>
 
-
-
-
           </div>
 
           <!-- Место жительства -->
-          <div class="kv-processing__item" v-if="serviceDetails.servedResidenceRegions !== null">
-            <div class="kv-processing__label">Место жительства:</div>
+          <div class="kv-processing__item">
+            <template  v-if="serviceDetails.servedResidenceRegions !== null">
+              <div class="kv-processing__label">Место жительства:</div>
 
-            <!--
-            <div class="kv-processing__select kv-select">
-              <div class="kv-select__badge">
-                <svg class="kv-select__icon"><use href="img/icons/icons.svg#pin"></use></svg>
+              <div class="kv-processing__select kv-select">
+                <div class="kv-select__badge">
+                  <svg class="kv-select__icon"><use href="img/icons/icons.svg#pin"></use></svg>
+                </div>
+                <div class="kv-select__input">
+                  <v-select
+                      :options="serviceDetails.servedResidenceRegions"
+                      label="name"
+                      placeholder="Выберите"
+                      v-model="residenceRegionsModel"
+                      :clearable="false"
+                  />
+                </div>
               </div>
-              <select class="kv-select__input" v-model="residenceRegionsModel">
-                <option value="null" selected="selected" label="Выберите"></option>
-                <option :value="item.code" v-for="item in serviceDetails.servedResidenceRegions" :key="item.code">{{item.name}}</option>
-              </select>
-              <svg class="kv-selct__arrow"><use href="img/icons/icons.svg#arrow_down"></use></svg>
-            </div>
-            -->
-
-            <div class="kv-processing__select kv-select">
-              <div class="kv-select__badge">
-                <svg class="kv-select__icon"><use href="img/icons/icons.svg#pin"></use></svg>
-              </div>
-              <div class="kv-select__input">
-                <v-select
-                    :options="serviceDetails.servedResidenceRegions"
-                    label="name"
-                    placeholder="Выберите"
-                    v-model="residenceRegionsModel"
-                    :clearable="false"
-                />
-              </div>
-            </div>
-
-
+            </template>
           </div>
         </div>
         <!-- /selects -->
@@ -177,7 +152,7 @@
                       <span class="kv-processing-day-chb__text">{{price.m}}-malige Einreise</span>
                       <span class="kv-processing-day-chb__title">
                         <template  v-if="price.price !== null">{{price.price}}</template>
-                        <template v-else>- </template>
+                        <template v-else>&minus; </template>
                         <span> €</span>
                       </span>
                     </span>
@@ -501,4 +476,10 @@ export default {
 .kv-app .kv-processing-day-chb input[disabled]:checked ~ .kv-processing-day-chb__inner {
   background-color: hsl(0deg 0% 0% / 10%);
 }
+
+.kv-app .kv-staying .kv-staying__list {
+  flex-wrap: nowrap;
+  overflow: auto;
+}
+
 </style>

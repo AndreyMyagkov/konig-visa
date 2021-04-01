@@ -233,9 +233,14 @@
         <!-- /STEP 2 -->
 
         <!-- STEP 3 -->
+        <!--
+        :nationality="CONFIG.nationality"
+               :residenceRegions="CONFIG.residenceRegions"
+        -->
         <Step3 v-if="currentStep === 3"
                :tourists="tourists"
                :nationalities="nationalities"
+
                :productDetails="productDetails"
                @update:tourists="updateTourists"
                @active="loadProductDetails"
@@ -607,8 +612,8 @@ export default {
               participants: this.tourists.map((item, i) => {
                 return {
                   nr: i + 1,
-                  nationalityA2: item.nationality || this.CONFIG.nationality,
-                  residenceCode: item.residenceRegions || this.CONFIG.residenceRegions,
+                  nationalityA2: item.nationality.codeA2 || this.CONFIG.nationality,
+                  residenceCode: item.residenceRegion.code || this.CONFIG.residenceRegions,
                   discountCode: item.discount
                 }
               })
@@ -929,7 +934,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style>
 #kv-app {
   --primary: #02a7f0;
 }
@@ -949,6 +954,9 @@ export default {
 
 
 /* select */
+.v-select {
+  width: 100%;
+}
 .kv-app .kv-select .kv-select__input {
   padding: 0;
 }
@@ -973,6 +981,11 @@ export default {
   border-color: var(--c-second);
 }
 
+/* modal */
+.vsm-modal-body {
+  max-height: 88vh;
+  overflow-y: auto;
+}
 .vsm-modal .btn-close span {
   font-size: 30px;
 }
