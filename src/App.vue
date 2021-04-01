@@ -250,28 +250,24 @@
         <!-- /STEP 3 -->
 
         <!-- STEP 4 -->
-        <div  class="kv-content__body" v-if="currentStep === 4">
-          ШАГ {{currentStep}}
-        </div>
+        <Step4 v-if="currentStep === 4">
         <!-- /STEP 4 -->
 
         <!-- STEP 5 -->
-        <div  class="kv-content__body" v-if="currentStep === 5">
-          ШАГ {{currentStep}}
-        </div>
+        <Step4 v-if="currentStep === 5">
         <!-- /STEP 5 -->
 
         <!-- STEP 6 -->
-        <div  class="kv-content__body" v-if="currentStep === 6">
-          ШАГ {{currentStep}}
-        </div>
+        <Step4 v-if="currentStep === 6">
         <!-- /STEP 6 -->
 
         <!-- STEP 7 -->
-        <div  class="kv-content__body" v-if="currentStep === 7">
-          ШАГ {{currentStep}}
-        </div>
+        <Step4 v-if="currentStep === 7">
         <!-- /STEP 7 -->
+
+        <!-- STEP 8 -->
+        <Step4 v-if="currentStep === 8">
+        <!-- /STEP 8 -->
 
         <!-- Bottom buttons -->
         <PrevNextButtons
@@ -307,6 +303,11 @@ import Loading from 'vue-loading-overlay';
 import Step1 from "@/components/Step1";
 import Step2 from "@/components/Step2";
 import Step3 from "@/components/Step3";
+import Step4 from "@/components/Step4";
+import Step5 from "@/components/Step5";
+import Step6 from "@/components/Step6";
+import Step7 from "@/components/Step7";
+import Step8 from "@/components/Step8";
 import PrevNextButtons from "@/components/PrevNextButtons";
 import SimpleModal from "simple-modal-vue";
 
@@ -331,6 +332,11 @@ export default {
     Step1,
     Step2,
     Step3,
+    Step4,
+    Step5,
+    Step6,
+    Step7,
+    Step8,
     PrevNextButtons,
     SimpleModal,
     vSelect
