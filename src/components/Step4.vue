@@ -1,6 +1,6 @@
 <template>
   <div>
-
+    двигайтесь на шаг 5
   </div>
 </template>
 

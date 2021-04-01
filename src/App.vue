@@ -250,23 +250,27 @@
         <!-- /STEP 3 -->
 
         <!-- STEP 4 -->
-        <Step4 v-if="currentStep === 4">
+        <Step4 v-if="currentStep === 4"/>
         <!-- /STEP 4 -->
 
         <!-- STEP 5 -->
-        <Step4 v-if="currentStep === 5">
+        <Step5 v-if="currentStep === 5"
+               :addressingCountries="addressingCountries"
+               :pickupPoints="pickupPoints"
+               @active="loadStep5Data"
+        />
         <!-- /STEP 5 -->
 
         <!-- STEP 6 -->
-        <Step4 v-if="currentStep === 6">
+        <Step6 v-if="currentStep === 6"/>
         <!-- /STEP 6 -->
 
         <!-- STEP 7 -->
-        <Step4 v-if="currentStep === 7">
+        <Step7 v-if="currentStep === 7"/>
         <!-- /STEP 7 -->
 
         <!-- STEP 8 -->
-        <Step4 v-if="currentStep === 8">
+        <Step8 v-if="currentStep === 8"/>
         <!-- /STEP 8 -->
 
         <!-- Bottom buttons -->
@@ -432,6 +436,11 @@ export default {
 
       // Список туристов
       tourists: [],
+
+
+      // Шаг 5
+      addressingCountries: [],
+      pickupPoints: [],
 
 
       CONFIG: {
@@ -643,10 +652,54 @@ export default {
       }
     },
 
+
+    /**
+     * Загружает справочник стран адресов для шага 5
+     */
+    async loadAddressingCountries() {
+      try {
+        this.isLoading = true;
+        let response = await fetch(`${this.CONFIG.API_URL}getAddressingCountries?clientId=${this.CONFIG.clientId}`);
+        let countries = await response.json();
+        if (response.status >= 400 && response.status < 600) {
+          throw new Error(countries.Message);
+        }
+        this.addressingCountries = countries.countries;
+        this.isLoading = false;
+      } catch (err) {
+        this.isLoading = false;
+        console.log(err)
+      }
+    },
+
+    /**
+     * Загружает справочник мест получения заказа шага 5
+     */
+    async loadPickupPoints() {
+      try {
+        this.isLoading = true;
+        let response = await fetch(`${this.CONFIG.API_URL}getCSPickupPoints?clientId=${this.CONFIG.clientId}`);
+        let pickupPoints = await response.json();
+        if (response.status >= 400 && response.status < 600) {
+          throw new Error(countries.Message);
+        }
+        this.pickupPoints = pickupPoints.points;
+        this.isLoading = false;
+      } catch (err) {
+        this.isLoading = false;
+        console.log(err)
+      }
+    },
+
     async loadStep2Data() {
       await this.loadServiceDetails();
       await this.loadNationalities();
       await this.loadPrices();
+    },
+
+    async loadStep5Data() {
+      await this.loadAddressingCountries();
+      await this.loadPickupPoints();
     },
 
     /**
@@ -994,6 +1047,13 @@ export default {
 }
 .vsm-modal .btn-close span {
   font-size: 30px;
+}
+
+
+.kv-app .kv-form__item input:not(:placeholder-shown) ~ .kv-form__label {
+  top: 7px;
+  font-size: 14px;
+  color: var(--c-disabled_dark);
 }
 
 </style>
