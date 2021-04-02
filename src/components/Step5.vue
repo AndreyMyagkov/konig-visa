@@ -376,47 +376,10 @@
         </tempalte>
 
         <template  v-if="delivery.type == 3">
-          <div class="kv-row kv-form__row">
 
-            <div class="kv-form__item-wrap kv-from__col" v-for="item in pickupPoints" :key="item.id">
-              <div class="kv-form__item kv-form__item_chb"
-              :class="{
-                'kv-form__item_border': item.id ===delivery.branch
-              }">
-                <label class="kv-form-radio">
-                  <input type="radio" name="branch" v-model="delivery.branch" :value="item.id">
-                  <span class="kv-form-radio__mark">
-                    <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
-                  </span>
-                  <span>
-                  <div class="kv-form-radio__title">{{item.name}}</div>
-                  <div class="kv-form-radio__text">{{item.address}}</div>
-                  <div class="kv-form-radio__text">Время работы: <b>{{item.workingTime}}</b></div>
-                </span>
-                </label>
-              </div>
-            </div>
+          <div class="kv-row kv-form__row" v-for="(row, i) in preparedPickupPoints" :key="i">
 
-            <div class="kv-form__item-wrap kv-from__col" v-for="item in pickupPoints" :key="item.id">
-              <div class="kv-form__item kv-form__item_chb"
-                   :class="{
-                'kv-form__item_border': item.id ===delivery.branch
-              }">
-                <label class="kv-form-radio">
-                  <input type="radio" name="branch" v-model="delivery.branch" :value="item.id">
-                  <span class="kv-form-radio__mark">
-                    <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
-                  </span>
-                  <span>
-                  <div class="kv-form-radio__title">{{item.name}}</div>
-                  <div class="kv-form-radio__text">{{item.address}}</div>
-                  <div class="kv-form-radio__text">Время работы: <b>{{item.workingTime}}</b></div>
-                </span>
-                </label>
-              </div>
-            </div>
-
-            <div class="kv-form__item-wrap kv-from__col" v-for="item in pickupPoints" :key="item.id">
+            <div class="kv-form__item-wrap kv-from__col"  v-for="item in row" :key="item.id">
               <div class="kv-form__item kv-form__item_chb"
                    :class="{
                 'kv-form__item_border': item.id ===delivery.branch
@@ -436,6 +399,9 @@
             </div>
 
           </div>
+
+
+
         </template>
 
       </div>
@@ -445,6 +411,7 @@
 
 <script>
 import vSelect from "vue-select";
+import * as arrayHelper from '@/helpers/array';
 export default {
   name: "Step5",
   props: {
@@ -496,6 +463,9 @@ export default {
   },
   computed: {
 
+    preparedPickupPoints() {
+      return arrayHelper.arrayToSubArrays(this.pickupPoints, 2)
+    }
   },
   mounted() {
     this.$emit('active');
