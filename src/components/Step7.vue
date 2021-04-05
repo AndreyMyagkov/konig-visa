@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div>
+    Двигайтесь на шаг 8
+  </div>
 </template>
 
 <script>

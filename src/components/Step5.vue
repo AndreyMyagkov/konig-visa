@@ -96,8 +96,8 @@
           <!-- index -->
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item">
-              <input type="text" placeholder=" " id="index1" v-model="customer.index">
-              <label class="kv-form__label" for="index1">Индекс</label>
+              <input type="text" placeholder=" " id="zip1" v-model="customer.zip">
+              <label class="kv-form__label" for="zip1">Индекс</label>
             </div>
           </div>
           <!-- /index -->
@@ -236,7 +236,7 @@
           </div>
         </div>
 
-        <tempalte v-if="delivery.type == 2">
+        <template v-if="delivery.type == 2">
         <!-- From row-->
           <div class="kv-row kv-form__row">
             <!--  company -->
@@ -321,8 +321,8 @@
           <div class="kv-form__row kv-row">
             <div class="kv-form__item-wrap kv-from__col">
               <div class="kv-form__item">
-                <input type="text" placeholder=" " id="index2" name="index2" v-model="delivery.index">
-                <label class="kv-form__label" for="index2">Индекс</label>
+                <input type="text" placeholder=" " id="zip2" name="zip2" v-model="delivery.zip">
+                <label class="kv-form__label" for="zip2">Индекс</label>
               </div>
             </div>
 
@@ -373,7 +373,7 @@
               </div>
             </div>
           </div>
-        </tempalte>
+        </template>
 
         <template  v-if="delivery.type == 3">
 
@@ -436,7 +436,7 @@ export default {
         sname: '',
         name: '',
         address: '',
-        index: '',
+        zip: '',
         city: '',
         tel: '',
         mobile: '',
@@ -451,7 +451,7 @@ export default {
         sname: '',
         name: '',
         address: '',
-        index: '',
+        zip: '',
         city: '',
         tel: '',
         mobile: '',

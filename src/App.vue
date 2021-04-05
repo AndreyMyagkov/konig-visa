@@ -262,7 +262,11 @@
         <!-- /STEP 5 -->
 
         <!-- STEP 6 -->
-        <Step6 v-if="currentStep === 6"/>
+        <Step6 v-if="currentStep === 6"
+               :postalServices="postalServices"
+               @change="postalChange"
+               @active="loadPostalServices"
+        />
         <!-- /STEP 6 -->
 
         <!-- STEP 7 -->
@@ -370,24 +374,29 @@ export default {
           icon: 'step_3'
         },
         {
-          crumb: 'Заполнение данных о клиентах',
-          header: 'Информация о заказчике',
+          crumb: 'Дополнительные услуги',
+          header: 'Дополнительные услуги',
           icon: 'step_4'
+        },
+        {
+          crumb: 'Информация о заказчике',
+          header: 'Информация о заказчике',
+          icon: 'step_5'
         },
         {
           crumb: 'Способ отправки',
           header: 'Способ отправки',
-          icon: 'step_5'
+          icon: 'step_6'
         },
         {
           crumb: 'Проверка данных',
           header: 'Проверка данных',
-          icon: 'step_6'
+          icon: 'step_7'
         },
         {
           crumb: 'Способ оплаты',
           header: 'Способ оплаты',
-          icon: 'step_7'
+          icon: 'step_8'
         }
       ],
       currentStep: 1,
@@ -441,6 +450,19 @@ export default {
       // Шаг 5
       addressingCountries: [],
       pickupPoints: [],
+      delivery: {},
+      customer: {
+        addressingCountry: {
+          codeA3: "DEU",
+        },
+        zip: "125130",
+        city: "10115"
+      },
+
+
+      // Шаг 6
+      postalServices: [],
+      postalService: null,
 
 
       CONFIG: {
@@ -681,9 +703,45 @@ export default {
         let response = await fetch(`${this.CONFIG.API_URL}getCSPickupPoints?clientId=${this.CONFIG.clientId}`);
         let pickupPoints = await response.json();
         if (response.status >= 400 && response.status < 600) {
-          throw new Error(countries.Message);
+          throw new Error(pickupPoints.Message);
         }
         this.pickupPoints = pickupPoints.points;
+        this.isLoading = false;
+      } catch (err) {
+        this.isLoading = false;
+        console.log(err)
+      }
+    },
+
+    /**
+     * Загрузка служб доставки виз */
+    async loadPostalServices() {
+      console.log('Загрузка почтовых сервисов');
+      const headers = new Headers();
+      headers.append("Content-Type", "application/x-www-form-urlencoded");
+
+        //TODO: ? брать из заказчика или адреса по типу
+      const requestOptions = {
+        method: 'POST',
+        headers: headers,
+        body: network.toFormUrlEncoded(
+            {
+              zip: this.customer.zip,
+              city: this.customer.city,
+              countryA3: this.customer.addressingCountry.codeA3,
+            }
+        ),
+        redirect: 'follow'
+      };
+      try {
+        this.isLoading = true;
+        let response = await fetch(`${this.CONFIG.API_URL}getPostalServices?clientId=${this.CONFIG.clientId}`, requestOptions);
+        let responseJSON = await response.json();
+        if (response.status >= 400 && response.status < 600) {
+          throw new Error(responseJSON.Message);
+        }
+
+        this.postalServices = responseJSON.services;
         this.isLoading = false;
       } catch (err) {
         this.isLoading = false;
@@ -869,6 +927,13 @@ export default {
         console.log(tourist)
         return `${tourist.gender} ${tourist.sname} ${tourist.name}`
       }
+    },
+
+    /**
+     * Смена способа доставки
+     */
+    postalChange(id) {
+      this.postalService = id;
     }
 
   },
