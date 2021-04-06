@@ -50,36 +50,47 @@
     </div>
 
 
-    <!-- Review members-->
     <div class="kv-review-members kv-review__item">
-      <div class="kv-review-members__header">
-        <div class="kv-review-members__title">№</div>
-        <div class="kv-review-members__title">Фамилия, имя Фамилия</div>
-        <div class="kv-review-members__title">Гражданство</div>
-        <div class="kv-review-members__title">Проживание</div>
-        <div class="kv-review-members__title">Дополнительно</div>
-        <div class="kv-review-members__title"></div>
-      </div>
 
-        <div  class="kv-review-members__header" v-for="(item, index) in data.tourists" :key="index">
+      <div class="kv-review-members__row kv-review-members__row_header">
 
-          <div class="kv-review-members__item">{{index+1}}</div>
-          <div class="kv-review-members__item">{{item.gender}} {{item.sname}} {{item.name}}</div>
-          <div class="kv-review-members__item">{{item.nationality.name}}</div>
-          <div class="kv-review-members__item">{{item.residenceRegion.name}}</div>
-          <div class="kv-review-members__item">{{item.discount}} {{item.birthDate}}</div>
-          <div class="kv-review-members__item kv-review-members__item_edit">
-            <div class="kv-edit">
-              <svg class="kv-edit__icon">
-                <use href="img/icons/icons.svg#edit"></use>
-              </svg>
-            </div>
-          </div>
-
+        <div class="kv-review-members__item kv-review-members__col_1 kv-review-members__item_title">№
         </div>
 
+        <div class="kv-review-members__item kv-review-members__col_2 kv-review-members__item_title">
+          Фамилия, имя Фамилия</div>
+
+        <div class="kv-review-members__item kv-review-members__col_3 kv-review-members__item_title">
+          Гражданство</div>
+
+        <div class="kv-review-members__item kv-review-members__col_4 kv-review-members__item_title">
+          Проживание</div>
+
+        <div class="kv-review-members__item kv-review-members__col_5 kv-review-members__item_title">
+          Дополнительно</div>
+
+        <div class="kv-review-members__item kv-review-members__col_6 kv-review-members__item_title">
+        </div>
+      </div>
+
+      <div class="kv-review-members__row" v-for="(item, index) in data.tourists" :key="index">
+        <div class="kv-review-members__item kv-review-members__col_1">{{index+1}}</div>
+        <div class="kv-review-members__item kv-review-members__col_2">{{item.gender}} {{item.sname}} {{item.name}}</div>
+        <div class="kv-review-members__item kv-review-members__col_3">{{item.nationality.name}}</div>
+        <div class="kv-review-members__item kv-review-members__col_4">{{item.residenceRegion.name}}</div>
+        <div class="kv-review-members__item kv-review-members__col_5">{{item.discount}} {{item.birthDate}}</div>
+        <div class="kv-review-members__item kv-review-members__col_6 kv-review-members__item_edit">
+          <div class="kv-edit">
+            <svg class="kv-edit__icon">
+              <use href="img/icons/icons.svg#edit"></use>
+            </svg>
+          </div>
+        </div>
+      </div>
 
     </div>
+
+
 
 
     <!-- Reveiw services-->
@@ -218,64 +229,63 @@
 
 
     <!-- Reveiw card-->
-    <div class="kv-row kv-review__row kv-review__item">
-      <div class="kv-review__col">
-        <div class="kv-review-card kv-review-card_light">
-          <div class="kv-review-card__header">
-            <svg class="kv-review-card__icon">
-              <use href="img/icons/icons.svg#step_5"></use>
+    <div class="kv-review-members kv-review__item">
+      <div class="kv-review-members__row kv-review-members__row_header">
+        <div class="kv-review-members__item kv-review-members__col_1 kv-review-members__item_title">№
+        </div>
+        <div class="kv-review-members__item kv-review-members__col_2 kv-review-members__item_title">
+          Фамилия, имя Фамилия
+        </div>
+        <div class="kv-review-members__item kv-review-members__col_3 kv-review-members__item_title">
+          Гражданство
+        </div>
+        <div class="kv-review-members__item kv-review-members__col_4 kv-review-members__item_title">
+          Проживание
+        </div>
+        <div class="kv-review-members__item kv-review-members__col_5 kv-review-members__item_title">
+          Дополнительно
+        </div>
+        <div class="kv-review-members__item kv-review-members__col_6 kv-review-members__item_title">
+        </div>
+      </div>
+      <div class="kv-review-members__row">
+        <div class="kv-review-members__item kv-review-members__col_1">1</div>
+        <div class="kv-review-members__item kv-review-members__col_2">{{data.customer.gender}} {{data.customer.sname}} {{data.customer.name}}</div>
+        <div class="kv-review-members__item kv-review-members__col_3">Германия | NRV</div>
+        <div class="kv-review-members__item kv-review-members__col_4">Россия, ямало-ненецкий автономный
+          округ
+        </div>
+        <div class="kv-review-members__item kv-review-members__col_5"></div>
+        <div class="kv-review-members__item kv-review-members__col_6 kv-review-members__item_edit">
+          <div class="kv-edit">
+            <svg class="kv-edit__icon">
+              <use href="img/icons/icons.svg#edit"></use>
             </svg>
-            <div class="kv-review-card__title">Информация о Клиенте</div>
-            <div class="kv-review-card__edit">
-              <div class="kv-edit">
-                <svg class="kv-edit__icon">
-                  <use href="img/icons/icons.svg#edit"></use>
-                </svg>
-              </div>
-            </div>
-          </div>
-          <div class="kv-review-card__body">
-            <div class="kv-review-card__text">{{data.customer.gender}} {{data.customer.sname}} {{data.customer.name}}</div>
-            <div class="kv-review-card__text">Название фирмы</div>
-            <div class="kv-review-card__text">Staropetrovsky proezd 10 B</div>
-            <div class="kv-review-card__text">125130, Moscow, Russia</div>
-            <div class="kv-row">
-              <div class="kv-review-card__text">+1 (234) 567 89 00</div>
-              <div class="kv-review-card__text">+3 (123) 321 25 15</div>
-            </div>
-            <div class="kv-review-card__text">email@ema.il</div>
           </div>
         </div>
       </div>
-      <div class="kv-review__col">
-        <div class="kv-review-card kv-review-card_light">
-          <div class="kv-review-card__header">
-            <svg class="kv-review-card__icon">
-              <use href="img/icons/icons.svg#delivery"></use>
+
+      <div class="kv-review-members__row">
+        <div class="kv-review-members__item kv-review-members__col_1">1</div>
+        <div class="kv-review-members__item kv-review-members__col_2">{{data.customer.gender}} {{data.customer.sname}} {{data.customer.name}}</div>
+        <div class="kv-review-members__item kv-review-members__col_3">Германия | NRV</div>
+        <div class="kv-review-members__item kv-review-members__col_4">Россия, ямало-ненецкий автономный
+          округ
+        </div>
+        <div class="kv-review-members__item kv-review-members__col_5"></div>
+        <div class="kv-review-members__item kv-review-members__col_6 kv-review-members__item_edit">
+          <div class="kv-edit">
+            <svg class="kv-edit__icon">
+              <use href="img/icons/icons.svg#edit"></use>
             </svg>
-            <div class="kv-review-card__title">Адрес доставки</div>
-            <div class="kv-review-card__edit">
-              <div class="kv-edit">
-                <svg class="kv-edit__icon">
-                  <use href="img/icons/icons.svg#edit"></use>
-                </svg>
-              </div>
-            </div>
-          </div>
-          <div class="kv-review-card__body">
-            <div class="kv-review-card__text">Herr Ivanov Ivan</div>
-            <div class="kv-review-card__text">Название фирмы</div>
-            <div class="kv-review-card__text">Staropetrovsky proezd 10 B</div>
-            <div class="kv-review-card__text">125130, Moscow, Russia</div>
-            <div class="kv-row">
-              <div class="kv-review-card__text">+1 (234) 567 89 00</div>
-              <div class="kv-review-card__text">+3 (123) 321 25 15</div>
-            </div>
-            <div class="kv-review-card__text">email@ema.il</div>
           </div>
         </div>
       </div>
+
     </div>
+
+
+
     <!-- Reveiw card-->
     <div class="kv-review-terms kv-review__item">
       <div class="kv-review-terms__title">Allgemeine Geschäftsbedingungen</div>
