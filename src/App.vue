@@ -250,7 +250,10 @@
         <!-- /STEP 3 -->
 
         <!-- STEP 4 -->
-        <Step4 v-if="currentStep === 4"/>
+        <Step4 v-if="currentStep === 4"
+               :data="productDetails"
+               @showModal="showModal"
+        />
         <!-- /STEP 4 -->
 
         <!-- STEP 5 -->
