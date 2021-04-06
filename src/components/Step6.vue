@@ -19,7 +19,10 @@
             </span>
             </label>
             <div class="kv-form__badge">
-              <div class="kv-price">{{item.price}}</div>
+              <div class="kv-price">
+                {{item.price}}
+                <span class="kv-price__currency">€</span>
+              </div>
             </div>
           </div>
         </div>

@@ -155,13 +155,15 @@
           </div>
         </div>
         <div class="kv-review-total__title">Preis Total:</div>
-        <div class="kv-review-total__price kv-price">420</div>
+        <div class="kv-review-total__price kv-price">
+          420
+          <span class="kv-price__currency">€</span>
+        </div>
       </div>
       <!-- Cart-->
       <div class="kv-review-total__more kv-cart kv-review-total__plug">
         Подробнее
-        <svg
-            class="kv-review-total__arrow">
+        <svg class="kv-review-total__arrow">
           <use href="img/icons/icons.svg#arrow_down"></use>
         </svg>
         <div class="kv-cart__body drop__body">
@@ -170,43 +172,43 @@
             <div class="kv-cart-table__row">
               <div class="kv-cart-table__item">1</div>
               <div class="kv-cart-table__item kv-cart-table__item_col">herr Иванов Иван</div>
-              <div class="kv-cart-table__item kv-cart-table__item_price" data-kv-cart-price="€">
-                100
+              <div class="kv-price kv-cart-table__item">100
+                <span class="kv-price__currency">€</span>
               </div>
             </div>
             <div class="kv-cart-table__row">
               <div class="kv-cart-table__item">1</div>
               <div class="kv-cart-table__item kv-cart-table__item_col">herr Иванов Иван</div>
-              <div class="kv-cart-table__item kv-cart-table__item_price" data-kv-cart-price="€">
-                100
+              <div class="kv-price kv-cart-table__item">100
+                <span class="kv-price__currency">€</span>
               </div>
             </div>
             <div class="kv-cart-table__row">
               <div class="kv-cart-table__item">1</div>
               <div class="kv-cart-table__item kv-cart-table__item_col">herr Иванов Иван</div>
-              <div class="kv-cart-table__item kv-cart-table__item_price" data-kv-cart-price="€">
-                100
+              <div class="kv-price kv-cart-table__item">100
+                <span class="kv-price__currency">€</span>
               </div>
             </div>
             <div class="kv-cart-table__row">
               <div class="kv-cart-table__item">1</div>
               <div class="kv-cart-table__item kv-cart-table__item_col">herr Иванов Иван</div>
-              <div class="kv-cart-table__item kv-cart-table__item_price" data-kv-cart-price="€">
-                100
+              <div class="kv-price kv-cart-table__item">100
+                <span class="kv-price__currency">€</span>
               </div>
             </div>
             <div class="kv-cart-table__row">
               <div class="kv-cart-table__item">1</div>
               <div class="kv-cart-table__item kv-cart-table__item_col">herr Иванов Иван</div>
-              <div class="kv-cart-table__item kv-cart-table__item_price" data-kv-cart-price="€">
-                100
+              <div class="kv-price kv-cart-table__item">100
+                <span class="kv-price__currency">€</span>
               </div>
             </div>
             <div class="kv-cart-table__row">
               <div class="kv-cart-table__item">1</div>
               <div class="kv-cart-table__item kv-cart-table__item_col">herr Иванов Иван</div>
-              <div class="kv-cart-table__item kv-cart-table__item_price" data-kv-cart-price="€">
-                100
+              <div class="kv-price kv-cart-table__item">100
+                <span class="kv-price__currency">€</span>
               </div>
             </div>
           </div>

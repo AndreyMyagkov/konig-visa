@@ -49,7 +49,11 @@
             <div class="kv-service__text" v-html="item.description"></div>
           </div>
           <div class="kv-service__aside">
-            <div class="kv-price kv-service__price">{{item.price}}</div>
+            <div class="kv-price kv-service__price">
+              {{item.price}}
+              <span class="kv-price__currency">€</span>
+            </div>
+
             <div class="kv-service__caption">pro Person</div>
           </div>
         </div>
@@ -110,7 +114,10 @@
               }"
               v-for="(pcg, packageIndex) in data.servicePackages" :key="packageIndex"
           >
-            <div class="kv-price kv-price_second kv-services-price__price">30</div>
+            <div class="kv-price kv-price_second kv-services-price__price">
+              <template v-if="packageSelected !== pcg.id">+</template> 30
+              <span class="kv-price__currency">€</span>
+            </div>
             <div class="kv-services-price__person">pro Person</div>
             <div
                 class="kv-services-price__btn"

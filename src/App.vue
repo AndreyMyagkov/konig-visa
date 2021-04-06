@@ -41,7 +41,7 @@
               <div class="kv-cart__head">
                 <svg class="kv-cart__icon"><use href="img/icons/icons.svg#cart"></use></svg>
 
-                <div class="kv-cart__price" data-kv-cart-price="€"> {{totalAmount}}</div>
+                <div class="kv-price kv-cart__price"> {{totalAmount}} <span class="kv-price__currency">€</span></div>
                 <svg class="kv-cart__arrow drop__angle"><use href="img/icons/icons.svg#arrow_down"></use></svg>
               </div>
 
@@ -52,10 +52,10 @@
                   <div class="kv-cart-table__row" v-for="(item, i) in calculate.calculation.participants" :key="i">
                     <div class="kv-cart-table__item">{{item.nr}}</div>
                     <div class="kv-cart-table__item kv-cart-table__item_col">{{ touristInfo(i) }}</div>
-                    <div class="kv-cart-table__item kv-cart-table__item_price" data-kv-cart-price="€">
+                    <div class="kv-price kv-cart-table__item">
                       <template  v-if="item.price !== null">{{item.price}}</template>
-                      <!-- &minus -->
                       <template v-else><span v-html="constants.dashSymbol"></span> </template>
+                      <span class="kv-price__currency">€</span>
                     </div>
                   </div>
 
