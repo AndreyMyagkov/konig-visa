@@ -19,7 +19,7 @@
 
             <div class="kv-step-values__item" v-if="serviceNameSelected">
               <span>{{serviceNameSelected}}</span>
-              <span v-if="selectedDuration.name">{{selectedDuration.name}} <span v-if="selectedPrice.m">| {{selectedPrice.m}}-malige Einreise</span></span>
+              <span v-if="selectedDuration.name">{{selectedDuration.name}} <span v-if="selectedPrice.price.m">| {{selectedPrice.price.m}}-malige Einreise</span></span>
             </div>
 
           </div>
@@ -228,7 +228,8 @@
             :setup="{
               nationality: CONFIG.nationality,
               residenceRegions: CONFIG.residenceRegions,
-              duration: selectedDuration
+              duration: selectedDuration,
+              price: selectedPrice
             }"
 
             @active="loadStep2Data"
@@ -463,13 +464,7 @@ export default {
 
       // Название выбранной продолжительности
       selectedDuration: new constants.DurationDefault(),
-
-      // TODO: вынос в хелпер-констркутор прайса
-      selectedPrice: {
-        id: null,
-        m: '',
-        price: null
-      },
+      selectedPrice: new constants.PriceDefault(),
 
       // Список туристов
       tourists: [],
@@ -648,7 +643,7 @@ export default {
     async loadProductDetails() {
       try {
         this.isLoading = true;
-        let response = await fetch(`${this.CONFIG.API_URL}getCSProductDetails?clientId=${this.CONFIG.clientId}&productId=${this.selectedPrice.id}`);
+        let response = await fetch(`${this.CONFIG.API_URL}getCSProductDetails?clientId=${this.CONFIG.clientId}&productId=${this.selectedPrice.price.id}`);
         let productDetails = await response.json();
         if (response.status >= 400 && response.status < 600) {
           throw new Error(countries.Message);
@@ -673,7 +668,7 @@ export default {
         headers: headers,
         body: network.toFormUrlEncoded(
             {
-              productId: this.selectedPrice.id,
+              productId: this.selectedPrice.price.id,
               participants: this.tourists.map((item, i) => {
                 return {
                   nr: i + 1,
@@ -997,7 +992,7 @@ export default {
 
       // TODO: проверка
       if (this.currentStep === 2) {
-        if (this.selectedPrice.price !== null) {
+        if (this.selectedPrice.price.price !== null) {
           return true
         }
       }

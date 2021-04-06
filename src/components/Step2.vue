@@ -138,7 +138,7 @@
 
               <!-- item -->
               <div class="kv-processing-day__item" v-for="(price, j) in item.prices" :key="`price-${j}`">
-                <label class="kv-processing-day-chb" @click="setPrice(price)">
+                <label class="kv-processing-day-chb" @click="setPrice({price: price, info: item.info})">
                   <input type="radio"
                          name="kv-processing-day-chb"
                          aria-label="checkbox"
@@ -183,7 +183,7 @@
 
       <div class="kv-alert"
            style="padding: 20px; margin: 20px 0; background-color: var(--c-prim_light)"
-           v-if="prices.state !== 0 && selectedDurationIndex !== null"
+           v-if="prices.state !== 0 && selectedDuration.index !== null"
            v-html="prices.stateDescription"
       >
       </div>
@@ -214,16 +214,6 @@
 <script>
 import vSelect from "vue-select";
 import * as constants from "@/helpers/constants";
-
-// Конструктор пустой цены
-class PriceDefault {
-  constructor() {
-    this.id = null;
-    this.m = '';
-    this.price = null;
-  }
-}
-
 
 export default {
   name: "Step2",
@@ -268,8 +258,8 @@ export default {
       selectedDuration: Object.assign({}, this.setup.duration),
       //new constants.DurationDefault(),
       // Индекс выбранной продолжительности
-      selectedDurationIndex: null,
-      selectedPriceId: null,
+      //selectedDurationIndex: null,
+      selectedPriceId: this.setup.price.price.id, // null
 
       //selectedNationalities: null,
      // selectedResidenceRegions: ''
@@ -280,20 +270,20 @@ export default {
      * Сбрасывает цену
      */
     resetPrice() {
-      this.setPrice(new PriceDefault());
+      this.setPrice(new constants.PriceDefault());
     },
 
     /**
      * Устанавливает цену
-     * @param id - id процесса
+     * @param data
      */
-    setPrice(price) {
+    setPrice(data) {
       // Если цены нет
-      if (price.price === null) {
+      if (data.price.price === null) {
         return
       }
-      this.selectedPriceId = price.id;
-      this.$emit('update:price', price)
+      this.selectedPriceId = data.price.id;
+      this.$emit('update:price', data)
     },
 
     /**
@@ -302,17 +292,15 @@ export default {
      * @param index - индекс
      */
     selectDurations(item, index) {
-      this.selectedDuration = item;
-      this.selectedDurationIndex = index;
+      this.selectedDuration = {
+        ...item,
+        index
+      }
+      //this.selectedDurationIndex = index;
 
       this.resetPrice();
 
-      this.$emit('update:duration', item);
-
-        /*  {
-            duration: this.selectedDuration.name,
-          }
-      );*/
+      this.$emit('update:duration', this.selectedDuration);
     },
 
 
@@ -449,7 +437,7 @@ export default {
      * Возвращает кол-во кратностей выбранной продолжительности
      */
     selectedDurationsMultipliciesLength() {
-      if (this.selectedDurationIndex === null) {
+      if (this.selectedDuration.index === null) {
         return 0
       }
       return this.selectedDuration.multiplicities.length
@@ -459,7 +447,7 @@ export default {
      * Возращает массив id цен для выбранных параметров
      */
     processesArr() {
-      return this.serviceDetails.products[this.selectedDurationIndex] || []
+      return this.serviceDetails.products[this.selectedDuration.index] || []
     },
 
     /**
