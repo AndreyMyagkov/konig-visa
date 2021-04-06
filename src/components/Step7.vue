@@ -18,7 +18,7 @@
 
         <div class="kv-review-info__col">
           <div class="kv-review-info__name">Срок визы:</div>
-          <div class="kv-review-info__value">{{data.duration}}</div>
+          <div class="kv-review-info__value">{{data.duration.name}}</div>
         </div>
 
       </div>

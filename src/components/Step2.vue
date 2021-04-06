@@ -124,7 +124,8 @@
         <div class="kv-processing-days__item" v-for="(item, i) in prepareProductsPricesArr" :key="i">
           <div class="kv-processing-day" :class="{
             'kv-processing-day_active': isActiveCurrentPriceBlock(i),
-            'kv-processing-day_disabled': !isEnabledCurrentPriceBlock(i)
+            'kv-processing-day_disabled': !isDisabledCurrentPrice(i),
+            'kv-processing-day_blocked': isBlockedCurrentPrice(i)
           }">
 
             <div class="kv-processing-day__header">
@@ -152,7 +153,8 @@
                       <span class="kv-processing-day-chb__text">{{price.m}}-malige Einreise</span>
                       <span class="kv-processing-day-chb__title">
                         <template  v-if="price.price !== null">{{price.price}}</template>
-                        <template v-else>&minus; </template>
+                        <!-- &minus -->
+                        <template v-else><span v-html="constants.dashSymbol"></span> </template>
                         <span> €</span>
                       </span>
                     </span>
@@ -162,7 +164,11 @@
               </div>
               <!-- /item -->
 
-              <div class="kv-processing-day__text kv-user-text" v-html="prices.stateDescription" v-if="!isEnabledCurrentPriceBlock(i)"></div>
+              <div
+                  class="kv-processing-day__text kv-user-text"
+                  v-html="prices.stateDescription"
+                  v-if="!isDisabledCurrentPrice(i)">
+              </div>
 
 
             </div>
@@ -207,6 +213,7 @@
 
 <script>
 import vSelect from "vue-select";
+import * as constants from "@/helpers/constants";
 
 // Конструктор пустой цены
 class PriceDefault {
@@ -232,6 +239,17 @@ export default {
       type: Array,
       required: true
     },
+    prices: {
+      type: Object,
+      required: true
+    },
+
+    setup: {
+      type: Object,
+      required: true
+    }
+
+    /*
     nationality: {
       type: String,
       required: true
@@ -239,20 +257,16 @@ export default {
     residenceRegions: {
       type: String,
       required: true
-    },
-    prices: {
-      type: Object,
-      required: true
     }
+    */
+
   },
   data() {
     return {
+      constants,
       // Выбранная продолжительность
-      selectedDuration: {
-        name: '',
-        description: '',
-        multiplicities: []
-      },
+      selectedDuration: Object.assign({}, this.setup.duration),
+      //new constants.DurationDefault(),
       // Индекс выбранной продолжительности
       selectedDurationIndex: null,
       selectedPriceId: null,
@@ -293,11 +307,12 @@ export default {
 
       this.resetPrice();
 
-      this.$emit('update:duration',
-          {
+      this.$emit('update:duration', item);
+
+        /*  {
             duration: this.selectedDuration.name,
           }
-      );
+      );*/
     },
 
 
@@ -320,12 +335,38 @@ export default {
     },
 
     /**
-     * Текущий блок цен доступен для выбора?
+     * Текущий блок цен доступен для выбора по сроку обработки
      */
-    isEnabledCurrentPriceBlock(index) {
+    isDisabledCurrentPrice(index) {
       const pricesBlock = this.prepareProductsPricesArr[index];
       console.log(pricesBlock);
-      return !(this.prices.minProcessDuration > 0 && pricesBlock.info.hours < this.prices.minProcessDuration)
+      return !(this.prices.minProcessDuration > 0 &&
+              pricesBlock.info.hours < this.prices.minProcessDuration
+              )
+    },
+
+    /**
+     * Текущий блок цен заблокирован для выбора по текущей цене = null
+     */
+    isBlockedCurrentPrice(index) {
+      if (this.selectedPriceId === null) {
+        return false
+      }
+
+      const pricesBlock = this.prepareProductsPricesArr[index];
+      console.log('блок ', index)
+      console.log(pricesBlock)
+      const blockedIndex =  pricesBlock.prices.findIndex(item => {
+        if (item.id === this.selectedPriceId && item.price == null) {
+          return true
+        }
+      })
+      console.log(blockedIndex)
+      return blockedIndex >= 0
+      //return pricesBlock.prices[2].price !== null
+
+      //return this.getPriceByProductId(this.selectedPriceId) === null
+
     },
 
     /**
@@ -374,7 +415,7 @@ export default {
     // v-model для селекта национальности
     nationalitiesModel: {
       get () {
-        return this.nationalities.find(item => item.codeA2 === this.nationality)
+        return this.nationalities.find(item => item.codeA2 === this.setup.nationality)
       },
       set (value) {
         //this.resetPrice();
@@ -396,7 +437,7 @@ export default {
 */
     residenceRegionsModel: {
       get () {
-        return this.serviceDetails.servedResidenceRegions.find(item => item.code === this.residenceRegions)
+        return this.serviceDetails.servedResidenceRegions.find(item => item.code === this.setup.residenceRegions)
       },
       set (value) {
         //this.resetPrice();

@@ -19,7 +19,7 @@
 
             <div class="kv-step-values__item" v-if="serviceNameSelected">
               <span>{{serviceNameSelected}}</span>
-              <span v-if="selectedDurationName">{{selectedDurationName}} <span v-if="selectedPrice.m">| {{selectedPrice.m}}-malige Einreise</span></span>
+              <span v-if="selectedDuration.name">{{selectedDuration.name}} <span v-if="selectedPrice.m">| {{selectedPrice.m}}-malige Einreise</span></span>
             </div>
 
           </div>
@@ -52,7 +52,11 @@
                   <div class="kv-cart-table__row" v-for="(item, i) in calculate.calculation.participants" :key="i">
                     <div class="kv-cart-table__item">{{item.nr}}</div>
                     <div class="kv-cart-table__item kv-cart-table__item_col">{{ touristInfo(i) }}</div>
-                    <div class="kv-cart-table__item kv-cart-table__item_price" data-kv-cart-price="€">{{item.price}}</div>
+                    <div class="kv-cart-table__item kv-cart-table__item_price" data-kv-cart-price="€">
+                      <template  v-if="item.price !== null">{{item.price}}</template>
+                      <!-- &minus -->
+                      <template v-else><span v-html="constants.dashSymbol"></span> </template>
+                    </div>
                   </div>
 
                 </div>
@@ -219,9 +223,14 @@
         <Step2
             :serviceDetails="serviceDetails"
             :nationalities="nationalities"
-            :nationality="CONFIG.nationality"
-            :residenceRegions="CONFIG.residenceRegions"
             :prices="prices"
+
+            :setup="{
+              nationality: CONFIG.nationality,
+              residenceRegions: CONFIG.residenceRegions,
+              duration: selectedDuration
+            }"
+
             @active="loadStep2Data"
             @update:nationality="updateNationality"
             @update:residenceRegions="updateResidenceRegions"
@@ -278,7 +287,7 @@
                   toCountry: selectedCountry,
                   type: '',
                   subType: '',
-                  duration: selectedDurationName,
+                  duration: selectedDuration,
                   price: selectedPrice,
                   tourists: tourists,
                   customer: customer,
@@ -340,6 +349,7 @@ import 'vue-select/dist/vue-select.css';
 //@import "vue-select/src/scss/vue-select.scss"; в scss
 
 import * as network from '@/helpers/network';
+import * as constants from "@/helpers/constants";
 
 // TODO: стили изолировать
 import 'vue-loading-overlay/dist/vue-loading.css';
@@ -367,6 +377,7 @@ export default {
   },
   data() {
     return {
+      constants,
       isModalShow: false,
       modal: {
         title: '',
@@ -451,7 +462,8 @@ export default {
       },
 
       // Название выбранной продолжительности
-      selectedDurationName: '',
+      selectedDuration: new constants.DurationDefault(),
+
       // TODO: вынос в хелпер-констркутор прайса
       selectedPrice: {
         id: null,
@@ -844,7 +856,7 @@ export default {
     updateDuration(data){
       console.log('Обновилась продолжительность:');
       console.log(data)
-      this.selectedDurationName = data.duration
+      this.selectedDuration = data;
     },
 
 
@@ -1051,7 +1063,7 @@ export default {
       if (amount !== null) {
         return amount
       } else {
-        return "-"
+        return this.constants.dashSymbol
       }
     }
 
