@@ -43,7 +43,7 @@
     <div class="kv-services">
       <!-- Services item-->
       <div class="kv-services__item" v-for="(item, i) in data.suppServices" :key="item.id">
-        <div class="kv-service kv-services__item-inner" style="flex: 1 1">
+        <div class="kv-service kv-services__item-inner">
           <div class="kv-service__main">
             <div class="kv-service__title">{{item.name}}</div>
             <div class="kv-service__text" v-html="item.description"></div>
