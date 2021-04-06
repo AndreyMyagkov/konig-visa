@@ -913,6 +913,10 @@ export default {
         }
       })
 
+      // Сброс Duration, Price ???
+      this.selectedDuration = new constants.DurationDefault();
+      this.selectedPrice = new constants.PriceDefault();
+
     },
 
     /**

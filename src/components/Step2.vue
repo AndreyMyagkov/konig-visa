@@ -270,7 +270,10 @@ export default {
      * Сбрасывает цену
      */
     resetPrice() {
-      this.setPrice(new constants.PriceDefault());
+      //this.setPrice(new constants.PriceDefault());
+
+      this.selectedPriceId = null;
+      this.$emit('update:price', new constants.PriceDefault())
     },
 
     /**
