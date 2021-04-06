@@ -118,71 +118,69 @@
       <!-- /Processing-->
 
       <!-- Processing days-->
-      <div class="kv-processing-days"  v-if="selectedDuration.name && prices.state === 0">
+      <div class="kv-processing-days kv-processing-days_slide"  v-if="selectedDuration.name && prices.state === 0">
+        <div class="kv-processing-days__inner">
+          <!-- day -->
+          <div class="kv-processing-days__item" v-for="(item, i) in prepareProductsPricesArr" :key="i">
+            <div class="kv-processing-day" :class="{
+              'kv-processing-day_active': isActiveCurrentPriceBlock(i),
+              'kv-processing-day_disabled': !isDisabledCurrentPrice(i),
+              'kv-processing-day_blocked': isBlockedCurrentPrice(i)
+            }">
 
-        <!-- day -->
-        <div class="kv-processing-days__item" v-for="(item, i) in prepareProductsPricesArr" :key="i">
-          <div class="kv-processing-day" :class="{
-            'kv-processing-day_active': isActiveCurrentPriceBlock(i),
-            'kv-processing-day_disabled': !isDisabledCurrentPrice(i),
-            'kv-processing-day_blocked': isBlockedCurrentPrice(i)
-          }">
+              <div class="kv-processing-day__header">
+                <div class="kv-processing-day__title">Bearbeitungszeit</div>
+                <div class="kv-processing-day__nuber">{{item.info.quantity}}</div>
+                <div class="kv-processing-day__subtitle">{{item.info.duration}}</div>
+              </div>
 
-            <div class="kv-processing-day__header">
-              <div class="kv-processing-day__title">Bearbeitungszeit</div>
-              <div class="kv-processing-day__nuber">{{item.info.quantity}}</div>
-              <div class="kv-processing-day__subtitle">{{item.info.duration}}</div>
-            </div>
+              <div class="kv-processing-day__body">
 
-            <div class="kv-processing-day__body">
-
-              <!-- item -->
-              <div class="kv-processing-day__item" v-for="(price, j) in item.prices" :key="`price-${j}`">
-                <label class="kv-processing-day-chb" @click="setPrice({price: price, info: item.info})">
-                  <input type="radio"
-                         name="kv-processing-day-chb"
-                         aria-label="checkbox"
-                         :checked="price.id === selectedPriceId"
-                         :disabled="price.price === null"
-                  >
-                  <span class="kv-processing-day-chb__inner">
-                    <span class="kv-processing-day-chb__box">
-                      <svg><use href="img/icons/icons.svg#radio"></use></svg>
-                    </span>
-                    <span class="kv-processing-day-chb__caption">
-                      <span class="kv-processing-day-chb__text">{{price.m}}-malige Einreise</span>
-                      <span class="kv-processing-day-chb__title">
-                        <template  v-if="price.price !== null">{{price.price}}</template>
-                        <!-- &minus -->
-                        <template v-else><span v-html="constants.dashSymbol"></span> </template>
-                        <span> €</span>
+                <!-- item -->
+                <div class="kv-processing-day__item" v-for="(price, j) in item.prices" :key="`price-${j}`">
+                  <label class="kv-processing-day-chb" @click="setPrice({price: price, info: item.info})">
+                    <input type="radio"
+                           name="kv-processing-day-chb"
+                           aria-label="checkbox"
+                           :checked="price.id === selectedPriceId"
+                           :disabled="price.price === null"
+                    >
+                    <span class="kv-processing-day-chb__inner">
+                      <span class="kv-processing-day-chb__box">
+                        <svg><use href="img/icons/icons.svg#radio"></use></svg>
+                      </span>
+                      <span class="kv-processing-day-chb__caption">
+                        <span class="kv-processing-day-chb__text">{{price.m}}-malige Einreise</span>
+                        <span class="kv-processing-day-chb__title">
+                          <template  v-if="price.price !== null">{{price.price}}</template>
+                          <!-- &minus -->
+                          <template v-else><span v-html="constants.dashSymbol"></span> </template>
+                          <span> €</span>
+                        </span>
                       </span>
                     </span>
-                  </span>
-                </label>
+                  </label>
+
+                </div>
+                <!-- /item -->
+
+                <div
+                    class="kv-processing-day__text kv-user-text"
+                    v-html="prices.stateDescription"
+                    v-if="!isDisabledCurrentPrice(i)">
+                </div>
+
 
               </div>
-              <!-- /item -->
-
-              <div
-                  class="kv-processing-day__text kv-user-text"
-                  v-html="prices.stateDescription"
-                  v-if="!isDisabledCurrentPrice(i)">
-              </div>
-
 
             </div>
-
           </div>
+          <!-- day -->
         </div>
-        <!-- day -->
-
-
       </div>
       <!-- /Processing days-->
 
       <div class="kv-alert"
-           style="padding: 20px; margin: 20px 0; background-color: var(--c-prim_light)"
            v-if="prices.state !== 0 && selectedDuration.index !== null"
            v-html="prices.stateDescription"
       >
