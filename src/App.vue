@@ -17,8 +17,8 @@
             </div>
 
 
-            <div class="kv-step-values__item" v-if="serviceNameSelected">
-              <span>{{serviceNameSelected}}</span>
+            <div class="kv-step-values__item" v-if="selectedService.name">
+              <span>{{selectedService.name}}</span>
               <span v-if="selectedDuration.name">{{selectedDuration.name}} <span v-if="selectedPrice.price.m">| {{selectedPrice.price.m}}-malige Einreise</span></span>
             </div>
 
@@ -115,24 +115,6 @@
                   <div class="kv-buch__list">
 
                     <!-- select -->
-                    <!--
-                    <div class="kv-select">
-                      <div class="kv-select__badge">
-                        <svg class="kv-select__icon"><use href="img/icons/icons.svg#pin"></use></svg>
-                      </div>
-                      <select class="kv-select__input" v-model="selectedCountryId" @change="countryChange">
-                        <option value="0" selected>Не выбрано</option>
-                        <option :value="item.codeA3" v-for="item in countries" :key="item.codeA3">{{item.name}}</option>
-                      </select>
-                      <svg class="kv-selct__arrow">
-                        <use href="img/icons/icons.svg#arrow_down"></use>
-                      </svg>
-                    </div>
-                    -->
-                    <!-- /select -->
-
-
-                    <!-- select -->
                     <div class="kv-select">
                       <div class="kv-select__badge">
                         <svg class="kv-select__icon"><use href="img/icons/icons.svg#pin"></use></svg>
@@ -162,11 +144,10 @@
                   <div class="kv-buch__title">Выберите группу:</div>
                   <VisaTypes
                       :data="serviceGroups"
-                      :selected="[selectedServiceGroup, selectedService]"
+                      :selected="[selectedServiceGroup.id, selectedService.id]"
                       @change="selectVisaType"
                       @showModal="showModal"
                   >
-
                   </VisaTypes>
                 </div>
               </div>
@@ -178,7 +159,7 @@
                   <div class="kv-buch__title">Выберите подтип визы:</div>
                   <VisaTypes
                       :data="serviceGroupsSelected"
-                      :selected="[selectedService]"
+                      :selected="[selectedService.id]"
                       @change="selectVisaType"
                       @showModal="showModal"
                   >
@@ -286,8 +267,8 @@
         <Step7 v-if="currentStep === 7"
                :data="{
                   toCountry: selectedCountry,
-                  type: '',
-                  subType: '',
+                  service: selectedService,
+                  serviceGroup: selectedServiceGroup,
                   duration: selectedDuration,
                   price: selectedPrice,
                   tourists: tourists,
@@ -450,8 +431,9 @@ export default {
 
       selectedCountry: [],
       selectedCountryId: 0,
-      selectedServiceGroup: null,
-      selectedService: null,
+
+      selectedService: new constants.ServicesDefault(),
+      selectedServiceGroup: new constants.ServicesDefault(),
 
       calculate: {
         amount: 0,
@@ -597,7 +579,7 @@ export default {
     async loadServiceDetails() {
       try {
         this.isLoading = true;
-        let response = await fetch(`${this.CONFIG.API_URL}getCSServiceDetails?clientId=${this.CONFIG.clientId}&serviceId=${this.selectedService}`);
+        let response = await fetch(`${this.CONFIG.API_URL}getCSServiceDetails?clientId=${this.CONFIG.clientId}&serviceId=${this.selectedService.id}`);
         let serviceDetails = await response.json();
         if (response.status >= 400 && response.status < 600) {
           throw new Error(countries.Message);
@@ -620,7 +602,7 @@ export default {
     async loadPrices() {
       try {
         this.isLoading = true;
-        let response = await fetch(`${this.CONFIG.API_URL}getCSPrices?clientId=${this.CONFIG.clientId}&serviceId=${this.selectedService}&nationalityA2=${this.CONFIG.nationality}&residenceCode=${this.CONFIG.residenceRegions}&withDetails=false`);
+        let response = await fetch(`${this.CONFIG.API_URL}getCSPrices?clientId=${this.CONFIG.clientId}&serviceId=${this.selectedService.id}&nationalityA2=${this.CONFIG.nationality}&residenceCode=${this.CONFIG.residenceRegions}&withDetails=false`);
         let prices = await response.json();
         if (response.status >= 400 && response.status < 600) {
           throw new Error(countries.Message);
@@ -822,8 +804,8 @@ export default {
         this.services = srv;
         this.serviceGroups = grpServ;
 
-        this.selectedServiceGroup = null;
-        this.selectedService = null;
+        this.selectedServiceGroup = new this.constants.ServicesDefault();
+        this.selectedService = new this.constants.ServicesDefault();
 
         this.isLoading = false;
       } catch (err) {
@@ -892,26 +874,21 @@ export default {
     selectVisaType(item) {
       if (item.type === 'group') {
         console.log('Выбрана группа ' + item.id);
-        this.selectedServiceGroup = item.id;
-        this.selectedService = null;
+        this.selectedServiceGroup = item;
+        this.selectedService = new this.constants.ServicesDefault();
       } else {
-        console.log('Выбрана тип' + item.id);
-        this.selectedService = item.id;
-        this.selectedServiceGroup = item.srvGrpId;
+        console.log('Выбран тип ' + item.id);
+        this.selectedService = item;
+        //this.selectedServiceGroup = new this.constants.ServicesDefault();
+        this.selectedServiceGroup.id = item.srvGrpId;
       }
 
       this.serviceGroups.forEach(_ => {
-        _.selected = false;
-        if (item.id === _.id) {
-          _.selected = true;
-        }
+        _.selected = item.id === _.id;
       })
 
       this.services.forEach(_ => {
-        _.selected = false;
-        if (item.id === _.id) {
-          _.selected = true;
-        }
+        _.selected = item.id === _.id;
       })
 
       // Сброс Duration, Price ???
@@ -920,23 +897,6 @@ export default {
 
     },
 
-    /**
-     * Выбор группы виз
-     * TODO: DEL
-     */
-    selectServiceGroup(id) {
-      this.selectedServiceGroup = id;
-      console.log('Выбрана группа '+ id)
-    },
-
-    /**
-     * Выбор типа виз
-     * TODO: DEL
-     */
-    selectService(id) {
-      this.selectedService = id;
-      console.log('Выбран тип виз '+ id)
-    },
 
     /**
      * Обновить массив туристов
@@ -991,7 +951,7 @@ export default {
      */
     allowNext() {
       if (this.currentStep === 1) {
-        if (this.selectedCountryId && this.selectedService) {
+        if (this.selectedCountryId && this.selectedService.id) {
           return true
         }
       }
@@ -1041,11 +1001,11 @@ export default {
     },
   */
     /**
-     * Возращает название выбранного типа визы
+     * Возращает название выбранного типа визы TODO: DEL
      * @return {String}
      */
     serviceNameSelected() {
-      const service = this.services.find(item => item.id == this.selectedService)
+      const service = this.services.find(item => item.id === this.selectedService.id)
       return service ? service.name : ''
     },
 
@@ -1055,7 +1015,7 @@ export default {
      * @return {[]}
      */
     serviceGroupsSelected() {
-      return this.services.filter(item => item.srvGrpId  && item.srvGrpId === this.selectedServiceGroup)
+      return this.services.filter(item => item.srvGrpId && item.srvGrpId === this.selectedServiceGroup.id)
     },
 
 

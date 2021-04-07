@@ -27,11 +27,11 @@
       <div class="kv-row">
         <div class="kv-review-info__col">
           <div class="kv-review-info__name">Тип визы:</div>
-          <div class="kv-review-info__value">{{data.type}}</div>
+          <div class="kv-review-info__value">{{data.serviceGroup.name}}</div>
         </div>
         <div class="kv-review-info__col">
           <div class="kv-review-info__name">Кратность:</div>
-          <div class="kv-review-info__value">{{data.price.m}}-malige Einreise</div>
+          <div class="kv-review-info__value">{{data.price.price.m}}-malige Einreise</div>
         </div>
       </div>
 
@@ -39,11 +39,11 @@
       <div class="kv-row">
         <div class="kv-review-info__col">
           <div class="kv-review-info__name">Подтип визы:</div>
-          <div class="kv-review-info__value">{{data.subType}}</div>
+          <div class="kv-review-info__value">{{data.service.name}}</div>
         </div>
         <div class="kv-review-info__col">
           <div class="kv-review-info__name">Срок обработки:</div>
-          <div class="kv-review-info__value">todo</div>
+          <div class="kv-review-info__value">{{data.duration.name}}</div>
         </div>
       </div>
 
