@@ -485,7 +485,7 @@ export default {
 
       // Шаг 6
       postalServices: [],
-      postalService: null,
+      selectedPostalService: null,
 
 
       CONFIG: {
@@ -960,7 +960,7 @@ export default {
      * Смена способа доставки
      */
     postalChange(id) {
-      this.postalService = id;
+      this.selectedPostalService = id;
     }
 
   },
@@ -1014,9 +1014,11 @@ export default {
       if (this.currentStep === 5) {
         return true
       }
-      // TODO: проверка
+
       if (this.currentStep === 6) {
-        return true
+        if (this.selectedPostalService !== null) {
+          return true
+        }
       }
       // TODO: проверка
       if (this.currentStep === 7) {
