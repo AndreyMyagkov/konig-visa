@@ -676,7 +676,8 @@ export default {
                   residenceCode: item.residenceRegion.code || this.CONFIG.residenceRegions,
                   discountCode: item.discount
                 }
-              })
+              }),
+              postalServiceId: this.selectedPostalService
             }
         ),
         redirect: 'follow'
@@ -961,6 +962,7 @@ export default {
      */
     postalChange(id) {
       this.selectedPostalService = id;
+      this.sendCalculateAndValidate();
     }
 
   },
