@@ -39,3 +39,41 @@ export class ServicesDefault {
         this.selected = false;
     }
 }
+
+// Заказчик
+export class CustomerDefault {
+    constructor() {
+        this.isCompany = false;
+        this.addressingCountry = [];
+        this.gender = "";
+        this.sname = "";
+        this.name = "";
+        this.address = "";
+        this.zip = "125130";
+        this.city = "";
+        this.tel = "";
+        this.mobile = "";
+        this.email = "";
+        this.companyName = "";
+    }
+}
+
+// Доставка
+export class DeliveryDefault {
+    constructor() {
+        this.type = [];
+        this.isCompany = false;
+        this.addressingCountry = [];
+        this.gender = "";
+        this.sname = "";
+        this.name = "";
+        this.address = "";
+        this.zip = "";
+        this.city = "";
+        this.tel = "";
+        this.mobile = "";
+        this.email = "";
+        this.companyName = "";
+        this.branch = ""
+    }
+}

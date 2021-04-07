@@ -273,7 +273,8 @@
                   price: selectedPrice,
                   tourists: tourists,
                   customer: customer,
-                  delivery: delivery
+                  delivery: delivery,
+                  postalService: this.selectedPostalService
                }"
 
 
@@ -455,14 +456,9 @@ export default {
       // Шаг 5
       addressingCountries: [],
       pickupPoints: [],
-      delivery: {},
-      customer: {
-        addressingCountry: {
-          codeA3: "DEU",
-        },
-        zip: "125130",
-        city: "10115"
-      },
+      customer: new constants.CustomerDefault(),
+      delivery: new constants.DeliveryDefault(),
+
 
 
       // Шаг 6
@@ -920,8 +916,8 @@ export default {
     /**
      * Смена способа доставки
      */
-    postalChange(id) {
-      this.selectedPostalService = id;
+    postalChange(data) {
+      this.selectedPostalService = data;
       this.sendCalculateAndValidate();
     }
 

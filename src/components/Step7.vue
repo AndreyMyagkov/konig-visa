@@ -148,7 +148,7 @@
         </div>
       </div>
       <div class="kv-review-card__body">
-        <div class="kv-review-card__text">E-Mail Versand (nur für E-Visum, ETA oder ESTA)</div>
+        <div class="kv-review-card__text">{{data.postalService.name}}</div>
       </div>
     </div>
 
@@ -228,61 +228,66 @@
     </div>
 
 
-    <!-- Reveiw card-->
-    <div class="kv-review-members kv-review__item">
-      <div class="kv-review-members__row kv-review-members__row_header">
-        <div class="kv-review-members__item kv-review-members__col_1 kv-review-members__item_title">№
-        </div>
-        <div class="kv-review-members__item kv-review-members__col_2 kv-review-members__item_title">
-          Фамилия, имя Фамилия
-        </div>
-        <div class="kv-review-members__item kv-review-members__col_3 kv-review-members__item_title">
-          Гражданство
-        </div>
-        <div class="kv-review-members__item kv-review-members__col_4 kv-review-members__item_title">
-          Проживание
-        </div>
-        <div class="kv-review-members__item kv-review-members__col_5 kv-review-members__item_title">
-          Дополнительно
-        </div>
-        <div class="kv-review-members__item kv-review-members__col_6 kv-review-members__item_title">
-        </div>
-      </div>
-      <div class="kv-review-members__row">
-        <div class="kv-review-members__item kv-review-members__col_1">1</div>
-        <div class="kv-review-members__item kv-review-members__col_2">{{data.customer.gender}} {{data.customer.sname}} {{data.customer.name}}</div>
-        <div class="kv-review-members__item kv-review-members__col_3">Германия | NRV</div>
-        <div class="kv-review-members__item kv-review-members__col_4">Россия, ямало-ненецкий автономный
-          округ
-        </div>
-        <div class="kv-review-members__item kv-review-members__col_5"></div>
-        <div class="kv-review-members__item kv-review-members__col_6 kv-review-members__item_edit">
-          <div class="kv-edit">
-            <svg class="kv-edit__icon">
-              <use href="img/icons/icons.svg#edit"></use>
+    <!-- Информация о клиенте -->
+    <div class="kv-row kv-review__row kv-review__item">
+      <div class="kv-review__col">
+        <div class="kv-review-card kv-review-card_light">
+          <div class="kv-review-card__header">
+            <svg class="kv-review-card__icon">
+              <use href="img/icons/icons.svg#step_5"></use>
             </svg>
+            <div class="kv-review-card__title">Информация о Клиенте</div>
+            <div class="kv-review-card__edit">
+              <div class="kv-edit">
+                <svg class="kv-edit__icon">
+                  <use href="img/icons/icons.svg#edit"></use>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="kv-review-card__body">
+            <div class="kv-review-card__text">{{data.customer.gender}} {{data.customer.sname}} {{data.customer.name}}</div>
+            <div class="kv-review-card__text">{{data.customer.companyName}}</div>
+            <div class="kv-review-card__text">{{data.customer.address}}</div>
+            <div class="kv-review-card__text">{{data.customer.zip}}, {{data.customer.city}}, {{data.customer.addressingCountry.name}}</div>
+            <div class="kv-row">
+              <div class="kv-review-card__text">{{data.customer.tel}}</div>
+              <div class="kv-review-card__text">{{data.customer.mobile}}</div>
+            </div>
+            <div class="kv-review-card__text">{{data.customer.email}}</div>
           </div>
         </div>
       </div>
-
-      <div class="kv-review-members__row">
-        <div class="kv-review-members__item kv-review-members__col_1">1</div>
-        <div class="kv-review-members__item kv-review-members__col_2">{{data.customer.gender}} {{data.customer.sname}} {{data.customer.name}}</div>
-        <div class="kv-review-members__item kv-review-members__col_3">Германия | NRV</div>
-        <div class="kv-review-members__item kv-review-members__col_4">Россия, ямало-ненецкий автономный
-          округ
-        </div>
-        <div class="kv-review-members__item kv-review-members__col_5"></div>
-        <div class="kv-review-members__item kv-review-members__col_6 kv-review-members__item_edit">
-          <div class="kv-edit">
-            <svg class="kv-edit__icon">
-              <use href="img/icons/icons.svg#edit"></use>
+      <div class="kv-review__col">
+        <div class="kv-review-card kv-review-card_light">
+          <div class="kv-review-card__header">
+            <svg class="kv-review-card__icon">
+              <use href="img/icons/icons.svg#delivery"></use>
             </svg>
+            <div class="kv-review-card__title">Адрес доставки</div>
+            <div class="kv-review-card__edit">
+              <div class="kv-edit">
+                <svg class="kv-edit__icon">
+                  <use href="img/icons/icons.svg#edit"></use>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="kv-review-card__body">
+            <div class="kv-review-card__text">{{data.delivery.gender}} {{data.delivery.sname}} {{data.delivery.name}}</div>
+            <div class="kv-review-card__text">{{data.delivery.companyName}}</div>
+            <div class="kv-review-card__text">{{data.delivery.address}}</div>
+            <div class="kv-review-card__text">{{data.delivery.zip}}, {{data.delivery.city}}, {{data.delivery.addressingCountry.name}}</div>
+            <div class="kv-row">
+              <div class="kv-review-card__text">{{data.delivery.tel}}</div>
+              <div class="kv-review-card__text">{{data.delivery.mobile}}</div>
+            </div>
+            <div class="kv-review-card__text">{{data.delivery.email}}</div>
           </div>
         </div>
       </div>
-
     </div>
+    <!-- /Информация о клиенте -->
 
 
 
