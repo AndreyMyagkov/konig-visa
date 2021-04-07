@@ -1,5 +1,9 @@
 <template>
   <div class="kv-content__body">
+
+    Трогали поля  {{$v.$anyDirty}}<br>
+    Есть ошибки  {{$v.$anyError}}<br>
+    Успех {{ $v.$anyDirty &&  !$v.$invalid }}
     <div class="kv-form">
 
       <!-- Customer-->
@@ -10,7 +14,7 @@
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item kv-form__item_chb">
               <label class="kv-form-radio">
-                <input type="checkbox" aria-label="company" v-model="customer.isCompany">
+                <input type="checkbox" aria-label="company" v-model="customer.isCompany" @change="$v.customer.companyName.$reset">
                 <span class="kv-form-radio__mark">
                   <svg><use href="img/icons/icons.svg#form_chb"></use></svg>
                 </span>
@@ -25,8 +29,8 @@
         <div class="kv-form__row kv-row" v-if="customer.isCompany">
           <!-- company name -->
           <div class="kv-form__item-wrap kv-from__col">
-            <div class="kv-form__item">
-              <input type="text" id="companyname" placeholder=" " v-model="customer.companyName">
+            <div class="kv-form__item"  :class="{ 'kv-form__item_error': $v.customer.companyName.$error }">
+              <input type="text" id="companyname" placeholder=" " v-model="$v.customer.companyName.$model">
               <label class="kv-form__label" for="companyname">Название фирмы</label>
             </div>
           </div>
@@ -37,9 +41,9 @@
         <div class="kv-row kv-form__row">
           <!-- gender -->
           <div class="kv-form__item-wrap kv-from__col">
-            <div class="kv-form__item kv-form__item_chb">
+            <div class="kv-form__item kv-form__item_chb" :class="{ 'kv-form__item_error': $v.customer.gender.$error }">
               <label class="kv-form-radio">
-                <input type="radio" name="gender" aria-label="Herr" value="herr" v-model="customer.gender">
+                <input type="radio" name="gender" aria-label="Herr" value="herr" v-model="$v.customer.gender.$model">
                 <span class="kv-form-radio__mark">
                   <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
                 </span>
@@ -59,8 +63,8 @@
 
           <!-- sname -->
           <div class="kv-form__item-wrap kv-from__col">
-            <div class="kv-form__item">
-              <input type="text" placeholder=" " id="sname1" v-model="customer.sname">
+            <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.customer.sname.$error }">
+              <input type="text" placeholder=" " id="sname1" v-model.trim="$v.customer.sname.$model">
               <label class="kv-form__label" for="sname1">Фамилия</label>
             </div>
           </div>
@@ -68,8 +72,8 @@
 
           <!-- name -->
           <div class="kv-form__item-wrap kv-from__col">
-            <div class="kv-form__item">
-              <input type="text" placeholder=" " id="name1" v-model="customer.name">
+            <div class="kv-form__item"  :class="{ 'kv-form__item_error': $v.customer.name.$error }">
+              <input type="text" placeholder=" " id="name1" v-model="$v.customer.name.$model">
               <label class="kv-form__label" for="name1">Имя</label>
             </div>
           </div>
@@ -81,8 +85,8 @@
         <div class="kv-form__row kv-row">
           <!-- address -->
           <div class="kv-form__item-wrap kv-from__col">
-            <div class="kv-form__item">
-              <input type="text" placeholder=" " id="address1"  v-model="customer.address">
+            <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.customer.address.$error }">
+              <input type="text" placeholder=" " id="address1"  v-model="$v.customer.address.$model">
               <label class="kv-form__label" for="address1">Адресс</label>
             </div>
           </div>
@@ -95,8 +99,8 @@
 
           <!-- index -->
           <div class="kv-form__item-wrap kv-from__col">
-            <div class="kv-form__item">
-              <input type="text" placeholder=" " id="zip1" v-model="customer.zip">
+            <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.customer.zip.$error }">
+              <input type="text" placeholder=" " id="zip1" v-model="$v.customer.zip.$model">
               <label class="kv-form__label" for="zip1">Индекс</label>
             </div>
           </div>
@@ -104,8 +108,8 @@
 
           <!-- city -->
           <div class="kv-form__item-wrap kv-from__col">
-            <div class="kv-form__item">
-              <input type="text" placeholder=" " id="city1" v-model="customer.city">
+            <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.customer.city.$error }">
+              <input type="text" placeholder=" " id="city1" v-model="$v.customer.city.$model">
               <label class="kv-form__label" for="city1">Город</label>
             </div>
           </div>
@@ -113,16 +117,16 @@
 
           <!-- country -->
           <div class="kv-form__item-wrap kv-from__col">
-            <div class="kv-form__item kv_is-focused" ref="addressingCountries">
+            <div class="kv-form__item kv_is-focused" ref="addressingCountries" :class="{ 'kv-form__item_error': $v.customer.addressingCountry.$error }">
               <v-select
                   :options="addressingCountries"
                   label="name"
                   placeholder="Выберите"
-                  v-model="customer.addressingCountry"
+                  v-model="$v.customer.addressingCountry.$model"
                   :clearable="false"
                   @option:selected=""
                   @search:focus="$refs.addressingCountries.classList.add('test')"
-                  @search:blur="$refs.addressingCountries.classList.remove('test')"
+                  @search:blur="$v.customer.addressingCountry.$touch()"
               />
 
               <label class="kv-form__label">Страна</label>
@@ -137,7 +141,7 @@
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item">
              <!-- <input type="tel" placeholder=" " id="phone1" v-model="customer.tel">-->
-              <the-mask mask="# (###) ### ## ##" type="tel" masked="false" placeholder=" " id="phone1" v-model="customer.tel"></the-mask>
+              <the-mask mask="# (###) ### ## ##" type="tel" :masked="false" placeholder=" " id="phone1" v-model="customer.tel"></the-mask>
 
               <label class="kv-form__label" for="phone1">Телефон</label>
             </div>
@@ -148,7 +152,7 @@
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item">
               <!--<input type="tel" placeholder=" " id="cellphone1"  v-model="customer.mobile">-->
-              <the-mask mask="# (###) ### ## ##" type="tel" masked="false" placeholder=" " id="cellphone1" v-model="customer.mobile"></the-mask>
+              <the-mask mask="# (###) ### ## ##" type="tel" :masked="false" placeholder=" " id="cellphone1" v-model="customer.mobile"></the-mask>
               <label class="kv-form__label" for="cellphone1">Мобильный телефон</label>
             </div>
           </div>
@@ -156,8 +160,8 @@
 
           <!-- email -->
           <div class="kv-form__item-wrap kv-from__col">
-            <div class="kv-form__item">
-              <input type="email" placeholder=" " id="email1"  v-model="customer.email">
+            <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.customer.email.$error }">
+              <input type="email" placeholder=" " id="email1"  v-model="$v.customer.email.$model">
               <label class="kv-form__label" for="email1">email</label>
             </div>
           </div>
@@ -415,8 +419,11 @@
 
 <script>
 import vSelect from "vue-select";
-import {TheMask} from 'vue-the-mask'
+import { TheMask } from 'vue-the-mask';
+import { required, minLength, email } from 'vuelidate/lib/validators';
 import * as arrayHelper from '@/helpers/array';
+
+const isCountrySelected = (value) => !Array.isArray(value)
 export default {
   name: "Step5",
   props: {
@@ -449,7 +456,6 @@ export default {
     return {
       customer: Object.assign({}, this.customerDefault),
       delivery: Object.assign({}, this.deliveryDefault),
-
 
       /*
       customer: {
@@ -485,6 +491,53 @@ export default {
 */
 
     }
+  },
+  validations: {
+
+    customer: {
+      companyName: {
+        //required,
+        //minLength: minLength(1)
+
+        checkCompany:  (value, vm) => {
+          return !vm.isCompany || (vm.isCompany && value.length > 0)
+        }
+
+      },
+      gender: {
+        required,
+        minLength: minLength(1)
+      },
+      sname: {
+        required,
+        minLength: minLength(1)
+      },
+      name: {
+        required,
+        minLength: minLength(1)
+      },
+      address: {
+        required,
+        minLength: minLength(1)
+      },
+      zip: {
+        required,
+        minLength: minLength(1)
+      },
+      city: {
+        required,
+        minLength: minLength(1)
+      },
+      addressingCountry: {
+        isCountrySelected
+      },
+      email: {
+        email,
+        minLength: minLength(1)
+      },
+
+    }
+
   },
   computed: {
 
