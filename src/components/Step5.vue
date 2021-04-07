@@ -2,7 +2,7 @@
   <div class="kv-content__body">
     <div class="kv-form">
 
-      <!-- Form card-->
+      <!-- Customer-->
       <div class="kv-form-card kv-form-card_dis">
         <!-- From row-->
         <div class="kv-row kv-form__row">
@@ -163,12 +163,8 @@
       </div>
 
 
-
-
-
-
-      <!-- Form card-->
-      <div class="kv-form-card">
+      <!-- Delivery-->
+      <div class="kv-form-card" v-if="!isDeliveryByEmail">
         <div class="kv-form__header">
 
           <!-- From row-->
@@ -216,8 +212,8 @@
             </div>
             <!-- другой адрес доставки  -->
 
-            <!-- забрать -->
-            <div class="kv-form__item-wrap kv-from__col">
+            <!-- самовывоз -->
+            <div class="kv-form__item-wrap kv-from__col" v-if="preparedPickupPoints !== null && preparedPickupPoints.length > 0">
               <div class="kv-form__item kv-form__item_chb"
                    :class="{
                     'kv-form__item_border': delivery.type == 3
@@ -232,7 +228,7 @@
                 </label>
               </div>
             </div>
-            <!-- /-->
+            <!-- /самовывоз -->
           </div>
         </div>
 
@@ -405,6 +401,11 @@
         </template>
 
       </div>
+
+      <div class="kv-alert" v-if="isDeliveryByEmail">
+        Документы будут доставлены на электронный адрес клиента
+      </div>
+
     </div>
   </div>
 </template>
@@ -422,6 +423,18 @@ export default {
     pickupPoints: {
       type: Array,
       required: true
+    },
+    customerDefault: {
+      type: Object,
+      required: true
+    },
+    deliveryDefault: {
+      type: Object,
+      required: true
+    },
+    isDeliveryByEmail: {
+      type: Boolean,
+      required: false
     }
   },
   components: {
@@ -429,6 +442,11 @@ export default {
   },
   data() {
     return {
+      customer: Object.assign({}, this.customerDefault),
+      delivery: Object.assign({}, this.deliveryDefault),
+
+
+      /*
       customer: {
         isCompany: false,
         addressingCountry: [],
@@ -444,7 +462,7 @@ export default {
         companyName: ''
       },
       delivery: {
-        type: [], // TODO: по справочнику
+        type: 1, // TODO: по справочнику
         isCompany: false,
         gender: '',
         addressingCountry: [],
@@ -459,6 +477,8 @@ export default {
         companyName: '',
         branch: ''
       }
+*/
+
     }
   },
   computed: {

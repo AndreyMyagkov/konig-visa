@@ -61,7 +61,7 @@ export class CustomerDefault {
 // Доставка
 export class DeliveryDefault {
     constructor() {
-        this.type = [];
+        this.type = 1;
         this.isCompany = false;
         this.addressingCountry = [];
         this.gender = "";

@@ -251,6 +251,9 @@
         <Step5 v-if="currentStep === 5"
                :addressingCountries="addressingCountries"
                :pickupPoints="pickupPoints"
+               :customerDefault="customer"
+               :deliveryDefault="delivery"
+               :isDeliveryByEmail="calculate.deliveryMedia === 'digital'"
                @active="loadStep5Data"
         />
         <!-- /STEP 5 -->
@@ -1033,6 +1036,8 @@ export default {
     if (!this.initiateWidgete()) {
       return false
     }
+
+
 
     // 2. Загружаем справочники стран
     this.loadCountries()
