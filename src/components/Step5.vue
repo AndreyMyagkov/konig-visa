@@ -136,7 +136,9 @@
           <!-- phone -->
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item">
-              <input type="tel" placeholder=" " id="phone1" v-model="customer.tel">
+             <!-- <input type="tel" placeholder=" " id="phone1" v-model="customer.tel">-->
+              <the-mask mask="# (###) ### ## ##" type="tel" masked="false" placeholder=" " id="phone1" v-model="customer.tel"></the-mask>
+
               <label class="kv-form__label" for="phone1">Телефон</label>
             </div>
           </div>
@@ -145,7 +147,8 @@
           <!-- mphone -->
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item">
-              <input type="tel" placeholder=" " id="cellphone1"  v-model="customer.mobile">
+              <!--<input type="tel" placeholder=" " id="cellphone1"  v-model="customer.mobile">-->
+              <the-mask mask="# (###) ### ## ##" type="tel" masked="false" placeholder=" " id="cellphone1" v-model="customer.mobile"></the-mask>
               <label class="kv-form__label" for="cellphone1">Мобильный телефон</label>
             </div>
           </div>
@@ -412,6 +415,7 @@
 
 <script>
 import vSelect from "vue-select";
+import {TheMask} from 'vue-the-mask'
 import * as arrayHelper from '@/helpers/array';
 export default {
   name: "Step5",
@@ -438,7 +442,8 @@ export default {
     }
   },
   components: {
-    vSelect
+    vSelect,
+    TheMask
   },
   data() {
     return {
