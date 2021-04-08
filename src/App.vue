@@ -255,6 +255,7 @@
                :deliveryDefault="delivery"
                :isDeliveryByEmail="calculate.deliveryMedia === 'digital'"
                @active="loadStep5Data"
+               @isValid="steps[4].isValid = $event"
         />
         <!-- /STEP 5 -->
 
@@ -394,7 +395,8 @@ export default {
         {
           crumb: 'Информация о заказчике',
           header: 'Информация о заказчике',
-          icon: 'step_5'
+          icon: 'step_5',
+          isValid: false
         },
         {
           crumb: 'Способ отправки',
@@ -658,7 +660,7 @@ export default {
                   discountCode: item.discount
                 }
               }),
-              postalServiceId: this.selectedPostalService
+              postalServiceId: this.selectedPostalService === null ? "" : this.selectedPostalService.id
             }
         ),
         redirect: 'follow'
@@ -973,7 +975,7 @@ export default {
 
       // TODO: проверка
       if (this.currentStep === 5) {
-        return true
+        return this.steps[4].isValid
       }
 
       if (this.currentStep === 6) {

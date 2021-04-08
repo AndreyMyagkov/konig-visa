@@ -49,7 +49,7 @@ export class CustomerDefault {
         this.sname = "";
         this.name = "";
         this.address = "";
-        this.zip = "125130";
+        this.zip = "";
         this.city = "";
         this.tel = "";
         this.mobile = "";

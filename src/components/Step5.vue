@@ -1,9 +1,6 @@
 <template>
   <div class="kv-content__body">
 
-    Трогали поля  {{$v.$anyDirty}}<br>
-    Есть ошибки  {{$v.$anyError}}<br>
-    Успех {{ $v.$anyDirty &&  !$v.$invalid }}
     <div class="kv-form">
 
       <!-- Customer-->
@@ -51,7 +48,7 @@
               </label>
 
               <label class="kv-form-radio">
-                <input type="radio" name="gender" aria-label="Frau" required value="frau" v-model="customer.gender">
+                <input type="radio" name="gender" aria-label="Frau" value="frau"  v-model="$v.customer.gender.$model">
                 <span class="kv-form-radio__mark">
                   <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
                 </span>
@@ -87,7 +84,7 @@
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.customer.address.$error }">
               <input type="text" placeholder=" " id="address1"  v-model="$v.customer.address.$model">
-              <label class="kv-form__label" for="address1">Адресс</label>
+              <label class="kv-form__label" for="address1">Адрес</label>
             </div>
           </div>
           <!-- /address -->
@@ -150,9 +147,9 @@
 
           <!-- mphone -->
           <div class="kv-form__item-wrap kv-from__col">
-            <div class="kv-form__item">
+            <div class="kv-form__item"  :class="{ 'kv-form__item_error': $v.customer.mobile.$error }">
               <!--<input type="tel" placeholder=" " id="cellphone1"  v-model="customer.mobile">-->
-              <the-mask mask="# (###) ### ## ##" type="tel" :masked="false" placeholder=" " id="cellphone1" v-model="customer.mobile"></the-mask>
+              <the-mask mask="# (###) ### ## ##" type="tel" :masked="false" placeholder=" " id="cellphone1" v-model="$v.customer.mobile.$model"></the-mask>
               <label class="kv-form__label" for="cellphone1">Мобильный телефон</label>
             </div>
           </div>
@@ -246,7 +243,7 @@
             <div class="kv-form__item-wrap kv-from__col">
               <div class="kv-form__item kv-form__item_chb">
                 <label class="kv-form-radio">
-                  <input type="checkbox" v-model="delivery.isCompany">
+                  <input type="checkbox" v-model="delivery.isCompany"  @change="$v.delivery.companyName.$reset">
                   <span class="kv-form-radio__mark">
                     <svg><use href="img/icons/icons.svg#form_chb"></use></svg>
                   </span>
@@ -264,8 +261,8 @@
           <div class="kv-form__row kv-row" v-if="delivery.isCompany">
             <!-- company name -->
             <div class="kv-form__item-wrap kv-from__col">
-              <div class="kv-form__item">
-                <input type="text" id="companyname2" placeholder=" " v-model="delivery.companyName">
+              <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.companyName.$error }">
+                <input type="text" id="companyname2" placeholder=" " v-model="$v.delivery.companyName.$model">
                 <label class="kv-form__label" for="companyname2">Название фирмы</label>
               </div>
             </div>
@@ -275,18 +272,18 @@
 
           <!-- From row-->
           <div class="kv-row kv-form__row">
-            <!--  company -->
+            <!--  gender -->
             <div class="kv-form__item-wrap kv-from__col">
-              <div class="kv-form__item kv-form__item_chb">
+              <div class="kv-form__item kv-form__item_chb" :class="{ 'kv-form__item_error': $v.delivery.gender.$error }">
                 <label class="kv-form-radio">
-                  <input type="radio" name="gender2" v-model="delivery.gender" value="herr">
+                  <input type="radio" name="gender2" value="herr"  v-model="$v.delivery.gender.$model">
                   <span class="kv-form-radio__mark">
                     <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
                   </span>
                   <span class="kv-form-radio__caption">Herr</span>
                 </label>
                 <label class="kv-form-radio">
-                  <input type="radio" name="gender2" v-model="delivery.gender" value="frau">
+                  <input type="radio" name="gender2" value="frau" v-model="$v.delivery.gender.$model">
                   <span class="kv-form-radio__mark">
                     <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
                   </span>
@@ -296,15 +293,15 @@
             </div>
 
             <div class="kv-form__item-wrap kv-from__col">
-              <div class="kv-form__item">
-                <input type="text" placeholder=" " id="sname2" name="sname2" v-model="delivery.sname">
+              <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.sname.$error }">
+                <input type="text" placeholder=" " id="sname2" name="sname2" v-model.trim="$v.delivery.sname.$model">
                 <label class="kv-form__label" for="sname2">Фамилия</label>
               </div>
             </div>
 
             <div class="kv-form__item-wrap kv-from__col">
-              <div class="kv-form__item">
-                <input type="text" placeholder=" " id="name2" name="name2"  v-model="delivery.name">
+              <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.name.$error }">
+                <input type="text" placeholder=" " id="name2" name="name2" v-model="$v.delivery.name.$model">
                 <label class="kv-form__label" for="name2">Имя</label>
               </div>
             </div>
@@ -313,8 +310,8 @@
 
           <div class="kv-form__row kv-row">
             <div class="kv-form__item-wrap kv-from__col">
-              <div class="kv-form__item">
-                <input type="text" placeholder=" " id="address2" name="address2" v-model="delivery.address">
+              <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.address.$error }">
+                <input type="text" placeholder=" " id="address2" name="address2" v-model="$v.delivery.address.$model">
                 <label class="kv-form__label" for="address2">Адресс</label>
               </div>
             </div>
@@ -323,30 +320,30 @@
 
           <div class="kv-form__row kv-row">
             <div class="kv-form__item-wrap kv-from__col">
-              <div class="kv-form__item">
-                <input type="text" placeholder=" " id="zip2" name="zip2" v-model="delivery.zip">
+              <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.zip.$error }">
+                <input type="text" placeholder=" " id="zip2" name="zip2" v-model="$v.delivery.zip.$model">
                 <label class="kv-form__label" for="zip2">Индекс</label>
               </div>
             </div>
 
             <div class="kv-form__item-wrap kv-from__col">
-              <div class="kv-form__item">
-                <input type="text" placeholder=" " id="city2" name="city2" v-model="delivery.city">
+              <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.city.$error }">
+                <input type="text" placeholder=" " id="city2" name="city2" v-model="$v.delivery.city.$model">
                 <label class="kv-form__label" for="city2">Город</label>
               </div>
             </div>
 
             <div class="kv-form__item-wrap kv-from__col">
-              <div class="kv-form__item kv_is-focused" ref="addressingCountries2">
+              <div class="kv-form__item kv_is-focused" ref="addressingCountries2" :class="{ 'kv-form__item_error': $v.delivery.addressingCountry.$error }">
                 <v-select
                     :options="addressingCountries"
                     label="name"
                     placeholder="Выберите"
-                    v-model="delivery.addressingCountry"
+                    v-model="$v.delivery.addressingCountry.$model"
                     :clearable="false"
                     @option:selected=""
                     @search:focus="$refs.addressingCountries2.classList.add('test')"
-                    @search:blur="$refs.addressingCountries2.classList.remove('test')"
+                    @search:blur="$v.delivery.addressingCountry.$touch()"
                 />
                 <label class="kv-form__label">Страна</label>
               </div>
@@ -357,21 +354,25 @@
           <div class="kv-form__row kv-row">
             <div class="kv-form__item-wrap kv-from__col">
               <div class="kv-form__item">
-                <input type="tel" placeholder=" " id="phone2"  v-model="delivery.tel">
+                <!--<input type="tel" placeholder=" " id="phone2"  v-model="delivery.tel">-->
+                <the-mask mask="# (###) ### ## ##" type="tel"
+                          :masked="false" placeholder=" " id="phone2" v-model="delivery.tel"></the-mask>
                 <label class="kv-form__label" for="phone2">Телефон</label>
               </div>
             </div>
 
             <div class="kv-form__item-wrap kv-from__col">
-              <div class="kv-form__item">
-                <input type="tel" placeholder=" " id="cellphone2" name="cellphone2" v-model="delivery.mobile">
+              <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.mobile.$error }">
+                <!--<input type="tel" placeholder=" " id="cellphone2" name="cellphone2" v-model="delivery.mobile">-->
+                <the-mask mask="# (###) ### ## ##" type="tel"
+                          :masked="false" placeholder=" " id="cellphone2" v-model="$v.delivery.mobile.$model"></the-mask>
                 <label class="kv-form__label" for="cellphone2">Мобильный телефон</label>
               </div>
             </div>
 
             <div class="kv-form__item-wrap kv-from__col">
-              <div class="kv-form__item">
-                <input type="email" placeholder=" " id="email2" name="email2"  v-model="delivery.email">
+              <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.email.$error }">
+                <input type="email" placeholder=" " id="email2" name="email2"  v-model="$v.delivery.email.$model">
                 <label class="kv-form__label" for="email2">email</label>
               </div>
             </div>
@@ -423,7 +424,10 @@ import { TheMask } from 'vue-the-mask';
 import { required, minLength, email } from 'vuelidate/lib/validators';
 import * as arrayHelper from '@/helpers/array';
 
-const isCountrySelected = (value) => !Array.isArray(value)
+const isCountrySelected = (value) => !Array.isArray(value);
+const checkCompany = (value, vm) => !vm.isCompany || (vm.isCompany && value.length > 0);
+
+
 export default {
   name: "Step5",
   props: {
@@ -498,11 +502,12 @@ export default {
       companyName: {
         //required,
         //minLength: minLength(1)
+        checkCompany
 
-        checkCompany:  (value, vm) => {
+        /*checkCompany:  (value, vm) => {
           return !vm.isCompany || (vm.isCompany && value.length > 0)
         }
-
+        */
       },
       gender: {
         required,
@@ -531,8 +536,56 @@ export default {
       addressingCountry: {
         isCountrySelected
       },
+      mobile: {
+        required,
+        minLength: minLength(11)
+      },
       email: {
         email,
+        required,
+        minLength: minLength(1)
+      },
+
+    },
+
+    delivery: {
+      companyName: {
+        checkCompany
+      },
+      gender: {
+        required,
+        minLength: minLength(1)
+      },
+      sname: {
+        required,
+        minLength: minLength(1)
+      },
+      name: {
+        required,
+        minLength: minLength(1)
+      },
+      address: {
+        required,
+        minLength: minLength(1)
+      },
+      zip: {
+        required,
+        minLength: minLength(1)
+      },
+      city: {
+        required,
+        minLength: minLength(1)
+      },
+      addressingCountry: {
+        isCountrySelected
+      },
+      mobile: {
+        required,
+        minLength: minLength(11)
+      },
+      email: {
+        email,
+        required,
         minLength: minLength(1)
       },
 
@@ -543,6 +596,27 @@ export default {
 
     preparedPickupPoints() {
       return arrayHelper.arrayToSubArrays(this.pickupPoints, 2)
+    },
+    isFormCorrect() {
+      const customerIsValid = this.$v.customer.$anyDirty &&  !this.$v.customer.$invalid;
+      const deliveryIsValid = this.$v.delivery.$anyDirty &&  !this.$v.delivery.$invalid;
+
+      let isValid = false;
+
+      // Адрес доставки совпадает с заказчиком или Электронная доставка
+      if (this.delivery.type == 1) {
+        isValid = customerIsValid;
+      }
+      // Адрес доставки отличается от заказчика
+      if (this.delivery.type == 2) {
+        isValid = customerIsValid && deliveryIsValid;
+      }
+      if (this.delivery.type == 3) {
+        isValid = customerIsValid && this.delivery.branch !== "";
+      }
+
+      this.$emit('isValid', isValid)
+      return isValid
     }
   },
   mounted() {
