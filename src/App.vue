@@ -256,6 +256,7 @@
                :isDeliveryByEmail="calculate.deliveryMedia === 'digital'"
                @active="loadStep5Data"
                @isValid="steps[4].isValid = $event"
+               @update="setCustomerDelivery"
         />
         <!-- /STEP 5 -->
 
@@ -924,6 +925,15 @@ export default {
     postalChange(data) {
       this.selectedPostalService = data;
       this.sendCalculateAndValidate();
+    },
+
+
+    /* Step 6 */
+    setCustomerDelivery(data) {
+      console.log('обновить customer');
+      console.log(data)
+      this.customer = data.customer;
+      this.delivery = data.delivery
     }
 
   },
@@ -1029,7 +1039,9 @@ export default {
       } else {
         return this.constants.dashSymbol
       }
-    }
+    },
+
+
 
 
   },

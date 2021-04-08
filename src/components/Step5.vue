@@ -1,6 +1,20 @@
 <template>
   <div class="kv-content__body">
 
+    <button @click='customer = {
+      isCompany: false,
+      addressingCountry: {codeA2: "DE", codeA3: "DEU", name: "Deutschland"},
+      gender: "frau",
+      sname: "1",
+      name: "2",
+      address: "3",
+      zip: "4",
+      city: "5",
+      tel: "6",
+      mobile: "77777777777",
+      email: "qw@qw.ru",
+      companyName: "8",
+    }; $v.customer.$touch(); $v.delivery.$touch();$v.$touch()'>Тестовые данные</button>
     <div class="kv-form">
 
       <!-- Customer-->
@@ -621,6 +635,13 @@ export default {
   },
   mounted() {
     this.$emit('active');
+  },
+  beforeDestroy() {
+    // Отправка формы в корень
+    this.$emit('update', {
+      customer: this.customer,
+      delivery: this.delivery
+    })
   }
 }
 </script>
