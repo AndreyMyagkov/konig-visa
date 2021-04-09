@@ -5,26 +5,26 @@
 
 
       <!-- Form card-->
-      <div class="kv-form-card" v-for="(item, index) in tourists" :key="index">
+      <div class="kv-form-card" v-for="(item, index) in $v.tourists.$each.$iter" :key="index">
 
         <div class="kv-form__row kv-row kv-row_rev">
           <div class="kv-form__item-wrap kv-form__item-wrap_center kv-from__col_2">
-            <div class="kv-form-title">Участник №{{index+1}}</div>
+            <div class="kv-form-title">Участник №{{parseInt(index)+1}}</div>
           </div>
         </div>
 
         <div class="kv-form__row kv-row kv-row_rev">
           <div class="kv-form__item-wrap kv-from__col">
-            <div class="kv-form__item kv-form__item_chb">
+            <div class="kv-form__item kv-form__item_chb" :class="{ 'kv-form__item_error': item.gender.$error }">
               <label class="kv-form-radio">
-                <input type="radio" aria-label="checkbox" v-model="tourists[index].gender"  value="herr">
+                <input type="radio" aria-label="checkbox" v-model="item.gender.$model"  value="herr">
                 <span class="kv-form-radio__mark">
                    <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
                 </span>
                 <span class="kv-form-radio__caption">Herr</span>
               </label>
               <label class="kv-form-radio">
-                <input type="radio" aria-label="checkbox" v-model="tourists[index].gender"   value="frau">
+                <input type="radio" aria-label="checkbox" v-model="item.gender.$model"   value="frau">
                 <span class="kv-form-radio__mark">
                   <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
                 </span>
@@ -42,18 +42,27 @@
         <div class="kv-form__row kv-row">
           <!-- SName -->
           <div class="kv-form__item-wrap kv-from__col">
-            <div class="kv-form__item">
-              <input type="text" id="sname" v-model="tourists[index].sname">
-              <label class="kv-form__label" for="sname">Фамилия</label>
+            <div class="kv-form__item" :class="{ 'kv-form__item_error': item.sname.$error }">
+              <input
+                    type="text"
+                    :id="`sname-${index}`"
+                    placeholder=" "
+                    v-model.trim="item.sname.$model"
+                    @change="setField(index,'sname', $event.target.value)">
+              <label class="kv-form__label" :for="`sname-${index}`">Фамилия</label>
             </div>
           </div>
           <!-- /SName -->
 
           <!-- Name -->
           <div class="kv-form__item-wrap kv-from__col">
-            <div class="kv-form__item">
-              <input type="text" id="name" v-model="tourists[index].name">
-              <label class="kv-form__label" for="name">Имя</label>
+            <div class="kv-form__item" :class="{ 'kv-form__item_error': item.name.$error }">
+              <input
+                  type="text"
+                  :id="`name-${index}`"
+                  placeholder=" "
+                  v-model.trim="item.name.$model">
+              <label class="kv-form__label" :for="`name-${index}`">Имя</label>
             </div>
           </div>
           <!-- /Name -->
@@ -64,21 +73,24 @@
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item kv_is-focused"
                  :class="{
-                    'kv_is-focused-': tourists[index].nationalityIsFocused,
+                    'kv_is-focused-': item.nationalityIsFocused,
+                    'kv-form__item_error': item.nationality.$error
                  }"
             >
               <v-select
                   :options="nationalities"
                   label="name"
+                  :id="`nationality-${index}`"
                   placeholder="Выберите"
-                  v-model="tourists[index].nationality"
+                  v-model="item.nationality.$model"
                   :clearable="false"
                   @option:selected="calculateAndValidate"
-                  @search:focus="tourists[index].nationalityIsFocused = true"
-                  @search:blur="tourists[index].nationalityIsFocused = false"
+                  @search:focus="item.nationalityIsFocused = true"
+                  @search:blur="item.nationalityIsFocused = false"
               />
 <!-- @search:focus="tourists[index].nationalityIsFocused = true" -->
-              <label class="kv-form__label" for="name">Гражданство</label>
+              <label class="kv-form__label" :for="`nationality-${index}`">Гражданство</label>
+
             </div>
           </div>
           <!-- Nationality -->
@@ -88,7 +100,8 @@
             <div
                 class="kv-form__item kv_is-focused"
                 :class="{
-                    'kv_is-focused-': tourists[index].residenceRegionsFocused,
+                    'kv_is-focused-': item.residenceRegionsFocused,
+                    'kv-form__item_error': item.residenceRegion.$error
                  }"
                  v-if="productDetails.servedResidenceRegions !== null"
             >
@@ -96,15 +109,16 @@
               <v-select
                   :options="productDetails.servedResidenceRegions"
                   label="name"
+                  :id="`residenceRegion-${index}`"
                   placeholder="Выберите"
-                  v-model="tourists[index].residenceRegion"
+                  v-model="item.residenceRegion.$model"
                   :clearable="false"
                   @option:selected="calculateAndValidate"
-                  @search:focus="tourists[index].residenceRegionsFocused = true"
-                  @search:blur="tourists[index].residenceRegionsFocused = false"
+                  @search:focus="item.residenceRegionsFocused = true"
+                  @search:blur="item.residenceRegionsFocused = false"
               />
 
-              <label class="kv-form__label" for="name">Место жительства</label>
+              <label class="kv-form__label" :for="`residenceRegion-${index}`">Место жительства</label>
             </div>
           </div>
           <!-- /Residence -->
@@ -115,11 +129,15 @@
           <!-- Discounts -->
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item kv_is-focused" v-if="productDetails.discounts !== null">
-              <select class="kv-form__sel" v-model="tourists[index].discount" @change="calculateAndValidate">
+              <select
+                  class="kv-form__sel"
+                  v-model="item.discount.$model"
+                  @change="calculateAndValidate"
+                  :id="`discount-${index}`">
                 <option value="null" label="Нет"></option>
                 <option :value="item.code" v-for="item in productDetails.discounts" :key="`${item.code}-${index}`">{{item.name}}</option>
               </select>
-              <label class="kv-form__label" for="name">Скидка</label>
+              <label class="kv-form__label" :for="`discount-${index}`">Скидка</label>
               <svg class="kv-form__sel-arrow">
                 <use href="img/icons/icons.svg#select"></use>
               </svg>
@@ -130,9 +148,12 @@
 
           <!-- BirthDate -->
           <div class="kv-form__item-wrap kv-from__col">
-            <div class="kv-form__item" v-if="isRequireBirthDate(index)">
-              <input type="date" v-model="tourists[index].birthDate">
-              <label class="kv-form__label" for="name">Дата рождения</label>
+            <div class="kv-form__item"
+                 :class="{ 'kv-form__item_error': item.birthDate.$error }"
+                 v-if="isRequireBirthDate(index)"
+            >
+              <input type="date" id="birthDate" v-model.trim="item.birthDate.$model">
+              <label class="kv-form__label" for="birthDate">Дата рождения</label>
             </div>
             <div class="" v-html="getDiscountDescription(index)"></div>
           </div>
@@ -154,21 +175,15 @@
 <script>
 import vSelect from "vue-select";
 import { required, minLength } from 'vuelidate/lib/validators';
-class Toursit {
-  constructor(nationality = []) {
-    //this.gender = ['herr', 'frau'];
-    this.gender = '';
-    this.name = '';
-    this.sname = '';
-    this.nationality = nationality;
-    this.residenceRegion = [];
-    this.discount = null;
-    this.birthDate = '';
 
-    this.nationalityIsFocused = true;
-    this.residenceRegionsFocused = true;
-  }
-}
+
+const isNationalitySelected = (value) => value.codeA3 !== null;
+const isResidenceRegionSelected = (value, vm) => vm.residenceRegionsRequired && (value.code  !== null);
+
+const isBirthDateValid = (value, vm) => {
+  return vm.discount === null || (vm.discount === 'c'  && value.length === 10)}
+
+
 export default {
   name: "Step3",
   components: {
@@ -203,22 +218,62 @@ export default {
     }
   },
   validations: {
+    residenceRegionsRequired: {},
+    tourists: {
+      required,
+      minLength: minLength(1),
+      $each: {
+        gender: {
+          required,
+        },
+        sname: {
+          required,
+          minLength: minLength(1)
+        },
+        name: {
+          required,
+          minLength: minLength(1)
+        },
+        nationality: {
+          isNationalitySelected
+        },
+        residenceRegion: {
+          isResidenceRegionSelected
+        },
+        discount: {
 
+        },
+        birthDate: {
+          isBirthDateValid
+        },
+      }
+    }
   },
   methods: {
+    /**
+     * Обновляет поле для туриста
+     */
+    setField(index, field, value) {
+      const textFields = ['name', 'sname'];
+      if (textFields.indexOf(field) !== -1) {
+        value = value.trim();
+      }
+
+      this.$emit('update:field', {
+        index,
+        field,
+        value
+      })
+
+      //this.tourists[field] = value;
+      //this.$v.tourists[field].$touch();
+    },
+
     /**
      * Добавляет туриста
      */
     addTourist() {
-      // Национальность по умолчанию
-      //const nationality = this.nationalities.find(item => item.codeA2 === this.nationality);
-
-      this.$emit('update:tourists',
-          [
-            ...this.tourists,
-            new Toursit()
-          ]);
-      this.calculateAndValidate();
+      this.$emit('addTourist');
     },
     /**
      * Удаляет участника под номером Index
@@ -282,9 +337,10 @@ export default {
   mounted() {
     this.$emit('active');
     // Создаем первого туриста, если их нет вообще
+    /*
     if (!this.tourists.length) {
       this.addTourist();
-    }
+    }*/
   }
 }
 </script>

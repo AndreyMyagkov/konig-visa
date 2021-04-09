@@ -233,8 +233,13 @@
                :nationalities="nationalities"
 
                :productDetails="productDetails"
+
+               @update:field="updateTouristField"
+               @addTourist="addTourist"
+
+
                @update:tourists="updateTourists"
-               @active="loadProductDetails"
+               @active="Step3Active"
                @change="sendCalculateAndValidate"
         >
         </Step3>
@@ -455,8 +460,9 @@ export default {
       selectedDuration: new constants.DurationDefault(),
       selectedPrice: new constants.PriceDefault(),
 
+      //Шаг 3
       // Список туристов
-      tourists: [],
+      tourists: [new constants.Toursit()],
 
 
       // Шаг 5
@@ -622,6 +628,15 @@ export default {
     },
 
     /**
+     * Устанавливает флаг необходимости заполнения места жительства туристам
+     */
+    setResidenceRegionsRequired() {
+      this.tourists.forEach(item => {
+        item.residenceRegionsRequired = this.productDetails.servedResidenceRegions !== null
+      })
+    },
+
+    /**
      * Загружает детальную инфо по продукту
      */
     async loadProductDetails() {
@@ -630,10 +645,13 @@ export default {
         let response = await fetch(`${this.CONFIG.API_URL}getCSProductDetails?clientId=${this.CONFIG.clientId}&productId=${this.selectedPrice.price.id}`);
         let productDetails = await response.json();
         if (response.status >= 400 && response.status < 600) {
-          throw new Error(countries.Message);
+          throw new Error(productDetails.Message);
         }
 
         this.productDetails = productDetails.product;
+
+        this.setResidenceRegionsRequired();
+
         this.isLoading = false;
       } catch (err) {
         this.isLoading = false;
@@ -671,10 +689,12 @@ export default {
         let response = await fetch(`${this.CONFIG.API_URL}calculateAndValidate?clientId=${this.CONFIG.clientId}`, requestOptions);
         let calculate = await response.json();
         if (response.status >= 400 && response.status < 600) {
-          throw new Error(countries.Message);
+          throw new Error(calculate.Message);
         }
 
         this.calculate = calculate;
+        this.setResidenceRegionsRequired();
+
         this.isLoading = false;
       } catch (err) {
         this.isLoading = false;
@@ -899,6 +919,9 @@ export default {
 
     },
 
+    updateTouristField(data) {
+      this.tourists[data.index][data.field] = data.value;
+    },
 
     /**
      * Обновить массив туристов
@@ -913,8 +936,6 @@ export default {
     touristInfo(i) {
       if (this.tourists.length) {
         const tourist = this.tourists[i];
-        console.log('турист', i)
-        console.log(tourist)
         return `${tourist.gender} ${tourist.sname} ${tourist.name}`
       }
     },
@@ -927,6 +948,19 @@ export default {
       this.sendCalculateAndValidate();
     },
 
+    /*STEP 3*/
+    async Step3Active() {
+      await this.loadProductDetails();
+      await this.sendCalculateAndValidate();
+    },
+
+    /**
+     * Добавляет туриста
+     */
+    addTourist() {
+      this.tourists.push(new this.constants.Toursit());
+      this.sendCalculateAndValidate();
+    },
 
     /* Step 6 */
     setCustomerDelivery(data) {

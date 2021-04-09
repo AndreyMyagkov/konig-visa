@@ -27,7 +27,21 @@ export class PriceDefault {
         };
     }
 }
-
+// Турист
+export class Toursit {
+    constructor() {
+        this.gender = '';
+        this.name = '';
+        this.sname = '';
+        this.nationality = {name: "Выберите", codeA3: null};
+        this.residenceRegion = {name: "Выберите", code: null};
+        this.discount = null;
+        this.birthDate = '';
+        this.residenceRegionsRequired = false;
+        this.nationalityIsFocused = true;
+        this.residenceRegionsFocused = true;
+    }
+}
 
 // Сервис, группа сервисов
 export class ServicesDefault {
