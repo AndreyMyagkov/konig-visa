@@ -5,7 +5,12 @@
 
 
       <!-- Form card-->
-      <div class="kv-form-card" v-for="(item, index) in $v.tourists.$each.$iter" :key="index">
+      <div class="kv-form-card"
+           :class="{
+              'kv-form-card_error': item.$anyDirty && item.$anyError
+          }"
+           v-for="(item, index) in $v.tourists.$each.$iter"
+           :key="index">
 
         <div class="kv-form__row kv-row kv-row_rev">
           <div class="kv-form__item-wrap kv-form__item-wrap_center kv-from__col_2">
