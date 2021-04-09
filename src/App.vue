@@ -51,7 +51,7 @@
 
                   <div class="kv-cart-table__row" v-for="(item, i) in calculate.calculation.participants" :key="i">
                     <div class="kv-cart-table__item">{{item.nr}}</div>
-                    <div class="kv-cart-table__item kv-cart-table__item_col">{{ touristInfo(i) }}</div>
+                    <div class="kv-cart-table__item kv-cart-table__item_col">{{ item.gender }} {{item.sname}} {{item.name}}</div>
                     <div class="kv-price kv-cart-table__item">
                       <template  v-if="item.price !== null">{{item.price}}</template>
                       <template v-else><span v-html="constants.dashSymbol"></span> </template>
@@ -236,11 +236,12 @@
 
                @update:field="updateTouristField"
                @addTourist="addTourist"
+               @deleteTourist="deleteTourist"
 
-
-               @update:tourists="updateTourists"
                @active="Step3Active"
                @change="sendCalculateAndValidate"
+
+               @isValid="steps[2].isValid = $event"
         >
         </Step3>
         <!-- /STEP 3 -->
@@ -391,7 +392,9 @@ export default {
         {
           crumb: 'Заполнение данных о туристах',
           header: 'Заполнение данных',
-          icon: 'step_3'
+          icon: 'step_3',
+          isValid: false,
+          allowOrder: false
         },
         {
           crumb: 'Дополнительные услуги',
@@ -705,6 +708,9 @@ export default {
         // Если заказ невозможен показываем попап
         if (calculate.state !== 0) {
           this.showModal(calculate.stateDescription, "Заказ невозможен!");
+          this.steps[2].allowOrder = false;
+        } else {
+          this.steps[2].allowOrder = true;
         }
 
         this.isLoading = false;
@@ -936,13 +942,6 @@ export default {
     },
 
     /**
-     * Обновить массив туристов
-     */
-    updateTourists(data) {
-      console.log('Туристы обновлены')
-      this.tourists = data;
-    },
-    /**
      * Возращает информацию по туристу для корзины
      */
     touristInfo(i) {
@@ -971,6 +970,14 @@ export default {
      */
     addTourist() {
       this.tourists.push(new this.constants.Toursit());
+      this.sendCalculateAndValidate();
+    },
+    /**
+     * Удаляет участника под номером Index
+     * @param {Number} index
+     */
+    deleteTourist(index) {
+      this.tourists.splice(index, 1);
       this.sendCalculateAndValidate();
     },
 
@@ -1019,9 +1026,9 @@ export default {
           return true
         }
       }
-      // TODO: проверка
+
       if (this.currentStep === 3) {
-        return true
+        return this.steps[2].isValid && this.steps[2].allowOrder
       }
 
       // TODO: проверка

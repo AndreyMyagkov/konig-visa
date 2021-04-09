@@ -26,14 +26,14 @@
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item kv-form__item_chb" :class="{ 'kv-form__item_error': item.gender.$error }">
               <label class="kv-form-radio">
-                <input type="radio" aria-label="checkbox" v-model="item.gender.$model"  value="herr">
+                <input type="radio" aria-label="checkbox" v-model="item.gender.$model"  value="herr" @change="isValid">
                 <span class="kv-form-radio__mark">
                    <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
                 </span>
                 <span class="kv-form-radio__caption">Herr</span>
               </label>
               <label class="kv-form-radio">
-                <input type="radio" aria-label="checkbox" v-model="item.gender.$model"   value="frau">
+                <input type="radio" aria-label="checkbox" v-model="item.gender.$model"   value="frau" @change="isValid">
                 <span class="kv-form-radio__mark">
                   <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
                 </span>
@@ -57,7 +57,8 @@
                     :id="`sname-${index}`"
                     placeholder=" "
                     v-model.trim="item.sname.$model"
-                    @change="setField(index,'sname', $event.target.value)">
+                    @change="isValid"
+                    >
               <label class="kv-form__label" :for="`sname-${index}`">Фамилия</label>
             </div>
           </div>
@@ -70,7 +71,9 @@
                   type="text"
                   :id="`name-${index}`"
                   placeholder=" "
-                  v-model.trim="item.name.$model">
+                  v-model.trim="item.name.$model"
+                  @change="isValid"
+              >
               <label class="kv-form__label" :for="`name-${index}`">Имя</label>
             </div>
           </div>
@@ -161,7 +164,7 @@
                  :class="{ 'kv-form__item_error': item.birthDate.$error }"
                  v-if="isRequireBirthDate(index)"
             >
-              <input type="date" id="birthDate" v-model.trim="item.birthDate.$model">
+              <input type="date" id="birthDate" v-model.trim="item.birthDate.$model" @change="isValid">
               <label class="kv-form__label" for="birthDate">Дата рождения</label>
             </div>
             <div class="" v-html="getDiscountDescription(index)"></div>
@@ -187,7 +190,7 @@ import { required, minLength } from 'vuelidate/lib/validators';
 
 
 const isNationalitySelected = (value) => value.codeA3 !== null;
-const isResidenceRegionSelected = (value, vm) => vm.residenceRegionsRequired && (value.code  !== null);
+const isResidenceRegionSelected = (value, vm) => !vm.residenceRegionsRequired || (vm.residenceRegionsRequired && (value.code  !== null));
 
 const isBirthDateValid = (value, vm) => {
   return vm.discount === null || (vm.discount === 'c'  && value.length === 10)}
@@ -289,9 +292,8 @@ export default {
      * @param {Number} index
      */
     deleteTourist(index) {
-      this.tourists.splice(index, 1);
-      this.$emit('update:tourists', this.tourists);
-      this.calculateAndValidate();
+      this.$emit('deleteTourist', index);
+      this.isValid();
     },
     /**
      * Требуется ли вывод поля даты рождения, на основе выбранной скидки
@@ -338,6 +340,25 @@ export default {
      */
     calculateAndValidate() {
       this.$emit('change');
+      this.isValid();
+    },
+
+    isValid() {
+      let isValid = false;
+
+      // Если форма валидна
+      const isFormValid = this.$v.tourists.$anyDirty &&  !this.$v.tourists.$invalid;
+
+      // Калькуляция валидна
+      //const isCalculateValid = this.tourists.every(item => item.state === 0);
+
+      isValid = isFormValid; // && isCalculateValid;
+
+      console.log(isFormValid);
+     // console.log(isCalculateValid);
+
+      this.$emit('isValid', isValid)
+      return isValid
     }
   },
   computed: {
