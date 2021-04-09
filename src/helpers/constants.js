@@ -28,6 +28,7 @@ export class PriceDefault {
     }
 }
 
+
 // Сервис, группа сервисов
 export class ServicesDefault {
     constructor() {

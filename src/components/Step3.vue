@@ -92,12 +92,7 @@
                  }"
                  v-if="productDetails.servedResidenceRegions !== null"
             >
-              <!--
-              <input list="nationalities" v-model="tourists[index].residenceRegions" @input="calculateAndValidate"/>
-              <datalist id="nationalities">
-                <option :value="item.name" v-for="item in productDetails.servedResidenceRegions" :key="item.code"></option>
-              </datalist>
-              -->
+
               <v-select
                   :options="productDetails.servedResidenceRegions"
                   label="name"
@@ -109,19 +104,6 @@
                   @search:blur="tourists[index].residenceRegionsFocused = false"
               />
 
-              <!--
-              <select class="kv-form__sel" v-model="tourists[index].residenceRegions">
-                <option value="null" label="Место жительства"></option>
-                <option value="2">option 1 Lorem ipsum, dolor sit amet consectetur adipisicing
-                  elit. Tempore consequatur, minima nesciunt aspernatur ipsam maxime fugit
-                  facilis vitae non nisi! Perferendis autem natus suscipit vel expedita quos
-                  dolore explicabo quia!</option>
-                <option value="3">option 2</option>
-                <option value="4">option 3</option>
-                <option value="5">option 4</option>
-                <option value="6">option 5</option>
-              </select>
-              -->
               <label class="kv-form__label" for="name">Место жительства</label>
             </div>
           </div>
@@ -171,6 +153,7 @@
 
 <script>
 import vSelect from "vue-select";
+import { required, minLength } from 'vuelidate/lib/validators';
 class Toursit {
   constructor(nationality = []) {
     //this.gender = ['herr', 'frau'];
@@ -218,6 +201,9 @@ export default {
     return {
 
     }
+  },
+  validations: {
+
   },
   methods: {
     /**
