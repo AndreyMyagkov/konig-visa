@@ -695,6 +695,18 @@ export default {
         this.calculate = calculate;
         this.setResidenceRegionsRequired();
 
+        // Проверка туристов на возможность оформления виз
+        if (calculate.calculation.participants !== null) {
+          calculate.calculation.participants.forEach((item, index) => {
+            this.tourists[index].state = item.state;
+            this.tourists[index].stateDescription = item.stateDescription;
+          })
+        }
+        // Если заказ невозможен показываем попап
+        if (calculate.state !== 0) {
+          this.showModal(calculate.stateDescription, "Заказ невозможен!");
+        }
+
         this.isLoading = false;
       } catch (err) {
         this.isLoading = false;

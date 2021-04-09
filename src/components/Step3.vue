@@ -7,10 +7,14 @@
       <!-- Form card-->
       <div class="kv-form-card"
            :class="{
-              'kv-form-card_error': item.$anyDirty && item.$anyError
+              'kv-form-card_error': (item.$anyDirty && item.$anyError) || item.$model.state !== 0
           }"
            v-for="(item, index) in $v.tourists.$each.$iter"
            :key="index">
+
+        <div class="kv-alert" v-if="item.$model.state !== 0" v-html="item.$model.stateDescription">
+
+        </div>
 
         <div class="kv-form__row kv-row kv-row_rev">
           <div class="kv-form__item-wrap kv-form__item-wrap_center kv-from__col_2">
@@ -79,7 +83,7 @@
             <div class="kv-form__item kv_is-focused"
                  :class="{
                     'kv_is-focused-': item.nationalityIsFocused,
-                    'kv-form__item_error': item.nationality.$error
+                    'kv-form__item_error': item.nationality.$error || item.$model.state === -2
                  }"
             >
               <v-select
@@ -106,7 +110,7 @@
                 class="kv-form__item kv_is-focused"
                 :class="{
                     'kv_is-focused-': item.residenceRegionsFocused,
-                    'kv-form__item_error': item.residenceRegion.$error
+                    'kv-form__item_error': item.residenceRegion.$error || item.$model.state === -3
                  }"
                  v-if="productDetails.servedResidenceRegions !== null"
             >

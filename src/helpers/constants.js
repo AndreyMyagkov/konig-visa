@@ -40,6 +40,8 @@ export class Toursit {
         this.residenceRegionsRequired = false;
         this.nationalityIsFocused = true;
         this.residenceRegionsFocused = true;
+        this.state = 0;
+        this.stateDescription = '';
     }
 }
 
