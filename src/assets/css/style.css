@@ -435,6 +435,7 @@ body {
 }
 
 .kv-app .kv-form__label,
+.kv-app .kv-form-radio .kv-form-radio__caption,
 .kv-app .kv-step-button__text,
 .kv-app .kv-content__title,
 .kv-app .kv-processing-day-chb .kv-processing-day-chb__text,
@@ -459,7 +460,9 @@ body {
 }
 
 .kv-app .kv-breadcrumps .kv-breadcrumps__item,
-.kv-app .kv-breadcrumps .kv-breadcrumps__item > span {
+.kv-app .kv-breadcrumps .kv-breadcrumps__item > span,
+.kv-app .kv-processing-day-chb .kv-processing-day-chb__title,
+.kv-app .kv-processing-day-chb .kv-processing-day-chb__title > span {
   white-space: nowrap;
 }
 
@@ -576,6 +579,9 @@ body {
 
 .kv-app .kv-form__row {
   margin: 0 calc(-1 * var(--gap));
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
 }
 
 .kv-app .kv-from__col {
@@ -615,6 +621,8 @@ body {
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
 .kv-app .kv-form__item-wrap.kv-form__item-wrap_center {
@@ -753,6 +761,29 @@ body {
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
+}
+
+.kv-app .kv-form__msg {
+  font-size: 15px;
+  line-height: 20px;
+  color: #406A72;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.kv-app .kv-form__msg_label {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 1 calc(100% / 1 * 1);
+  flex: 0 1 calc(100% / 1 * 1);
+  max-width: calc(100% / 1 * 1);
+  min-width: 0;
+  padding: 5px 20px;
 }
 
 .kv-app .kv-form__badge {
@@ -1139,7 +1170,7 @@ body {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 0px 20px;
+  padding: 8px 20px;
   -webkit-box-flex: 1;
   -ms-flex: 1 1 0%;
   flex: 1 1 0%;
@@ -1208,6 +1239,7 @@ body {
   line-clamp: 1;
   min-width: 0;
   word-break: break-all;
+  display: block;
 }
 
 .kv-app .kv-form-radio .kv-form-radio__text {
@@ -1215,6 +1247,7 @@ body {
   font-size: 14px;
   line-height: 19px;
   color: var(--c-second);
+  display: block;
 }
 
 .kv-app .kv-form-radio #form-chb-mark {
@@ -2571,12 +2604,15 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
 }
 
 .kv-app .kv-processing-days__item {
   -webkit-box-flex: 1;
-  -ms-flex: 1 0 180px;
-  flex: 1 0 180px;
+  -ms-flex: 1 0 200px;
+  flex: 1 0 200px;
 }
 
 .kv-app .kv-processing-days__item:not(:last-child) {
@@ -2769,7 +2805,7 @@ body {
 
 .kv-app .kv-processing-day-chb .kv-processing-day-chb__inner {
   background-color: var(--c-disabled);
-  height: 70px;
+  min-height: 70px;
   padding: 10px;
 }
 
@@ -2832,8 +2868,15 @@ body {
   font-weight: normal;
   font-size: 12px;
   line-height: 16px;
-  text-align: center;
   color: var(--c-second);
+  width: 70px;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 70px;
+  flex: 0 0 70px;
+}
+
+.kv-app .kv-processing-day-chb .kv-processing-day-chb__text:not(:last-child) {
+  margin-right: 5px;
 }
 
 .kv-app .kv-processing-day-chb .kv-processing-day-chb__title {
@@ -2846,10 +2889,14 @@ body {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 75px;
   flex: 0 0 75px;
+  display: block;
   text-align: right;
   -webkit-box-pack: end;
   -ms-flex-pack: end;
   justify-content: flex-end;
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 0%;
+  flex: 1 1 0%;
 }
 
 .kv-app .kv-processing-day-chb .kv-processing-day-chb__title:empty {
@@ -3025,6 +3072,10 @@ body {
 
 .kv-app .kv-services__item_bp .kv-services__item-inner:first-child {
   border-top: 1px solid transparent;
+}
+
+.kv-app .kv-services__class {
+  margin-left: auto;
 }
 
 .kv-app .kv-services__footer {
@@ -3384,6 +3435,10 @@ body {
   display: flex;
   min-width: 992px;
   background-color: #fff;
+}
+
+.kv-app .kv-review-members__row:nth-child(odd):not(:first-child) {
+  background-color: #F4F4F4;
 }
 
 .kv-app .kv-review-members__row_header {
@@ -4335,9 +4390,18 @@ body {
 }
 
 .kv-app .kv-alert {
+  border-radius: 6px;
   padding: 20px;
   margin: 20px 0;
   background-color: var(--c-prim_light);
+  font-family: var(--fnt-main);
+  font-size: 24px;
+  line-height: 33px;
+  color: var(--c-second_dark);
+}
+
+.kv-app .kv-alert_center {
+  text-align: center;
 }
 
 .kv-app {

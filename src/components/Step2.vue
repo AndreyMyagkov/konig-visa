@@ -152,7 +152,7 @@
                       <span class="kv-processing-day-chb__caption">
                         <span class="kv-processing-day-chb__text">{{price.m}}-malige Einreise</span>
                         <span class="kv-processing-day-chb__title">
-                          <template  v-if="price.price !== null">{{price.price}}</template>
+                          <template  v-if="price.price !== null">{{formatter.priceFormat(price.price)}}</template>
                           <!-- &minus -->
                           <template v-else><span v-html="constants.dashSymbol"></span> </template>
                           <span> €</span>
@@ -180,7 +180,7 @@
       </div>
       <!-- /Processing days-->
 
-      <div class="kv-alert"
+      <div class="kv-alert kv-alert_center"
            v-if="prices.state !== 0 && selectedDuration.index !== null"
            v-html="prices.stateDescription"
       >
@@ -212,6 +212,8 @@
 <script>
 import vSelect from "vue-select";
 import * as constants from "@/helpers/constants";
+import * as formatter from "@/helpers/format";
+
 
 export default {
   name: "Step2",
@@ -252,6 +254,7 @@ export default {
   data() {
     return {
       constants,
+      formatter,
       // Выбранная продолжительность
       selectedDuration: Object.assign({}, this.setup.duration),
       //new constants.DurationDefault(),

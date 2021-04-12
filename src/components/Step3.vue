@@ -159,15 +159,22 @@
           <!-- /Discounts -->
 
           <!-- BirthDate -->
-          <div class="kv-form__item-wrap kv-from__col">
+          <div class="kv-form__item-wrap kv-from__col" v-if="isRequireBirthDate(index)">
             <div class="kv-form__item"
                  :class="{ 'kv-form__item_error': item.birthDate.$error }"
-                 v-if="isRequireBirthDate(index)"
+
             >
               <input type="date" id="birthDate" v-model.trim="item.birthDate.$model" @change="isValid">
               <label class="kv-form__label" for="birthDate">Дата рождения</label>
             </div>
-            <div class="" v-html="getDiscountDescription(index)"></div>
+            <div class="kv-form__msg kv-form__msg_label">
+              <div v-html="getDiscountDescription(index)"></div>
+            </div>
+
+          </div>
+
+          <div class="kv-form__item-wrap kv-form__msg kv-from__col" v-else  v-html="getDiscountDescription(index)">
+
           </div>
           <!-- /BirthDate -->
 
