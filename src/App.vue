@@ -250,6 +250,9 @@
         <Step4 v-if="currentStep === 4"
                :data="productDetails"
                @showModal="showModal"
+               @changePackage="changePackage"
+               @changeSuppService="changeSuppService"
+               @calculate="sendCalculateAndValidate"
         />
         <!-- /STEP 4 -->
 
@@ -467,6 +470,10 @@ export default {
       // Список туристов
       tourists: [new constants.Toursit()],
 
+      // Шаг 4
+      selectedServicePackage: new constants.ServicePackage(),
+      selectedSuppServices: [],
+
 
       // Шаг 5
       addressingCountries: [],
@@ -682,6 +689,8 @@ export default {
                   discountCode: item.discount
                 }
               }),
+              servicePackageId: this.selectedServicePackage.id,
+              suppServices: this.selectedSuppServices.map(_ => _.id),
               postalServiceId: this.selectedPostalService === null ? "" : this.selectedPostalService.id
             }
         ),
@@ -979,6 +988,22 @@ export default {
     deleteTourist(index) {
       this.tourists.splice(index, 1);
       this.sendCalculateAndValidate();
+    },
+
+
+    /* STEP 4 */
+    /**
+     * Смена сервисного пакета
+     */
+    changePackage(pcg) {
+      this.selectedServicePackage = pcg
+    },
+
+    /**
+     * Выбрать услугу в пакете
+     */
+    changeSuppService(services) {
+      this.selectedSuppServices = services;
     },
 
     /* Step 6 */

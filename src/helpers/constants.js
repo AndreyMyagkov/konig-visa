@@ -75,6 +75,17 @@ export class CustomerDefault {
     }
 }
 
+// Сервисный пакет
+export class ServicePackage {
+    constructor() {
+        this.id = null;
+        this.name = '';
+        this.price = 0;
+        this.description = "";
+        this.includedServices = [];
+    }
+}
+
 // Доставка
 export class DeliveryDefault {
     constructor() {
