@@ -288,7 +288,10 @@
                   tourists: tourists,
                   customer: customer,
                   delivery: delivery,
-                  postalService: this.selectedPostalService
+                  postalService: this.selectedPostalService,
+                  servicePackage: this.selectedServicePackage,
+                  suppServices: this.selectedSuppServices
+
                }"
 
 

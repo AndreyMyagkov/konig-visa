@@ -93,13 +93,14 @@
 
 
 
-    <!-- Reveiw services-->
-    <div class="kv-review-card kv-review__item">
+    <!-- Сервис пакет-->
+    <div class="kv-review-card kv-review__item" v-if="data.servicePackage.id !== null || (data.suppServices !== null && data.suppServices.length)">
+
       <div class="kv-review-card__header">
         <svg class="kv-review-card__icon">
           <use href="img/icons/icons.svg#step_4"></use>
         </svg>
-        <div class="kv-review-card__title">Сервис пакет: Standart</div>
+        <div class="kv-review-card__title">Сервис пакет: {{data.servicePackage.name}}</div>
         <div class="kv-review-card__edit">
           <div class="kv-edit">
             <svg class="kv-edit__icon">
@@ -108,28 +109,19 @@
           </div>
         </div>
       </div>
+
       <div class="kv-review-card__body">
-        <div class="kv-review-card__text">Описание тарифа Lorem Ipsum is simply dummy text of the
-          printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
-          ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-          a type specimen book. Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when
-          an unknown printer took a galley of type and scrambled it to make a type specimen book.
-        </div>
-        <div class="kv-review-card__list">
+        <div class="kv-review-card__text" v-html="data.servicePackage.description"></div>
+
+        <div class="kv-review-card__list" v-if="data.suppServices !== null && data.suppServices.length">
           <div class="kv-review-card__list-title">Дополнительные услуги:</div>
-          <div class="kv-review-card__list-item">Ausfüllen von Online-Visumantrag</div>
-          <div class="kv-review-card__list-item">Nachweis über die Rückkehrwilligkeit für
-            Geschäftsreisende
-          </div>
-          <div class="kv-review-card__list-item">Ausfüllen von Online-Visumantrag</div>
-          <div class="kv-review-card__list-item">Nachweis über die Rückkehrwilligkeit für
-            Geschäftsreisende
+          <div class="kv-review-card__list-item" v-for="item in data.suppServices" :key="item.id">
+            {{item.name}}
           </div>
         </div>
       </div>
     </div>
-
+    <!-- /Сервис пакет-->
 
 
     <!-- Reveiw delivery-->
