@@ -34,7 +34,7 @@
     <!-- шаг 7 -->
     <template v-if="currentStep === 7">
       <div class="kv-content__btn">
-        <button class="kv-step-button kv-step-button_save" type="button">
+        <button class="kv-step-button kv-step-button_save" type="button" @click="prev">
           <span class="kv-step-button__text">Сохранить заявку</span>
         </button>
       </div>

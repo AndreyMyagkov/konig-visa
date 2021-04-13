@@ -57,6 +57,17 @@ export class ServicesDefault {
     }
 }
 
+// Сервисный пакет
+export class ServicePackage {
+    constructor() {
+        this.id = null;
+        this.name = '';
+        this.price = 0;
+        this.description = "";
+        this.includedServices = [];
+    }
+}
+
 // Заказчик
 export class CustomerDefault {
     constructor() {
@@ -72,17 +83,6 @@ export class CustomerDefault {
         this.mobile = "";
         this.email = "";
         this.companyName = "";
-    }
-}
-
-// Сервисный пакет
-export class ServicePackage {
-    constructor() {
-        this.id = null;
-        this.name = '';
-        this.price = 0;
-        this.description = "";
-        this.includedServices = [];
     }
 }
 
@@ -102,6 +102,13 @@ export class DeliveryDefault {
         this.mobile = "";
         this.email = "";
         this.companyName = "";
-        this.branch = ""
+        this.branch = {
+            id: null,
+            name: "",
+            countryA3: "",
+            address: "",
+            workingTime: "",
+
+        }
     }
 }

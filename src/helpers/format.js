@@ -6,7 +6,7 @@ export function priceFormat(price) {
     if (!Number.isInteger(price)) {
         minimumFractionDigits = 2;
     }
-    price = new Intl.NumberFormat('ru-RU', {
+    price = new Intl.NumberFormat('de-DE', {
         'style': 'decimal',
         'useGrouping': true,
         'minimumFractionDigits': minimumFractionDigits

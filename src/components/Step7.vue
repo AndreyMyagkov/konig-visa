@@ -233,9 +233,21 @@
               </div>
             </div>
           </div>
-          <div class="kv-review-card__body">
+          <div class="kv-review-card__body" v-if="data.delivery.type == 1">
+            <div class="kv-review-card__text">{{data.customer.gender}} {{data.customer.sname}} {{data.customer.name}}</div>
+            <div class="kv-review-card__text" v-if="data.customer.isCompany">{{data.customer.companyName}}</div>
+            <div class="kv-review-card__text">{{data.customer.address}}</div>
+            <div class="kv-review-card__text">{{data.customer.zip}}, {{data.customer.city}}, {{data.customer.addressingCountry.name}}</div>
+            <div class="kv-row">
+              <div class="kv-review-card__text">{{data.customer.tel}}</div>
+              <div class="kv-review-card__text">{{data.customer.mobile}}</div>
+            </div>
+            <div class="kv-review-card__text">{{data.customer.email}}</div>
+          </div>
+
+          <div class="kv-review-card__body" v-if="data.delivery.type == 2">
             <div class="kv-review-card__text">{{data.delivery.gender}} {{data.delivery.sname}} {{data.delivery.name}}</div>
-            <div class="kv-review-card__text">{{data.delivery.companyName}}</div>
+            <div class="kv-review-card__text" v-if="data.delivery.isCompany">{{data.delivery.companyName}}</div>
             <div class="kv-review-card__text">{{data.delivery.address}}</div>
             <div class="kv-review-card__text">{{data.delivery.zip}}, {{data.delivery.city}}, {{data.delivery.addressingCountry.name}}</div>
             <div class="kv-row">
@@ -244,6 +256,28 @@
             </div>
             <div class="kv-review-card__text">{{data.delivery.email}}</div>
           </div>
+
+          <!-- забрать в офисе -->
+          <div class="kv-review-card__body" v-if="data.delivery.type == 3">
+            <div class="kv-review-card__text">{{data.customer.gender}} {{data.customer.sname}} {{data.customer.name}}</div>
+            <div class="kv-review-card__text" v-if="data.customer.isCompany">{{data.customer.companyName}}</div>
+
+            <div class="kv-form-radio__text">{{data.delivery.branch.name}}</div>
+            <div class="kv-form-radio__text">{{data.delivery.branch.address}}</div>
+            <div class="kv-form-radio__text">Время работы: <b>{{data.delivery.branch.workingTime}}</b></div>
+
+          </div>
+
+          <!--email  -->
+          <div class="kv-review-card__body" v-if="data.calculate.deliveryMedia === 'digital'">
+            <div class="kv-review-card__text">{{data.customer.gender}} {{data.customer.sname}} {{data.customer.name}}</div>
+            <div class="kv-review-card__text" v-if="data.customer.isCompany">{{data.customer.companyName}}</div>
+            <div class="kv-review-card__text">{{data.customer.email}}</div>
+          </div>
+
+
+
+
         </div>
       </div>
     </div>
