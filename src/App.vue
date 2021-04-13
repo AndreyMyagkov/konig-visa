@@ -51,7 +51,7 @@
 
                   <div class="kv-cart-table__row" v-for="(item, i) in calculate.calculation.participants" :key="i">
                     <div class="kv-cart-table__item">{{item.nr}}</div>
-                    <div class="kv-cart-table__item kv-cart-table__item_col">{{ item.gender }} {{item.sname}} {{item.name}}</div>
+                    <div class="kv-cart-table__item kv-cart-table__item_col">{{ tourists[i].gender }} {{tourists[i].sname}} {{tourists[i].name}}</div>
                     <div class="kv-price kv-cart-table__item">
                       <template  v-if="item.price !== null">{{item.price}}</template>
                       <template v-else><span v-html="constants.dashSymbol"></span> </template>
@@ -290,7 +290,8 @@
                   delivery: delivery,
                   postalService: this.selectedPostalService,
                   servicePackage: this.selectedServicePackage,
-                  suppServices: this.selectedSuppServices
+                  suppServices: this.selectedSuppServices,
+                  calculate: this.calculate
 
                }"
 

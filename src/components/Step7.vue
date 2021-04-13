@@ -154,12 +154,12 @@
             <use href="img/icons/icons.svg#user"></use>
           </svg>
           <div class="kv-review-total__counter">
-            <span class="kv-review-total__cross">+</span> 4
+            <span class="kv-review-total__cross">+</span> {{ data.calculate.calculation.participants.length }}
           </div>
         </div>
         <div class="kv-review-total__title">Preis Total:</div>
         <div class="kv-review-total__price kv-price">
-          420
+          {{totalAmount()}}
           <span class="kv-price__currency">€</span>
         </div>
       </div>
@@ -172,48 +172,16 @@
         <div class="kv-cart__body drop__body">
           <!-- Cart table-->
           <div class="kv-cart-table">
-            <div class="kv-cart-table__row">
-              <div class="kv-cart-table__item">1</div>
-              <div class="kv-cart-table__item kv-cart-table__item_col">herr Иванов Иван</div>
-              <div class="kv-price kv-cart-table__item">100
+            <div class="kv-cart-table__row" v-for="(item, i) in data.calculate.calculation.participants" :key="i">
+              <div class="kv-cart-table__item">{{item.nr}}</div>
+              <div class="kv-cart-table__item kv-cart-table__item_col">{{ data.tourists[i].gender }} {{data.tourists[i].sname}} {{data.tourists[i].name}}</div>
+              <div class="kv-price kv-cart-table__item">
+                <template  v-if="item.price !== null">{{item.price}}</template>
+                <template v-else><span v-html="constants.dashSymbol"></span> </template>
                 <span class="kv-price__currency">€</span>
               </div>
             </div>
-            <div class="kv-cart-table__row">
-              <div class="kv-cart-table__item">1</div>
-              <div class="kv-cart-table__item kv-cart-table__item_col">herr Иванов Иван</div>
-              <div class="kv-price kv-cart-table__item">100
-                <span class="kv-price__currency">€</span>
-              </div>
-            </div>
-            <div class="kv-cart-table__row">
-              <div class="kv-cart-table__item">1</div>
-              <div class="kv-cart-table__item kv-cart-table__item_col">herr Иванов Иван</div>
-              <div class="kv-price kv-cart-table__item">100
-                <span class="kv-price__currency">€</span>
-              </div>
-            </div>
-            <div class="kv-cart-table__row">
-              <div class="kv-cart-table__item">1</div>
-              <div class="kv-cart-table__item kv-cart-table__item_col">herr Иванов Иван</div>
-              <div class="kv-price kv-cart-table__item">100
-                <span class="kv-price__currency">€</span>
-              </div>
-            </div>
-            <div class="kv-cart-table__row">
-              <div class="kv-cart-table__item">1</div>
-              <div class="kv-cart-table__item kv-cart-table__item_col">herr Иванов Иван</div>
-              <div class="kv-price kv-cart-table__item">100
-                <span class="kv-price__currency">€</span>
-              </div>
-            </div>
-            <div class="kv-cart-table__row">
-              <div class="kv-cart-table__item">1</div>
-              <div class="kv-cart-table__item kv-cart-table__item_col">herr Иванов Иван</div>
-              <div class="kv-price kv-cart-table__item">100
-                <span class="kv-price__currency">€</span>
-              </div>
-            </div>
+
           </div>
         </div>
       </div>
@@ -304,6 +272,7 @@
 </template>
 
 <script>
+import * as constants from "@/helpers/constants";
 export default {
   name: "Step7",
   props: {
@@ -311,7 +280,21 @@ export default {
       type: Object,
       required: true
     }
-
+  },
+  data() {
+    return {
+      constants
+    }
+  },
+  methods: {
+    totalAmount() {
+      let amount = this.data.calculate.amount;
+      if (amount !== null) {
+        return amount
+      } else {
+        return this.constants.dashSymbol
+      }
+    }
   }
 }
 </script>

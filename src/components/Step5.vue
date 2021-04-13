@@ -14,7 +14,7 @@
       mobile: "77777777777",
       email: "qw@qw.ru",
       companyName: "8",
-    }; $v.customer.$touch(); $v.delivery.$touch();$v.$touch()'>Тестовые данные</button>
+    }; $v.customer.$touch(); $v.delivery.$touch();$v.$touch(); isFormCorrect()'>Тестовые данные</button>
     <div class="kv-form">
 
       <!-- Customer-->
@@ -25,7 +25,7 @@
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item kv-form__item_chb">
               <label class="kv-form-radio">
-                <input type="checkbox" aria-label="company" v-model="customer.isCompany" @change="$v.customer.companyName.$reset">
+                <input type="checkbox" aria-label="company" v-model="customer.isCompany" @change="$v.customer.companyName.$reset; isFormCorrect()">
                 <span class="kv-form-radio__mark">
                   <svg><use href="img/icons/icons.svg#form_chb"></use></svg>
                 </span>
@@ -41,7 +41,7 @@
           <!-- company name -->
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item"  :class="{ 'kv-form__item_error': $v.customer.companyName.$error }">
-              <input type="text" id="companyname" placeholder=" " v-model="$v.customer.companyName.$model">
+              <input type="text" id="companyname" placeholder=" " v-model="$v.customer.companyName.$model"  @change="isFormCorrect">
               <label class="kv-form__label" for="companyname">Название фирмы</label>
             </div>
           </div>
@@ -54,7 +54,7 @@
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item kv-form__item_chb" :class="{ 'kv-form__item_error': $v.customer.gender.$error }">
               <label class="kv-form-radio">
-                <input type="radio" name="gender" aria-label="Herr" value="herr" v-model="$v.customer.gender.$model">
+                <input type="radio" name="gender" aria-label="Herr" value="herr" v-model="$v.customer.gender.$model"  @change="isFormCorrect">
                 <span class="kv-form-radio__mark">
                   <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
                 </span>
@@ -62,7 +62,7 @@
               </label>
 
               <label class="kv-form-radio">
-                <input type="radio" name="gender" aria-label="Frau" value="frau"  v-model="$v.customer.gender.$model">
+                <input type="radio" name="gender" aria-label="Frau" value="frau"  v-model="$v.customer.gender.$model"  @change="isFormCorrect">
                 <span class="kv-form-radio__mark">
                   <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
                 </span>
@@ -75,7 +75,7 @@
           <!-- sname -->
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.customer.sname.$error }">
-              <input type="text" placeholder=" " id="sname1" v-model.trim="$v.customer.sname.$model">
+              <input type="text" placeholder=" " id="sname1" v-model.trim="$v.customer.sname.$model" @change="isFormCorrect">
               <label class="kv-form__label" for="sname1">Фамилия</label>
             </div>
           </div>
@@ -84,7 +84,7 @@
           <!-- name -->
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item"  :class="{ 'kv-form__item_error': $v.customer.name.$error }">
-              <input type="text" placeholder=" " id="name1" v-model="$v.customer.name.$model">
+              <input type="text" placeholder=" " id="name1" v-model="$v.customer.name.$model"  @change="isFormCorrect">
               <label class="kv-form__label" for="name1">Имя</label>
             </div>
           </div>
@@ -97,7 +97,7 @@
           <!-- address -->
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.customer.address.$error }">
-              <input type="text" placeholder=" " id="address1"  v-model="$v.customer.address.$model">
+              <input type="text" placeholder=" " id="address1"  v-model="$v.customer.address.$model"  @change="isFormCorrect">
               <label class="kv-form__label" for="address1">Адрес</label>
             </div>
           </div>
@@ -111,7 +111,7 @@
           <!-- index -->
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.customer.zip.$error }">
-              <input type="text" placeholder=" " id="zip1" v-model="$v.customer.zip.$model">
+              <input type="text" placeholder=" " id="zip1" v-model="$v.customer.zip.$model"  @change="isFormCorrect">
               <label class="kv-form__label" for="zip1">Индекс</label>
             </div>
           </div>
@@ -120,7 +120,7 @@
           <!-- city -->
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.customer.city.$error }">
-              <input type="text" placeholder=" " id="city1" v-model="$v.customer.city.$model">
+              <input type="text" placeholder=" " id="city1" v-model="$v.customer.city.$model"  @change="isFormCorrect">
               <label class="kv-form__label" for="city1">Город</label>
             </div>
           </div>
@@ -135,7 +135,7 @@
                   placeholder="Выберите"
                   v-model="$v.customer.addressingCountry.$model"
                   :clearable="false"
-                  @option:selected=""
+                  @option:selected="isFormCorrect"
                   @search:focus="$refs.addressingCountries.classList.add('test')"
                   @search:blur="$v.customer.addressingCountry.$touch()"
               />
@@ -152,7 +152,7 @@
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item">
              <!-- <input type="tel" placeholder=" " id="phone1" v-model="customer.tel">-->
-              <the-mask mask="# (###) ### ## ##" type="tel" :masked="false" placeholder=" " id="phone1" v-model="customer.tel"></the-mask>
+              <the-mask mask="# (###) ### ## ##" type="tel" :masked="false" placeholder=" " id="phone1" v-model="customer.tel"  @change="isFormCorrect"></the-mask>
 
               <label class="kv-form__label" for="phone1">Телефон</label>
             </div>
@@ -163,7 +163,7 @@
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item"  :class="{ 'kv-form__item_error': $v.customer.mobile.$error }">
               <!--<input type="tel" placeholder=" " id="cellphone1"  v-model="customer.mobile">-->
-              <the-mask mask="# (###) ### ## ##" type="tel" :masked="false" placeholder=" " id="cellphone1" v-model="$v.customer.mobile.$model"></the-mask>
+              <the-mask mask="# (###) ### ## ##" type="tel" :masked="false" placeholder=" " id="cellphone1" v-model="$v.customer.mobile.$model"  @change="isFormCorrect"></the-mask>
               <label class="kv-form__label" for="cellphone1">Мобильный телефон</label>
             </div>
           </div>
@@ -172,7 +172,7 @@
           <!-- email -->
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.customer.email.$error }">
-              <input type="email" placeholder=" " id="email1"  v-model="$v.customer.email.$model">
+              <input type="email" placeholder=" " id="email1"  v-model="$v.customer.email.$model"  @change="isFormCorrect">
               <label class="kv-form__label" for="email1">email</label>
             </div>
           </div>
@@ -202,7 +202,7 @@
                   }"
               >
                 <label class="kv-form-radio">
-                  <input type="radio" name="type" v-model="delivery.type" value="1">
+                  <input type="radio" name="type" v-model="delivery.type" value="1"  @change="isFormCorrect">
                   <span class="kv-form-radio__mark">
                     <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
                   </span>
@@ -220,7 +220,7 @@
                   }"
               >
                 <label class="kv-form-radio">
-                  <input type="radio" v-model="delivery.type" value="2">
+                  <input type="radio" v-model="delivery.type" value="2"  @change="isFormCorrect">
                   <span class="kv-form-radio__mark">
                     <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
                   </span>
@@ -238,7 +238,7 @@
                   }"
               >
                 <label class="kv-form-radio">
-                  <input type="radio" v-model="delivery.type" value="3">
+                  <input type="radio" v-model="delivery.type" value="3"  @change="isFormCorrect">
                   <span class="kv-form-radio__mark">
                     <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
                   </span>
@@ -257,7 +257,7 @@
             <div class="kv-form__item-wrap kv-from__col">
               <div class="kv-form__item kv-form__item_chb">
                 <label class="kv-form-radio">
-                  <input type="checkbox" v-model="delivery.isCompany"  @change="$v.delivery.companyName.$reset">
+                  <input type="checkbox" v-model="delivery.isCompany"  @change="$v.delivery.companyName.$reset; isFormCorrect()">
                   <span class="kv-form-radio__mark">
                     <svg><use href="img/icons/icons.svg#form_chb"></use></svg>
                   </span>
@@ -276,7 +276,7 @@
             <!-- company name -->
             <div class="kv-form__item-wrap kv-from__col">
               <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.companyName.$error }">
-                <input type="text" id="companyname2" placeholder=" " v-model="$v.delivery.companyName.$model">
+                <input type="text" id="companyname2" placeholder=" " v-model="$v.delivery.companyName.$model"  @change="isFormCorrect">
                 <label class="kv-form__label" for="companyname2">Название фирмы</label>
               </div>
             </div>
@@ -290,14 +290,14 @@
             <div class="kv-form__item-wrap kv-from__col">
               <div class="kv-form__item kv-form__item_chb" :class="{ 'kv-form__item_error': $v.delivery.gender.$error }">
                 <label class="kv-form-radio">
-                  <input type="radio" name="gender2" value="herr"  v-model="$v.delivery.gender.$model">
+                  <input type="radio" name="gender2" value="herr"  v-model="$v.delivery.gender.$model"  @change="isFormCorrect">
                   <span class="kv-form-radio__mark">
                     <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
                   </span>
                   <span class="kv-form-radio__caption">Herr</span>
                 </label>
                 <label class="kv-form-radio">
-                  <input type="radio" name="gender2" value="frau" v-model="$v.delivery.gender.$model">
+                  <input type="radio" name="gender2" value="frau" v-model="$v.delivery.gender.$model"  @change="isFormCorrect">
                   <span class="kv-form-radio__mark">
                     <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
                   </span>
@@ -308,14 +308,14 @@
 
             <div class="kv-form__item-wrap kv-from__col">
               <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.sname.$error }">
-                <input type="text" placeholder=" " id="sname2" name="sname2" v-model.trim="$v.delivery.sname.$model">
+                <input type="text" placeholder=" " id="sname2" name="sname2" v-model.trim="$v.delivery.sname.$model"  @change="isFormCorrect">
                 <label class="kv-form__label" for="sname2">Фамилия</label>
               </div>
             </div>
 
             <div class="kv-form__item-wrap kv-from__col">
               <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.name.$error }">
-                <input type="text" placeholder=" " id="name2" name="name2" v-model="$v.delivery.name.$model">
+                <input type="text" placeholder=" " id="name2" name="name2" v-model="$v.delivery.name.$model"  @change="isFormCorrect">
                 <label class="kv-form__label" for="name2">Имя</label>
               </div>
             </div>
@@ -325,7 +325,7 @@
           <div class="kv-form__row kv-row">
             <div class="kv-form__item-wrap kv-from__col">
               <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.address.$error }">
-                <input type="text" placeholder=" " id="address2" name="address2" v-model="$v.delivery.address.$model">
+                <input type="text" placeholder=" " id="address2" name="address2" v-model="$v.delivery.address.$model"  @change="isFormCorrect">
                 <label class="kv-form__label" for="address2">Адресс</label>
               </div>
             </div>
@@ -335,14 +335,14 @@
           <div class="kv-form__row kv-row">
             <div class="kv-form__item-wrap kv-from__col">
               <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.zip.$error }">
-                <input type="text" placeholder=" " id="zip2" name="zip2" v-model="$v.delivery.zip.$model">
+                <input type="text" placeholder=" " id="zip2" name="zip2" v-model="$v.delivery.zip.$model"  @change="isFormCorrect">
                 <label class="kv-form__label" for="zip2">Индекс</label>
               </div>
             </div>
 
             <div class="kv-form__item-wrap kv-from__col">
               <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.city.$error }">
-                <input type="text" placeholder=" " id="city2" name="city2" v-model="$v.delivery.city.$model">
+                <input type="text" placeholder=" " id="city2" name="city2" v-model="$v.delivery.city.$model"  @change="isFormCorrect">
                 <label class="kv-form__label" for="city2">Город</label>
               </div>
             </div>
@@ -355,7 +355,7 @@
                     placeholder="Выберите"
                     v-model="$v.delivery.addressingCountry.$model"
                     :clearable="false"
-                    @option:selected=""
+                    @option:selected="isFormCorrect"
                     @search:focus="$refs.addressingCountries2.classList.add('test')"
                     @search:blur="$v.delivery.addressingCountry.$touch()"
                 />
@@ -370,7 +370,7 @@
               <div class="kv-form__item">
                 <!--<input type="tel" placeholder=" " id="phone2"  v-model="delivery.tel">-->
                 <the-mask mask="# (###) ### ## ##" type="tel"
-                          :masked="false" placeholder=" " id="phone2" v-model="delivery.tel"></the-mask>
+                          :masked="false" placeholder=" " id="phone2" v-model="delivery.tel"  @change="isFormCorrect"></the-mask>
                 <label class="kv-form__label" for="phone2">Телефон</label>
               </div>
             </div>
@@ -379,14 +379,14 @@
               <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.mobile.$error }">
                 <!--<input type="tel" placeholder=" " id="cellphone2" name="cellphone2" v-model="delivery.mobile">-->
                 <the-mask mask="# (###) ### ## ##" type="tel"
-                          :masked="false" placeholder=" " id="cellphone2" v-model="$v.delivery.mobile.$model"></the-mask>
+                          :masked="false" placeholder=" " id="cellphone2" v-model="$v.delivery.mobile.$model"  @change="isFormCorrect"></the-mask>
                 <label class="kv-form__label" for="cellphone2">Мобильный телефон</label>
               </div>
             </div>
 
             <div class="kv-form__item-wrap kv-from__col">
               <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.email.$error }">
-                <input type="email" placeholder=" " id="email2" name="email2"  v-model="$v.delivery.email.$model">
+                <input type="email" placeholder=" " id="email2" name="email2"  v-model="$v.delivery.email.$model"  @change="isFormCorrect">
                 <label class="kv-form__label" for="email2">email</label>
               </div>
             </div>
@@ -403,7 +403,7 @@
                 'kv-form__item_border': item.id ===delivery.branch
               }">
                 <label class="kv-form-radio">
-                  <input type="radio" name="branch" v-model="delivery.branch" :value="item.id">
+                  <input type="radio" name="branch" v-model="delivery.branch" :value="item.id"  @change="isFormCorrect">
                   <span class="kv-form-radio__mark">
                     <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
                   </span>
@@ -424,7 +424,7 @@
 
       </div>
 
-      <div class="kv-alert" v-if="isDeliveryByEmail">
+      <div class="kv-alert kv-alert_center" v-if="isDeliveryByEmail">
         Документы будут доставлены на электронный адрес клиента
       </div>
 
@@ -606,12 +606,9 @@ export default {
     }
 
   },
-  computed: {
-
-    preparedPickupPoints() {
-      return arrayHelper.arrayToSubArrays(this.pickupPoints, 2)
-    },
+  methods: {
     isFormCorrect() {
+      console.log('Валидация')
       const customerIsValid = this.$v.customer.$anyDirty &&  !this.$v.customer.$invalid;
       const deliveryIsValid = this.$v.delivery.$anyDirty &&  !this.$v.delivery.$invalid;
 
@@ -632,6 +629,13 @@ export default {
       this.$emit('isValid', isValid)
       return isValid
     }
+  },
+  computed: {
+
+    preparedPickupPoints() {
+      return arrayHelper.arrayToSubArrays(this.pickupPoints, 2)
+    },
+
   },
   mounted() {
     this.$emit('active');
