@@ -200,7 +200,7 @@ const isNationalitySelected = (value) => value.codeA3 !== null;
 const isResidenceRegionSelected = (value, vm) => !vm.residenceRegionsRequired || (vm.residenceRegionsRequired && (value.code  !== null));
 
 const isBirthDateValid = (value, vm) => {
-  return vm.discount === null || (vm.discount === 'c'  && value.length === 10)}
+  return vm.discount === null || vm.discount === "null" || (vm.discount === 'c'  && value.length === 10)}
 
 
 export default {
