@@ -294,6 +294,7 @@
                   calculate: this.calculate
 
                }"
+               @setStep="setStep"
 
 
         />
@@ -431,6 +432,7 @@ export default {
         }
       ],
       currentStep: 1,
+      stepBlock: null,
       isLoading: false,
 
       countries: [],
@@ -535,10 +537,11 @@ export default {
     /**
      * Устанавливает номер текущего шага
      */
-    setStep(step) {
+    setStep(step, block = null) {
       if (this.currentStep >= 1 || this.currentStep < this.steps.length) {
         this.currentStep = step
       }
+      this.stepBlock = block;
     },
 
     /**
@@ -1224,5 +1227,41 @@ export default {
   font-size: 14px;
   color: var(--c-disabled_dark);
 }
+
+/*
+.kv-form__sel .vs__dropdown-toggle,
+.kv-form__sel .vs__selected-options {
+  padding: 0;
+}
+
+.kv-form__sel .vs__selected {
+  padding: 0;
+  margin: 12px 0px 0px -1px;
+}
+*/
+.kv-form__sel-custom {
+  width: 100%;
+}
+
+.kv-form__sel-custom .vs__actions {
+  display: none;
+}
+.kv-form__sel-custom .vs__selected-options {
+    padding-left: 14px;
+}
+
+.kv-form__sel-custom .vs__dropdown-toggle {
+  padding: 0;
+}
+
+.kv-app .kv-form__label {
+   pointer-events: auto;
+}
+
+.kv-app .kv-form__label {
+  transition: none;
+
+}
+
 
 </style>

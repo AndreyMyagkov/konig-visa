@@ -33,8 +33,8 @@ export class Toursit {
         this.gender = '';
         this.name = '';
         this.sname = '';
-        this.nationality = {name: "Выберите", codeA3: null};
-        this.residenceRegion = {name: "Выберите", code: null};
+        this.nationality = {name: " ", codeA3: null};
+        this.residenceRegion = {name: " ", code: null};
         this.discount = null;
         this.birthDate = '';
         this.residenceRegionsRequired = false;
