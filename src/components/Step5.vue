@@ -25,7 +25,7 @@
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item kv-form__item_chb">
               <label class="kv-form-radio">
-                <input type="checkbox" aria-label="company" v-model="customer.isCompany" @input="$v.customer.companyName.$reset; isFormCorrect()">
+                <input type="checkbox" aria-label="company" v-model="customer.isCompany" @change="$v.customer.companyName.$reset; isFormCorrect()">
                 <span class="kv-form-radio__mark">
                   <svg><use href="img/icons/icons.svg#form_chb"></use></svg>
                 </span>
@@ -128,19 +128,30 @@
 
           <!-- country -->
           <div class="kv-form__item-wrap kv-from__col">
-            <div class="kv-form__item kv_is-focused" ref="addressingCountries" :class="{ 'kv-form__item_error': $v.customer.addressingCountry.$error }">
-              <v-select
-                  :options="addressingCountries"
-                  label="name"
-                  placeholder="Выберите"
-                  v-model="$v.customer.addressingCountry.$model"
-                  :clearable="false"
-                  @option:selected="isFormCorrect"
-                  @search:focus="$refs.addressingCountries.classList.add('test')"
-                  @search:blur="$v.customer.addressingCountry.$touch()"
-              />
+            <div class="kv-form__item kv_is-focused-"
+                 ref="addressingCountries"
+                 :class="{
+                    'kv-form__item_error': $v.customer.addressingCountry.$error,
+                     'kv_is-focused': $v.customer.addressingCountry.$model.codeA3 !== null,
+                }"
 
-              <label class="kv-form__label">Страна</label>
+            >
+              <div class="kv-form__sel-custom">
+                <v-select
+                    :options="addressingCountries"
+                    label="name"
+                    placeholder=" "
+                    inputId="customer-addressingCountry"
+                    v-model="$v.customer.addressingCountry.$model"
+                    :clearable="false"
+                    @option:selected="$refs.addressingCountries.classList.add('kv_is-focused');isFormCorrect()"
+                    @search:focus="$refs.addressingCountries.classList.add('kv_is-focused')"
+                    @search:blur="$v.customer.addressingCountry.$touch()"
+                />
+
+                <label class="kv-form__label" for="customer-addressingCountry">Страна</label>
+                <svg class="kv-form__sel-arrow"><use href="img/icons/icons.svg#select"></use></svg>
+              </div>
             </div>
           </div>
           <!-- /country -->
@@ -151,10 +162,14 @@
           <!-- phone -->
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item">
-             <!-- <input type="tel" placeholder=" " id="phone1" v-model="customer.tel">-->
-              <the-mask mask="# (###) ### ## ##" type="tel" :masked="false" placeholder=" " id="phone1" v-model="customer.tel"  @input="isFormCorrect"></the-mask>
+              <!-- mask="# (###) ### ## ##" -->
+              <!--<the-mask mask="# (###) ### ## ##" type="tel" :masked="false" placeholder=" " id="phone1" v-model="customer.tel"  @input="isFormCorrect"></the-mask>-->
+              <input type="text" placeholder=" " id="phone1" v-model="customer.tel"  @input="isFormCorrect">
 
-              <label class="kv-form__label" for="phone1">Телефон</label>
+              <label class="kv-form__label" for="phone1">
+                <template v-if="!customer.tel">Телефон (если есть)</template>
+                <template v-else>Телефон</template>
+              </label>
             </div>
           </div>
           <!-- /phone -->
@@ -162,8 +177,8 @@
           <!-- mphone -->
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item"  :class="{ 'kv-form__item_error': $v.customer.mobile.$error }">
-              <!--<input type="tel" placeholder=" " id="cellphone1"  v-model="customer.mobile">-->
-              <the-mask mask="# (###) ### ## ##" type="tel" :masked="false" placeholder=" " id="cellphone1" v-model="$v.customer.mobile.$model"  @input="isFormCorrect"></the-mask>
+              <input type="text" placeholder=" " id="cellphone1"  v-model="$v.customer.mobile.$model"  @input="isFormCorrect">
+              <!--<the-mask mask="# (###) ### ## ##" type="tel" :masked="false" placeholder=" " id="cellphone1" v-model="$v.customer.mobile.$model"  @input="isFormCorrect"></the-mask>-->
               <label class="kv-form__label" for="cellphone1">Мобильный телефон</label>
             </div>
           </div>
@@ -348,18 +363,27 @@
             </div>
 
             <div class="kv-form__item-wrap kv-from__col">
-              <div class="kv-form__item kv_is-focused" ref="addressingCountries2" :class="{ 'kv-form__item_error': $v.delivery.addressingCountry.$error }">
-                <v-select
-                    :options="addressingCountries"
-                    label="name"
-                    placeholder="Выберите"
-                    v-model="$v.delivery.addressingCountry.$model"
-                    :clearable="false"
-                    @option:selected="isFormCorrect"
-                    @search:focus="$refs.addressingCountries2.classList.add('test')"
-                    @search:blur="$v.delivery.addressingCountry.$touch()"
-                />
-                <label class="kv-form__label">Страна</label>
+              <div class="kv-form__item"
+                   ref="addressingCountries2"
+                   :class="{
+                      'kv-form__item_error': $v.delivery.addressingCountry.$error,
+                      'kv_is-focused': $v.delivery.addressingCountry.$model.codeA3 !== null,
+                   }">
+                <div class="kv-form__sel-custom">
+                  <v-select
+                      :options="addressingCountries"
+                      label="name"
+                      placeholder=" "
+                      inputId="deliveryaddressingCountry"
+                      v-model="$v.delivery.addressingCountry.$model"
+                      :clearable="false"
+                      @option:selected="$refs.addressingCountries2.classList.add('kv_is-focused');isFormCorrect()"
+                      @search:focus="$refs.addressingCountries2.classList.add('kv_is-focused');"
+                      @search:blur="$v.delivery.addressingCountry.$touch()"
+                  />
+                  <label class="kv-form__label" for="deliveryaddressingCountry">Страна</label>
+                  <svg class="kv-form__sel-arrow"><use href="img/icons/icons.svg#select"></use></svg>
+                </div>
               </div>
             </div>
           </div>
@@ -368,18 +392,21 @@
           <div class="kv-form__row kv-row">
             <div class="kv-form__item-wrap kv-from__col">
               <div class="kv-form__item">
-                <!--<input type="tel" placeholder=" " id="phone2"  v-model="delivery.tel">-->
-                <the-mask mask="# (###) ### ## ##" type="tel"
-                          :masked="false" placeholder=" " id="phone2" v-model="delivery.tel"  @input="isFormCorrect"></the-mask>
-                <label class="kv-form__label" for="phone2">Телефон</label>
+                <!--<the-mask mask="# (###) ### ## ##" type="tel"
+                          :masked="false" placeholder=" " id="phone2" v-model="delivery.tel"  @input="isFormCorrect"></the-mask> -->
+                <input type="text" placeholder=" " id="phone2"  v-model="delivery.tel"  @input="isFormCorrect">
+                <label class="kv-form__label" for="phone2">
+                  <template v-if="!delivery.tel">Телефон (если есть)</template>
+                  <template v-else>Телефон</template>
+                </label>
               </div>
             </div>
 
             <div class="kv-form__item-wrap kv-from__col">
               <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.mobile.$error }">
-                <!--<input type="tel" placeholder=" " id="cellphone2" name="cellphone2" v-model="delivery.mobile">-->
-                <the-mask mask="# (###) ### ## ##" type="tel"
-                          :masked="false" placeholder=" " id="cellphone2" v-model="$v.delivery.mobile.$model"  @input="isFormCorrect"></the-mask>
+                <input type="text" placeholder=" " id="cellphone2" name="cellphone2" v-model="$v.delivery.mobile.$model" @input="isFormCorrect">
+                <!--<the-mask mask="# (###) ### ## ##" type="tel"
+                          :masked="false" placeholder=" " id="cellphone2" v-model="$v.delivery.mobile.$model"  @input="isFormCorrect"></the-mask> -->
                 <label class="kv-form__label" for="cellphone2">Мобильный телефон</label>
               </div>
             </div>
@@ -520,7 +547,8 @@ export default {
       },
       mobile: {
         required,
-        minLength: minLength(11)
+        //minLength: minLength(11)
+        minLength: minLength(1)
       },
       email: {
         email,
@@ -563,7 +591,8 @@ export default {
       },
       mobile: {
         required,
-        minLength: minLength(11)
+        //minLength: minLength(11)
+        minLength: minLength(1)
       },
       email: {
         email,
@@ -588,6 +617,7 @@ export default {
     },
     isFormCorrect() {
       console.log('Валидация')
+
       const customerIsValid = this.$v.customer.$anyDirty &&  !this.$v.customer.$invalid;
       const deliveryIsValid = this.$v.delivery.$anyDirty &&  !this.$v.delivery.$invalid;
 

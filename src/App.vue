@@ -1218,27 +1218,13 @@ export default {
   overflow-y: auto;
 }
 .vsm-modal .btn-close span {
-  font-size: 30px;
 }
-
 
 .kv-app .kv-form__item input:not(:placeholder-shown) ~ .kv-form__label {
   top: 7px;
-  font-size: 14px;
   color: var(--c-disabled_dark);
 }
 
-/*
-.kv-form__sel .vs__dropdown-toggle,
-.kv-form__sel .vs__selected-options {
-  padding: 0;
-}
-
-.kv-form__sel .vs__selected {
-  padding: 0;
-  margin: 12px 0px 0px -1px;
-}
-*/
 .kv-form__sel-custom {
   width: 100%;
 }
@@ -1247,7 +1233,7 @@ export default {
   display: none;
 }
 .kv-form__sel-custom .vs__selected-options {
-    padding-left: 14px;
+    padding-left: 13px;
 }
 
 .kv-form__sel-custom .vs__dropdown-toggle {
@@ -1258,9 +1244,23 @@ export default {
    pointer-events: auto;
 }
 
-.kv-app .kv-form__label {
-  transition: none;
 
+.kv-app .kv-form__label {
+  top: 0;
+  left: 0;
+  right: 0;
+  padding-left: 20px;
+  line-height: 60px;
+}
+
+.kv-app .kv-form__item input:not(:placeholder-shown) ~ .kv-form__label,
+.kv-app .kv-form__item input:focus ~ .kv-form__label,
+.kv-app .kv-form__item select:focus ~ .kv-form__label,
+.kv-app .kv-form__item.kv_is-focused .kv-form__label,
+.kv-app .kv_is-focused .kv-form__label {
+  top: 3px;
+  font-size: 14px;
+  line-height: 25px;
 }
 
 

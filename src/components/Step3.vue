@@ -57,7 +57,7 @@
                     :id="`sname-${index}`"
                     placeholder=" "
                     v-model.trim="item.sname.$model"
-                    @change="isValid"
+                    @input="isValid"
                     >
               <label class="kv-form__label" :for="`sname-${index}`">Фамилия</label>
             </div>
@@ -72,7 +72,7 @@
                   :id="`name-${index}`"
                   placeholder=" "
                   v-model.trim="item.name.$model"
-                  @change="isValid"
+                  @input="isValid"
               >
               <label class="kv-form__label" :for="`name-${index}`">Имя</label>
             </div>
@@ -86,8 +86,9 @@
           <!-- Nationality -->
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item kv_is-focused-"
+                 ref="nationality"
                  :class="{
-                    'kv_is-focused': isNatFocused(index),
+                    'kv_is-focused': item.nationality.$model.codeA3 !== null,
                     'kv-form__item_error': item.nationality.$error || item.$model.state === -2
                  }"
             >
@@ -99,9 +100,8 @@
                   placeholder=" "
                   v-model="item.nationality.$model"
                   :clearable="false"
-                  @option:selected="calculateAndValidate"
-                  @search:focus="item.nationalityIsFocused.$model = true"
-
+                  @option:selected="$refs.nationality[index].classList.add('kv_is-focused');calculateAndValidate()"
+                  @search:focus="$refs.nationality[index].classList.add('kv_is-focused')"
               />
               <svg class="kv-form__sel-arrow"><use href="img/icons/icons.svg#select"></use></svg>
 <!-- @search:focus="tourists[index].nationalityIsFocused = true" -->
@@ -116,26 +116,28 @@
           <div class="kv-form__item-wrap kv-from__col">
             <div
                 class="kv-form__item kv_is-focused-"
+                ref="residenceRegion"
                 :class="{
-                    'kv_is-focused': isRegFocused(index),
+                    'kv_is-focused': item.residenceRegion.$model.code !== null,
                     'kv-form__item_error': item.residenceRegion.$error || item.$model.state === -3
                  }"
                  v-if="productDetails.servedResidenceRegions !== null"
             >
               <div class="kv-form__sel-custom">
-              <v-select
-                  :options="productDetails.servedResidenceRegions"
-                  label="name"
-                  :inputId="`residenceRegion-${index}`"
-                  placeholder="Выберите"
-                  v-model="item.residenceRegion.$model"
-                  :clearable="false"
-                  @option:selected="calculateAndValidate"
-                  @search:focus="item.residenceRegionsFocused = true"
-                  @search:blur="item.residenceRegionsFocused = false"
-                  @option:selecting=""
-              />
-              <label class="kv-form__label" :for="`residenceRegion-${index}`">Место жительства</label>
+                <v-select
+                    :options="productDetails.servedResidenceRegions"
+                    label="name"
+                    :inputId="`residenceRegion-${index}`"
+                    placeholder="Выберите"
+                    v-model="item.residenceRegion.$model"
+                    :clearable="false"
+                    @option:selected="$refs.residenceRegion[index].classList.add('kv_is-focused');calculateAndValidate();"
+                    @search:focus="$refs.residenceRegion[index].classList.add('kv_is-focused');"
+                    @search:focusDEL="item.residenceRegionsFocused = true"
+                    @search:blur="item.residenceRegionsFocused = false"
+                    @option:selecting=""
+                />
+                <label class="kv-form__label" :for="`residenceRegion-${index}`">Место жительства</label>
                 <svg class="kv-form__sel-arrow"><use href="img/icons/icons.svg#select"></use></svg>
               </div>
             </div>
@@ -160,7 +162,7 @@
                 <option value="null" label=" "></option>
                 <option :value="item.code" v-for="item in productDetails.discounts" :key="`${item.code}-${index}`">{{item.name}}</option>
               </select>
-              <label class="kv-form__label" :for="`discount-${index}`">Скидка</label>
+              <label class="kv-form__label" :for="`discount-${index}`" style="pointer-events: none">Скидка</label>
               <svg class="kv-form__sel-arrow">
                 <use href="img/icons/icons.svg#select"></use>
               </svg>
@@ -175,7 +177,7 @@
                  :class="{ 'kv-form__item_error': item.birthDate.$error }"
 
             >
-              <input type="date" id="birthDate" v-model.trim="item.birthDate.$model" @change="isValid">
+              <input type="date" id="birthDate" v-model.trim="item.birthDate.$model" @input="isValid">
               <label class="kv-form__label" for="birthDate">Дата рождения</label>
             </div>
             <div class="kv-form__msg kv-form__msg_label">
@@ -374,7 +376,7 @@ export default {
       //const isCalculateValid = this.tourists.every(item => item.state === 0);
 
       isValid = isFormValid; // && isCalculateValid;
-
+      console.log('Проверка фомы')
       console.log(isFormValid);
      // console.log(isCalculateValid);
 
@@ -390,6 +392,7 @@ export default {
     isRegFocused(index) {
       return this.$v.tourists.$each.$iter[index].residenceRegion.isResidenceRegionSelected
     },
+
   },
   computed: {
 

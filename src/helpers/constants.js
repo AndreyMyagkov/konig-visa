@@ -72,7 +72,7 @@ export class ServicePackage {
 export class CustomerDefault {
     constructor() {
         this.isCompany = false;
-        this.addressingCountry = [];
+        this.addressingCountry = {name: " ", codeA3: null};
         this.gender = "";
         this.sname = "";
         this.name = "";
@@ -91,7 +91,7 @@ export class DeliveryDefault {
     constructor() {
         this.type = 1;
         this.isCompany = false;
-        this.addressingCountry = [];
+        this.addressingCountry = {name: " ", codeA3: null};
         this.gender = "";
         this.sname = "";
         this.name = "";
