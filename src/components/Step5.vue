@@ -4,7 +4,7 @@
     <button @click='customer = {
       isCompany: false,
       addressingCountry: {codeA2: "DE", codeA3: "DEU", name: "Deutschland"},
-      gender: "frau",
+      gender: "Frau",
       sname: "1",
       name: "2",
       address: "3",
@@ -54,7 +54,7 @@
           <div class="kv-form__item-wrap kv-from__col">
             <div class="kv-form__item kv-form__item_chb" :class="{ 'kv-form__item_error': $v.customer.gender.$error }">
               <label class="kv-form-radio">
-                <input type="radio" name="gender" aria-label="Herr" value="herr" v-model="$v.customer.gender.$model"  @change="isFormCorrect">
+                <input type="radio" name="gender" aria-label="Herr" value="Herr" v-model="$v.customer.gender.$model"  @change="isFormCorrect">
                 <span class="kv-form-radio__mark">
                   <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
                 </span>
@@ -62,7 +62,7 @@
               </label>
 
               <label class="kv-form-radio">
-                <input type="radio" name="gender" aria-label="Frau" value="frau"  v-model="$v.customer.gender.$model"  @change="isFormCorrect">
+                <input type="radio" name="gender" aria-label="Frau" value="Frau"  v-model="$v.customer.gender.$model"  @change="isFormCorrect">
                 <span class="kv-form-radio__mark">
                   <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
                 </span>
@@ -305,14 +305,14 @@
             <div class="kv-form__item-wrap kv-from__col">
               <div class="kv-form__item kv-form__item_chb" :class="{ 'kv-form__item_error': $v.delivery.gender.$error }">
                 <label class="kv-form-radio">
-                  <input type="radio" name="gender2" value="herr"  v-model="$v.delivery.gender.$model"  @change="isFormCorrect">
+                  <input type="radio" name="gender2" value="Herr"  v-model="$v.delivery.gender.$model"  @change="isFormCorrect">
                   <span class="kv-form-radio__mark">
                     <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
                   </span>
                   <span class="kv-form-radio__caption">Herr</span>
                 </label>
                 <label class="kv-form-radio">
-                  <input type="radio" name="gender2" value="frau" v-model="$v.delivery.gender.$model"  @change="isFormCorrect">
+                  <input type="radio" name="gender2" value="Frau" v-model="$v.delivery.gender.$model"  @change="isFormCorrect">
                   <span class="kv-form-radio__mark">
                     <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
                   </span>
@@ -341,7 +341,7 @@
             <div class="kv-form__item-wrap kv-from__col">
               <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.address.$error }">
                 <input type="text" placeholder=" " id="address2" name="address2" v-model.trim="$v.delivery.address.$model"  @input="isFormCorrect">
-                <label class="kv-form__label" for="address2">Адресс</label>
+                <label class="kv-form__label" for="address2">Адрес</label>
               </div>
             </div>
           </div>
@@ -618,8 +618,11 @@ export default {
     isFormCorrect() {
       console.log('Валидация')
 
-      const customerIsValid = this.$v.customer.$anyDirty &&  !this.$v.customer.$invalid;
-      const deliveryIsValid = this.$v.delivery.$anyDirty &&  !this.$v.delivery.$invalid;
+      //const customerIsValid = this.$v.customer.$anyDirty &&  !this.$v.customer.$invalid;
+      //const deliveryIsValid = this.$v.delivery.$anyDirty &&  !this.$v.delivery.$invalid;
+
+      const customerIsValid = this.$v.$anyDirty &&  !this.$v.customer.$invalid;
+      const deliveryIsValid = this.$v.$anyDirty &&  !this.$v.delivery.$invalid;
 
       let isValid = false;
 
