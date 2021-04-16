@@ -42,6 +42,8 @@ export default {
     postalServices: {
       type: Array,
       required: true
+    },
+    selectedPostalService: {
     }
   },
   data() {
@@ -61,6 +63,7 @@ export default {
   },
   mounted() {
     this.$emit('active');
+    this.postalService = this.selectedPostalService;
   }
 }
 </script>

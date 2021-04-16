@@ -112,3 +112,13 @@ export class DeliveryDefault {
         }
     }
 }
+
+export class PostalServiceDefault {
+    constructor() {
+        this.id = null;
+        this.address = "";
+        this.countryA3 = "";
+        this.name = "";
+        this.workingTime = "";
+    }
+}

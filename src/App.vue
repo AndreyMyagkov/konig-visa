@@ -272,6 +272,7 @@
         <!-- STEP 6 -->
         <Step6 v-if="currentStep === 6"
                :postalServices="postalServices"
+               :selectedPostalService="selectedPostalService.id"
                @change="postalChange"
                @active="loadPostalServices"
         />
@@ -491,7 +492,7 @@ export default {
 
       // Шаг 6
       postalServices: [],
-      selectedPostalService: null,
+      selectedPostalService: new constants.PostalServiceDefault(),
 
 
       CONFIG: {
@@ -1074,7 +1075,7 @@ export default {
       }
 
       if (this.currentStep === 6) {
-        if (this.selectedPostalService !== null) {
+        if (this.selectedPostalService.id !== null) {
           return true
         }
       }

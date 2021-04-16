@@ -1,6 +1,25 @@
 <template>
   <div class="kv-content__body">
 
+    <button @click="
+      $v.tourists.$each.$iter[0].gender.$model= 'Herr';
+      $v.tourists.$each.$iter[0].name.$model= 'Иван';
+      $v.tourists.$each.$iter[0].sname.$model= 'Иванов';
+      $v.tourists.$each.$iter[0].discount.$model= null;
+      $v.tourists.$each.$iter[0].birthDate.$model= '';
+
+      $v.tourists.$each.$iter[0].nationality.$model = {
+        codeA2:'RU',
+        codeA3:'RUS',
+        name:'Russian Federation'
+      };
+      $v.tourists.$each.$iter[0].residenceRegion.$model = {
+        code:'DEU\BW',
+        name:'Deutschland, Baden-Württemberg'
+      }; isValid();
+    ">Тестовые данные</button>
+
+
     <div class="kv-form">
 
 
