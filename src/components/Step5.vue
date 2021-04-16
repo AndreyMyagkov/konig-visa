@@ -167,9 +167,15 @@
               <input type="text" placeholder=" " id="phone1" v-model="customer.tel"  @input="isFormCorrect">
 
               <label class="kv-form__label" for="phone1">
-                <template v-if="!customer.tel">Телефон (если есть)</template>
+                <template v-if="!customer.tel">Телефон <!--(если есть)--></template>
                 <template v-else>Телефон</template>
               </label>
+              <div
+                  class="kv-form__sublabel"
+                  v-if="!customer.tel"
+              >
+                (если есть)
+              </div>
             </div>
           </div>
           <!-- /phone -->
@@ -396,9 +402,12 @@
                           :masked="false" placeholder=" " id="phone2" v-model="delivery.tel"  @input="isFormCorrect"></the-mask> -->
                 <input type="text" placeholder=" " id="phone2"  v-model="delivery.tel"  @input="isFormCorrect">
                 <label class="kv-form__label" for="phone2">
-                  <template v-if="!delivery.tel">Телефон (если есть)</template>
+                  <template v-if="!delivery.tel">Телефон</template>
                   <template v-else>Телефон</template>
                 </label>
+                <div class="kv-form__sublabel" v-if="!delivery.tel">
+                  (если есть)
+                </div>
               </div>
             </div>
 

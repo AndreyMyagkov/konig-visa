@@ -5,7 +5,7 @@
     <div class="kv-header">
 
       <!-- Bread Crumbs -->
-      <BreadCrumbs :crumbs="crumbs"/>
+      <BreadCrumbs :crumbs="crumbs" v-if="false"/>
       <!-- /Bread Crumbs -->
 
       <!-- Info bar -->
@@ -1251,6 +1251,7 @@ export default {
   right: 0;
   padding-left: 20px;
   line-height: 60px;
+  z-index: 1;
 }
 
 .kv-app .kv-form__item input:not(:placeholder-shown) ~ .kv-form__label,
@@ -1263,5 +1264,15 @@ export default {
   line-height: 25px;
 }
 
-
+.kv-form__sublabel {
+  position: absolute;
+  bottom: 3px;
+  left: 20px;
+  font-size: 14px;
+  z-index: 0;
+  color: var(--c-disabled_dark);
+}
+.kv-app .kv-form__item input:focus ~ .kv-form__sublabel {
+  display: none;
+}
 </style>
