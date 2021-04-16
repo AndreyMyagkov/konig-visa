@@ -147,11 +147,19 @@ export default {
     data: {
       type: Object,
       required: true
+    },
+    selectedServicePackage: {
+      type: Object,
+      required: true
+    },
+    selectedSuppServices: {
+      type: Array,
+      required: true
     }
   },
   data() {
     return {
-      packageSelected: new constants.ServicePackage(),
+      packageSelected: {}, //new constants.ServicePackage(),
       serviceSelected: []
     }
   },
@@ -278,10 +286,12 @@ export default {
     }
   },
   mounted(){
+    this.packageSelected = Object.assign({}, this.selectedServicePackage);
+    this.serviceSelected = this.selectedSuppServices.map(_ => _.id);
     // Выбор первого возможного сервис-пакета, если он еще не выбран
-    if (this.data.servicePackages !== null && this.data.servicePackages.length && this.packageSelected.id === null) {
-      this.selectPackage(this.data.servicePackages[0])
-    }
+    // if (this.data.servicePackages !== null && this.data.servicePackages.length && this.packageSelected.id === null) {
+    //   this.selectPackage(this.data.servicePackages[0])
+    // }
 
   }
 }

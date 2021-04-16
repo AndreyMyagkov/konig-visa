@@ -314,7 +314,8 @@ export default {
   height: 100%;
 }
 
-.kv-review__row_gap {
+.kv-app .kv-review__row_gap {
+  padding: 0;
   gap: 20px;
 }
 

@@ -249,6 +249,9 @@
         <!-- STEP 4 -->
         <Step4 v-if="currentStep === 4"
                :data="productDetails"
+               :selectedServicePackage="selectedServicePackage"
+               :selectedSuppServices="selectedSuppServices"
+
                @showModal="showModal"
                @changePackage="changePackage"
                @changeSuppService="changeSuppService"
@@ -655,6 +658,16 @@ export default {
     },
 
     /**
+     * Выбор первого возможного сервис-пакета, если он еще не выбран
+     */
+    setFirstPackage() {
+      if (this.productDetails.servicePackages !== null && this.productDetails.servicePackages.length && this.selectedServicePackage.id === null) {
+        //this.selectPackage(this.data.servicePackages[0])
+        this.changePackage(this.productDetails.servicePackages[0])
+      }
+    },
+
+    /**
      * Загружает детальную инфо по продукту
      */
     async loadProductDetails() {
@@ -668,9 +681,11 @@ export default {
 
         this.productDetails = productDetails.product;
 
-        this.setResidenceRegionsRequired();
-
         this.isLoading = false;
+
+        this.setResidenceRegionsRequired();
+        this.setFirstPackage();
+
       } catch (err) {
         this.isLoading = false;
         console.log(err)
