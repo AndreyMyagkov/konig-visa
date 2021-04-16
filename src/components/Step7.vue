@@ -4,7 +4,7 @@
     <!-- Review info-->
     <div class="kv-review-info kv-review__item">
       <div class="kv-edit kv-review-info__edit">
-        <svg class="kv-edit__icon" @click="setStep(1)">
+        <svg class="kv-edit__icon" @click="setStep({step:1, block: null})">
           <use href="img/icons/icons.svg#edit"></use>
         </svg>
       </div>
@@ -80,7 +80,7 @@
         <div class="kv-review-members__item kv-review-members__col_4">{{item.residenceRegion.name}}</div>
         <div class="kv-review-members__item kv-review-members__col_5">{{item.discount}} {{item.birthDate}}</div>
         <div class="kv-review-members__item kv-review-members__col_6 kv-review-members__item_edit">
-          <div class="kv-edit" @click="setStep(3, 'tourist-'+index)">
+          <div class="kv-edit" @click="setStep({step:3, block: '#kv-tourist-'+index})">
             <svg class="kv-edit__icon">
               <use href="img/icons/icons.svg#edit"></use>
             </svg>
@@ -102,7 +102,7 @@
         </svg>
         <div class="kv-review-card__title">Сервис пакет: {{data.servicePackage.name}}</div>
         <div class="kv-review-card__edit">
-          <div class="kv-edit"  @click="setStep(4)">
+          <div class="kv-edit"  @click="setStep({step:4, block: null})">
             <svg class="kv-edit__icon">
               <use href="img/icons/icons.svg#edit"></use>
             </svg>
@@ -133,7 +133,7 @@
         <div class="kv-review-card__title">Способ доставки:</div>
         <div class="kv-review-card__edit">
           <div class="kv-edit">
-            <svg class="kv-edit__icon" @click="setStep(6)">
+            <svg class="kv-edit__icon" @click="setStep({step:6, block: null})">
               <use href="img/icons/icons.svg#edit"></use>
             </svg>
           </div>
@@ -199,7 +199,7 @@
             <div class="kv-review-card__title">Информация о Клиенте</div>
             <div class="kv-review-card__edit">
               <div class="kv-edit">
-                <svg class="kv-edit__icon"  @click="setStep(5, 'customer')">
+                <svg class="kv-edit__icon"  @click="setStep({step:5, block: '#kv-customer'})">
                   <use href="img/icons/icons.svg#edit"></use>
                 </svg>
               </div>
@@ -229,7 +229,7 @@
             <div class="kv-review-card__title">Адрес доставки</div>
             <div class="kv-review-card__edit">
               <div class="kv-edit">
-                <svg class="kv-edit__icon" @click="setStep(5, 'delivery')">
+                <svg class="kv-edit__icon" @click="setStep({step: 5, block: '#kv-delivery'})">
                   <use href="img/icons/icons.svg#edit"></use>
                 </svg>
               </div>

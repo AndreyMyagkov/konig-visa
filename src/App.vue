@@ -266,6 +266,7 @@
                :customerDefault="customer"
                :deliveryDefault="delivery"
                :isDeliveryByEmail="calculate.deliveryMedia === 'digital'"
+               :showBlock="stepBlock"
                @active="loadStep5Data"
                @isValid="steps[4].isValid = $event"
                @update="setCustomerDelivery"
@@ -541,11 +542,64 @@ export default {
     /**
      * Устанавливает номер текущего шага
      */
-    setStep(step, block = null) {
+    setStep(data) {
       if (this.currentStep >= 1 || this.currentStep < this.steps.length) {
-        this.currentStep = step
+        this.currentStep = data.step
       }
-      this.stepBlock = block;
+      this.stepBlock = data.block || null;
+
+      setTimeout(
+          () => {this.scrollTo(data.block)},
+          500
+      )
+
+
+    },
+
+    /**
+     * Прокрутка экрана до элемента
+     */
+    scrollTo(element) {
+      console.log('прокрутка ', element);
+      if (element === null) {
+        return
+      }
+
+
+      const elementTarget = document.querySelector(element);
+
+      console.log(elementTarget);
+      if (elementTarget === null) {
+        return false
+      }
+      console.log(2)
+
+      // Дополнительное смещение для красоты или высота внешней шапки
+      const parentOffset = 10;
+
+      const elementPosition = elementTarget.getBoundingClientRect().top;
+
+      const headerHeight = document.querySelector('#kv-app .kv-header').getBoundingClientRect().height;
+      const topOffset = headerHeight + parentOffset;
+
+      const offsetPosition = elementPosition + window.pageYOffset - topOffset;
+      console.log('прокрутка до ' + offsetPosition);
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+        block: 'start'
+      });
+
+/*
+      setTimeout(
+          () => {
+            document.querySelector('#form-delivery').scrollIntoView({
+              block: "start",
+              behavior: "smooth"
+            });
+          },
+          1000
+      )*/
     },
 
     /**

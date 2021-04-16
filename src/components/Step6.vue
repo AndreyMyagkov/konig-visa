@@ -44,7 +44,8 @@ export default {
       required: true
     },
     selectedPostalService: {
-    }
+    },
+
   },
   data() {
     return {

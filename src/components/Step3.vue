@@ -28,6 +28,7 @@
            :class="{
               'kv-form-card_error': (item.$anyDirty && item.$anyError) || item.$model.state !== 0
           }"
+           :id="`kv-tourist-${index}`"
            v-for="(item, index) in $v.tourists.$each.$iter"
            :key="index">
 

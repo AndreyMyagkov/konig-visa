@@ -1,11 +1,12 @@
 <template>
   <div class="kv-content__body">
 
-    <button @click='customer = {
+    <button @click='
+    customer = {
       isCompany: false,
       addressingCountry: {codeA2: "DE", codeA3: "DEU", name: "Deutschland"},
       gender: "Frau",
-      sname: "1",
+      sname: "Иванов",
       name: "2",
       address: "3",
       zip: "4",
@@ -14,11 +15,30 @@
       mobile: "77777777777",
       email: "qw@qw.ru",
       companyName: "8",
-    }; $v.customer.$touch(); $v.delivery.$touch();$v.$touch(); isFormCorrect()'>Тестовые данные</button>
+    };
+    delivery = {
+      type: 2,
+      isCompany: false,
+      addressingCountry: {codeA2: "DE", codeA3: "DEU", name: "Deutschland"},
+      gender: "Frau",
+      sname: "Петров",
+      name: "2",
+      address: "3",
+      zip: "4",
+      city: "5",
+      tel: "6",
+      mobile: "77777777777",
+      email: "qw@qw.ru",
+      companyName: "8",
+    };
+    $v.customer.$touch();
+    $v.delivery.$touch();
+    $v.$touch();
+    isFormCorrect()'>Тестовые данные</button>
     <div class="kv-form">
 
       <!-- Customer-->
-      <div class="kv-form-card kv-form-card_dis">
+      <div class="kv-form-card kv-form-card_dis" id="kv-customer">
         <!-- From row-->
         <div class="kv-row kv-form__row">
           <!-- company -->
@@ -203,7 +223,7 @@
 
 
       <!-- Delivery-->
-      <div class="kv-form-card" v-if="!isDeliveryByEmail">
+      <div class="kv-form-card" v-if="!isDeliveryByEmail" id="kv-delivery">
         <div class="kv-form__header">
 
           <!-- From row-->
@@ -502,6 +522,9 @@ export default {
     isDeliveryByEmail: {
       type: Boolean,
       required: false
+    },
+    showBlock: {
+
     }
   },
   components: {
@@ -660,6 +683,21 @@ export default {
   },
   mounted() {
     this.$emit('active');
+    /*
+    if (this.showBlock === "delivery") {
+      console.log('старт')
+      setTimeout(
+          () => {
+              console.log('енд')
+              document.querySelector('#form-delivery').scrollIntoView({
+                block: "start",
+                behavior: "smooth"
+              });
+            },
+          1000
+      )
+
+    }*/
   },
   beforeDestroy() {
     // Отправка формы в корень
