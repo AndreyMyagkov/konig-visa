@@ -69,20 +69,6 @@
         </div>
 
         <div class="kv-form__row kv-row">
-          <!-- SName -->
-          <div class="kv-form__item-wrap kv-from__col">
-            <div class="kv-form__item" :class="{ 'kv-form__item_error': item.sname.$error }">
-              <input
-                    type="text"
-                    :id="`sname-${index}`"
-                    placeholder=" "
-                    v-model.trim="item.sname.$model"
-                    @input="isValid"
-                    >
-              <label class="kv-form__label" :for="`sname-${index}`">Фамилия</label>
-            </div>
-          </div>
-          <!-- /SName -->
 
           <!-- Name -->
           <div class="kv-form__item-wrap kv-from__col">
@@ -98,6 +84,24 @@
             </div>
           </div>
           <!-- /Name -->
+
+          <!-- SName -->
+          <div class="kv-form__item-wrap kv-from__col">
+            <div class="kv-form__item" :class="{ 'kv-form__item_error': item.sname.$error }">
+              <input
+                  type="text"
+                  :id="`sname-${index}`"
+                  placeholder=" "
+                  v-model.trim="item.sname.$model"
+                  @input="isValid"
+              >
+              <label class="kv-form__label" :for="`sname-${index}`">Фамилия</label>
+            </div>
+          </div>
+          <!-- /SName -->
+
+
+
         </div>
 
 

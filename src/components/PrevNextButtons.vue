@@ -33,12 +33,13 @@
 
     <!-- шаг 7 -->
     <template v-if="currentStep === 7">
+      <!--
       <div class="kv-content__btn">
-        <button class="kv-step-button kv-step-button_save" type="button" @click="prev">
+        <button class="kv-step-button kv-step-button_save" type="button">
           <span class="kv-step-button__text">Сохранить заявку</span>
         </button>
       </div>
-
+      -->
       <div class="kv-content__btn kv-content__btn_lg">
         <button class="kv-step-button kv-step-button_book" type="button" @click="next">
           <span class="kv-step-button__text">Zahlungspflichtig buchen</span>

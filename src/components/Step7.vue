@@ -58,7 +58,7 @@
         </div>
 
         <div class="kv-review-members__item kv-review-members__col_2 kv-review-members__item_title">
-          Фамилия, имя</div>
+          Имя, фамилия</div>
 
         <div class="kv-review-members__item kv-review-members__col_3 kv-review-members__item_title">
           Гражданство</div>
@@ -75,7 +75,7 @@
 
       <div class="kv-review-members__row" v-for="(item, index) in data.tourists" :key="index">
         <div class="kv-review-members__item kv-review-members__col_1">{{index+1}}</div>
-        <div class="kv-review-members__item kv-review-members__col_2">{{item.gender}} {{item.sname}} {{item.name}}</div>
+        <div class="kv-review-members__item kv-review-members__col_2">{{item.gender}} {{item.name}} {{item.sname}}</div>
         <div class="kv-review-members__item kv-review-members__col_3">{{item.nationality.name}}</div>
         <div class="kv-review-members__item kv-review-members__col_4">{{item.residenceRegion.name}}</div>
         <div class="kv-review-members__item kv-review-members__col_5">{{item.discount}} {{item.birthDate}}</div>
@@ -174,7 +174,7 @@
           <div class="kv-cart-table">
             <div class="kv-cart-table__row" v-for="(item, i) in data.calculate.calculation.participants" :key="i">
               <div class="kv-cart-table__item">{{item.nr}}</div>
-              <div class="kv-cart-table__item kv-cart-table__item_col">{{ data.tourists[i].gender }} {{data.tourists[i].sname}} {{data.tourists[i].name}}</div>
+              <div class="kv-cart-table__item kv-cart-table__item_col">{{ data.tourists[i].gender }} {{data.tourists[i].name}} {{data.tourists[i].sname}}</div>
               <div class="kv-price kv-cart-table__item">
                 <template  v-if="item.price !== null">{{item.price}}</template>
                 <template v-else><span v-html="constants.dashSymbol"></span> </template>
@@ -188,15 +188,17 @@
     </div>
 
 
-    <!-- Информация о клиенте -->
     <div class="kv-row kv-review__row kv-review__item kv-review__row_gap">
+
+
+      <!-- Информация о клиенте -->
       <div class="kv-review__col">
         <div class="kv-review-card kv-review-card_light">
           <div class="kv-review-card__header">
             <svg class="kv-review-card__icon">
               <use href="img/icons/icons.svg#step_5"></use>
             </svg>
-            <div class="kv-review-card__title">Информация о Клиенте</div>
+            <div class="kv-review-card__title">Информация о клиенте</div>
             <div class="kv-review-card__edit">
               <div class="kv-edit">
                 <svg class="kv-edit__icon"  @click="setStep({step:5, block: '#kv-customer'})">
@@ -206,12 +208,12 @@
             </div>
           </div>
           <div class="kv-review-card__body">
-            <div class="kv-review-card__text">{{data.customer.gender}} {{data.customer.sname}} {{data.customer.name}}</div>
+            <div class="kv-review-card__text">{{data.customer.gender}} {{data.customer.name}} {{data.customer.sname}}</div>
             <div class="kv-review-card__text">{{data.customer.companyName}}</div>
             <div class="kv-review-card__text">{{data.customer.address}}</div>
             <div class="kv-review-card__text">{{data.customer.zip}}, {{data.customer.city}}, {{data.customer.addressingCountry.name}}</div>
             <div class="kv-row">
-              <div class="kv-review-card__text">{{data.customer.tel}}</div>
+              <div class="kv-review-card__text kv-customer__tel" v-if="data.customer.tel.length">{{data.customer.tel}}</div>
               <div class="kv-review-card__text">{{data.customer.mobile}}</div>
             </div>
             <div class="kv-review-card__text">{{data.customer.email}}</div>
@@ -219,7 +221,7 @@
         </div>
       </div>
 
-
+      <!-- Адрес доставки -->
       <div class="kv-review__col" v-if="data.delivery.type == 2">
         <div class="kv-review-card kv-review-card_light">
           <div class="kv-review-card__header">
@@ -238,15 +240,45 @@
 
 
           <div class="kv-review-card__body" >
-            <div class="kv-review-card__text">{{data.delivery.gender}} {{data.delivery.sname}} {{data.delivery.name}}</div>
+            <div class="kv-review-card__text">{{data.delivery.gender}} {{data.delivery.name}} {{data.delivery.sname}}</div>
             <div class="kv-review-card__text" v-if="data.delivery.isCompany">{{data.delivery.companyName}}</div>
             <div class="kv-review-card__text">{{data.delivery.address}}</div>
             <div class="kv-review-card__text">{{data.delivery.zip}}, {{data.delivery.city}}, {{data.delivery.addressingCountry.name}}</div>
             <div class="kv-row">
-              <div class="kv-review-card__text">{{data.delivery.tel}}</div>
+              <div class="kv-review-card__text kv-customer__tel"  v-if="data.delivery.tel.length">{{data.delivery.tel}}</div>
               <div class="kv-review-card__text">{{data.delivery.mobile}}</div>
             </div>
             <div class="kv-review-card__text">{{data.delivery.email}}</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Самовывоз из -->
+      <div class="kv-review__col" v-if="data.delivery.type == 3">
+        <div class="kv-review-card kv-review-card_light">
+          <div class="kv-review-card__header">
+            <svg class="kv-review-card__icon">
+              <use href="img/icons/icons.svg#delivery"></use>
+            </svg>
+            <div class="kv-review-card__title">Адрес доставки</div>
+            <div class="kv-review-card__edit">
+              <div class="kv-edit">
+                <svg class="kv-edit__icon" @click="setStep({step: 5, block: '#kv-delivery'})">
+                  <use href="img/icons/icons.svg#edit"></use>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="kv-review-card__body">
+            <div class="kv-review-card__text">Самовывоз из</div>
+            <div class="kv-review-card__text">{{data.delivery.branch.name}}</div>
+            <div class="kv-review-card__text">{{data.delivery.branch.address}}</div>
+            <div class="kv-review-card__text">{{data.delivery.branch.workingTime}}</div>
+
+
           </div>
 
         </div>
@@ -317,6 +349,14 @@ export default {
 .kv-app .kv-review__row_gap {
   padding: 0;
   gap: 20px;
+}
+
+.kv-app .kv-review__row_gap .kv-review__col {
+  padding: 0;
+}
+
+.kv-customer__tel {
+  margin-right: 2em;
 }
 
 </style>
