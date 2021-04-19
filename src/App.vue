@@ -557,6 +557,11 @@ export default {
         step++;
         console.log('шаг ', step);
       }
+      //Пропуск шага 6, если электронная доставка
+      if (step === 6 && this.calculate.deliveryMedia === "digital") {
+        step++;
+        console.log('шаг ', step);
+      }
 
       this.setStep({step: step, block: null})
     },
