@@ -315,7 +315,8 @@
         <PrevNextButtons
             :currentStep="currentStep"
             :allowNext="allowNext"
-            @setStep="setStep"
+            @prevStep="prevStep"
+            @nextStep="nextStep"
         ></PrevNextButtons>
         <!-- /Bottom buttons -->
 
@@ -548,6 +549,15 @@ export default {
      */
     nextStep() {
       let step = this.currentStep + 1;
+
+      console.log('шаг ', step);
+      console.log(this.delivery.type)
+      // Пропуск шага 6, если самовывоз
+      if (step === 6 && this.delivery.type === "3") {
+        step++;
+        console.log('шаг ', step);
+      }
+
       this.setStep({step: step, block: null})
     },
     /**
@@ -555,6 +565,10 @@ export default {
      */
     prevStep() {
       let step = this.currentStep - 1;
+      // Пропуск шага 6, если самовывоз
+      if (step === 6 && this.delivery.type === 3) {
+        step--;
+      }
       this.setStep({step: step, block: null})
     },
 

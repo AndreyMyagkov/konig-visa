@@ -655,7 +655,10 @@ export default {
       this.isFormCorrect();
     },
     isFormCorrect() {
-      console.log('Валидация')
+      this.$emit('update', {
+        customer: this.customer,
+        delivery: this.delivery
+      })
 
       //const customerIsValid = this.$v.customer.$anyDirty &&  !this.$v.customer.$invalid;
       //const deliveryIsValid = this.$v.delivery.$anyDirty &&  !this.$v.delivery.$invalid;
@@ -681,6 +684,7 @@ export default {
       }
 
       this.$emit('isValid', isValid)
+
       return isValid
     }
   },
@@ -709,6 +713,7 @@ export default {
 
     }*/
   },
+  /*
   beforeDestroy() {
     // Отправка формы в корень
     this.$emit('update', {
@@ -716,6 +721,8 @@ export default {
       delivery: this.delivery
     })
   }
+
+   */
 }
 </script>
 

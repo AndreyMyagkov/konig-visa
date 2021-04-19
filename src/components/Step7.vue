@@ -125,7 +125,7 @@
 
 
     <!-- Reveiw delivery-->
-    <div class="kv-review-card kv-review__item">
+    <div class="kv-review-card kv-review__item" v-if="data.delivery.type != 3">
       <div class="kv-review-card__header">
         <svg class="kv-review-card__icon">
           <use href="img/icons/icons.svg#step_6"></use>
