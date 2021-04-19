@@ -560,7 +560,6 @@ export default {
       //Пропуск шага 6, если электронная доставка
       if (step === 6 && this.calculate.deliveryMedia === "digital") {
         step++;
-        console.log('шаг ', step);
       }
 
       this.setStep({step: step, block: null})
@@ -574,6 +573,11 @@ export default {
       if (step === 6 && this.delivery.type === 3) {
         step--;
       }
+      //Пропуск шага 6, если электронная доставка
+      if (step === 6 && this.calculate.deliveryMedia === "digital") {
+        step++;
+      }
+
       this.setStep({step: step, block: null})
     },
 
