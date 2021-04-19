@@ -549,16 +549,19 @@ export default {
      */
     skipStep() {
       // Пропуск шага 4, если нет пакетов и услуг
-      if (this.currentStep === 3 && this.calculate.calculation.servicePackage === null && this.calculate.calculation.suppServices === null) {
-        return true
+      if (this.currentStep === 3 || this.currentStep === 5) {
+        if (this.calculate.calculation.servicePackage === null && this.calculate.calculation.suppServices === null) {
+          return true
+        }
       }
 
+
       // Пропуск шага 6, если самовывоз
-      if (this.currentStep === 5 && this.delivery.type === "3") {
+      if ((this.currentStep === 5 || this.currentStep === 7) && this.delivery.type === "3") {
         return true
       }
       //Пропуск шага 6, если электронная доставка
-      if (this.currentStep === 5 && this.calculate.deliveryMedia === "digital") {
+      if ((this.currentStep === 5 || this.currentStep === 7) && this.calculate.deliveryMedia === "digital") {
         return true
       }
 
