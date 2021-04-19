@@ -1,5 +1,5 @@
 <template>
-  <div id="kv-app" class="kv-app" notranslate>
+  <div id="kv-app" class="kv-app" notranslate data-cq-max-w="991">
 
     <!-- HEADER -->
     <div class="kv-header">
@@ -51,9 +51,9 @@
 
                   <div class="kv-cart-table__row" v-for="(item, i) in calculate.calculation.participants" :key="i">
                     <div class="kv-cart-table__item">{{item.nr}}</div>
-                    <div class="kv-cart-table__item kv-cart-table__item_col">{{ tourists[i].gender }} {{tourists[i].sname}} {{tourists[i].name}}</div>
+                    <div class="kv-cart-table__item kv-cart-table__item_col">{{ tourists[i].gender }} {{tourists[i].name}} {{tourists[i].sname}}</div>
                     <div class="kv-price kv-cart-table__item">
-                      <template  v-if="item.price !== null">{{item.price}}</template>
+                      <template  v-if="item.price !== null">{{formatter.priceFormat(item.price)}}</template>
                       <template v-else><span v-html="constants.dashSymbol"></span> </template>
                       <span class="kv-price__currency">€</span>
                     </div>
@@ -357,10 +357,11 @@ import 'vue-select/dist/vue-select.css';
 
 import * as network from '@/helpers/network';
 import * as constants from "@/helpers/constants";
+import * as formatter from "@/helpers/format";
 
 // TODO: стили изолировать
 import 'vue-loading-overlay/dist/vue-loading.css';
-
+import "css-container-queries"
 export default {
   name: 'App',
   components: {
@@ -385,6 +386,7 @@ export default {
   data() {
     return {
       constants,
+      formatter,
       isModalShow: false,
       modal: {
         title: '',
@@ -1190,7 +1192,7 @@ export default {
     totalAmount() {
       let amount = this.calculate.amount;
       if (amount !== null) {
-        return amount
+        return this.formatter.priceFormat(amount)
       } else {
         return this.constants.dashSymbol
       }
@@ -1215,7 +1217,7 @@ export default {
     // TODO: вынос в mount шага 2, кеш
     //this.loadNationalities()
 
-
+/*
     function resizeElement(e, s, t, l) {
       let i, v = document.querySelectorAll(e);
       if (v)
@@ -1230,6 +1232,9 @@ export default {
     } ["resize", "load"].forEach(e => window.addEventListener(e, () => {
       resizeElement(".kv-class-tabs", ".kv-class-tab", "kv-class-tab_bp", 991), resizeElement(".kv-class-tab", ".kv-class-tab__title", "kv-class-tab__title_hidden", 94), resizeElement(".kv-services", ".kv-classes__item", "kv-classes__item_bp", 991), resizeElement(".kv-services", ".kv-classes", "kv-classes_bp", 991), resizeElement(".kv-services", ".kv-class", "kv-class_bp", 991), resizeElement(".kv-services", ".kv-services", "kv-services_bp", 991), resizeElement(".kv-services", ".kv-services__item", "kv-services__item_bp", 991), resizeElement(".kv-class-tabs", ".kv-tabs-tail", "kv-tabs-tail_bp", 991), resizeElement(".kv-class-tabs", ".kv-class-tabs", "kv-class-tabs_bp", 991), resizeElement(".kv-services__footer", ".kv-services__prices", "kv-services__prices_bp", 991)
     }, !1));
+
+
+ */
 
   }
 }

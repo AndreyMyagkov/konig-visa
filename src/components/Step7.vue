@@ -176,7 +176,7 @@
               <div class="kv-cart-table__item">{{item.nr}}</div>
               <div class="kv-cart-table__item kv-cart-table__item_col">{{ data.tourists[i].gender }} {{data.tourists[i].name}} {{data.tourists[i].sname}}</div>
               <div class="kv-price kv-cart-table__item">
-                <template  v-if="item.price !== null">{{item.price}}</template>
+                <template  v-if="item.price !== null">{{ formatter.priceFormat(item.price) }}</template>
                 <template v-else><span v-html="constants.dashSymbol"></span> </template>
                 <span class="kv-price__currency">€</span>
               </div>
@@ -312,6 +312,8 @@
 
 <script>
 import * as constants from "@/helpers/constants";
+import * as formatter from "@/helpers/format";
+
 export default {
   name: "Step7",
   props: {
@@ -322,14 +324,15 @@ export default {
   },
   data() {
     return {
-      constants
+      constants,
+      formatter
     }
   },
   methods: {
     totalAmount() {
       let amount = this.data.calculate.amount;
       if (amount !== null) {
-        return amount
+        return this.formatter.priceFormat(amount)
       } else {
         return this.constants.dashSymbol
       }

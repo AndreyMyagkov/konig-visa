@@ -10,7 +10,8 @@
               v-for="(tab, index) in data.servicePackages"
               :key="index">
 
-            <div class="kv-class-tab"
+            <div data-cq-max-w="94"
+                 class="kv-class-tab"
                  :class="{
                       'kv-class-tab_active': packageSelected.id === tab.id,
                  }"
@@ -45,7 +46,7 @@
 
     <div class="kv-services">
       <!-- Services item-->
-      <div class="kv-services__item" v-for="(item, i) in data.suppServices" :key="item.id">
+      <div class="kv-services__item" data-cq-max-w="991" v-for="(item, i) in data.suppServices" :key="item.id">
         <div class="kv-service kv-services__item-inner">
           <div class="kv-service__main">
             <div class="kv-service__title">{{item.name}}</div>
@@ -61,7 +62,7 @@
           </div>
         </div>
         <!-- Class-->
-        <div class="kv-class">
+        <div class="kv-class" data-cq-max-w="991">
           <!-- Class item-->
           <div
               class="kv-class__item"
