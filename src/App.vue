@@ -88,7 +88,8 @@
       <PrevNextButtons
           :currentStep="currentStep"
           :allowNext="allowNext"
-          @setStep="setStep"
+          @prevStep="prevStep"
+          @nextStep="nextStep"
       ></PrevNextButtons>
       <!-- /Top buttons -->
 
@@ -543,7 +544,22 @@ export default {
     },
 
     /**
-     * Устанавливает номер текущего шага
+     * Переход к следующему шагу
+     */
+    nextStep() {
+      let step = this.currentStep + 1;
+      this.setStep({step: step, block: null})
+    },
+    /**
+     * Переход к предыдущему шагу
+     */
+    prevStep() {
+      let step = this.currentStep - 1;
+      this.setStep({step: step, block: null})
+    },
+
+    /**
+     * Устанавливает номер текущего шага и прокручивает до нужного блока
      */
     setStep(data) {
       if (this.currentStep >= 1 || this.currentStep < this.steps.length) {

@@ -73,16 +73,12 @@ export default {
     }
   },
   methods: {
-      prev() {
-          this.$emit('setStep', {step: this.currentStep - 1, block: null})
-      },
-      next() {
-        this.$emit('setStep', {step: this.currentStep + 1, block: null})
-      }
+    prev() {
+      this.$emit('prevStep')
+    },
+    next() {
+      this.$emit('nextStep')
+    }
   }
 }
 </script>
-
-<style scoped>
-
-</style>
