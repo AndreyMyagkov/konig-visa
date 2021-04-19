@@ -296,7 +296,8 @@
                   postalService: this.selectedPostalService,
                   servicePackage: this.selectedServicePackage,
                   suppServices: this.selectedSuppServices,
-                  calculate: this.calculate
+                  calculate: this.calculate,
+                  discounts: this.productDetails.discounts
 
                }"
                @setStep="setStep"

@@ -78,7 +78,7 @@
         <div class="kv-review-members__item kv-review-members__col_2">{{item.gender}} {{item.name}} {{item.sname}}</div>
         <div class="kv-review-members__item kv-review-members__col_3">{{item.nationality.name}}</div>
         <div class="kv-review-members__item kv-review-members__col_4">{{item.residenceRegion.name}}</div>
-        <div class="kv-review-members__item kv-review-members__col_5">{{item.discount}} {{item.birthDate}}</div>
+        <div class="kv-review-members__item kv-review-members__col_5">{{getTouristDiscount(index)}}</div>
         <div class="kv-review-members__item kv-review-members__col_6 kv-review-members__item_edit">
           <div class="kv-edit" @click="setStep({step:3, block: '#kv-tourist-'+index})">
             <svg class="kv-edit__icon">
@@ -339,6 +339,22 @@ export default {
     },
     setStep(step) {
       this.$emit('setStep', step)
+    },
+    getTouristDiscount(index) {
+      const discountCode = this.data.tourists[index].discount;
+      if (discountCode === null || this.data.discounts === null) {
+        console.log(1)
+        return "";
+      }
+      const discountName = this.data.discounts.find(_ => _.code === discountCode).name;
+      let touristBirthDate = "";
+      if (discountCode === "c") {
+        touristBirthDate = this.data.tourists[index].birthDate;
+      console.log(touristBirthDate)
+        touristBirthDate = touristBirthDate.replace(/(\d{4})-(\d{2})-(\d{2})/g, "$3.$2.$1")
+      }
+
+      return `${discountName} ${touristBirthDate}`
     }
   }
 }
