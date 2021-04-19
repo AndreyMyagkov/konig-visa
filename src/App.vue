@@ -545,23 +545,34 @@ export default {
     },
 
     /**
+     * Пропуск шага
+     */
+    skipStep() {
+      // Пропуск шага 4, если нет пакетов и услуг
+      if (this.currentStep === 3 && this.calculate.calculation.servicePackage === null && this.calculate.calculation.suppServices === null) {
+        return true
+      }
+
+      // Пропуск шага 6, если самовывоз
+      if (this.currentStep === 5 && this.delivery.type === "3") {
+        return true
+      }
+      //Пропуск шага 6, если электронная доставка
+      if (this.currentStep === 5 && this.calculate.deliveryMedia === "digital") {
+        return true
+      }
+
+      return false
+    },
+    /**
      * Переход к следующему шагу
      */
     nextStep() {
       let step = this.currentStep + 1;
 
-      console.log('шаг ', step);
-      console.log(this.delivery.type)
-      // Пропуск шага 6, если самовывоз
-      if (step === 6 && this.delivery.type === "3") {
-        step++;
-        console.log('шаг ', step);
-      }
-      //Пропуск шага 6, если электронная доставка
-      if (step === 6 && this.calculate.deliveryMedia === "digital") {
+      if (this.skipStep()) {
         step++;
       }
-
       this.setStep({step: step, block: null})
     },
     /**
@@ -569,13 +580,9 @@ export default {
      */
     prevStep() {
       let step = this.currentStep - 1;
-      // Пропуск шага 6, если самовывоз
-      if (step === 6 && this.delivery.type === 3) {
+
+      if (this.skipStep()) {
         step--;
-      }
-      //Пропуск шага 6, если электронная доставка
-      if (step === 6 && this.calculate.deliveryMedia === "digital") {
-        step++;
       }
 
       this.setStep({step: step, block: null})
