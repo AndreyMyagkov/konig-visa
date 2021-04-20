@@ -335,8 +335,7 @@ export default {
     },
     getTouristDiscount(index) {
       const discountCode = this.data.tourists[index].discount;
-      if (discountCode === null || this.data.discounts === null) {
-        console.log(1)
+      if (discountCode === null || discountCode === "null" || this.data.discounts === null) {
         return "";
       }
       const discountName = this.data.discounts.find(_ => _.code === discountCode).name;
@@ -354,6 +353,7 @@ export default {
 </script>
 
 <style scoped>
+/*
 .kv-app .kv-review-card {
   height: 100%;
 }
@@ -366,7 +366,7 @@ export default {
 .kv-app .kv-review__row_gap .kv-review__col {
   padding: 0;
 }
-
+*/
 .kv-customer__tel {
   margin-right: 2em;
 }
