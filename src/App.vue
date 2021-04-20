@@ -547,9 +547,9 @@ export default {
     /**
      * Пропуск шага
      */
-    skipStep() {
+    skipStep(step) {
       // Пропуск шага 4, если нет пакетов и услуг
-      if (this.currentStep === 3 || this.currentStep === 5) {
+      if (step === 4) {
         if (this.calculate.calculation.servicePackage === null && this.calculate.calculation.suppServices === null) {
           return true
         }
@@ -557,11 +557,11 @@ export default {
 
 
       // Пропуск шага 6, если самовывоз
-      if ((this.currentStep === 5 || this.currentStep === 7) && this.delivery.type === "3") {
+      if (step === 6 && this.delivery.type === "3") {
         return true
       }
       //Пропуск шага 6, если электронная доставка
-      if ((this.currentStep === 5 || this.currentStep === 7) && this.calculate.deliveryMedia === "digital") {
+      if (step === 6 && this.calculate.deliveryMedia === "digital") {
         return true
       }
 
@@ -573,7 +573,7 @@ export default {
     nextStep() {
       let step = this.currentStep + 1;
 
-      if (this.skipStep()) {
+      if (this.skipStep(step)) {
         step++;
       }
       this.setStep({step: step, block: null})
@@ -584,7 +584,7 @@ export default {
     prevStep() {
       let step = this.currentStep - 1;
 
-      if (this.skipStep()) {
+      if (this.skipStep(step)) {
         step--;
       }
 

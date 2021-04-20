@@ -503,7 +503,7 @@ import { TheMask } from 'vue-the-mask';
 import { required, minLength, email } from 'vuelidate/lib/validators';
 import * as arrayHelper from '@/helpers/array';
 
-const isCountrySelected = (value) => !Array.isArray(value);
+const isCountrySelected = (value) => value.codeA3 !== null; //!Array.isArray(value);
 const checkCompany = (value, vm) => !vm.isCompany || (vm.isCompany && value.length > 0);
 
 
