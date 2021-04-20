@@ -6,7 +6,7 @@
 
       <div class="kv-row" v-for="(row, i) in postalServicesPrepared" :key="i">
 
-        <div class="kv-form__item-wrap kv-from__col"  v-for="item in row" :key="item.id">
+        <div class="kv-form__item-wrap kv-form__col_half"  v-for="item in row" :key="item.id">
           <div class="kv-form__item kv-form__item_chb kv-form__item_light">
             <label class="kv-form-radio">
               <input type="radio" name="branch" :value="item.id" v-model="postalService" @change="postalChange(item)">

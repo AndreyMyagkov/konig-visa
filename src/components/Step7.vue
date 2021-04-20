@@ -49,7 +49,7 @@
 
     </div>
 
-
+<!-- -->
     <div class="kv-review-members kv-review__item">
 
       <div class="kv-review-members__row kv-review-members__row_header">
@@ -89,7 +89,41 @@
       </div>
 
     </div>
+<!-- -->
 
+    <div class="overflow-x-auto mb-20">
+      <table class="kv-review-members kv-review__item">
+        <thead class="kv-review-members__row_header">
+        <tr>
+          <th class="kv-review-members__item_title">№</th>
+          <th class="kv-review-members__item_title">Имя, фамилия</th>
+          <th class="kv-review-members__item_title">Гражданство</th>
+          <th class="kv-review-members__item_title">Проживание</th>
+          <th class="kv-review-members__item_title">Дополнительно</th>
+          <th class="kv-review-members__item_title"> </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="kv-review-members__row" v-for="(item, index) in data.tourists" :key="index">
+          <td class="kv-review-members__item">{{index+1}}</td>
+          <td class="kv-review-members__item">{{item.gender}} {{item.name}} {{item.sname}}</td>
+          <td class="kv-review-members__item">{{item.nationality.name}}</td>
+          <td class="kv-review-members__item">{{item.residenceRegion.name}}</td>
+          <td class="kv-review-members__item">{{getTouristDiscount(index)}}</td>
+          <td class="kv-review-members__item">
+            <div class="kv-edit" @click="setStep({step:3, block: '#kv-tourist-'+index})">
+              <svg class="kv-edit__icon">
+                <use href="img/icons/icons.svg#edit"></use>
+              </svg>
+            </div>
+          </td>
+        </tr>
+
+
+
+        </tbody>
+      </table>
+    </div>
 
 
 
