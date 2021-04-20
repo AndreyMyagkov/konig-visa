@@ -49,47 +49,6 @@
 
     </div>
 
-<!-- -->
-    <div class="kv-review-members kv-review__item">
-
-      <div class="kv-review-members__row kv-review-members__row_header">
-
-        <div class="kv-review-members__item kv-review-members__col_1 kv-review-members__item_title">№
-        </div>
-
-        <div class="kv-review-members__item kv-review-members__col_2 kv-review-members__item_title">
-          Имя, фамилия</div>
-
-        <div class="kv-review-members__item kv-review-members__col_3 kv-review-members__item_title">
-          Гражданство</div>
-
-        <div class="kv-review-members__item kv-review-members__col_4 kv-review-members__item_title">
-          Проживание</div>
-
-        <div class="kv-review-members__item kv-review-members__col_5 kv-review-members__item_title">
-          Дополнительно</div>
-
-        <div class="kv-review-members__item kv-review-members__col_6 kv-review-members__item_title">
-        </div>
-      </div>
-
-      <div class="kv-review-members__row" v-for="(item, index) in data.tourists" :key="index">
-        <div class="kv-review-members__item kv-review-members__col_1">{{index+1}}</div>
-        <div class="kv-review-members__item kv-review-members__col_2">{{item.gender}} {{item.name}} {{item.sname}}</div>
-        <div class="kv-review-members__item kv-review-members__col_3">{{item.nationality.name}}</div>
-        <div class="kv-review-members__item kv-review-members__col_4">{{item.residenceRegion.name}}</div>
-        <div class="kv-review-members__item kv-review-members__col_5">{{getTouristDiscount(index)}}</div>
-        <div class="kv-review-members__item kv-review-members__col_6 kv-review-members__item_edit">
-          <div class="kv-edit" @click="setStep({step:3, block: '#kv-tourist-'+index})">
-            <svg class="kv-edit__icon">
-              <use href="img/icons/icons.svg#edit"></use>
-            </svg>
-          </div>
-        </div>
-      </div>
-
-    </div>
-<!-- -->
 
     <div class="overflow-x-auto mb-20">
       <table class="kv-review-members kv-review__item">
