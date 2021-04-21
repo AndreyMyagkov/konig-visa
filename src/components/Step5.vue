@@ -48,7 +48,7 @@
               <label class="kv-form-radio">
                 <input type="checkbox" aria-label="company" v-model="customer.isCompany" @change="$v.customer.companyName.$reset; isFormCorrect()">
                 <span class="kv-form-radio__mark">
-                  <svg><use href="img/icons/icons.svg#form_chb"></use></svg>
+                  <svg><use href="#kv-icons_form_chb"></use></svg>
                 </span>
                 <span class="kv-form-radio__caption">Фирма</span> </label>
             </div>
@@ -77,7 +77,7 @@
               <label class="kv-form-radio">
                 <input type="radio" name="gender" aria-label="Herr" value="Herr" v-model="$v.customer.gender.$model"  @change="isFormCorrect">
                 <span class="kv-form-radio__mark">
-                  <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
+                  <svg><use href="#kv-icons_form_radio"></use></svg>
                 </span>
                 <span class="kv-form-radio__caption">Herr</span>
               </label>
@@ -85,7 +85,7 @@
               <label class="kv-form-radio">
                 <input type="radio" name="gender" aria-label="Frau" value="Frau"  v-model="$v.customer.gender.$model"  @change="isFormCorrect">
                 <span class="kv-form-radio__mark">
-                  <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
+                  <svg><use href="#kv-icons_form_radio"></use></svg>
                 </span>
                 <span class="kv-form-radio__caption">Frau</span>
               </label>
@@ -172,7 +172,7 @@
                 />
 
                 <label class="kv-form__label" for="customer-addressingCountry">Страна</label>
-                <svg class="kv-form__sel-arrow"><use href="img/icons/icons.svg#select"></use></svg>
+                <svg class="kv-form__sel-arrow"><use href="#kv-icons_select"></use></svg>
               </div>
             </div>
           </div>
@@ -247,7 +247,7 @@
                 <label class="kv-form-radio">
                   <input type="radio" name="type" v-model="delivery.type" value="1"  @change="isFormCorrect">
                   <span class="kv-form-radio__mark">
-                    <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
+                    <svg><use href="#kv-icons_form_radio"></use></svg>
                   </span>
                   <span class="kv-form-radio__caption">Lieferanschrift entspricht Auftraggeber</span>
                 </label>
@@ -265,7 +265,7 @@
                 <label class="kv-form-radio">
                   <input type="radio" v-model="delivery.type" value="2"  @change="isFormCorrect">
                   <span class="kv-form-radio__mark">
-                    <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
+                    <svg><use href="#kv-icons_form_radio"></use></svg>
                   </span>
                   <span class="kv-form-radio__caption">abweichende Lieferanschrift</span>
                 </label>
@@ -283,7 +283,7 @@
                 <label class="kv-form-radio">
                   <input type="radio" v-model="delivery.type" value="3"  @change="isFormCorrect">
                   <span class="kv-form-radio__mark">
-                    <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
+                    <svg><use href="#kv-icons_form_radio"></use></svg>
                   </span>
                   <span class="kv-form-radio__caption">Abholen</span>
                 </label>
@@ -302,7 +302,7 @@
                 <label class="kv-form-radio">
                   <input type="checkbox" v-model="delivery.isCompany"  @change="$v.delivery.companyName.$reset; isFormCorrect()">
                   <span class="kv-form-radio__mark">
-                    <svg><use href="img/icons/icons.svg#form_chb"></use></svg>
+                    <svg><use href="#kv-icons_form_chb"></use></svg>
                   </span>
                   <span class="kv-form-radio__caption">Фирма</span>
                 </label>
@@ -335,14 +335,14 @@
                 <label class="kv-form-radio">
                   <input type="radio" name="gender2" value="Herr"  v-model="$v.delivery.gender.$model"  @change="isFormCorrect">
                   <span class="kv-form-radio__mark">
-                    <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
+                    <svg><use href="#kv-icons_form_radio"></use></svg>
                   </span>
                   <span class="kv-form-radio__caption">Herr</span>
                 </label>
                 <label class="kv-form-radio">
                   <input type="radio" name="gender2" value="Frau" v-model="$v.delivery.gender.$model"  @change="isFormCorrect">
                   <span class="kv-form-radio__mark">
-                    <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
+                    <svg><use href="#kv-icons_form_radio"></use></svg>
                   </span>
                   <span class="kv-form-radio__caption">Frau</span>
                 </label>
@@ -415,7 +415,7 @@
                       @search:blur="$v.delivery.addressingCountry.$touch()"
                   />
                   <label class="kv-form__label" for="deliveryaddressingCountry">Страна</label>
-                  <svg class="kv-form__sel-arrow"><use href="img/icons/icons.svg#select"></use></svg>
+                  <svg class="kv-form__sel-arrow"><use href="#kv-icons_select"></use></svg>
                 </div>
               </div>
             </div>
@@ -470,7 +470,7 @@
                   <!--<input type="radio" name="branch" v-model="delivery.branch" :value="item.id"  @change="isFormCorrect">-->
                   <input type="radio" name="branch" :checked="item.id === delivery.branch.id"  :value="item.id"  @change="changeBranch(item)">
                   <span class="kv-form-radio__mark">
-                    <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
+                    <svg><use href="#kv-icons_form_radio"></use></svg>
                   </span>
                   <span>
                   <div class="kv-form-radio__title">{{item.name}}</div>

@@ -13,7 +13,7 @@
               <input type="radio" name="payment" aria-label="payment" required>
               <span class="kv-checkbox__box">
               <svg>
-                <use href="img/icons/icons.svg#check"></use>
+                <use href="#kv-icons_check"></use>
               </svg>
             </span>
             </label>
@@ -36,7 +36,7 @@
               <input type="radio" name="payment" aria-label="payment" required>
               <span class="kv-checkbox__box">
               <svg>
-                <use href="img/icons/icons.svg#check"></use>
+                <use href="#kv-icons_check"></use>
               </svg>
             </span>
             </label>
@@ -58,7 +58,7 @@
               <input type="radio" name="payment" aria-label="payment" required>
               <span class="kv-checkbox__box">
               <svg>
-                <use href="img/icons/icons.svg#check"></use>
+                <use href="#kv-icons_check"></use>
               </svg>
             </span>
             </label>
@@ -84,7 +84,7 @@
                      required>
               <span class="kv-checkbox__box">
               <svg>
-                <use href="img/icons/icons.svg#check"></use>
+                <use href="#kv-icons_check"></use>
               </svg>
             </span>
             </label>
@@ -106,7 +106,7 @@
               <input type="radio" name="payment" aria-label="payment" required>
               <span class="kv-checkbox__box">
               <svg>
-                <use href="img/icons/icons.svg#check"></use>
+                <use href="#kv-icons_check"></use>
               </svg>
             </span>
             </label>

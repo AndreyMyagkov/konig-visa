@@ -37,7 +37,7 @@
         </div>
 
         <div class="kv-form__row kv-row kv-row_rev">
-          <div class="kv-form__item-wrap kv-form__item-wrap_center kv-form__col_2">
+          <div class="kv-form__item-wrap_center kv-form__col_2">
             <div class="kv-form-title">Участник №{{parseInt(index)+1}}</div>
           </div>
         </div>
@@ -48,14 +48,14 @@
               <label class="kv-form-radio">
                 <input type="radio" aria-label="checkbox" v-model="item.gender.$model"  value="Herr" @change="isValid">
                 <span class="kv-form-radio__mark">
-                   <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
+                   <svg><use href="#kv-icons_form_radio"></use></svg>
                 </span>
                 <span class="kv-form-radio__caption">Herr</span>
               </label>
               <label class="kv-form-radio">
                 <input type="radio" aria-label="checkbox" v-model="item.gender.$model"   value="Frau" @change="isValid">
                 <span class="kv-form-radio__mark">
-                  <svg><use href="img/icons/icons.svg#form_radio"></use></svg>
+                  <svg><use href="#kv-icons_form_radio"></use></svg>
                 </span>
                 <span class="kv-form-radio__caption">Frau</span>
               </label>
@@ -127,7 +127,7 @@
                   @option:selected="$refs.nationality[index].classList.add('kv_is-focused');calculateAndValidate()"
                   @search:focus="$refs.nationality[index].classList.add('kv_is-focused')"
               />
-              <svg class="kv-form__sel-arrow"><use href="img/icons/icons.svg#select"></use></svg>
+              <svg class="kv-form__sel-arrow"><use href="#kv-icons_select"></use></svg>
 <!-- @search:focus="tourists[index].nationalityIsFocused = true" -->
               <label class="kv-form__label" :for="`nationality-${index}`">Гражданство</label>
               </div>
@@ -162,7 +162,7 @@
                     @option:selecting=""
                 />
                 <label class="kv-form__label" :for="`residenceRegion-${index}`">Место жительства</label>
-                <svg class="kv-form__sel-arrow"><use href="img/icons/icons.svg#select"></use></svg>
+                <svg class="kv-form__sel-arrow"><use href="#kv-icons_select"></use></svg>
               </div>
             </div>
           </div>
@@ -188,7 +188,7 @@
               </select>
               <label class="kv-form__label" :for="`discount-${index}`" style="pointer-events: none">Скидка</label>
               <svg class="kv-form__sel-arrow">
-                <use href="img/icons/icons.svg#select"></use>
+                <use href="#kv-icons_select"></use>
               </svg>
 
             </div>
@@ -220,7 +220,7 @@
       <!-- Form card-->
 
       <div class="kv-add" @click="addTourist">
-        <svg><use href="img/icons/icons.svg#plus"></use></svg>
+        <svg><use href="#kv-icons_plus"></use></svg>
         Добавить туриста
       </div>
 
@@ -438,8 +438,8 @@ export default {
   border: none;
 }
 
+
 .kv-app .kv-form__item input:focus ~ .kv-form__label,
-/*.kv-app .kv-form__item select:focus ~ .kv-form__label,*/
 .kv-app .kv-form__item.kv_is-focused .kv-form__label {
   top: 7px;
   font-size: 14px;

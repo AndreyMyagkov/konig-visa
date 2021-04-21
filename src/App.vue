@@ -1,6 +1,6 @@
 <template>
-  <div id="kv-app" class="kv-app" notranslate data-cq-max-w="991">
-
+  <div id="kv-app" class="kv-app" notranslate>
+   <!-- <svg><use href="#kv-icons_step_7"></use></svg>-->
     <!-- HEADER -->
     <div class="kv-header">
 
@@ -29,9 +29,9 @@
           <div class="kv-step-values__aside" v-if="calculate.calculation.participants.length">
 
             <div class="kv-participants">
-              <svg class="kv-participants__icon"><use href="img/icons/icons.svg#user"></use></svg>
+              <svg class="kv-participants__icon"><use href="#kv-icons_user"></use></svg>
               <div class="kv-participants__multiply">
-                <svg><use href="img/icons/icons.svg#multiply"></use></svg>
+                <svg><use href="#kv-icons_multiply"></use></svg>
               </div>
               <div class="kv-participants__counter">{{calculate.calculation.participants.length}}</div>
             </div>
@@ -39,10 +39,10 @@
             <div class="kv-cart drop">
 
               <div class="kv-cart__head">
-                <svg class="kv-cart__icon"><use href="img/icons/icons.svg#cart"></use></svg>
+                <svg class="kv-cart__icon"><use href="#kv-icons_cart"></use></svg>
 
                 <div class="kv-price kv-cart__price"> {{totalAmount}} <span class="kv-price__currency">€</span></div>
-                <svg class="kv-cart__arrow drop__angle"><use href="img/icons/icons.svg#arrow_down"></use></svg>
+                <svg class="kv-cart__arrow drop__angle"><use href="#kv-icons_arrow_down"></use></svg>
               </div>
 
               <div class="kv-cart__body drop__body">
@@ -118,7 +118,7 @@
                     <!-- select -->
                     <div class="kv-select">
                       <div class="kv-select__badge">
-                        <svg class="kv-select__icon"><use href="img/icons/icons.svg#pin"></use></svg>
+                        <svg class="kv-select__icon"><use href="#kv-icons_pin"></use></svg>
                       </div>
                       <div class="kv-select__input">
                         <v-select
@@ -174,10 +174,10 @@
                         <span class="kv-buch-chb__caption">
                           <span class="kv-buch-chb__title">
                             {{item.name}}
-                            <svg class="kv-buch-chb__icon"><use href="img/icons/icons.svg#play"></use></svg>
+                            <svg class="kv-buch-chb__icon"><use href="#kv-icons_play"></use></svg>
                           </span>
                           <span class="kv-buch-chb__badge"  :title="item.description">
-                            <svg class="kv-buch-chb__info"  v-if="item.description"><use href="img/icons/icons.svg#info"></use></svg>
+                            <svg class="kv-buch-chb__info"  v-if="item.description"><use href="#kv-icons_info"></use></svg>
                             <span v-html="item.description" style="display: none"></span>
                           </span>
                         </span>
@@ -336,6 +336,7 @@
 </template>
 
 <script>
+import '@/assets/svg/kv-icons.svg';
 import '@/assets/css/style.css';
 import BreadCrumbs from '@/components/BreadCrumbs.vue';
 import ProgressBar from '@/components/ui/ProgressBar.vue';
@@ -364,7 +365,8 @@ import * as formatter from "@/helpers/format";
 
 // TODO: стили изолировать
 import 'vue-loading-overlay/dist/vue-loading.css';
-import "css-container-queries"
+//import "css-container-queries"
+
 export default {
   name: 'App',
   components: {
@@ -1343,6 +1345,8 @@ export default {
   overflow-y: auto;
 }
 .vsm-modal .btn-close span {
+  font-size: 30px;
+  color: #555;
 }
 
 .kv-app .kv-form__item input:not(:placeholder-shown) ~ .kv-form__label {

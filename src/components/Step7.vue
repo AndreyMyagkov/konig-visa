@@ -5,7 +5,7 @@
     <div class="kv-review-info kv-review__item">
       <div class="kv-edit kv-review-info__edit">
         <svg class="kv-edit__icon" @click="setStep({step:1, block: null})">
-          <use href="img/icons/icons.svg#edit"></use>
+          <use href="#kv-icons_edit"></use>
         </svg>
       </div>
 
@@ -72,7 +72,7 @@
           <td class="kv-review-members__item">
             <div class="kv-edit" @click="setStep({step:3, block: '#kv-tourist-'+index})">
               <svg class="kv-edit__icon">
-                <use href="img/icons/icons.svg#edit"></use>
+                <use href="#kv-icons_edit"></use>
               </svg>
             </div>
           </td>
@@ -91,13 +91,13 @@
 
       <div class="kv-review-card__header">
         <svg class="kv-review-card__icon">
-          <use href="img/icons/icons.svg#step_4"></use>
+          <use href="#kv-icons_step_4"></use>
         </svg>
         <div class="kv-review-card__title">Сервис пакет: {{data.servicePackage.name}}</div>
         <div class="kv-review-card__edit">
           <div class="kv-edit"  @click="setStep({step:4, block: null})">
             <svg class="kv-edit__icon">
-              <use href="img/icons/icons.svg#edit"></use>
+              <use href="#kv-icons_edit"></use>
             </svg>
           </div>
         </div>
@@ -121,13 +121,13 @@
     <div class="kv-review-card kv-review__item" v-if="data.postalService.id !== null">
       <div class="kv-review-card__header">
         <svg class="kv-review-card__icon">
-          <use href="img/icons/icons.svg#step_6"></use>
+          <use href="#kv-icons_step_6"></use>
         </svg>
         <div class="kv-review-card__title">Способ доставки:</div>
         <div class="kv-review-card__edit">
           <div class="kv-edit">
             <svg class="kv-edit__icon" @click="setStep({step:6, block: null})">
-              <use href="img/icons/icons.svg#edit"></use>
+              <use href="#kv-icons_edit"></use>
             </svg>
           </div>
         </div>
@@ -144,7 +144,7 @@
       <div class="kv-review-total__container">
         <div class="kv-review-total__user">
           <svg class="kv-review-total__icon">
-            <use href="img/icons/icons.svg#user"></use>
+            <use href="#kv-icons_user"></use>
           </svg>
           <div class="kv-review-total__counter">
             <span class="kv-review-total__cross">+</span> {{ data.calculate.calculation.participants.length }}
@@ -160,7 +160,7 @@
       <div class="kv-review-total__more kv-cart kv-review-total__plug">
         Подробнее
         <svg class="kv-review-total__arrow">
-          <use href="img/icons/icons.svg#arrow_down"></use>
+          <use href="#kv-icons_arrow_down"></use>
         </svg>
         <div class="kv-cart__body drop__body">
           <!-- Cart table-->
@@ -189,13 +189,13 @@
         <div class="kv-review-card kv-review-card_light">
           <div class="kv-review-card__header">
             <svg class="kv-review-card__icon">
-              <use href="img/icons/icons.svg#step_5"></use>
+              <use href="#kv-icons_step_5"></use>
             </svg>
             <div class="kv-review-card__title">Информация о клиенте</div>
             <div class="kv-review-card__edit">
               <div class="kv-edit">
                 <svg class="kv-edit__icon"  @click="setStep({step:5, block: '#kv-customer'})">
-                  <use href="img/icons/icons.svg#edit"></use>
+                  <use href="#kv-icons_edit"></use>
                 </svg>
               </div>
             </div>
@@ -219,13 +219,13 @@
         <div class="kv-review-card kv-review-card_light">
           <div class="kv-review-card__header">
             <svg class="kv-review-card__icon">
-              <use href="img/icons/icons.svg#delivery"></use>
+              <use href="#kv-icons_delivery"></use>
             </svg>
             <div class="kv-review-card__title">Адрес доставки</div>
             <div class="kv-review-card__edit">
               <div class="kv-edit">
                 <svg class="kv-edit__icon" @click="setStep({step: 5, block: '#kv-delivery'})">
-                  <use href="img/icons/icons.svg#edit"></use>
+                  <use href="#kv-icons_edit"></use>
                 </svg>
               </div>
             </div>
@@ -252,13 +252,13 @@
         <div class="kv-review-card kv-review-card_light">
           <div class="kv-review-card__header">
             <svg class="kv-review-card__icon">
-              <use href="img/icons/icons.svg#delivery"></use>
+              <use href="#kv-icons_delivery"></use>
             </svg>
             <div class="kv-review-card__title">Адрес доставки</div>
             <div class="kv-review-card__edit">
               <div class="kv-edit">
                 <svg class="kv-edit__icon" @click="setStep({step: 5, block: '#kv-delivery'})">
-                  <use href="img/icons/icons.svg#edit"></use>
+                  <use href="#kv-icons_edit"></use>
                 </svg>
               </div>
             </div>

@@ -19,7 +19,7 @@
             <div class="kv-staying-chb" :class="{'kv-staying-chb__active' : item.name === selectedDuration.name}"  @click="selectDurations(item, index)">
               <div class="kv-staying-chb__text" v-html="item.nameHTML"></div>
               <div class="kv-staying-chb__info" @click.stop="$emit('showModal', item.description, item.name)">
-                <svg class="kv-staying-chb__info-icon"><use href="img/icons/icons.svg#info"></use></svg>
+                <svg class="kv-staying-chb__info-icon"><use href="#kv-icons_info"></use></svg>
               </div>
             </div>
           </div>
@@ -29,7 +29,7 @@
         <!-- /Staying list -->
 
         <div class="kv-staying__info" v-if="selectedDuration.description">
-          <svg class="kv-staying__info-icon"><use href="img/icons/icons.svg#info"></use></svg>
+          <svg class="kv-staying__info-icon"><use href="#kv-icons_info"></use></svg>
 
           <div class="kv-staying__text" v-html="selectedDuration.description"></div>
         </div>
@@ -48,7 +48,7 @@
                      'showModal',
                       '<b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.<p><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.</p> <br><br><br><br><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book. <b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.<p><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.</p> <br><br><br><br><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book. <b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.<p><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.</p> <br><br><br><br><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book. <b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.<p><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.</p> <br><br><br><br><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.',
                        'Информация')">
-              <svg><use href="img/icons/icons.svg#ask"></use></svg>Инфо-кнопка
+              <svg><use href="#kv-icons_ask"></use></svg>Инфо-кнопка
             </div>
 
           </div>
@@ -75,7 +75,7 @@
 
             <div class="kv-processing__select kv-select">
               <div class="kv-select__badge">
-                <svg class="kv-select__icon"><use href="img/icons/icons.svg#home"></use></svg>
+                <svg class="kv-select__icon"><use href="#kv-icons_home"></use></svg>
               </div>
               <div class="kv-select__input">
                 <v-select
@@ -97,7 +97,7 @@
 
               <div class="kv-processing__select kv-select">
                 <div class="kv-select__badge">
-                  <svg class="kv-select__icon"><use href="img/icons/icons.svg#pin"></use></svg>
+                  <svg class="kv-select__icon"><use href="#kv-icons_pin"></use></svg>
                 </div>
                 <div class="kv-select__input">
                   <v-select
@@ -147,7 +147,7 @@
                     >
                     <span class="kv-processing-day-chb__inner">
                       <span class="kv-processing-day-chb__box">
-                        <svg><use href="img/icons/icons.svg#radio"></use></svg>
+                        <svg><use href="#kv-icons_radio"></use></svg>
                       </span>
                       <span class="kv-processing-day-chb__caption">
                         <span class="kv-processing-day-chb__text">{{price.m}}-malige Einreise</span>
@@ -193,7 +193,7 @@
         <div class="kv-calc-info">
 
           <div class="kv-calc-info__icon">
-            <svg><use href="img/icons/icons.svg#surface"></use></svg>
+            <svg><use href="#kv-icons_surface"></use></svg>
           </div>
 
           <div class="kv-calc-info__text">В стоимость входит:

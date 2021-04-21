@@ -1,8 +1,13 @@
 <template>
   <div class="kv-content__body">
+
     <div class="kv-content__text" v-html="data.servicePackagesInfo"></div>
+
+    <!-- Tabs -->
     <div class="kv-class-tabs">
       <div class="kv-class-tabs_right">
+
+        <!-- List -->
         <div class="kv-class-tabs__list">
           <!-- Class tab-->
           <div
@@ -17,20 +22,22 @@
                  }"
               >
               <svg class="kv-class-tab__info" @click="$emit('showModal', tab.description, tab.name)">
-                <use href="img/icons/icons.svg#info"></use>
+                <use href="#kv-icons_info"></use>
               </svg>
               <div class="kv-class-tab__rate">
                 <svg class="kv-class-tab__star" v-for="star in (index + 1)" :key="star">
-                  <use href="img/icons/icons.svg#star"></use>
+                  <use href="#kv-icons_star"></use>
                 </svg>
               </div>
               <div class="kv-class-tab__title">{{tab.name}}</div>
             </div>
+
           </div>
 
         </div>
+        <!-- /List -->
 
-
+        <!-- Tail -->
         <div class="kv-tabs-tail kv-class-tabs__tail"
              :class="tabClasses"
         >
@@ -40,10 +47,13 @@
             <div class="kv-tabs-tail__line"></div>
           </div>
         </div>
+        <!-- /Tail -->
+
       </div>
     </div>
+    <!-- /Tabs -->
 
-
+    <!-- Services -->
     <div class="kv-services">
       <!-- Services item-->
       <div class="kv-services__item" data-cq-max-w="991" v-for="(item, i) in data.suppServices" :key="item.id">
@@ -76,7 +86,7 @@
             <template v-if="isIncluded(item.id, packageIndex)">
               <div class="kv-class__caption">включено</div>
               <svg class="kv-class__check">
-                <use href="img/icons/icons.svg#check"></use>
+                <use href="#kv-icons_check"></use>
               </svg>
             </template>
 
@@ -95,7 +105,7 @@
                       <div class="kv-switcher__caption kv-class__caption" data-kv_on="добавлено" data-kv_off="добавить"></div>
                       <div class="kv-switcher__box">
                          <svg class="kv-switcher__icon">
-                            <use href="img/icons/icons.svg#check"></use>
+                            <use href="#kv-icons_check"></use>
                          </svg>
                          <div class="kv-switcher__mark"></div>
                       </div>
@@ -109,13 +119,16 @@
 
         </div>
       </div>
+      <!-- /Services item-->
+    </div>
+    <!-- /Services -->
 
+    <!-- footer -->
+    <div class="kv-service-pack__footer">
+      <div class="kv-service-pack__prices">
 
-      <div class="kv-services__footer">
-        <div class="kv-services__prices">
-          <!-- Class footer-->
           <div
-              class="kv-services-price kv-services__price"
+              class="kv-services-price kv-service-pack__price"
               :class="{
                 'kv-services-price_active':  packageSelected.id === pcg.id
               }"
@@ -130,13 +143,16 @@
             <div
                 class="kv-services-price__btn"
                 @click="selectPackage(pcg)"
-                v-if="packageSelected.id !== pcg.id">Выбрать</div>
+                v-if="packageSelected.id !== pcg.id">
+              Выбрать
+            </div>
           </div>
-
-        </div>
 
       </div>
     </div>
+    <!-- /footer -->
+
+
   </div>
 </template>
 
