@@ -12,16 +12,16 @@
           <!-- Class tab-->
           <div
               class="kv-class-tabs__item"
-              v-for="(tab, index) in data.servicePackages"
-              :key="index">
+              v-for="(pcg, index) in data.servicePackages"
+              :key="`tab-top-${index}`">
 
             <div data-cq-max-w="94"
                  class="kv-class-tab"
                  :class="{
-                      'kv-class-tab_active': packageSelected.id === tab.id,
+                      'kv-class-tab_active': packageSelected.id === pcg.id,
                  }"
               >
-              <svg class="kv-class-tab__info" @click="$emit('showModal', tab.description, tab.name)">
+              <svg class="kv-class-tab__info" @click="$emit('showModal', pcg.description, pcg.name)">
                 <use href="#kv-icons_info"></use>
               </svg>
               <div class="kv-class-tab__rate">
@@ -29,10 +29,36 @@
                   <use href="#kv-icons_star"></use>
                 </svg>
               </div>
-              <div class="kv-class-tab__title">{{tab.name}}</div>
+              <div class="kv-class-tab__title">{{pcg.name}}</div>
             </div>
 
+            <!-- select button/price -->
+            <div
+                class="kv-services-price kv-service-pack__price kv-services-price_top"
+                :class="{
+                'kv-services-price_active':  packageSelected.id === pcg.id,
+                'kv-services-price_active_top': packageSelected.id === pcg.id
+              }"
+
+            >
+              <div class="kv-price kv-price_second kv-services-price__price">
+                <template v-if="packageSelected.id !== pcg.id">+&nbsp;</template>
+                {{getPackagePrice(index)}}
+                <span class="kv-price__currency">€</span>
+              </div>
+              <div class="kv-services-price__person">pro Person</div>
+              <div
+                  class="kv-services-price__btn"
+                  @click="selectPackage(pcg)"
+                  v-if="packageSelected.id !== pcg.id">
+                Выбрать
+              </div>
+            </div>
+            <!-- /select button/price -->
+
           </div>
+
+
 
         </div>
         <!-- /List -->

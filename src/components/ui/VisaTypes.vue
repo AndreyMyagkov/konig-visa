@@ -15,7 +15,7 @@
           <svg class="kv-buch-chb__icon"><use href="img/icons/icons.svg#next"></use></svg>
         </span>
         <span class="kv-buch-chb__badge" @click="$emit('showModal', item.description, item.name)">
-          <svg class="kv-buch-chb__info" v-if="item.description"><use href="img/icons/icons.svg#info"></use></svg>
+          <svg class="kv-buch-chb__info" v-if="item.description"><use href="#kv-icons_info"></use></svg>
         </span>
       </div>
     </div>

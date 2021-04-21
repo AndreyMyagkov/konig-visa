@@ -9,7 +9,7 @@
             class="kv-step-button kv-step-button_left"
 
             @click="prev">
-          <svg class="kv-step-button__icon"><use href="img/icons/icons.svg#back"></use></svg>
+          <svg class="kv-step-button__icon"><use href="#kv-icons_back"></use></svg>
           <span class="kv-step-button__text">Назад</span>
         </button>
       </div>
@@ -26,7 +26,7 @@
             :disabled="!allowNext"
             @click="next">
           <span class="kv-step-button__text">Вперёд</span>
-          <svg class="kv-step-button__icon"><use href="img/icons/icons.svg#next"></use></svg></button>
+          <svg class="kv-step-button__icon"><use href="#kv-icons_next"></use></svg></button>
       </div>
     </div>
     <!-- /Вперед -->
