@@ -50,7 +50,7 @@
     </div>
 
 
-    <div class="overflow-x-auto mb-20">
+    <div class="kv-overflow-x-auto kv-block-mb">
       <table class="kv-review-members kv-review__item">
         <thead class="kv-review-members__row_header">
         <tr>

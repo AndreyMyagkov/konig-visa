@@ -552,9 +552,22 @@ export default {
     skipStep(step) {
       // Пропуск шага 4, если нет пакетов и услуг
       if (step === 4) {
+        /*
         if (this.calculate.calculation.servicePackage === null && this.calculate.calculation.suppServices === null) {
           return true
         }
+        if (this.calculate.calculation.servicePackage === null && !this.calculate.calculation.suppServices.length) {
+          return true
+        }
+        */
+
+        if (this.productDetails.servicePackages === null && this.productDetails.suppServices === null) {
+          return true
+        }
+        if (this.productDetails.servicePackages === null && !this.productDetails.suppServices.length) {
+          return true
+        }
+
       }
 
 

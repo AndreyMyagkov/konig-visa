@@ -3,47 +3,210 @@
 
     <div class="kv-content__text" v-html="data.servicePackagesInfo"></div>
 
-    <!-- Tabs -->
-    <div class="kv-class-tabs">
-      <div class="kv-class-tabs_right">
+    <div :class="{
+      'kv-service-pack_empty': data.suppServices === null || !data.suppServices.length
+      }">
 
-        <!-- List -->
-        <div class="kv-class-tabs__list">
-          <!-- Class tab-->
-          <div
-              class="kv-class-tabs__item"
-              v-for="(pcg, index) in data.servicePackages"
-              :key="`tab-top-${index}`">
+      <!-- Tabs -->
+      <div class="kv-class-tabs kv-service-pack__tabs">
+        <div class="kv-class-tabs_right">
 
-            <div data-cq-max-w="94"
-                 class="kv-class-tab"
-                 :class="{
-                      'kv-class-tab_active': packageSelected.id === pcg.id,
-                 }"
-              >
-              <svg class="kv-class-tab__info" @click="$emit('showModal', pcg.description, pcg.name)">
-                <use href="#kv-icons_info"></use>
-              </svg>
-              <div class="kv-class-tab__rate">
-                <svg class="kv-class-tab__star" v-for="star in (index + 1)" :key="star">
-                  <use href="#kv-icons_star"></use>
+          <!-- List -->
+          <!-- kv-class-tabs__list_show-price -->
+          <div class="kv-class-tabs__list" :class="{
+            'kv-class-tabs__list_show-price': data.suppServices !== null && data.suppServices.length > 3
+          }">
+
+            <!-- Class tab-->
+            <div
+                class="kv-class-tabs__item"
+                v-for="(pcg, index) in data.servicePackages"
+                :key="`tab-top-${index}`">
+
+              <div data-cq-max-w="94"
+                   class="kv-class-tab"
+                   :class="{
+                        'kv-class-tab_active': packageSelected.id === pcg.id,
+                   }"
+                >
+                <svg class="kv-class-tab__info" @click="$emit('showModal', pcg.description, pcg.name)">
+                  <use href="#kv-icons_info"></use>
                 </svg>
+                <div class="kv-class-tab__rate">
+                  <svg class="kv-class-tab__star" v-for="star in (index + 1)" :key="star">
+                    <use href="#kv-icons_star"></use>
+                  </svg>
+                </div>
+                <div class="kv-class-tab__title">{{pcg.name}}</div>
               </div>
-              <div class="kv-class-tab__title">{{pcg.name}}</div>
+
+              <!-- select button/price -->
+              <div
+                  class="kv-services-price  kv-services-price_top"
+                  :class="{
+                  'kv-services-price_active':  packageSelected.id === pcg.id,
+                  'kv-services-price_active_top': packageSelected.id === pcg.id
+                }"
+
+              >
+                <div class="kv-price kv-price_second kv-services-price__price">
+                  <template v-if="packageSelected.id !== pcg.id">+&nbsp;</template>
+                  {{getPackagePrice(index)}}
+                  <span class="kv-price__currency">€</span>
+                </div>
+                <div class="kv-services-price__person">pro Person</div>
+                <div
+                    class="kv-services-price__btn"
+                    @click="selectPackage(pcg)"
+                    v-if="packageSelected.id !== pcg.id">
+                  Выбрать
+                </div>
+              </div>
+              <!-- /select button/price -->
+
             </div>
 
-            <!-- select button/price -->
-            <div
-                class="kv-services-price kv-service-pack__price kv-services-price_top"
-                :class="{
-                'kv-services-price_active':  packageSelected.id === pcg.id,
-                'kv-services-price_active_top': packageSelected.id === pcg.id
-              }"
 
+
+          </div>
+          <!-- /List -->
+
+          <!-- Tail -->
+          <div class="kv-tabs-tail kv-class-tabs__tail kv-service-pack__tail"
+               :class="tabClasses"
+          >
+            <!-- Tabs tail-->
+            <div class="kv-tabs-tail__inner"
+                 :style="`--kv-tabs-tail-width: calc(${tabTailLength}% + 7px); --kv-tabs-tail-offset: 50%`">
+              <div class="kv-tabs-tail__line"></div>
+            </div>
+          </div>
+          <!-- /Tail -->
+
+        </div>
+      </div>
+      <!-- /Tabs -->
+
+      <!-- Services -->
+      <div class="kv-services kv-service-pack__services">
+        <!-- Services item-->
+        <div class="kv-services__item" data-cq-max-w="991" v-for="(item, i) in data.suppServices" :key="item.id">
+          <div class="kv-service kv-services__item-inner">
+            <div class="kv-service__main">
+              <div class="kv-service__title">{{item.name}}</div>
+              <div class="kv-service__text" v-html="item.description"></div>
+            </div>
+            <div class="kv-service__aside">
+              <div class="kv-price kv-service__price">
+                {{item.price}}
+                <span class="kv-price__currency">€</span>
+              </div>
+
+              <div class="kv-service__caption">pro Person</div>
+            </div>
+          </div>
+          <!-- Class-->
+          <div class="kv-class" data-cq-max-w="991">
+            <!-- Class item-->
+            <div
+                class="kv-class__item"
+                :class="{
+                  'kv-class__item_active': packageSelected.id === pcg.id,
+                  'kv-class__item_checked': serviceSelected.indexOf(item.id) !== -1,
+                  'kv-class__item_add': isIncluded(item.id, packageIndex)
+                }"
+                 v-for="(pcg, packageIndex) in data.servicePackages" :key="packageIndex">
+
+              <template v-if="isIncluded(item.id, packageIndex)">
+                <div class="kv-class__caption">включено</div>
+                <svg class="kv-class__check">
+                  <use href="#kv-icons_check"></use>
+                </svg>
+              </template>
+
+              <template v-else>
+
+
+                  <label class="kv-switcher kv-class__switcher">
+                    <input class="kv-switcher__input"
+                           type="checkbox"
+                           name="suppService"
+                           :value="item.id"
+                           v-model="serviceSelected"
+                           @change="suppServiceChange"
+                    >
+                    <span class="kv-switcher__inner">
+                        <div class="kv-switcher__caption kv-class__caption" data-kv_on="добавлено" data-kv_off="добавить"></div>
+                        <div class="kv-switcher__box">
+                           <svg class="kv-switcher__icon">
+                              <use href="#kv-icons_check"></use>
+                           </svg>
+                           <div class="kv-switcher__mark"></div>
+                        </div>
+                     </span>
+                  </label>
+
+
+              </template>
+
+            </div>
+
+            <!-- no service package -->
+            <div
+                class="kv-class__item"
+                :class="{
+                  'kv-class__item_active': true,
+                  'kv-class__item_checked': serviceSelected.indexOf(item.id) !== -1
+                }"
+                v-if="(data.servicePackages === null || !data.servicePackages.length) && data.suppServices.length"
+                >
+
+
+              <template >
+                <label class="kv-switcher kv-class__switcher">
+                  <input class="kv-switcher__input"
+                         type="checkbox"
+                         name="suppService"
+                         :value="item.id"
+                         v-model="serviceSelected"
+                         @change="suppServiceChange"
+                  >
+                  <span class="kv-switcher__inner">
+                        <div class="kv-switcher__caption kv-class__caption" data-kv_on="добавлено" data-kv_off="добавить"></div>
+                        <div class="kv-switcher__box">
+                           <svg class="kv-switcher__icon">
+                              <use href="#kv-icons_check"></use>
+                           </svg>
+                           <div class="kv-switcher__mark"></div>
+                        </div>
+                     </span>
+                </label>
+              </template>
+
+            </div>
+            <!--/ -->
+
+          </div>
+        </div>
+        <!-- /Services item-->
+      </div>
+      <!-- /Services -->
+
+      <!-- footer -->
+      <div class="kv-service-pack__footer">
+        <div class="kv-service-pack__prices">
+
+            <div
+                class="kv-services-price kv-service-pack__price"
+                :class="{
+                  'kv-services-price_active':  packageSelected.id === pcg.id,
+                  'kv-services-price_showed': (packageIndex +1) === selectedTabIndex
+                }"
+                v-for="(pcg, packageIndex) in data.servicePackages" :key="packageIndex"
             >
               <div class="kv-price kv-price_second kv-services-price__price">
                 <template v-if="packageSelected.id !== pcg.id">+&nbsp;</template>
-                {{getPackagePrice(index)}}
+                {{getPackagePrice(packageIndex)}}
                 <span class="kv-price__currency">€</span>
               </div>
               <div class="kv-services-price__person">pro Person</div>
@@ -54,130 +217,12 @@
                 Выбрать
               </div>
             </div>
-            <!-- /select button/price -->
-
-          </div>
-
-
-
-        </div>
-        <!-- /List -->
-
-        <!-- Tail -->
-        <div class="kv-tabs-tail kv-class-tabs__tail"
-             :class="tabClasses"
-        >
-          <!-- Tabs tail-->
-          <div class="kv-tabs-tail__inner"
-               :style="`--kv-tabs-tail-width: calc(${tabTailLength}% + 7px); --kv-tabs-tail-offset: 50%`">
-            <div class="kv-tabs-tail__line"></div>
-          </div>
-        </div>
-        <!-- /Tail -->
-
-      </div>
-    </div>
-    <!-- /Tabs -->
-
-    <!-- Services -->
-    <div class="kv-services">
-      <!-- Services item-->
-      <div class="kv-services__item" data-cq-max-w="991" v-for="(item, i) in data.suppServices" :key="item.id">
-        <div class="kv-service kv-services__item-inner">
-          <div class="kv-service__main">
-            <div class="kv-service__title">{{item.name}}</div>
-            <div class="kv-service__text" v-html="item.description"></div>
-          </div>
-          <div class="kv-service__aside">
-            <div class="kv-price kv-service__price">
-              {{item.price}}
-              <span class="kv-price__currency">€</span>
-            </div>
-
-            <div class="kv-service__caption">pro Person</div>
-          </div>
-        </div>
-        <!-- Class-->
-        <div class="kv-class" data-cq-max-w="991">
-          <!-- Class item-->
-          <div
-              class="kv-class__item"
-              :class="{
-                'kv-class__item_active': packageSelected.id === pcg.id,
-                'kv-class__item_checked': serviceSelected.indexOf(item.id) !== -1,
-                'kv-class__item_add': isIncluded(item.id, packageIndex)
-              }"
-               v-for="(pcg, packageIndex) in data.servicePackages" :key="packageIndex">
-
-            <template v-if="isIncluded(item.id, packageIndex)">
-              <div class="kv-class__caption">включено</div>
-              <svg class="kv-class__check">
-                <use href="#kv-icons_check"></use>
-              </svg>
-            </template>
-
-            <template v-else>
-
-
-                <label class="kv-switcher kv-class__switcher">
-                  <input class="kv-switcher__input"
-                         type="checkbox"
-                         name="suppService"
-                         :value="item.id"
-                         v-model="serviceSelected"
-                         @change="suppServiceChange"
-                  >
-                  <span class="kv-switcher__inner">
-                      <div class="kv-switcher__caption kv-class__caption" data-kv_on="добавлено" data-kv_off="добавить"></div>
-                      <div class="kv-switcher__box">
-                         <svg class="kv-switcher__icon">
-                            <use href="#kv-icons_check"></use>
-                         </svg>
-                         <div class="kv-switcher__mark"></div>
-                      </div>
-                   </span>
-                </label>
-
-
-            </template>
-
-          </div>
 
         </div>
       </div>
-      <!-- /Services item-->
+      <!-- /footer -->
+
     </div>
-    <!-- /Services -->
-
-    <!-- footer -->
-    <div class="kv-service-pack__footer">
-      <div class="kv-service-pack__prices">
-
-          <div
-              class="kv-services-price kv-service-pack__price"
-              :class="{
-                'kv-services-price_active':  packageSelected.id === pcg.id
-              }"
-              v-for="(pcg, packageIndex) in data.servicePackages" :key="packageIndex"
-          >
-            <div class="kv-price kv-price_second kv-services-price__price">
-              <template v-if="packageSelected.id !== pcg.id">+&nbsp;</template>
-              {{getPackagePrice(packageIndex)}}
-              <span class="kv-price__currency">€</span>
-            </div>
-            <div class="kv-services-price__person">pro Person</div>
-            <div
-                class="kv-services-price__btn"
-                @click="selectPackage(pcg)"
-                v-if="packageSelected.id !== pcg.id">
-              Выбрать
-            </div>
-          </div>
-
-      </div>
-    </div>
-    <!-- /footer -->
-
 
   </div>
 </template>
@@ -341,5 +386,10 @@ export default {
 </script>
 
 <style scoped>
+
+.kv-service-pack_empty .kv-class-tabs__list .kv-services-price_top {
+  display: none !important;
+}
+
 
 </style>
