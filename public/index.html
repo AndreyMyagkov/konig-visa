@@ -12,14 +12,6 @@
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
 
-    <!-- TODO: подключать скриптом -->
-    <!--
-    <link rel="preload" href="./fonts/OpenSans-Bold.woff" as="font" type="font/woff2" crossorigin="anonymous">
-    <link rel="preload" href="./fonts/OpenSans-Regular.woff" as="font" type="font/woff2" crossorigin="anonymous">
-    -->
-
-
-    <!-- TODO: вынос -->
     <style>
         .kv-container {
             width: 1250px;
@@ -30,10 +22,16 @@
 
     </style>
     <script>
-        __KV_CONFIG =  {
+        const __KV_CONFIG =  {
             clientId: '{8B8CB112-716B-41E1-9748-9A193D45A36D}',
-            nationality: 'KZ',
-            residenceRegions: 'DEU\\BE'
+            mode: "default", // "price", "success"
+            nationality: "KZ",
+            residenceRegions: "DEU\\BE",
+            country: "RUS",
+            serviceGroup: "",
+            service: "",
+            product: "",
+            order: "118-675"
             //css: '/css/widgete.dev.css'
         }
     </script>

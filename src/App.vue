@@ -2,7 +2,7 @@
   <div id="kv-app" class="kv-app" notranslate>
    <!-- <svg><use href="#kv-icons_step_7"></use></svg>-->
     <!-- HEADER -->
-    <div class="kv-header">
+    <div class="kv-header" v-if="CONFIG.mode === 'default'">
 
       <!-- Bread Crumbs -->
       <BreadCrumbs :crumbs="crumbs" v-if="false"/>
@@ -78,8 +78,8 @@
     <!-- /HEADER -->
 
 
-    <!-- MAIN -->
-    <div class="kv-content">
+    <!-- MAIN Default mode-->
+    <div class="kv-content" v-if="CONFIG.mode === 'default'">
       <!-- Step Header -->
       <StepHeader :icon="stepInfo.icon" :text="stepInfo.header"/>
       <!-- /Step Header -->
@@ -93,13 +93,6 @@
       ></PrevNextButtons>
       <!-- /Top buttons -->
 
-
-      <simple-modal v-model="isModalShow" :title="modal.title" size="small">
-        <template slot="body">
-          <div v-html="modal.content"></div>
-        </template>
-
-      </simple-modal>
 
 
       <div class="kv-content__body">
@@ -117,7 +110,7 @@
             @update:country="countryChange"
             @update:service="selectVisaType"
             @showModal="showModal"
-            v-if="currentStep === 1"
+            v-if="currentStep === 1 && CONFIG.mode === 'default'"
         ></Step1>
 
 
@@ -142,7 +135,7 @@
             @update:price="updatePrice"
             @load:prices="loadPrices"
             @showModal="showModal"
-            v-if="currentStep === 2"/>
+            v-if="currentStep === 2 && CONFIG.mode === 'default'"/>
         <!-- /STEP 2 -->
 
         <!-- STEP 3 -->
@@ -150,7 +143,7 @@
         :nationality="CONFIG.nationality"
                :residenceRegions="CONFIG.residenceRegions"
         -->
-        <Step3 v-if="currentStep === 3"
+        <Step3 v-if="currentStep === 3 && CONFIG.mode === 'default'"
                :tourists="tourists"
                :nationalities="nationalities"
 
@@ -169,7 +162,7 @@
         <!-- /STEP 3 -->
 
         <!-- STEP 4 -->
-        <Step4 v-if="currentStep === 4"
+        <Step4 v-if="currentStep === 4 && CONFIG.mode === 'default'"
                :data="productDetails"
                :selectedServicePackage="selectedServicePackage"
                :selectedSuppServices="selectedSuppServices"
@@ -182,7 +175,7 @@
         <!-- /STEP 4 -->
 
         <!-- STEP 5 -->
-        <Step5 v-if="currentStep === 5"
+        <Step5 v-if="currentStep === 5 && CONFIG.mode === 'default'"
                :addressingCountries="addressingCountries"
                :pickupPoints="pickupPoints"
                :customerDefault="customer"
@@ -196,7 +189,7 @@
         <!-- /STEP 5 -->
 
         <!-- STEP 6 -->
-        <Step6 v-if="currentStep === 6"
+        <Step6 v-if="currentStep === 6 && CONFIG.mode === 'default'"
                :postalServices="postalServices"
                :selectedPostalService="selectedPostalService.id"
                @change="postalChange"
@@ -205,7 +198,7 @@
         <!-- /STEP 6 -->
 
         <!-- STEP 7 -->
-        <Step7 v-if="currentStep === 7"
+        <Step7 v-if="currentStep === 7 && CONFIG.mode === 'default'"
                :data="{
                   toCountry: selectedCountry,
                   service: selectedService,
@@ -229,8 +222,9 @@
         <!-- /STEP 7 -->
 
         <!-- STEP 8 -->
-        <Step8 v-if="currentStep === 8"/>
+        <Step8 v-if="currentStep === 8 && CONFIG.mode === 'default'"/>
         <!-- /STEP 8 -->
+
 
         <!-- Bottom buttons -->
         <PrevNextButtons
@@ -238,6 +232,7 @@
             :allowNext="allowNext"
             @prevStep="prevStep"
             @nextStep="nextStep"
+            v-if="CONFIG.mode === 'default'"
         ></PrevNextButtons>
         <!-- /Bottom buttons -->
 
@@ -246,7 +241,62 @@
     <!-- /MAIN -->
 
 
+    <div class="kv-content" v-if="CONFIG.mode === 'price'">
+      <div class="kv-content__body">
+        <!-- Step 1 -->
+        <Step1
+            :countries="countries"
+            :serviceGroups="serviceGroups"
+            :serviceGroupsSelected="serviceGroupsSelected"
+            :setup="{
+              country: selectedCountry,
+              serviceGroups: [selectedServiceGroup.id, selectedService.id],
+              service: [selectedService.id],
+            }"
+            @update:country="countryChange"
+            @update:service="selectVisaType"
+            @showModal="showModal"
+        ></Step1>
+        <!-- /Step 1 -->
+        <br><br>
+        <!-- STEP 2 -->
+        <Step2
+            :serviceDetails="serviceDetails"
+            :nationalities="nationalities"
+            :prices="prices"
 
+            :setup="{
+              nationality: CONFIG.nationality,
+              residenceRegions: CONFIG.residenceRegions,
+              duration: selectedDuration,
+              price: selectedPrice
+            }"
+
+            @active="loadStep2Data"
+            @update:nationality="updateNationality"
+            @update:residenceRegions="updateResidenceRegions"
+            @update:duration="updateDuration"
+            @update:price="updatePrice"
+            @load:prices="loadPrices"
+            @showModal="showModal"
+            v-if="selectedService.id"/>
+        <!-- /STEP 2 -->
+      </div>
+    </div>
+
+
+    <div class="kv-content-" v-if="CONFIG.mode === 'success'">
+      <!-- SUCCESS -->
+      <Success :order="CONFIG.order"/>
+      <!-- /SUCCESS -->
+    </div>
+
+
+    <simple-modal v-model="isModalShow" :title="modal.title" size="small">
+      <template slot="body">
+        <div v-html="modal.content"></div>
+      </template>
+    </simple-modal>
 
     <loading :active="isLoading"
              :can-cancel="false"
@@ -273,6 +323,7 @@ import Step5 from "@/components/Step5";
 import Step6 from "@/components/Step6";
 import Step7 from "@/components/Step7";
 import Step8 from "@/components/Step8";
+import Success from "@/components/Success";
 import PrevNextButtons from "@/components/PrevNextButtons";
 import SimpleModal from "simple-modal-vue";
 
@@ -305,6 +356,7 @@ export default {
     Step6,
     Step7,
     Step8,
+    Success,
     PrevNextButtons,
     SimpleModal,
     vSelect
@@ -432,40 +484,67 @@ export default {
 
 
       CONFIG: {
-        clientId: '',
+        mode: "default",
+        clientId: null,
         nationality: null,
         residenceRegions: null,
+        country: null,
+        serviceGroup: null,
+        service: null,
+        product: null,
         API_URL: 'https://apisrv.ideo-software.com/Ideo/KoenigVN/Web/api/OrderPortal/'
       }
     }
   },
   methods: {
     /**
-     * Инициирует виджет, проверяет входные данные
+     * Подавить замену цифр на телефоны https://gist.github.com/yuezk/15c5bb1370e30d0a2a60
      */
-    initiateWidgete() {
-
-      if (__KV_CONFIG && __KV_CONFIG.clientId) {
-        //this.CONFIG.clientId = __KV_CONFIG.clientId;
-        this.CONFIG = Object.assign(this.CONFIG,__KV_CONFIG);
-      } else {
-        return false
-      }
-
-      // Подавить замену цифр на телефоны https://gist.github.com/yuezk/15c5bb1370e30d0a2a60
+    disableBrowserPhoneDetection() {
       const head = document.head;
       const meta = document.createElement('meta');
       meta.name = 'format-detection';
       meta.content = 'telephone=no';
       head.appendChild(meta);
+    },
 
-      // Подключить внешний файл CSS
+    /**
+     * Подключить внешний файл CSS
+     * @param {string} path - полный пусть к файлу
+     */
+    appendCssFile(path) {
+      const head = document.head;
+      const link = document.createElement('link');
+      link.type = 'text/css';
+      link.rel = 'stylesheet';
+      link.href = path;
+      head.appendChild(link);
+    },
+    /**
+     * Инициирует виджет, проверяет входные данные
+     */
+    initiateWidget() {
+
+      // eslint-disable-next-line no-undef
+      if (__KV_CONFIG && __KV_CONFIG.clientId) {
+        // eslint-disable-next-line no-undef
+        this.CONFIG = Object.assign(this.CONFIG,__KV_CONFIG);
+      } else {
+        return false
+      }
+
+      // Режим модуля
+      const allowMode = ["default", "price", "success"];
+      if (allowMode.indexOf(this.CONFIG.mode) === -1) {
+        this.CONFIG.mode = "default";
+      }
+
+      this.disableBrowserPhoneDetection();
+
+      // eslint-disable-next-line no-undef
       if (__KV_CONFIG && __KV_CONFIG.css) {
-        const link = document.createElement('link');
-        link.type = 'text/css';
-        link.rel = 'stylesheet';
-        link.href = __KV_CONFIG.css;
-        head.appendChild(link);
+        // eslint-disable-next-line no-undef
+        this.appendCssFile(__KV_CONFIG.css)
       }
 
       return true
@@ -1199,18 +1278,13 @@ export default {
   },
   mounted() {
     // 1. Инициировать виджет
-    if (!this.initiateWidgete()) {
+    if (!this.initiateWidget()) {
       return false
     }
-
-
 
     // 2. Загружаем справочники стран
     this.loadCountries()
 
-    // Загрузка списка гражданств
-    // TODO: вынос в mount шага 2, кеш
-    //this.loadNationalities()
 
 /*
     function resizeElement(e, s, t, l) {
