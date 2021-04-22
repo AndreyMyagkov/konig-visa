@@ -1,5 +1,6 @@
 <template>
-  <div class="kv-buch" >
+  <div class="kv-buch">
+
     <div class="kv-buch__row">
 
       <!-- Country -->
@@ -12,7 +13,7 @@
             <!-- select -->
             <div class="kv-select">
               <div class="kv-select__badge">
-                <svg class="kv-select__icon"><use href="img/icons/icons.svg#pin"></use></svg>
+                <svg class="kv-select__icon"><use href="#kv-icons_pin"></use></svg>
               </div>
               <div class="kv-select__input">
                 <v-select
@@ -21,7 +22,6 @@
                     placeholder="Выберите"
                     v-model="selectedCountry"
                     :clearable="false"
-                    @option:selected="countryChange"
                 />
               </div>
             </div>
@@ -38,7 +38,7 @@
           <div class="kv-buch__title">Выберите группу:</div>
           <VisaTypes
               :data="serviceGroups"
-              :selected="[selectedServiceGroup, selectedService]"
+              :selected="setup.serviceGroups"
               @change="selectVisaType"
               @showModal="showModal"
           >
@@ -53,7 +53,7 @@
           <div class="kv-buch__title">Выберите подтип визы:</div>
           <VisaTypes
               :data="serviceGroupsSelected"
-              :selected="[selectedService]"
+              :selected="setup.service"
               @change="selectVisaType"
               @showModal="showModal"
           >
@@ -64,6 +64,7 @@
       <!-- /Services -->
 
     </div>
+
   </div>
 </template>
 
@@ -81,21 +82,47 @@ export default {
     countries: {
       type: Array,
       required: true
+    },
+    serviceGroups: {
+      type: Array,
+      required: true
+    },
+    serviceGroupsSelected: {
+      type: Array,
+      required: true
+    },
+    setup: {
+      type: Object,
+      required: true
     }
   },
   data() {
     return {
-      selectedCountry: []
+
     }
   },
   methods: {
-    countryChange() {
-      this.$emit('countryChange', this.selectedCountry)
+    selectVisaType(data) {
+      this.$emit('update:service', data)
+    },
+    selectCountry(data) {
+      this.$emit('update:country', data);
+    },
+    showModal(data){
+      this.$emit('update:country', data);
     }
+  },
+  computed: {
+    selectedCountry: {
+      get () {
+        return this.countries.find(item => item.codeA3 === this.setup.country.codeA3)
+      },
+      set (value) {
+        this.selectCountry(value)
+      },
+    },
   }
+
 }
 </script>
 
-<style scoped>
-
-</style>

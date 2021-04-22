@@ -103,102 +103,23 @@
 
 
       <div class="kv-content__body">
-        <!-- Step 1 -->
-          <div class="kv-buch"  v-if="currentStep === 1">
 
-            <div class="kv-buch__row">
 
-              <!-- Country -->
-              <div class="kv-buch__col">
-
-                <div class="kv-buch__col-inner">
-                  <div class="kv-buch__title">Выберите страну назначения:</div>
-                  <div class="kv-buch__list">
-
-                    <!-- select -->
-                    <div class="kv-select">
-                      <div class="kv-select__badge">
-                        <svg class="kv-select__icon"><use href="#kv-icons_pin"></use></svg>
-                      </div>
-                      <div class="kv-select__input">
-                        <v-select
-                            :options="countries"
-                            label="name"
-                            placeholder="Выберите"
-                            v-model="selectedCountry"
-                            :clearable="false"
-                            @option:selected="countryChange"
-
-                        />
-                      </div>
-                    </div>
-                    <!-- /select -->
-
-                  </div>
-                </div>
-              </div>
-              <!-- /Country -->
-
-              <!-- Groups -->
-              <div class="kv-buch__col">
-                <div class="kv-buch__col-inner" v-if="serviceGroups.length">
-                  <div class="kv-buch__title">Выберите группу:</div>
-                  <VisaTypes
-                      :data="serviceGroups"
-                      :selected="[selectedServiceGroup.id, selectedService.id]"
-                      @change="selectVisaType"
-                      @showModal="showModal"
-                  >
-                  </VisaTypes>
-                </div>
-              </div>
-              <!-- /Groups -->
-
-              <!-- Services -->
-              <div class="kv-buch__col">
-                <div class="kv-buch__col-inner"  v-if="serviceGroupsSelected.length">
-                  <div class="kv-buch__title">Выберите подтип визы:</div>
-                  <VisaTypes
-                      :data="serviceGroupsSelected"
-                      :selected="[selectedService.id]"
-                      @change="selectVisaType"
-                      @showModal="showModal"
-                  >
-                  </VisaTypes>
-                  <!--
-                  <div class="kv-buch__list kv-buch__list_scroll">
-
-                    <div class="kv-buch__list-item" v-for="item in serviceGroupsSelected" :key="item.serviceId" @click="selectService(item.serviceId)">
-                      <label class="kv-buch-chb">
-                        <input type="radio" checked name="visa-type" aria-label="checkbox">
-                        <span class="kv-buch-chb__caption">
-                          <span class="kv-buch-chb__title">
-                            {{item.name}}
-                            <svg class="kv-buch-chb__icon"><use href="#kv-icons_play"></use></svg>
-                          </span>
-                          <span class="kv-buch-chb__badge"  :title="item.description">
-                            <svg class="kv-buch-chb__info"  v-if="item.description"><use href="#kv-icons_info"></use></svg>
-                            <span v-html="item.description" style="display: none"></span>
-                          </span>
-                        </span>
-                      </label>
-                    </div>
-
-                  </div>
-                  -->
-                </div>
-              </div>
-              <!-- /Services -->
-
-            </div>
-          </div>
-        <!-- /Step 1 -->
-
-        <!--
         <Step1
             :countries="countries"
+            :serviceGroups="serviceGroups"
+            :serviceGroupsSelected="serviceGroupsSelected"
+            :setup="{
+              country: selectedCountry,
+              serviceGroups: [selectedServiceGroup.id, selectedService.id],
+              service: [selectedService.id],
+            }"
+            @update:country="countryChange"
+            @update:service="selectVisaType"
+            @showModal="showModal"
+            v-if="currentStep === 1"
         ></Step1>
-        -->
+
 
 
         <!-- STEP 2 -->
@@ -465,7 +386,11 @@ export default {
       //TODO: Препарированные. Сверху убрать?
       serviceGroupsPrepared: [],
 
-      selectedCountry: [],
+      selectedCountry: {
+        codeA2:"null",
+        codeA3:"null",
+        name:""
+      },
       selectedCountryId: 0,
 
       selectedService: new constants.ServicesDefault(),
@@ -963,7 +888,12 @@ export default {
      *  Смена страны: загрузка справочника достуных типов виз
      *  TODO: разделить логику
      */
-    async countryChange() {
+    countryChange(data) {
+      this.selectedCountry = data;
+      this.loadServices();
+    },
+
+    async loadServices() {
       this.selectedCountryId = this.selectedCountry.codeA3;
 
       console.log('Изменилась страна ' + this.selectedCountryId);
