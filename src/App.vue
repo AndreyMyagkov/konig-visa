@@ -242,46 +242,68 @@
 
 
     <div class="kv-content" v-if="CONFIG.mode === 'price'">
-      <div class="kv-content__body">
-        <!-- Step 1 -->
-        <Step1
-            :countries="countries"
-            :serviceGroups="serviceGroups"
-            :serviceGroupsSelected="serviceGroupsSelected"
-            :setup="{
-              country: selectedCountry,
-              serviceGroups: [selectedServiceGroup.id, selectedService.id],
-              service: [selectedService.id],
-            }"
-            @update:country="countryChange"
-            @update:service="selectVisaType"
-            @showModal="showModal"
-        ></Step1>
-        <!-- /Step 1 -->
-        <br><br>
-        <!-- STEP 2 -->
-        <Step2
-            :serviceDetails="serviceDetails"
-            :nationalities="nationalities"
-            :prices="prices"
 
-            :setup="{
-              nationality: CONFIG.nationality,
-              residenceRegions: CONFIG.residenceRegions,
-              duration: selectedDuration,
-              price: selectedPrice
-            }"
+        <div class="kv-content__body">
 
-            @active="loadStep2Data"
-            @update:nationality="updateNationality"
-            @update:residenceRegions="updateResidenceRegions"
-            @update:duration="updateDuration"
-            @update:price="updatePrice"
-            @load:prices="loadPrices"
-            @showModal="showModal"
-            v-if="selectedService.id"/>
-        <!-- /STEP 2 -->
-      </div>
+          <div class="kv-buch">
+            <div class="kv-buch__row">
+            <!-- Services -->
+            <div class="kv-buch__col">
+              <div class="kv-buch__col-inner"  v-if="serviceGroupsSelected.length">
+                <div class="kv-buch__title">Выберите подтип визы:</div>
+                <VisaTypes
+                    :data="serviceGroupsSelected"
+                    :selected="[selectedService.id]"
+                    @change="selectVisaType"
+                    @showModal="showModal"
+                >
+                </VisaTypes>
+
+              </div>
+            </div>
+          <!-- /Services -->
+        </div>
+          </div>
+
+           <!-- Step 1 -->
+          <Step1
+              :countries="countries"
+              :serviceGroups="serviceGroups"
+              :serviceGroupsSelected="serviceGroupsSelected"
+              :setup="{
+                country: selectedCountry,
+                serviceGroups: [selectedServiceGroup.id, selectedService.id],
+                service: [selectedService.id],
+              }"
+              @update:country="countryChange"
+              @update:service="selectVisaType"
+              @showModal="showModal"
+          ></Step1>
+          <!-- /Step 1 -->
+          <br><br>
+          <!-- STEP 2 -->
+          <Step2
+              :serviceDetails="serviceDetails"
+              :nationalities="nationalities"
+              :prices="prices"
+
+              :setup="{
+                nationality: CONFIG.nationality,
+                residenceRegions: CONFIG.residenceRegions,
+                duration: selectedDuration,
+                price: selectedPrice
+              }"
+
+              @active="loadStep2Data"
+              @update:nationality="updateNationality"
+              @update:residenceRegions="updateResidenceRegions"
+              @update:duration="updateDuration"
+              @update:price="updatePrice"
+              @load:prices="loadPrices"
+              @showModal="showModal"
+              v-if="selectedService.id"/>
+          <!-- /STEP 2 -->
+        </div>
     </div>
 
 
@@ -438,12 +460,7 @@ export default {
       //TODO: Препарированные. Сверху убрать?
       serviceGroupsPrepared: [],
 
-      selectedCountry: {
-        codeA2:"null",
-        codeA3:"null",
-        name:""
-      },
-      selectedCountryId: 0,
+      selectedCountry: new constants.CountryDefault(),
 
       selectedService: new constants.ServicesDefault(),
       selectedServiceGroup: new constants.ServicesDefault(),
@@ -699,14 +716,27 @@ export default {
         if (response.status >= 400 && response.status < 600) {
           throw new Error(countries.Message);
         }
-        this.countries = countries.countries;
         this.isLoading = false;
+
+        this.countries = countries.countries;
+        this.setDefaultCountry();
       } catch (err) {
         this.isLoading = false;
         console.log(err)
       }
     },
 
+    /**
+     * Установить страну из конфига модуля
+     */
+    setDefaultCountry() {
+      if (this.CONFIG.country) {
+        const country = this.countries.find(_ => _.codeA3 === this.CONFIG.country);
+        if (country) {
+          this.countryChange(country)
+        }
+      }
+    },
 
     /**
      * Загружает справочник гражданств
@@ -973,17 +1003,17 @@ export default {
     },
 
     async loadServices() {
-      this.selectedCountryId = this.selectedCountry.codeA3;
+      const selectedCountryId = this.selectedCountry.codeA3;
 
-      console.log('Изменилась страна ' + this.selectedCountryId);
-      if (!this.selectedCountryId) {
+      console.log('Изменилась страна ' + selectedCountryId);
+      if (!selectedCountryId) {
         console.log('Страна не выбрана'); // TODO: что делаем?
         return
       }
 
       try {
         this.isLoading = true;
-        let response = await fetch(`${this.CONFIG.API_URL}getCSServices?clientId=${this.CONFIG.clientId}&countryA3=${this.selectedCountryId}`);
+        let response = await fetch(`${this.CONFIG.API_URL}getCSServices?clientId=${this.CONFIG.clientId}&countryA3=${selectedCountryId}`);
         let services = await response.json();
         if (response.status >= 400 && response.status < 600) {
           throw new Error(services.Message);
@@ -1193,7 +1223,7 @@ export default {
      */
     allowNext() {
       if (this.currentStep === 1) {
-        if (this.selectedCountryId && this.selectedService.id) {
+        if (this.selectedCountry.codeA3 && this.selectedService.id) {
           return true
         }
       }
@@ -1283,7 +1313,7 @@ export default {
     }
 
     // 2. Загружаем справочники стран
-    this.loadCountries()
+    this.loadCountries();
 
 
 /*

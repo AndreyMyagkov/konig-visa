@@ -1,6 +1,14 @@
 // Символ отсутствующей цены
 export const dashSymbol = '—';
 
+export class CountryDefault {
+    constructor() {
+        this.codeA2 = null;
+        this.codeA3 = null;
+        this.name = "";
+    }
+}
+
 // Срок визы
 export class DurationDefault {
     constructor() {
