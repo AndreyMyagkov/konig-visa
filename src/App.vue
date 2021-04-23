@@ -586,9 +586,11 @@ export default {
       if (this.CONFIG.serviceGroup && !this.selectedServiceGroup.id) {
         const serviceGroup = this.serviceGroups.find(_ => _.id === this.CONFIG.serviceGroup);
         if (serviceGroup) {
-          this.selectVisaType(serviceGroup)
+          this.selectVisaType(serviceGroup);
+          return true
         }
       }
+      return false
     },
 
     /**
@@ -598,9 +600,11 @@ export default {
       if (this.CONFIG.service && !this.selectedService.id) {
         const service = this.services.find(_ => _.id === this.CONFIG.service);
         if (service) {
-          this.selectVisaType(service)
+          this.selectVisaType(service);
+          return true
         }
       }
+      return false
     },
 
     /**
@@ -1066,9 +1070,10 @@ export default {
         this.selectedServiceGroup = new this.constants.ServicesDefault();
         this.selectedService = new this.constants.ServicesDefault();
 
-        this.setDefaultServiceGroup();
+        if (this.setDefaultServiceGroup() && this.setDefaultService()) {
+          this.nextStep();
+        }
 
-        this.setDefaultService();
 
         this.isLoading = false;
       } catch (err) {
