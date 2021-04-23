@@ -277,7 +277,7 @@
               }"
               @update:country="countryChange"
               @update:service="selectVisaType"
-              @showModal="showModal"
+              @showModal="showModal()"
           ></Step1>
           <!-- /Step 1 -->
           <br><br>
@@ -568,6 +568,30 @@ export default {
     },
 
     /**
+     * Установить страну из конфига модуля
+     */
+    setDefaultCountry() {
+      if (this.CONFIG.country && !this.selectedCountry.codeA3) {
+        const country = this.countries.find(_ => _.codeA3 === this.CONFIG.country);
+        if (country) {
+          this.countryChange(country)
+        }
+      }
+    },
+
+    /**
+     * Установить группу сервисов из конфига модуля
+     */
+    setDefaultServiceGroup() {
+      if (this.CONFIG.serviceGroup && !this.selectedServiceGroup.id) {
+        const serviceGroup = this.serviceGroups.find(_ => _.id === this.CONFIG.serviceGroup);
+        if (serviceGroup) {
+          this.selectVisaType(serviceGroup)
+        }
+      }
+    },
+
+    /**
      * Пропуск шага
      */
     skipStep(step) {
@@ -726,17 +750,7 @@ export default {
       }
     },
 
-    /**
-     * Установить страну из конфига модуля
-     */
-    setDefaultCountry() {
-      if (this.CONFIG.country) {
-        const country = this.countries.find(_ => _.codeA3 === this.CONFIG.country);
-        if (country) {
-          this.countryChange(country)
-        }
-      }
-    },
+
 
     /**
      * Загружает справочник гражданств
@@ -994,14 +1008,16 @@ export default {
     },
 
     /**
-     *  Смена страны: загрузка справочника достуных типов виз
-     *  TODO: разделить логику
+     *  Смена страны
      */
     countryChange(data) {
       this.selectedCountry = data;
       this.loadServices();
     },
 
+    /**
+     *  Загрузка справочника достуных типов виз
+     */
     async loadServices() {
       const selectedCountryId = this.selectedCountry.codeA3;
 
@@ -1018,7 +1034,6 @@ export default {
         if (response.status >= 400 && response.status < 600) {
           throw new Error(services.Message);
         }
-
 
 
         console.log('сервисы:');
@@ -1038,6 +1053,8 @@ export default {
 
         this.selectedServiceGroup = new this.constants.ServicesDefault();
         this.selectedService = new this.constants.ServicesDefault();
+
+        this.setDefaultServiceGroup();
 
         this.isLoading = false;
       } catch (err) {

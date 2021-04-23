@@ -108,8 +108,8 @@ export default {
     selectCountry(data) {
       this.$emit('update:country', data);
     },
-    showModal(data){
-      this.$emit('update:country', data);
+    showModal(content, title){
+      this.$emit('showModal', content, title);
     }
   },
   computed: {
