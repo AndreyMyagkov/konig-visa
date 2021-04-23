@@ -365,13 +365,15 @@ export default {
      * Продолжительность обработки словами
      * @param {char} code - код продолжительности
      */
-    processDurationsToWords(code) {
+//FIXME: вынес в константы
+   /* processDurationsToWords(code) {
       return {
         h: "Stunden",
         d: "Werktage",
         m: "Monat"
       }[code]
     },
+    */
     /**
      *  Возращает Цену по id продукта
      *  TODO: подгрузить цену
@@ -429,7 +431,7 @@ export default {
 */
     residenceRegionsModel: {
       get () {
-        return this.serviceDetails.servedResidenceRegions.find(item => item.code === this.setup.residenceRegions)
+        return this.serviceDetails.servedResidenceRegions ? this.serviceDetails.servedResidenceRegions.find(item => item.code === this.setup.residenceRegions) : []
       },
       set (value) {
         //this.resetPrice();
@@ -459,12 +461,12 @@ export default {
      */
     prepareProductsPricesArr() {
       const tmpArr = [];
-
       // Цикл по кратности
       for (let d = 0; d < this.serviceDetails.processDurations.length; d++) {
 
         const tmpArr2 = [];
         // Цикл по длительности обработки
+        console.log(this.processesArr)
         for (let m = 0; m < this.selectedDurationsMultipliciesLength; m++) {
           const product = this.processesArr[m][d];
           tmpArr2.push(
@@ -478,7 +480,8 @@ export default {
         tmpArr.push({
               info: {
                 ...this.serviceDetails.processDurations[d],
-                duration: this.processDurationsToWords(this.serviceDetails.processDurations[d].dimension)
+                //duration: this.processDurationsToWords(this.serviceDetails.processDurations[d].dimension)
+                duration: this.constants.processDurationsToWords(this.serviceDetails.processDurations[d].dimension)
               },
               prices: tmpArr2
             }

@@ -110,6 +110,7 @@
             @update:country="countryChange"
             @update:service="selectVisaType"
             @showModal="showModal"
+            @active="loadStep1Data"
             v-if="currentStep === 1 && CONFIG.mode === 'default'"
         ></Step1>
 
@@ -278,6 +279,7 @@
               @update:country="countryChange"
               @update:service="selectVisaType"
               @showModal="showModal()"
+              @active="loadStep1Data"
           ></Step1>
           <!-- /Step 1 -->
           <br><br>
@@ -438,7 +440,7 @@ export default {
           icon: 'step_8'
         }
       ],
-      currentStep: 1,
+      currentStep: 0,
       stepBlock: null,
       isLoading: false,
 
@@ -540,7 +542,7 @@ export default {
     /**
      * Инициирует виджет, проверяет входные данные
      */
-    initiateWidget() {
+    async initiateWidget() {
 
       // eslint-disable-next-line no-undef
       if (__KV_CONFIG && __KV_CONFIG.clientId) {
@@ -549,13 +551,6 @@ export default {
       } else {
         return false
       }
-
-      // Режим модуля
-      const allowMode = ["default", "price", "success"];
-      if (allowMode.indexOf(this.CONFIG.mode) === -1) {
-        this.CONFIG.mode = "default";
-      }
-
       this.disableBrowserPhoneDetection();
 
       // eslint-disable-next-line no-undef
@@ -563,6 +558,22 @@ export default {
         // eslint-disable-next-line no-undef
         this.appendCssFile(__KV_CONFIG.css)
       }
+
+      // Режим модуля
+      const allowMode = ["default", "price", "success"];
+      if (allowMode.indexOf(this.CONFIG.mode) === -1) {
+        this.CONFIG.mode = "default";
+      }
+
+
+      if (this.CONFIG.product && !this.selectedPrice.price.id && this.CONFIG.mode === "default") {
+        await this.setDefaultProduct();
+
+      } else {
+        this.currentStep = 1;
+      }
+
+
 
       return true
     },
@@ -604,6 +615,83 @@ export default {
           return true
         }
       }
+      return false
+    },
+
+    /**
+     * Установить продукт из конфига модуля
+     */
+    async setDefaultProduct() {
+      await this.loadCountries();
+
+      this.selectedPrice.price.id = this.CONFIG.product;
+      await this.loadProductDetails();
+
+      // установить страну
+      const country = this.countries.find(_ => _.codeA3 === this.productDetails.countryA3);
+      if (country) {
+        await this.countryChange(country)
+      }
+
+      // установить типы виз
+      const service = this.services.find(_ => _.id === this.productDetails.serviceId);
+      if (service) {
+        // установить группу виз
+        if (service.srvGrpId) {
+          const serviceGroup = this.serviceGroups.find(_ => _.id === service.srvGrpId);
+          if (serviceGroup) {
+            this.selectVisaType(serviceGroup);
+          }
+        }
+
+        this.selectVisaType(service);
+      }
+
+      // Повторно ставим продукт, т.к. он сбрасывается при смене типа виз
+      this.selectedPrice.price.id = this.CONFIG.product;
+
+      await this.loadStep2Data();
+      // Список гражданств
+      //await this.loadNationalities();
+      // Детали продукта
+      //await this.loadServiceDetails();
+
+      // Установить длительность
+      //const duration = this.serviceDetails.durations.find(_ => _.name === this.productDetails.duration);
+      const selectedDurationIndex = this.serviceDetails.durations.findIndex(_ => _.name === this.productDetails.duration);
+      if (selectedDurationIndex !== -1) {
+        const duration = this.serviceDetails.durations[selectedDurationIndex];
+        this.updateDuration({
+          ...duration,
+          index: selectedDurationIndex
+        });
+      }
+
+      let priceValue = null;
+      const price = this.prices.prices.find(_ => _.productId === this.selectedPrice.price.id);
+      if (price && 'price' in price) {
+        priceValue =  price.price
+      }
+
+      const priceData = {
+        info: {
+          dimension: this.productDetails.processDuration.dimension,
+          duration: this.constants.processDurationsToWords(this.productDetails.processDuration.dimension),
+          hours: this.productDetails.processDuration.hours,
+          quantity: this.productDetails.processDuration.quantity,
+        },
+        price: {
+          id: this.productDetails.id,
+          m: this.productDetails.multiplicity,
+          price: priceValue
+        }
+      }
+      // Установить кратность, цену
+      this.updatePrice(priceData)
+
+
+        // await this.sendCalculateAndValidate();
+      this.currentStep = 3;
       return false
     },
 
@@ -700,7 +788,6 @@ export default {
       if (elementTarget === null) {
         return false
       }
-      console.log(2)
 
       // Дополнительное смещение для красоты или высота внешней шапки
       const parentOffset = 10;
@@ -736,8 +823,6 @@ export default {
      * @param title
      */
     showModal(content = '', title = '') {
-      console.log('модалка')
-      console.log(content)
       this.modal.title = title;
       this.modal.content = content;
       if (content.length) {
@@ -856,6 +941,9 @@ export default {
      * Загружает детальную инфо по продукту
      */
     async loadProductDetails() {
+      if (this.productDetails.id &&  this.productDetails.id === this.selectedPrice.price.id) {
+        return false
+      }
       try {
         this.isLoading = true;
         let response = await fetch(`${this.CONFIG.API_URL}getCSProductDetails?clientId=${this.CONFIG.clientId}&productId=${this.selectedPrice.price.id}`);
@@ -1012,6 +1100,10 @@ export default {
       }
     },
 
+    loadStep1Data() {
+      this.loadCountries();
+    },
+
     async loadStep2Data() {
       await this.loadServiceDetails();
       await this.loadNationalities();
@@ -1026,9 +1118,9 @@ export default {
     /**
      *  Смена страны
      */
-    countryChange(data) {
+    async countryChange(data) {
       this.selectedCountry = data;
-      this.loadServices();
+      await this.loadServices();
     },
 
     /**
@@ -1037,7 +1129,6 @@ export default {
     async loadServices() {
       const selectedCountryId = this.selectedCountry.codeA3;
 
-      console.log('Изменилась страна ' + selectedCountryId);
       if (!selectedCountryId) {
         console.log('Страна не выбрана'); // TODO: что делаем?
         return
@@ -1051,18 +1142,11 @@ export default {
           throw new Error(services.Message);
         }
 
-
-        console.log('сервисы:');
         const srv = this.servicesPrepare(services.services)
-        console.log(srv);
 
-        console.log('группы:');
         const grp = this.servicesPrepare(services.serviceGroups)
-        console.log(grp);
 
-        console.log('группы + сервисы:');
         const grpServ = this.servicesGroupsPrepare(grp, srv);
-        console.log(grpServ)
 
         this.services = srv;
         this.serviceGroups = grpServ;
@@ -1085,30 +1169,21 @@ export default {
 
 
     updateNationality(data){
-      console.log('Обновились данные 2 шага: нац');
-      console.log(data)
-
       this.CONFIG.nationality = data;
       this.loadPrices();
     },
 
     updateResidenceRegions(data){
-      console.log('Обновились данные 2 шага: место');
-      console.log(data)
       this.CONFIG.residenceRegions = data;
       this.loadPrices();
     },
 
     updateDuration(data){
-      console.log('Обновилась продолжительность:');
-      console.log(data)
       this.selectedDuration = data;
     },
 
 
     updatePrice(data) {
-      console.log('Обновилась цена:');
-      console.log(data)
       this.selectedPrice = data
     },
   //  ПО выбору смотреть тип. Выбирать группу или сервис и открывать шаг
@@ -1141,11 +1216,9 @@ export default {
      */
     selectVisaType(item) {
       if (item.type === 'group') {
-        console.log('Выбрана группа ' + item.id);
         this.selectedServiceGroup = item;
         this.selectedService = new this.constants.ServicesDefault();
       } else {
-        console.log('Выбран тип ' + item.id);
         this.selectedService = item;
         //this.selectedServiceGroup = new this.constants.ServicesDefault();
         this.selectedServiceGroup.id = item.srvGrpId;
@@ -1227,8 +1300,6 @@ export default {
 
     /* Step 6 */
     setCustomerDelivery(data) {
-      console.log('обновить customer');
-      console.log(data)
       this.customer = data.customer;
       this.delivery = data.delivery
     }
@@ -1241,7 +1312,12 @@ export default {
      * @return {{crumb: string, icon: string, header: string}}
      */
     stepInfo() {
-      return this.steps[this.currentStep - 1]
+      return this.currentStep ? this.steps[this.currentStep - 1] :
+          {
+            crumb: '',
+            header: '',
+            icon: ''
+          }
     },
 
 
@@ -1348,8 +1424,7 @@ export default {
       return false
     }
 
-    // 2. Загружаем справочники стран
-    this.loadCountries();
+
 
 
 /*

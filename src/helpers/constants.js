@@ -1,6 +1,18 @@
 // Символ отсутствующей цены
 export const dashSymbol = '—';
 
+/**
+ * Продолжительность обработки словами
+ * @param {char} code - код продолжительности
+ */
+export function processDurationsToWords(code) {
+    return {
+        h: "Stunden",
+        d: "Werktage",
+        m: "Monat"
+    }[code]
+}
+
 export class CountryDefault {
     constructor() {
         this.codeA2 = null;
@@ -19,6 +31,7 @@ export class DurationDefault {
         this.index = null;
     }
 }
+
 // Цена, кратность, срок обработки
 export class PriceDefault {
     constructor() {

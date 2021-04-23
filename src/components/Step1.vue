@@ -121,8 +121,10 @@ export default {
         this.selectCountry(value)
       },
     },
+  },
+  mounted() {
+    this.$emit('active')
   }
-
 }
 </script>
 
