@@ -592,6 +592,18 @@ export default {
     },
 
     /**
+     * Установить сервис из конфига модуля
+     */
+    setDefaultService() {
+      if (this.CONFIG.service && !this.selectedService.id) {
+        const service = this.services.find(_ => _.id === this.CONFIG.service);
+        if (service) {
+          this.selectVisaType(service)
+        }
+      }
+    },
+
+    /**
      * Пропуск шага
      */
     skipStep(step) {
@@ -1055,6 +1067,8 @@ export default {
         this.selectedService = new this.constants.ServicesDefault();
 
         this.setDefaultServiceGroup();
+
+        this.setDefaultService();
 
         this.isLoading = false;
       } catch (err) {
