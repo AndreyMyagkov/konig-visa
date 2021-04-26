@@ -1250,10 +1250,21 @@ export default {
       return [...groups, ...services]
     },
 
+    async selectVisaType(item) {
+      // Конфирм сброса
+      if (this.confirmReset) {
+        if (await this.showResetConfirm()) {
+          this._selectVisaType(item)
+        }
+      } else {
+        this._selectVisaType(item)
+      }
+    },
+
     /**
      * Выбор типа виз (группы или типа)
      */
-    selectVisaType(item) {
+    _selectVisaType(item) {
       if (item.type === 'group') {
         this.selectedServiceGroup = item;
         this.selectedService = new this.constants.ServicesDefault();
