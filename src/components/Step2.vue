@@ -239,16 +239,6 @@ export default {
       required: true
     }
 
-    /*
-    nationality: {
-      type: String,
-      required: true
-    },
-    residenceRegions: {
-      type: String,
-      required: true
-    }
-    */
 
   },
   data() {
@@ -257,13 +247,9 @@ export default {
       formatter,
       // Выбранная продолжительность
       selectedDuration: Object.assign({}, this.setup.duration),
-      //new constants.DurationDefault(),
-      // Индекс выбранной продолжительности
-      //selectedDurationIndex: null,
+
       selectedPriceId: this.setup.price.price.id, // null
 
-      //selectedNationalities: null,
-     // selectedResidenceRegions: ''
     }
   },
   methods: {
@@ -271,8 +257,6 @@ export default {
      * Сбрасывает цену
      */
     resetPrice() {
-      //this.setPrice(new constants.PriceDefault());
-
       this.selectedPriceId = null;
       this.$emit('update:price', new constants.PriceDefault())
     },
@@ -296,11 +280,11 @@ export default {
      * @param index - индекс
      */
     selectDurations(item, index) {
+      //
       this.selectedDuration = {
         ...item,
         index
       }
-      //this.selectedDurationIndex = index;
 
       this.resetPrice();
 
@@ -317,10 +301,6 @@ export default {
         return false
       }
       const prices = this.prepareProductsPricesArr[index].prices;
-      console.log('цены блока');
-      console.log(prices);
-      console.log('Выбранный процесс')
-      console.log(this.selectedPriceId);
       return prices.findIndex(_ => {
         return _.id === this.selectedPriceId
       }) >= 0;
@@ -331,7 +311,6 @@ export default {
      */
     isDisabledCurrentPrice(index) {
       const pricesBlock = this.prepareProductsPricesArr[index];
-      console.log(pricesBlock);
       return !(this.prices.minProcessDuration > 0 &&
               pricesBlock.info.hours < this.prices.minProcessDuration
               )
@@ -346,34 +325,15 @@ export default {
       }
 
       const pricesBlock = this.prepareProductsPricesArr[index];
-      console.log('блок ', index)
-      console.log(pricesBlock)
       const blockedIndex =  pricesBlock.prices.findIndex(item => {
         if (item.id === this.selectedPriceId && item.price == null) {
           return true
         }
       })
-      console.log(blockedIndex)
       return blockedIndex >= 0
-      //return pricesBlock.prices[2].price !== null
-
-      //return this.getPriceByProductId(this.selectedPriceId) === null
 
     },
 
-    /**
-     * Продолжительность обработки словами
-     * @param {char} code - код продолжительности
-     */
-//FIXME: вынес в константы
-   /* processDurationsToWords(code) {
-      return {
-        h: "Stunden",
-        d: "Werktage",
-        m: "Monat"
-      }[code]
-    },
-    */
     /**
      *  Возращает Цену по id продукта
      *  TODO: подгрузить цену
@@ -395,18 +355,6 @@ export default {
   computed: {
 
     // v-model для селекта национальности
-    /*
-    nationalitiesModelDEL: {
-      get () {
-        return this.nationality
-      },
-      set (value) {
-        this.$emit('update:nationality', value);
-        this.$emit('load:prices');
-      },
-    },*/
-
-    // v-model для селекта национальности
     nationalitiesModel: {
       get () {
         return this.nationalities.find(item => item.codeA2 === this.setup.nationality)
@@ -418,17 +366,6 @@ export default {
       },
     },
 
-    // v-model для селекта региона жительства
-    /*
-    residenceRegionsModel: {
-      get () {
-        return this.residenceRegions
-      },
-      set (value) {
-        this.$emit('update:residenceRegions', value)
-      },
-    },
-*/
     residenceRegionsModel: {
       get () {
         return this.serviceDetails.servedResidenceRegions ? this.serviceDetails.servedResidenceRegions.find(item => item.code === this.setup.residenceRegions) : []
@@ -466,7 +403,6 @@ export default {
 
         const tmpArr2 = [];
         // Цикл по длительности обработки
-        console.log(this.processesArr)
         for (let m = 0; m < this.selectedDurationsMultipliciesLength; m++) {
           const product = this.processesArr[m][d];
           tmpArr2.push(
@@ -480,7 +416,6 @@ export default {
         tmpArr.push({
               info: {
                 ...this.serviceDetails.processDurations[d],
-                //duration: this.processDurationsToWords(this.serviceDetails.processDurations[d].dimension)
                 duration: this.constants.processDurationsToWords(this.serviceDetails.processDurations[d].dimension)
               },
               prices: tmpArr2
@@ -490,11 +425,6 @@ export default {
 
       return tmpArr.reverse();
     },
-/*
-    durationDescription() {
-      return this.serviceDetails.durations
-    }//
-    */
 
   },
   mounted() {
@@ -506,16 +436,23 @@ export default {
 </script>
 
 <style scoped>
+/*
+FIXME: не надо, удалить 28 апр
 .kv-app .kv-processing-day.kv-processing-day_disabled.kv-processing-day_active .kv-processing-day__body {
   border: 3px solid var(--c-disabled_dark);
-}
-.kv-app .kv-processing-day-chb input[disabled]:checked ~ .kv-processing-day-chb__inner {
-  background-color: hsl(0deg 0% 0% / 10%);
 }
 
 .kv-app .kv-staying .kv-staying__list {
   flex-wrap: nowrap;
   overflow: auto;
 }
+*/
+
+/*
+FIXME: отдал в верстку, удалить
+.kv-app .kv-processing-day-chb input[disabled]:checked ~ .kv-processing-day-chb__inner {
+  background-color: hsl(0deg 0% 0% / 10%);
+}
+*/
 
 </style>

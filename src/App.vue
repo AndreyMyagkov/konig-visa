@@ -319,6 +319,10 @@
     <simple-modal v-model="isModalShow" :title="modal.title" size="small">
       <template slot="body">
         <div v-html="modal.content"></div>
+        <div v-if="steps[2].isValid">
+          <button class="kv-step-button" @click="resetStepData = true">Да</button>
+          <button class="kv-step-button" @click = "resetStepData = false">Нет</button>
+        </div>
       </template>
     </simple-modal>
 
@@ -390,9 +394,11 @@ export default {
       constants,
       formatter,
       isModalShow: false,
+      resetStepData: true, // можно ли сбрасывать данные шагов
       modal: {
         title: '',
-        content: ''
+        content: '',
+        confirmReset: true
       },
 
       steps: [
@@ -410,8 +416,8 @@ export default {
           crumb: 'Заполнение данных о туристах',
           header: 'Заполнение данных',
           icon: 'step_3',
-          isValid: false,
-          allowOrder: false
+          isValid: false, // флаг валидности шага, флаг показа попапа при изменении данных
+          allowOrder: false  // флаг возможности заказа виз
         },
         {
           crumb: 'Дополнительные услуги',

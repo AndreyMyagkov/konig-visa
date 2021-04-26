@@ -438,14 +438,15 @@ export default {
   border: none;
 }
 
-
+/*
+FIXME: del 28 апреля
 .kv-app .kv-form__item input:focus ~ .kv-form__label,
 .kv-app .kv-form__item.kv_is-focused .kv-form__label {
   top: 7px;
   font-size: 14px;
   color: var(--c-disabled_dark);
 }
-
+*/
 
 
 </style>

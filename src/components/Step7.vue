@@ -367,8 +367,11 @@ export default {
   padding: 0;
 }
 */
+
+/*
+FIXME: del 28 апр
 .kv-customer__tel {
   margin-right: 2em;
 }
-
+*/
 </style>

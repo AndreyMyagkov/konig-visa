@@ -386,10 +386,10 @@ export default {
 </script>
 
 <style scoped>
-
+/* FIXME: del 28 апр
 .kv-service-pack_empty .kv-class-tabs__list .kv-services-price_top {
   display: none !important;
 }
-
+*/
 
 </style>
