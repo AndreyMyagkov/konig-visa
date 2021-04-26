@@ -1,6 +1,5 @@
 <template>
   <div id="kv-app" class="kv-app" notranslate>
-   <!-- <svg><use href="#kv-icons_step_7"></use></svg>-->
     <!-- HEADER -->
     <div class="kv-header" v-if="CONFIG.mode === 'default'">
 
@@ -77,7 +76,6 @@
     </div>
     <!-- /HEADER -->
 
-
     <!-- MAIN Default mode-->
     <div class="kv-content" v-if="CONFIG.mode === 'default'">
       <!-- Step Header -->
@@ -92,8 +90,6 @@
           @nextStep="nextStep"
       ></PrevNextButtons>
       <!-- /Top buttons -->
-
-
 
       <div class="kv-content__body">
 
@@ -319,9 +315,9 @@
     <simple-modal v-model="isModalShow" :title="modal.title" size="small">
       <template slot="body">
         <div v-html="modal.content"></div>
-        <div v-if="steps[2].isValid">
-          <button class="kv-step-button" @click="resetStepData = true">Да</button>
-          <button class="kv-step-button" @click = "resetStepData = false">Нет</button>
+        <div v-if="confirmReset">
+          <button class="kv-step-button" @click="setResetStepDate(true)">Да</button>
+          <button class="kv-step-button" @click = "setResetStepDate(false)">Нет</button>
         </div>
       </template>
     </simple-modal>
@@ -386,8 +382,7 @@ export default {
     Step8,
     Success,
     PrevNextButtons,
-    SimpleModal,
-    vSelect
+    SimpleModal
   },
   data() {
     return {
@@ -398,7 +393,8 @@ export default {
       modal: {
         title: '',
         content: '',
-        confirmReset: true
+        confirmYES: undefined,
+        confirmNO: undefined,
       },
 
       steps: [
@@ -837,6 +833,31 @@ export default {
     },
 
     /**
+     * Модалка - предупреждение о сбросе выбранных параметров
+     */
+    showResetConfirm(content, title) {
+        this.modal.title = title || "";
+        this.modal.content = content || "Внимание, выбор услуги и допуслуг будет сброшен, продолжить?";
+        this.isModalShow = true;
+
+        return new Promise((resolve, reject) => {
+          this.modal.confirmYES = resolve
+          this.modal.confirmNO = reject
+        })
+    },
+
+
+    setResetStepDate(data) {
+      //this.resetStepData = data;
+      this.isModalShow = false;
+      if (data) {
+        this.modal.confirmYES(true)
+      } else {
+        this.modal.confirmYES(false)
+      }
+    },
+
+    /**
      * Загружает справочник стран
      */
     async loadCountries() {
@@ -1125,6 +1146,18 @@ export default {
      *  Смена страны
      */
     async countryChange(data) {
+      // Конфирм сброса
+      if (this.confirmReset) {
+        const ok = await this.showResetConfirm();
+        if (ok) {
+          await this._countryChange(data)
+        }
+      } else {
+        await this._countryChange(data)
+      }
+    },
+
+    async _countryChange(data) {
       this.selectedCountry = data;
       await this.loadServices();
     },
@@ -1312,6 +1345,12 @@ export default {
 
   },
   computed: {
+    /**
+     * Выводить модалку о сбросе параметров
+     */
+    confirmReset() {
+      return this.steps[2].isValid
+    },
 
     /**
      * Возращает информацию по текущему шагу
