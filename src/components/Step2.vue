@@ -119,7 +119,7 @@
 
       <!-- Processing days-->
       <div class="kv-processing-days kv-processing-days_slide"  v-if="selectedDuration.name && prices.state === 0">
-        <div class="kv-processing-days__inner">
+        <div class="kv-processing-days__inner kv-processing-days__inner-showed-action-label">
           <!-- day -->
           <div class="kv-processing-days__item" v-for="(item, i) in prepareProductsPricesArr" :key="i">
             <div class="kv-processing-day" :class="{
@@ -163,6 +163,8 @@
 
                 </div>
                 <!-- /item -->
+
+                <a class="kv-processing-day__action-label" href="#">Kaufen</a>
 
                 <div
                     class="kv-processing-day__text kv-user-text"

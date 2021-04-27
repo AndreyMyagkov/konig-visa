@@ -316,8 +316,10 @@
       <template slot="body">
         <div v-html="modal.content"></div>
         <div v-if="confirmReset">
-          <button class="kv-step-button" @click="setResetStepDate(true)">Да</button>
-          <button class="kv-step-button" @click = "setResetStepDate(false)">Нет</button>
+          <div class="kv-step-buttons-centered kv-modal-buttons">
+            <button class="kv-step-button kv-step-button_second" @click="setResetStepDate(true)">Да</button>
+            <button class="kv-step-button" @click = "setResetStepDate(false)">Нет</button>
+          </div>
         </div>
       </template>
     </simple-modal>
@@ -1507,9 +1509,12 @@ export default {
 </script>
 
 <style>
+/*
 #kv-app {
   --primary: #02a7f0;
 }
+*/
+
 
 .vld-overlay {
   bottom: 0 !important;
@@ -1529,13 +1534,6 @@ export default {
 .v-select {
   width: 100%;
 }
-.kv-app .kv-select .kv-select__input {
-  padding: 0;
-}
-.kv-app .kv-select select.kv-select__input,
-.kv-app .kv-select input.kv-select__input {
-  padding: 7px 32px 7px 10px;
-}
 .kv-app .kv-select .vs__dropdown-toggle {
   border: none;
 }
@@ -1553,6 +1551,22 @@ export default {
   border-color: var(--c-second);
 }
 
+.kv-form__sel-custom .vs__actions {
+  display: none;
+}
+.kv-form__sel-custom .vs__selected-options {
+  padding-left: 13px;
+}
+
+.kv-form__sel-custom .vs__dropdown-toggle {
+  padding: 0;
+}
+
+.kv-form__sel-custom {
+  width: 100%;
+}
+
+
 /* modal */
 .vsm-modal-body {
   max-height: 88vh;
@@ -1563,38 +1577,25 @@ export default {
   color: #555;
 }
 
+
+
+/* TODO: ПЕРЕНОС */
+
+.kv-app .kv-select .kv-select__input {
+  padding: 0;
+}
+.kv-app .kv-select select.kv-select__input,
+.kv-app .kv-select input.kv-select__input {
+  padding: 7px 32px 7px 10px;
+}
+
+
+
+
+
 .kv-app .kv-form__item input:not(:placeholder-shown) ~ .kv-form__label {
   top: 7px;
   color: var(--c-disabled_dark);
-}
-
-.kv-form__sel-custom {
-  width: 100%;
-}
-
-.kv-form__sel-custom .vs__actions {
-  display: none;
-}
-.kv-form__sel-custom .vs__selected-options {
-    padding-left: 13px;
-}
-
-.kv-form__sel-custom .vs__dropdown-toggle {
-  padding: 0;
-}
-
-.kv-app .kv-form__label {
-   pointer-events: auto;
-}
-
-
-.kv-app .kv-form__label {
-  top: 0;
-  left: 0;
-  right: 0;
-  padding-left: 20px;
-  line-height: 60px;
-  z-index: 1;
 }
 
 .kv-app .kv-form__item input:not(:placeholder-shown) ~ .kv-form__label,
@@ -1607,6 +1608,17 @@ export default {
   line-height: 25px;
 }
 
+
+.kv-app .kv-form__label {
+  pointer-events: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding-left: 20px;
+  line-height: 60px;
+  z-index: 1;
+}
+
 .kv-form__sublabel {
   position: absolute;
   bottom: 3px;
@@ -1617,5 +1629,11 @@ export default {
 }
 .kv-app .kv-form__item input:focus ~ .kv-form__sublabel {
   display: none;
+}
+
+
+.kv-modal-buttons .kv-step-button{
+  height: auto;
+  padding: 8px 20px;
 }
 </style>
