@@ -315,6 +315,13 @@
     <simple-modal v-model="isModalShow" :title="modal.title" size="small">
       <template slot="body">
         <div v-html="modal.content"></div>
+      </template>
+    </simple-modal>
+
+
+    <simple-modal v-model="confirm.isShow" :title="confirm.title" size="small">
+      <template slot="body">
+        <div v-html="confirm.content"></div>
         <div v-if="confirmReset">
           <div class="kv-step-buttons-centered kv-modal-buttons">
             <button class="kv-step-button kv-step-button_second" @click="setResetStepDate(true)">Да</button>
@@ -327,7 +334,6 @@
     <loading :active="isLoading"
              :can-cancel="false"
              :is-full-page="true">
-
     </loading>
   </div>
 </template>
@@ -393,6 +399,11 @@ export default {
       isModalShow: false,
       resetStepData: true, // можно ли сбрасывать данные шагов
       modal: {
+        title: '',
+        content: '',
+      },
+      confirm: {
+        isShow: false,
         title: '',
         content: '',
         confirmYES: undefined,
@@ -835,27 +846,27 @@ export default {
     },
 
     /**
-     * Модалка - предупреждение о сбросе выбранных параметров
+     * Конфирм - предупреждение о сбросе выбранных параметров
      */
     showResetConfirm(content, title) {
-        this.modal.title = title || "";
-        this.modal.content = content || "Внимание, выбор услуги и допуслуг будет сброшен, продолжить?";
-        this.isModalShow = true;
+        this.confirm.title = title || "";
+        this.confirm.content = content || "Внимание, выбор услуги и допуслуг будет сброшен, продолжить?";
+        this.confirm.isShow = true;
 
         return new Promise((resolve, reject) => {
-          this.modal.confirmYES = resolve
-          this.modal.confirmNO = reject
+          this.confirm.confirmYES = resolve
+          this.confirm.confirmNO = reject
         })
     },
 
 
     setResetStepDate(data) {
       //this.resetStepData = data;
-      this.isModalShow = false;
+      this.confirm.isShow = false;
       if (data) {
-        this.modal.confirmYES(true)
+        this.confirm.confirmYES(true)
       } else {
-        this.modal.confirmYES(false)
+        this.confirm.confirmYES(false)
       }
     },
 
