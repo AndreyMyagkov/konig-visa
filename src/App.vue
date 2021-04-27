@@ -672,7 +672,14 @@ export default {
       //await this.loadServiceDetails();
 
       // Установить длительность
-      //const duration = this.serviceDetails.durations.find(_ => _.name === this.productDetails.duration);
+      let duration = this.serviceDetails.durations.find(_ => _.name === this.productDetails.duration);
+
+      if (duration === undefined) {
+        duration = new this.constants.DurationDefault()
+      }
+      this.updateDuration(duration);
+
+      /*
       const selectedDurationIndex = this.serviceDetails.durations.findIndex(_ => _.name === this.productDetails.duration);
       if (selectedDurationIndex !== -1) {
         const duration = this.serviceDetails.durations[selectedDurationIndex];
@@ -681,6 +688,7 @@ export default {
           index: selectedDurationIndex
         });
       }
+      */
 
       let priceValue = null;
       const price = this.prices.prices.find(_ => _.productId === this.selectedPrice.price.id);
@@ -1238,7 +1246,19 @@ export default {
       this.loadPrices();
     },
 
-    updateDuration(data){
+    async updateDuration(data){
+      // Конфирм сброса
+      if (this.confirmReset) {
+        if (await this.showResetConfirm()) {
+          this._updateDuration(data)
+        }
+      } else {
+        this._updateDuration(data)
+      }
+    },
+
+    _updateDuration(data){
+      this.updatePrice(new this.constants.PriceDefault());
       this.selectedDuration = data;
     },
 

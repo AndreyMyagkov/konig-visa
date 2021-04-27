@@ -16,7 +16,7 @@
 
           <!-- item -->
           <div class="kv-staying__item" v-for="(item) in serviceDetails.durations" :key="item.name">
-            <div class="kv-staying-chb" :class="{'kv-staying-chb__active' : item.name === selectedDuration.name}"  @click="selectDurations(item)">
+            <div class="kv-staying-chb" :class="{'kv-staying-chb__active' : item.name === setup.duration.name}"  @click="selectDurations(item)">
               <div class="kv-staying-chb__text" v-html="item.nameHTML"></div>
               <div class="kv-staying-chb__info" @click.stop="$emit('showModal', item.description, item.name)">
                 <svg class="kv-staying-chb__info-icon"><use href="#kv-icons_info"></use></svg>
@@ -28,17 +28,17 @@
         </div>
         <!-- /Staying list -->
 
-        <div class="kv-staying__info" v-if="selectedDuration.description">
+        <div class="kv-staying__info" v-if="setup.duration.description">
           <svg class="kv-staying__info-icon"><use href="#kv-icons_info"></use></svg>
 
-          <div class="kv-staying__text" v-html="selectedDuration.description"></div>
+          <div class="kv-staying__text" v-html="setup.duration.description"></div>
         </div>
 
       </div>
       <!-- /Staying-->
 
       <!-- Processing-->
-      <div class="kv-processing" v-if="selectedDuration.name">
+      <div class="kv-processing" v-if="setup.duration.index !== null">
         <div class="kv-processing__caption">
 
           <div class="kv-processing__btn">
@@ -118,7 +118,7 @@
       <!-- /Processing-->
 
       <!-- Processing days-->
-      <div class="kv-processing-days kv-processing-days_slide"  v-if="selectedDuration.name && prices.state === 0">
+      <div class="kv-processing-days kv-processing-days_slide"  v-if="setup.duration.name && prices.state === 0">
         <div class="kv-processing-days__inner kv-processing-days__inner-showed-action-label">
           <!-- day -->
           <div class="kv-processing-days__item" v-for="(item, i) in prepareProductsPricesArr" :key="i">
@@ -183,14 +183,14 @@
       <!-- /Processing days-->
 
       <div class="kv-alert kv-alert_center"
-           v-if="prices.state !== 0 && selectedDuration.index !== null"
+           v-if="prices.state !== 0 && setup.duration.index !== null"
            v-html="prices.stateDescription"
       >
       </div>
 
 
       <!-- Calc bloc info-->
-      <div class="kv-calc-block__info"  v-if="selectedDuration.name  && prices.state === 0">
+      <div class="kv-calc-block__info"  v-if="setup.duration.name  && prices.state === 0">
 
         <div class="kv-calc-info">
 
@@ -245,21 +245,21 @@ export default {
       constants,
       formatter,
       // Выбранная продолжительность
-      selectedDuration: Object.assign({}, this.setup.duration),
-
+      //selectedDuration: Object.assign({}, this.setup.duration),
+      //selectedDuration: this.setup.duration,
       selectedPriceId: this.setup.price.price.id, // null
-
     }
   },
   methods: {
     /**
      * Сбрасывает цену
      */
+    /*
     resetPrice() {
       this.selectedPriceId = null;
       this.$emit('update:price', new constants.PriceDefault())
     },
-
+*/
     /**
      * Устанавливает цену
      * @param data
@@ -276,15 +276,10 @@ export default {
     /**
      * Выбрать длительность пребывания
      * @param item - объект выбранной продолжительности
-     * @param index - индекс
      */
     selectDurations(item) {
-      //
-      this.selectedDuration = item;
-
-      this.resetPrice();
-
-      this.$emit('update:duration', this.selectedDuration);
+      //this.resetPrice();
+      this.$emit('update:duration', item);
     },
 
 
@@ -376,17 +371,17 @@ export default {
      * Возвращает кол-во кратностей выбранной продолжительности
      */
     selectedDurationsMultipliciesLength() {
-      if (this.selectedDuration.index === null) {
+      if (this.setup.duration.index === null) {
         return 0
       }
-      return this.selectedDuration.multiplicities.length
+      return this.setup.duration.multiplicities.length
     },
 
     /**
      * Возращает массив id цен для выбранных параметров
      */
     processesArr() {
-      return this.serviceDetails.products[this.selectedDuration.index] || []
+      return this.serviceDetails.products[this.setup.duration.index] || []
     },
 
     /**
@@ -405,7 +400,7 @@ export default {
               {
                 id: product,
                 price: this.getPriceByProductId(product),
-                m: this.selectedDuration.multiplicities[m]
+                m: this.setup.duration.multiplicities[m]
               }
           )
         }
