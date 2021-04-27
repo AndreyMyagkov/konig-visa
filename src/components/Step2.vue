@@ -142,7 +142,7 @@
                     <input type="radio"
                            name="kv-processing-day-chb"
                            aria-label="checkbox"
-                           :checked="price.id === selectedPriceId"
+                           :checked="price.id === setup.price.price.id"
                            :disabled="price.price === null"
                     >
                     <span class="kv-processing-day-chb__inner">
@@ -247,7 +247,7 @@ export default {
       // Выбранная продолжительность
       //selectedDuration: Object.assign({}, this.setup.duration),
       //selectedDuration: this.setup.duration,
-      selectedPriceId: this.setup.price.price.id, // null
+      //selectedPriceId: this.setup.price.price.id, // null
     }
   },
   methods: {
@@ -269,7 +269,7 @@ export default {
       if (data.price.price === null) {
         return
       }
-      this.selectedPriceId = data.price.id;
+      //this.selectedPriceId = data.price.id;
       this.$emit('update:price', data)
     },
 
@@ -288,12 +288,12 @@ export default {
      * @param {integer} index - индекс блока процесса
      */
     isActiveCurrentPriceBlock(index) {
-      if (!this.selectedPriceId) {
+      if (!this.setup.price.price.id) {
         return false
       }
       const prices = this.prepareProductsPricesArr[index].prices;
       return prices.findIndex(_ => {
-        return _.id === this.selectedPriceId
+        return _.id === this.setup.price.price.id
       }) >= 0;
     },
 
@@ -311,13 +311,13 @@ export default {
      * Текущий блок цен заблокирован для выбора по текущей цене = null
      */
     isBlockedCurrentPrice(index) {
-      if (this.selectedPriceId === null) {
+      if (this.setup.price.price.id === null) {
         return false
       }
 
       const pricesBlock = this.prepareProductsPricesArr[index];
       const blockedIndex =  pricesBlock.prices.findIndex(item => {
-        if (item.id === this.selectedPriceId && item.price == null) {
+        if (item.id === this.setup.price.price.id && item.price == null) {
           return true
         }
       })

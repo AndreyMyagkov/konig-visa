@@ -690,6 +690,9 @@ export default {
       }
       */
 
+      // Повторно ставим продукт, т.к. он сбрасывается при смене длительности
+      this.selectedPrice.price.id = this.CONFIG.product;
+
       let priceValue = null;
       const price = this.prices.prices.find(_ => _.productId === this.selectedPrice.price.id);
       if (price && 'price' in price) {
