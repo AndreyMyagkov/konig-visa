@@ -11,12 +11,12 @@
         </div>
         <!-- /text -->
 
-        <!-- Staying list -->
+        <!-- Duration list -->
         <div class="kv-staying__list">
 
           <!-- item -->
-          <div class="kv-staying__item" v-for="(item, index) in serviceDetails.durations" :key="item.name">
-            <div class="kv-staying-chb" :class="{'kv-staying-chb__active' : item.name === selectedDuration.name}"  @click="selectDurations(item, index)">
+          <div class="kv-staying__item" v-for="(item) in serviceDetails.durations" :key="item.name">
+            <div class="kv-staying-chb" :class="{'kv-staying-chb__active' : item.name === selectedDuration.name}"  @click="selectDurations(item)">
               <div class="kv-staying-chb__text" v-html="item.nameHTML"></div>
               <div class="kv-staying-chb__info" @click.stop="$emit('showModal', item.description, item.name)">
                 <svg class="kv-staying-chb__info-icon"><use href="#kv-icons_info"></use></svg>
@@ -235,13 +235,10 @@ export default {
       type: Object,
       required: true
     },
-
     setup: {
       type: Object,
       required: true
     }
-
-
   },
   data() {
     return {
@@ -281,12 +278,9 @@ export default {
      * @param item - объект выбранной продолжительности
      * @param index - индекс
      */
-    selectDurations(item, index) {
+    selectDurations(item) {
       //
-      this.selectedDuration = {
-        ...item,
-        index
-      }
+      this.selectedDuration = item;
 
       this.resetPrice();
 

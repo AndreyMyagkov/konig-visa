@@ -927,7 +927,15 @@ export default {
         if (serviceDetails.processDurations === null) {
           serviceDetails.processDurations = []
         }
+
+        // Добавить index к Duration
+        if (serviceDetails.service.durations !== null) {
+          serviceDetails.service.durations = serviceDetails.service.durations.map((_, index) => {return {..._, index: index}})
+        }
+
+
         this.serviceDetails = serviceDetails.service;
+
         this.isLoading = false;
       } catch (err) {
         this.isLoading = false;
