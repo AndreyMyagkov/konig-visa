@@ -39,39 +39,29 @@
 
       <!-- Processing-->
       <div class="kv-processing" v-if="setup.duration.index !== null">
-        <div class="kv-processing__caption">
+        <p class="kv-processing__caption">
 
           <div class="kv-processing__btn">
 
             <div class="kv-btn-info"
                  @click="$emit(
                      'showModal',
-                      '<b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.<p><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.</p> <br><br><br><br><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book. <b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.<p><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.</p> <br><br><br><br><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book. <b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.<p><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.</p> <br><br><br><br><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book. <b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.<p><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.</p> <br><br><br><br><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.',
-                       'Информация')">
-              <svg><use href="#kv-icons_ask"></use></svg>Инфо-кнопка
+                      'Тут перевода нет <b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.<p><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.</p> <br><br><br><br><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book. <b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.<p><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.</p> <br><br><br><br><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book. <b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.<p><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.</p> <br><br><br><br><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book. <b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.<p><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.</p> <br><br><br><br><b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy  it to make a type specimen book.',
+                       $lng('step2.modalInfoHeader'))">
+              <svg><use href="#kv-icons_ask"></use></svg>{{ $lng('step2.btnInfo') }}
             </div>
 
           </div>
 
-          <div class="kv-processing__text">
+          <div class="kv-processing__text kv-user-text" v-html="$lng('step2.processingText')">
 
-            <span class="kv-processing__text_bold">СРОК ОБРАБОТКИ</span> статический текст is simply dummy text of the
-            printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
-            text ever since the 1500s, when an unknown printer took a galley of type and scrambled
-            it to make a type specimen book.
-          </div>
-
-          <div class="kv-processing__text">Lorem Ipsum is simply dummy text of the printing and
-            typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since
-            the 1500s, when an unknown printer took a galley of type and scrambled it to make a type
-            specimen book.</div>
         </div>
 
 
         <!-- selects -->
         <div class="kv-processing__row">
           <div class="kv-processing__item">
-            <div class="kv-processing__label">Гражданство:</div>
+            <div class="kv-processing__label">{{ $lng('step2.nationalitiesLabel') }}</div>
 
             <div class="kv-processing__select kv-select">
               <div class="kv-select__badge">
@@ -81,7 +71,7 @@
                 <v-select
                     :options="nationalities"
                     label="name"
-                    placeholder="Выберите"
+                    :placeholder="$lng('step2.nationalitiesPlaceholder')"
                     v-model="nationalitiesModel"
                     :clearable="false"
                 />
@@ -93,7 +83,7 @@
           <!-- Место жительства -->
           <div class="kv-processing__item">
             <template  v-if="serviceDetails.servedResidenceRegions !== null">
-              <div class="kv-processing__label">Место жительства:</div>
+              <div class="kv-processing__label">{{ $lng('step2.residenceRegionsLabel') }}</div>
 
               <div class="kv-processing__select kv-select">
                 <div class="kv-select__badge">
@@ -103,7 +93,7 @@
                   <v-select
                       :options="serviceDetails.servedResidenceRegions"
                       label="name"
-                      placeholder="Выберите"
+                      :placeholder="$lng('step2.residenceRegionsPlaceholder')"
                       v-model="residenceRegionsModel"
                       :clearable="false"
                   />
@@ -129,9 +119,9 @@
             }">
 
               <div class="kv-processing-day__header">
-                <div class="kv-processing-day__title">Bearbeitungszeit</div>
+                <div class="kv-processing-day__title">{{ $lng('step2.processingDuration') }}</div>
                 <div class="kv-processing-day__nuber">{{item.info.quantity}}</div>
-                <div class="kv-processing-day__subtitle">{{item.info.duration}}</div>
+                <div class="kv-processing-day__subtitle">{{ $lng('step2.dimension')[item.info.dimension] }}</div>
               </div>
 
               <div class="kv-processing-day__body">
@@ -151,7 +141,7 @@
                         <svg><use href="#kv-icons_radio"></use></svg>
                       </span>
                       <span class="kv-processing-day-chb__caption">
-                        <span class="kv-processing-day-chb__text">{{price.m}}-malige Einreise</span>
+                        <span class="kv-processing-day-chb__text">{{price.m}}-{{ $lng('step2.multiplicity') }}</span>
                         <span class="kv-processing-day-chb__title">
                           <template  v-if="price.price !== null">{{formatter.priceFormat(price.price)}}</template>
                           <!-- &minus -->
@@ -165,7 +155,7 @@
                 </div>
                 <!-- /item -->
 
-                <a class="kv-processing-day__action-label" href="#">Kaufen</a>
+                <a class="kv-processing-day__action-label" href="#">{{ $lng('step2.order') }}</a>
 
                 <div
                     class="kv-processing-day__text kv-user-text"
@@ -199,9 +189,7 @@
             <svg><use href="#kv-icons_surface"></use></svg>
           </div>
 
-          <div class="kv-calc-info__text">В стоимость входит:
-            <span class="kv-calc-info__text_bold"> консульский сбор, сервисный сбор, сбор за приглашение</span>
-          </div>
+          <div class="kv-calc-info__text kv-user-text" v-html="$lng('step2.included')"></div>
 
         </div>
       </div>
@@ -415,10 +403,13 @@ export default {
               }
           )
         }
+        //FIXME:
         tmpArr.push({
               info: {
                 ...this.serviceDetails.processDurations[d],
-                duration: this.constants.processDurationsToWords(this.serviceDetails.processDurations[d].dimension)
+                //duration: this.constants.processDurationsToWords(this.serviceDetails.processDurations[d].dimension)
+                //duration: this.$lng("step2.dimension." + this.serviceDetails.processDurations[d].dimension)
+                //duration: this.$lng("step2.dimension." + this.serviceDetails.processDurations[d].dimension)
               },
               prices: tmpArr2
             }

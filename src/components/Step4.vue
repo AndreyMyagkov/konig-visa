@@ -54,7 +54,7 @@
                   {{getPackagePrice(index)}}
                   <span class="kv-price__currency">€</span>
                 </div>
-                <div class="kv-services-price__person">pro Person</div>
+                <div class="kv-services-price__person">{{ $lng('step4.perPerson') }}</div>
                 <div
                     class="kv-services-price__btn"
                     @click="selectPackage(pcg)"
@@ -102,7 +102,7 @@
                 <span class="kv-price__currency">€</span>
               </div>
 
-              <div class="kv-service__caption">pro Person</div>
+              <div class="kv-service__caption">{{ $lng('step4.perPerson') }}</div>
             </div>
           </div>
           <!-- Class-->
@@ -118,7 +118,7 @@
                  v-for="(pcg, packageIndex) in data.servicePackages" :key="packageIndex">
 
               <template v-if="isIncluded(item.id, packageIndex)">
-                <div class="kv-class__caption">включено</div>
+                <div class="kv-class__caption">{{ $lng('step4.included') }}</div>
                 <svg class="kv-class__check">
                   <use href="#kv-icons_check"></use>
                 </svg>
@@ -136,7 +136,7 @@
                            @change="suppServiceChange"
                     >
                     <span class="kv-switcher__inner">
-                        <div class="kv-switcher__caption kv-class__caption" data-kv_on="добавлено" data-kv_off="добавить"></div>
+                        <div class="kv-switcher__caption kv-class__caption" :data-kv_on="$lng('step4.added')" :data-kv_off="$lng('step4.add')"></div>
                         <div class="kv-switcher__box">
                            <svg class="kv-switcher__icon">
                               <use href="#kv-icons_check"></use>
@@ -172,7 +172,7 @@
                          @change="suppServiceChange"
                   >
                   <span class="kv-switcher__inner">
-                        <div class="kv-switcher__caption kv-class__caption" data-kv_on="добавлено" data-kv_off="добавить"></div>
+                        <div class="kv-switcher__caption kv-class__caption" :data-kv_on="$lng('step4.added')" :data-kv_off="$lng('step4.add')"></div>
                         <div class="kv-switcher__box">
                            <svg class="kv-switcher__icon">
                               <use href="#kv-icons_check"></use>
@@ -209,12 +209,12 @@
                 {{getPackagePrice(packageIndex)}}
                 <span class="kv-price__currency">€</span>
               </div>
-              <div class="kv-services-price__person">pro Person</div>
+              <div class="kv-services-price__person">{{ $lng('step4.perPerson') }}</div>
               <div
                   class="kv-services-price__btn"
                   @click="selectPackage(pcg)"
                   v-if="packageSelected.id !== pcg.id">
-                Выбрать
+                {{ $lng('step4.select') }}
               </div>
             </div>
 

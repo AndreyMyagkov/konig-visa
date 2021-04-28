@@ -1,7 +1,7 @@
 <template>
   <div class="kv-header__item kv-progress">
     <div class="kv-progress__inner">
-      <div class="kv-progress__step">Шаг №{{now}}</div>
+      <div class="kv-progress__step">{{$lng('common.step')}} №{{now}}</div>
       <div class="kv-progress__pipe">
         <div class="kv-progress__strip" :style="`--kv-progress: ${percentage}%`"></div>
       </div>

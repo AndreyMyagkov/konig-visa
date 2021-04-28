@@ -38,7 +38,7 @@
 
         <div class="kv-form__row kv-row kv-row_rev">
           <div class="kv-form__item-wrap_center kv-form__col_2">
-            <div class="kv-form-title">Участник №{{parseInt(index)+1}}</div>
+            <div class="kv-form-title">{{ $lng('step3.participant') }} №{{parseInt(index)+1}}</div>
           </div>
         </div>
 
@@ -50,21 +50,21 @@
                 <span class="kv-form-radio__mark">
                    <svg><use href="#kv-icons_form_radio"></use></svg>
                 </span>
-                <span class="kv-form-radio__caption">Herr</span>
+                <span class="kv-form-radio__caption">{{ $lng('step3.gender.male') }}</span>
               </label>
               <label class="kv-form-radio">
                 <input type="radio" aria-label="checkbox" v-model="item.gender.$model"   value="Frau" @change="isValid">
                 <span class="kv-form-radio__mark">
                   <svg><use href="#kv-icons_form_radio"></use></svg>
                 </span>
-                <span class="kv-form-radio__caption">Frau</span>
+                <span class="kv-form-radio__caption">{{ $lng('step3.gender.female') }}</span>
               </label>
             </div>
           </div>
 
           <div class="kv-col-plug"></div>
           <div class="kv-form__item-wrap kv-form__item-wrap_right kv-form__col">
-            <div class="kv-form-title kv-form-title_hv" @click="deleteTourist(index)" v-if="tourists.length > 1">Удалить</div>
+            <div class="kv-form-title kv-form-title_hv" @click="deleteTourist(index)" v-if="tourists.length > 1">{{ $lng('step3.delete') }}</div>
           </div>
         </div>
 
@@ -80,7 +80,7 @@
                   v-model.trim="item.name.$model"
                   @input="isValid"
               >
-              <label class="kv-form__label" :for="`name-${index}`">Имя</label>
+              <label class="kv-form__label" :for="`name-${index}`">{{ $lng('step3.name') }}</label>
             </div>
           </div>
           <!-- /Name -->
@@ -95,7 +95,7 @@
                   v-model.trim="item.sname.$model"
                   @input="isValid"
               >
-              <label class="kv-form__label" :for="`sname-${index}`">Фамилия</label>
+              <label class="kv-form__label" :for="`sname-${index}`">{{ $lng('step3.sname') }}</label>
             </div>
           </div>
           <!-- /SName -->
@@ -129,7 +129,7 @@
               />
               <svg class="kv-form__sel-arrow"><use href="#kv-icons_select"></use></svg>
 <!-- @search:focus="tourists[index].nationalityIsFocused = true" -->
-              <label class="kv-form__label" :for="`nationality-${index}`">Гражданство</label>
+              <label class="kv-form__label" :for="`nationality-${index}`">{{ $lng('step3.nationality') }}</label>
               </div>
 
             </div>
@@ -152,7 +152,7 @@
                     :options="productDetails.servedResidenceRegions"
                     label="name"
                     :inputId="`residenceRegion-${index}`"
-                    placeholder="Выберите"
+                    placeholder=" "
                     v-model="item.residenceRegion.$model"
                     :clearable="false"
                     @option:selected="$refs.residenceRegion[index].classList.add('kv_is-focused');calculateAndValidate();"
@@ -161,7 +161,7 @@
                     @search:blur="item.residenceRegionsFocused = false"
                     @option:selecting=""
                 />
-                <label class="kv-form__label" :for="`residenceRegion-${index}`">Место жительства</label>
+                <label class="kv-form__label" :for="`residenceRegion-${index}`">{{ $lng('step3.residenceRegions') }}</label>
                 <svg class="kv-form__sel-arrow"><use href="#kv-icons_select"></use></svg>
               </div>
             </div>
@@ -186,7 +186,7 @@
                 <option value="null" label=" "></option>
                 <option :value="item.code" v-for="item in productDetails.discounts" :key="`${item.code}-${index}`">{{item.name}}</option>
               </select>
-              <label class="kv-form__label" :for="`discount-${index}`" style="pointer-events: none">Скидка</label>
+              <label class="kv-form__label" :for="`discount-${index}`" style="pointer-events: none">{{ $lng('step3.discount') }}</label>
               <svg class="kv-form__sel-arrow">
                 <use href="#kv-icons_select"></use>
               </svg>
@@ -202,7 +202,7 @@
 
             >
               <input type="date" id="birthDate" v-model.trim="item.birthDate.$model" @input="isValid">
-              <label class="kv-form__label" for="birthDate">Дата рождения</label>
+              <label class="kv-form__label" for="birthDate">{{ $lng('step3.birthDate') }}</label>
             </div>
             <div class="kv-form__msg kv-form__msg_label">
               <div v-html="getDiscountDescription(index)"></div>
@@ -221,7 +221,7 @@
 
       <div class="kv-add" @click="addTourist">
         <svg><use href="#kv-icons_plus"></use></svg>
-        Добавить туриста
+        {{ $lng('step3.btnAdd') }}
       </div>
 
     </div>

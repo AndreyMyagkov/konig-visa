@@ -1,3 +1,4 @@
+import Vue from 'vue'
 // Символ отсутствующей цены
 export const dashSymbol = '—';
 

@@ -12,12 +12,12 @@
       <div class="kv-row">
 
         <div class="kv-review-info__col">
-          <div class="kv-review-info__name">Страна</div>
+          <div class="kv-review-info__name">{{ $lng('step7.country') }}</div>
           <div class="kv-review-info__value">{{data.toCountry.name}}</div>
         </div>
 
         <div class="kv-review-info__col">
-          <div class="kv-review-info__name">Срок визы:</div>
+          <div class="kv-review-info__name">{{ $lng('step7.duration') }}</div>
           <div class="kv-review-info__value">{{data.duration.name}}</div>
         </div>
 
@@ -26,11 +26,11 @@
 
       <div class="kv-row">
         <div class="kv-review-info__col">
-          <div class="kv-review-info__name">Тип визы:</div>
+          <div class="kv-review-info__name">{{ $lng('step7.serviceGrp') }}</div>
           <div class="kv-review-info__value">{{data.serviceGroup.name}}</div>
         </div>
         <div class="kv-review-info__col">
-          <div class="kv-review-info__name">Кратность:</div>
+          <div class="kv-review-info__name">{{ $lng('step7.multiplicity') }}</div>
           <div class="kv-review-info__value">{{data.price.price.m}}-malige Einreise</div>
         </div>
       </div>
@@ -38,11 +38,11 @@
 
       <div class="kv-row">
         <div class="kv-review-info__col">
-          <div class="kv-review-info__name">Подтип визы:</div>
+          <div class="kv-review-info__name">{{ $lng('step7.service') }}</div>
           <div class="kv-review-info__value">{{data.service.name}}</div>
         </div>
         <div class="kv-review-info__col">
-          <div class="kv-review-info__name">Срок обработки:</div>
+          <div class="kv-review-info__name">{{ $lng('step7.processingDuration') }}</div>
           <div class="kv-review-info__value">{{data.price.info.quantity}} {{data.price.info.duration}}</div>
         </div>
       </div>
@@ -55,10 +55,10 @@
         <thead class="kv-review-members__row_header">
         <tr>
           <th class="kv-review-members__item_title">№</th>
-          <th class="kv-review-members__item_title">Имя, фамилия</th>
-          <th class="kv-review-members__item_title">Гражданство</th>
-          <th class="kv-review-members__item_title">Проживание</th>
-          <th class="kv-review-members__item_title">Дополнительно</th>
+          <th class="kv-review-members__item_title">{{ $lng('step7.nameSurname') }}</th>
+          <th class="kv-review-members__item_title">{{ $lng('step7.nationality') }}</th>
+          <th class="kv-review-members__item_title">{{ $lng('step7.location') }}</th>
+          <th class="kv-review-members__item_title">{{ $lng('step7.additionally') }}</th>
           <th class="kv-review-members__item_title"> </th>
         </tr>
         </thead>
@@ -77,9 +77,6 @@
             </div>
           </td>
         </tr>
-
-
-
         </tbody>
       </table>
     </div>
@@ -93,7 +90,7 @@
         <svg class="kv-review-card__icon">
           <use href="#kv-icons_step_4"></use>
         </svg>
-        <div class="kv-review-card__title">Сервис пакет: {{data.servicePackage.name}}</div>
+        <div class="kv-review-card__title">{{ $lng('step7.servicePackage') }} {{data.servicePackage.name}}</div>
         <div class="kv-review-card__edit">
           <div class="kv-edit"  @click="setStep({step:4, block: null})">
             <svg class="kv-edit__icon">
@@ -107,7 +104,7 @@
         <div class="kv-review-card__text" v-html="data.servicePackage.description"></div>
 
         <div class="kv-review-card__list" v-if="data.suppServices !== null && data.suppServices.length">
-          <div class="kv-review-card__list-title">Дополнительные услуги:</div>
+          <div class="kv-review-card__list-title">{{ $lng('step7.suppServices') }}</div>
           <div class="kv-review-card__list-item" v-for="item in data.suppServices" :key="item.id">
             {{item.name}}
           </div>
@@ -123,7 +120,7 @@
         <svg class="kv-review-card__icon">
           <use href="#kv-icons_step_6"></use>
         </svg>
-        <div class="kv-review-card__title">Способ доставки:</div>
+        <div class="kv-review-card__title">{{ $lng('step7.delivery') }}</div>
         <div class="kv-review-card__edit">
           <div class="kv-edit">
             <svg class="kv-edit__icon" @click="setStep({step:6, block: null})">
@@ -150,7 +147,7 @@
             <span class="kv-review-total__cross">+</span> {{ data.calculate.calculation.participants.length }}
           </div>
         </div>
-        <div class="kv-review-total__title">Preis Total:</div>
+        <div class="kv-review-total__title">{{ $lng('step7.amount') }}</div>
         <div class="kv-review-total__price kv-price">
           {{totalAmount()}}
           <span class="kv-price__currency">€</span>
@@ -158,7 +155,7 @@
       </div>
       <!-- Cart-->
       <div class="kv-review-total__more kv-cart kv-review-total__plug">
-        Подробнее
+        {{ $lng('step7.more') }}
         <svg class="kv-review-total__arrow">
           <use href="#kv-icons_arrow_down"></use>
         </svg>
@@ -191,7 +188,7 @@
             <svg class="kv-review-card__icon">
               <use href="#kv-icons_step_5"></use>
             </svg>
-            <div class="kv-review-card__title">Информация о клиенте</div>
+            <div class="kv-review-card__title">{{ $lng('step7.clientInfo') }}</div>
             <div class="kv-review-card__edit">
               <div class="kv-edit">
                 <svg class="kv-edit__icon"  @click="setStep({step:5, block: '#kv-customer'})">
@@ -221,7 +218,7 @@
             <svg class="kv-review-card__icon">
               <use href="#kv-icons_delivery"></use>
             </svg>
-            <div class="kv-review-card__title">Адрес доставки</div>
+            <div class="kv-review-card__title">{{ $lng('step7.address') }}</div>
             <div class="kv-review-card__edit">
               <div class="kv-edit">
                 <svg class="kv-edit__icon" @click="setStep({step: 5, block: '#kv-delivery'})">
@@ -254,7 +251,7 @@
             <svg class="kv-review-card__icon">
               <use href="#kv-icons_delivery"></use>
             </svg>
-            <div class="kv-review-card__title">Адрес доставки</div>
+            <div class="kv-review-card__title">{{ $lng('step7.address') }}</div>
             <div class="kv-review-card__edit">
               <div class="kv-edit">
                 <svg class="kv-edit__icon" @click="setStep({step: 5, block: '#kv-delivery'})">
@@ -266,7 +263,7 @@
 
 
           <div class="kv-review-card__body">
-            <div class="kv-review-card__text">Самовывоз из</div>
+            <div class="kv-review-card__text">{{ $lng('step7.pickUp') }}</div>
             <div class="kv-review-card__text">{{data.delivery.branch.name}}</div>
             <div class="kv-review-card__text">{{data.delivery.branch.address}}</div>
             <div class="kv-review-card__text">{{data.delivery.branch.workingTime}}</div>
@@ -285,20 +282,15 @@
 
     <!-- Reveiw card-->
     <div class="kv-review-terms kv-review__item">
-      <div class="kv-review-terms__title">Allgemeine Geschäftsbedingungen</div>
+      <div class="kv-review-terms__title">{{ $lng('step7.termsAndConditions') }}</div>
       <div class="kv-review-terms__links">
         <div class="kv-review-terms__links-inner">
-          <a class="kv-review-terms__link" href="#"> Zahlungsbedingungen</a>
+          <a class="kv-review-terms__link" href="#">{{ $lng('step7.paymentTerms') }}</a>
           <span class="kv-review-terms__sep">•</span>
-          <a class="kv-review-terms__link" href="#"> Stornobedingungen</a>
+          <a class="kv-review-terms__link" href="#">{{ $lng('step7.cancellationPolicy') }}</a>
         </div>
       </div>
-      <div class="kv-review-terms__text">Mit dem erfolgreichen Abschluss Ihrer Buchung kommt ein Vertrag
-        mit dem Anbieter zustande. Die Bestätigung und Rechnung zu Ihrer Buchung werden Ihnen dann von
-        HomeToGo und/oder dem Anbieter zugesandt. Durch Klicken auf "Zahlungspflichtig buchen'
-        akzeptieren Sie die AGB des Anbieters und die AGB der HomeToGo GmbH. Weitere Informationen zur
-        Verarbeitung Ihrer Daten finden Sie in unserer Datenschutzerklärung.
-      </div>
+      <div class="kv-review-terms__text kv-user-text" v-html="$lng('step7.termsText')"></div>
     </div>
   </div>
 </template>

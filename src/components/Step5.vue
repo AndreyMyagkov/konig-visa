@@ -50,7 +50,7 @@
                 <span class="kv-form-radio__mark">
                   <svg><use href="#kv-icons_form_chb"></use></svg>
                 </span>
-                <span class="kv-form-radio__caption">Фирма</span> </label>
+                <span class="kv-form-radio__caption">{{ $lng('step5.company') }}</span> </label>
             </div>
           </div>
           <!-- /company -->
@@ -63,7 +63,7 @@
           <div class="kv-form__item-wrap kv-form__col">
             <div class="kv-form__item"  :class="{ 'kv-form__item_error': $v.customer.companyName.$error }">
               <input type="text" id="companyname" placeholder=" " v-model="$v.customer.companyName.$model"  @input="isFormCorrect">
-              <label class="kv-form__label" for="companyname">Название фирмы</label>
+              <label class="kv-form__label" for="companyname">{{ $lng('step5.companyName') }}</label>
             </div>
           </div>
           <!-- company name -->
@@ -79,7 +79,7 @@
                 <span class="kv-form-radio__mark">
                   <svg><use href="#kv-icons_form_radio"></use></svg>
                 </span>
-                <span class="kv-form-radio__caption">Herr</span>
+                <span class="kv-form-radio__caption">{{ $lng('step5.gender.male') }}</span>
               </label>
 
               <label class="kv-form-radio">
@@ -87,7 +87,7 @@
                 <span class="kv-form-radio__mark">
                   <svg><use href="#kv-icons_form_radio"></use></svg>
                 </span>
-                <span class="kv-form-radio__caption">Frau</span>
+                <span class="kv-form-radio__caption">{{ $lng('step5.gender.female') }}</span>
               </label>
             </div>
           </div>
@@ -97,7 +97,7 @@
           <div class="kv-form__item-wrap kv-form__col">
             <div class="kv-form__item"  :class="{ 'kv-form__item_error': $v.customer.name.$error }">
               <input type="text" placeholder=" " id="name1" v-model.trim="$v.customer.name.$model"  @input="isFormCorrect">
-              <label class="kv-form__label" for="name1">Имя</label>
+              <label class="kv-form__label" for="name1">{{ $lng('step5.name') }}</label>
             </div>
           </div>
           <!-- /name -->
@@ -106,7 +106,7 @@
           <div class="kv-form__item-wrap kv-form__col">
             <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.customer.sname.$error }">
               <input type="text" placeholder=" " id="sname1" v-model.trim="$v.customer.sname.$model" @input="isFormCorrect">
-              <label class="kv-form__label" for="sname1">Фамилия</label>
+              <label class="kv-form__label" for="sname1">{{ $lng('step5.sname') }}</label>
             </div>
           </div>
           <!-- /sname -->
@@ -120,7 +120,7 @@
           <div class="kv-form__item-wrap kv-form__col">
             <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.customer.address.$error }">
               <input type="text" placeholder=" " id="address1"  v-model.trim="$v.customer.address.$model"  @input="isFormCorrect">
-              <label class="kv-form__label" for="address1">Адрес</label>
+              <label class="kv-form__label" for="address1">{{ $lng('step5.address') }}</label>
             </div>
           </div>
           <!-- /address -->
@@ -134,7 +134,7 @@
           <div class="kv-form__item-wrap kv-form__col">
             <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.customer.zip.$error }">
               <input type="text" placeholder=" " id="zip1" v-model.trim="$v.customer.zip.$model"  @input="isFormCorrect">
-              <label class="kv-form__label" for="zip1">Индекс</label>
+              <label class="kv-form__label" for="zip1">{{ $lng('step5.zip') }}</label>
             </div>
           </div>
           <!-- /index -->
@@ -143,7 +143,7 @@
           <div class="kv-form__item-wrap kv-form__col">
             <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.customer.city.$error }">
               <input type="text" placeholder=" " id="city1" v-model.trim="$v.customer.city.$model"  @input="isFormCorrect">
-              <label class="kv-form__label" for="city1">Город</label>
+              <label class="kv-form__label" for="city1">{{ $lng('step5.city') }}</label>
             </div>
           </div>
           <!-- /city -->
@@ -171,7 +171,7 @@
                     @search:blur="$v.customer.addressingCountry.$touch()"
                 />
 
-                <label class="kv-form__label" for="customer-addressingCountry">Страна</label>
+                <label class="kv-form__label" for="customer-addressingCountry">{{ $lng('step5.country') }}</label>
                 <svg class="kv-form__sel-arrow"><use href="#kv-icons_select"></use></svg>
               </div>
             </div>
@@ -189,14 +189,13 @@
               <input type="text" placeholder=" " id="phone1" v-model="customer.tel"  @input="isFormCorrect">
 
               <label class="kv-form__label" for="phone1">
-                <template v-if="!customer.tel">Телефон <!--(если есть)--></template>
-                <template v-else>Телефон</template>
+                {{ $lng('step5.tel') }}
               </label>
               <div
                   class="kv-form__sublabel"
                   v-if="!customer.tel"
               >
-                (если есть)
+                {{ $lng('step5.ifThereIs') }}
               </div>
             </div>
           </div>
@@ -207,7 +206,7 @@
             <div class="kv-form__item"  :class="{ 'kv-form__item_error': $v.customer.mobile.$error }">
               <input type="text" placeholder=" " id="cellphone1"  v-model="$v.customer.mobile.$model"  @input="isFormCorrect">
               <!--<the-mask mask="# (###) ### ## ##" type="tel" :masked="false" placeholder=" " id="cellphone1" v-model="$v.customer.mobile.$model"  @input="isFormCorrect"></the-mask>-->
-              <label class="kv-form__label" for="cellphone1">Мобильный телефон</label>
+              <label class="kv-form__label" for="cellphone1">{{ $lng('step5.mobile') }}</label>
             </div>
           </div>
           <!-- /mphone -->
@@ -216,7 +215,7 @@
           <div class="kv-form__item-wrap kv-form__col">
             <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.customer.email.$error }">
               <input type="email" placeholder=" " id="email1"  v-model.trim="$v.customer.email.$model"  @input="isFormCorrect">
-              <label class="kv-form__label" for="email1">email</label>
+              <label class="kv-form__label" for="email1">{{ $lng('step5.email') }}</label>
             </div>
           </div>
           <!-- /email -->
@@ -231,7 +230,7 @@
           <!-- From row-->
           <div class="kv-form__row kv-row">
             <div class="kv-form__item-wrap kv-form__item-wrap_center kv-form__col">
-              <div class="kv-form-title">Lieferanschrift</div>
+              <div class="kv-form-title">{{ $lng('step5.deliveryAddress') }}</div>
             </div>
           </div>
 
@@ -249,7 +248,7 @@
                   <span class="kv-form-radio__mark">
                     <svg><use href="#kv-icons_form_radio"></use></svg>
                   </span>
-                  <span class="kv-form-radio__caption">Lieferanschrift entspricht Auftraggeber</span>
+                  <span class="kv-form-radio__caption">{{ $lng('step5.addressCorresponds') }}</span>
                 </label>
               </div>
             </div>
@@ -267,7 +266,7 @@
                   <span class="kv-form-radio__mark">
                     <svg><use href="#kv-icons_form_radio"></use></svg>
                   </span>
-                  <span class="kv-form-radio__caption">abweichende Lieferanschrift</span>
+                  <span class="kv-form-radio__caption">{{ $lng('step5.addressDifferent') }}</span>
                 </label>
               </div>
             </div>
@@ -285,7 +284,7 @@
                   <span class="kv-form-radio__mark">
                     <svg><use href="#kv-icons_form_radio"></use></svg>
                   </span>
-                  <span class="kv-form-radio__caption">Abholen</span>
+                  <span class="kv-form-radio__caption">{{ $lng('step5.pickUp') }}</span>
                 </label>
               </div>
             </div>
@@ -304,7 +303,7 @@
                   <span class="kv-form-radio__mark">
                     <svg><use href="#kv-icons_form_chb"></use></svg>
                   </span>
-                  <span class="kv-form-radio__caption">Фирма</span>
+                  <span class="kv-form-radio__caption">{{ $lng('step5.company') }}</span>
                 </label>
               </div>
             </div>
@@ -320,7 +319,7 @@
             <div class="kv-form__item-wrap kv-form__col">
               <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.companyName.$error }">
                 <input type="text" id="companyname2" placeholder=" " v-model.trim="$v.delivery.companyName.$model"  @input="isFormCorrect">
-                <label class="kv-form__label" for="companyname2">Название фирмы</label>
+                <label class="kv-form__label" for="companyname2">{{ $lng('step5.companyName') }}</label>
               </div>
             </div>
             <!-- company name -->
@@ -337,14 +336,14 @@
                   <span class="kv-form-radio__mark">
                     <svg><use href="#kv-icons_form_radio"></use></svg>
                   </span>
-                  <span class="kv-form-radio__caption">Herr</span>
+                  <span class="kv-form-radio__caption">{{ $lng('step5.gender.male') }}</span>
                 </label>
                 <label class="kv-form-radio">
                   <input type="radio" name="gender2" value="Frau" v-model="$v.delivery.gender.$model"  @change="isFormCorrect">
                   <span class="kv-form-radio__mark">
                     <svg><use href="#kv-icons_form_radio"></use></svg>
                   </span>
-                  <span class="kv-form-radio__caption">Frau</span>
+                  <span class="kv-form-radio__caption">{{ $lng('step5.gender.female') }}</span>
                 </label>
               </div>
             </div>
@@ -353,7 +352,7 @@
             <div class="kv-form__item-wrap kv-form__col">
               <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.name.$error }">
                 <input type="text" placeholder=" " id="name2" name="name2" v-model.trim="$v.delivery.name.$model"  @input="isFormCorrect">
-                <label class="kv-form__label" for="name2">Имя</label>
+                <label class="kv-form__label" for="name2">{{ $lng('step5.name') }}</label>
               </div>
             </div>
 
@@ -361,7 +360,7 @@
           <div class="kv-form__item-wrap kv-form__col">
             <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.sname.$error }">
               <input type="text" placeholder=" " id="sname2" name="sname2" v-model.trim="$v.delivery.sname.$model"  @change="isFormCorrect">
-              <label class="kv-form__label" for="sname2">Фамилия</label>
+              <label class="kv-form__label" for="sname2">{{ $lng('step5.sname') }}</label>
             </div>
           </div>
 
@@ -374,7 +373,7 @@
             <div class="kv-form__item-wrap kv-form__col">
               <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.address.$error }">
                 <input type="text" placeholder=" " id="address2" name="address2" v-model.trim="$v.delivery.address.$model"  @input="isFormCorrect">
-                <label class="kv-form__label" for="address2">Адрес</label>
+                <label class="kv-form__label" for="address2">{{ $lng('step5.address') }}</label>
               </div>
             </div>
           </div>
@@ -384,14 +383,14 @@
             <div class="kv-form__item-wrap kv-form__col">
               <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.zip.$error }">
                 <input type="text" placeholder=" " id="zip2" name="zip2" v-model.trim="$v.delivery.zip.$model"  @input="isFormCorrect">
-                <label class="kv-form__label" for="zip2">Индекс</label>
+                <label class="kv-form__label" for="zip2">{{ $lng('step5.zip') }}</label>
               </div>
             </div>
 
             <div class="kv-form__item-wrap kv-form__col">
               <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.city.$error }">
                 <input type="text" placeholder=" " id="city2" name="city2" v-model.trim="$v.delivery.city.$model"  @input="isFormCorrect">
-                <label class="kv-form__label" for="city2">Город</label>
+                <label class="kv-form__label" for="city2">{{ $lng('step5.city') }}</label>
               </div>
             </div>
 
@@ -414,7 +413,7 @@
                       @search:focus="$refs.addressingCountries2.classList.add('kv_is-focused');"
                       @search:blur="$v.delivery.addressingCountry.$touch()"
                   />
-                  <label class="kv-form__label" for="deliveryaddressingCountry">Страна</label>
+                  <label class="kv-form__label" for="deliveryaddressingCountry">{{ $lng('step5.country') }}</label>
                   <svg class="kv-form__sel-arrow"><use href="#kv-icons_select"></use></svg>
                 </div>
               </div>
@@ -429,11 +428,10 @@
                           :masked="false" placeholder=" " id="phone2" v-model="delivery.tel"  @input="isFormCorrect"></the-mask> -->
                 <input type="text" placeholder=" " id="phone2"  v-model="delivery.tel"  @input="isFormCorrect">
                 <label class="kv-form__label" for="phone2">
-                  <template v-if="!delivery.tel">Телефон</template>
-                  <template v-else>Телефон</template>
+                  {{ $lng('step5.tel') }}
                 </label>
                 <div class="kv-form__sublabel" v-if="!delivery.tel">
-                  (если есть)
+                  {{ $lng('step5.ifThereIs') }}
                 </div>
               </div>
             </div>
@@ -443,14 +441,14 @@
                 <input type="text" placeholder=" " id="cellphone2" name="cellphone2" v-model="$v.delivery.mobile.$model" @input="isFormCorrect">
                 <!--<the-mask mask="# (###) ### ## ##" type="tel"
                           :masked="false" placeholder=" " id="cellphone2" v-model="$v.delivery.mobile.$model"  @input="isFormCorrect"></the-mask> -->
-                <label class="kv-form__label" for="cellphone2">Мобильный телефон</label>
+                <label class="kv-form__label" for="cellphone2">{{ $lng('step5.mobile') }}</label>
               </div>
             </div>
 
             <div class="kv-form__item-wrap kv-form__col">
               <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.email.$error }">
                 <input type="email" placeholder=" " id="email2" name="email2"  v-model="$v.delivery.email.$model"  @input="isFormCorrect">
-                <label class="kv-form__label" for="email2">email</label>
+                <label class="kv-form__label" for="email2">{{ $lng('step5.email') }}</label>
               </div>
             </div>
           </div>
@@ -475,7 +473,7 @@
                   <span>
                   <div class="kv-form-radio__title">{{item.name}}</div>
                   <div class="kv-form-radio__text">{{item.address}}</div>
-                  <div class="kv-form-radio__text">Время работы: <b>{{item.workingTime}}</b></div>
+                  <div class="kv-form-radio__text">{{ $lng('step5.workingTime') }} <b>{{item.workingTime}}</b></div>
                 </span>
                 </label>
               </div>
@@ -490,7 +488,7 @@
       </div>
 
       <div class="kv-alert kv-alert_center" v-if="isDeliveryByEmail">
-        Документы будут доставлены на электронный адрес клиента
+        {{ $lng('step5.deliveryByEmail') }}
       </div>
 
     </div>

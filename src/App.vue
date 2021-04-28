@@ -79,7 +79,7 @@
     <!-- MAIN Default mode-->
     <div class="kv-content" v-if="CONFIG.mode === 'default'">
       <!-- Step Header -->
-      <StepHeader :icon="stepInfo.icon" :text="stepInfo.header"/>
+      <StepHeader :icon="stepInfo.icon" :text="$lng(`step${currentStep}.header`)"/>
       <!-- /Step Header -->
 
       <!-- Top buttons -->
@@ -324,8 +324,8 @@
         <div v-html="confirm.content"></div>
         <div v-if="confirmReset">
           <div class="kv-step-buttons-centered kv-modal-buttons">
-            <button class="kv-step-button kv-step-button_second" @click="setResetStepDate(true)">Да</button>
-            <button class="kv-step-button" @click = "setResetStepDate(false)">Нет</button>
+            <button class="kv-step-button kv-step-button_second" @click="setResetStepDate(true)">{{ $lng('common.btnYes') }}</button>
+            <button class="kv-step-button" @click = "setResetStepDate(false)">{{ $lng('common.btnNo') }}</button>
           </div>
         </div>
       </template>
@@ -413,45 +413,45 @@ export default {
       steps: [
         {
           crumb: 'Buchungsauftrag',
-          header: 'Buchungsauftrag',
+          //header: this.$lng('step1.header'),//'Buchungsauftrag',
           icon: 'step_1'
         },
         {
           crumb: 'Aufenthaltsdauer',
-          header: 'Расчет примерной стоимости для одного человека',
+         // header: 'Расчет примерной стоимости для одного человека',
           icon: 'step_2'
         },
         {
           crumb: 'Заполнение данных о туристах',
-          header: 'Заполнение данных',
+          //header: 'Заполнение данных',
           icon: 'step_3',
           isValid: false, // флаг валидности шага, флаг показа попапа при изменении данных
           allowOrder: false  // флаг возможности заказа виз
         },
         {
           crumb: 'Дополнительные услуги',
-          header: 'Дополнительные услуги',
+          //header: 'Дополнительные услуги',
           icon: 'step_4'
         },
         {
           crumb: 'Информация о заказчике',
-          header: 'Информация о заказчике',
+         // header: 'Информация о заказчике',
           icon: 'step_5',
           isValid: false
         },
         {
           crumb: 'Способ отправки',
-          header: 'Способ отправки',
+         // header: 'Способ отправки',
           icon: 'step_6'
         },
         {
           crumb: 'Проверка данных',
-          header: 'Проверка данных',
+         // header: 'Проверка данных',
           icon: 'step_7'
         },
         {
           crumb: 'Способ оплаты',
-          header: 'Способ оплаты',
+          //header: 'Способ оплаты',
           icon: 'step_8'
         }
       ],
@@ -526,7 +526,8 @@ export default {
         serviceGroup: null,
         service: null,
         product: null,
-        API_URL: 'https://apisrv.ideo-software.com/Ideo/KoenigVN/Web/api/OrderPortal/'
+        API_URL: "https://apisrv.ideo-software.com/Ideo/KoenigVN/Web/api/OrderPortal/",
+        lng: "ge"
       }
     }
   },
@@ -573,6 +574,7 @@ export default {
         // eslint-disable-next-line no-undef
         this.appendCssFile(__KV_CONFIG.css)
       }
+
 
       // Режим модуля
       const allowMode = ["default", "price", "success"];
@@ -702,7 +704,7 @@ export default {
       const priceData = {
         info: {
           dimension: this.productDetails.processDuration.dimension,
-          duration: this.constants.processDurationsToWords(this.productDetails.processDuration.dimension),
+          //duration: this.constants.processDurationsToWords(this.productDetails.processDuration.dimension),
           hours: this.productDetails.processDuration.hours,
           quantity: this.productDetails.processDuration.quantity,
         },
@@ -861,7 +863,7 @@ export default {
      */
     showResetConfirm(content, title) {
         this.confirm.title = title || "";
-        this.confirm.content = content || "Внимание, выбор услуги и допуслуг будет сброшен, продолжить?";
+        this.confirm.content = content || this.$lng("common.confirmResetText");
         this.confirm.isShow = true;
 
         return new Promise((resolve, reject) => {

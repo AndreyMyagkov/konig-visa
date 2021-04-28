@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Vuelidate from 'vuelidate'
 Vue.use(Vuelidate)
+import Lng from './lng'
+Vue.use(Lng, __KV_CONFIG.lng || "ge")
+
 import App from './App.vue'
 import store from './store'
 

@@ -7,7 +7,7 @@
       <div class="kv-buch__col">
 
         <div class="kv-buch__col-inner">
-          <div class="kv-buch__title">Выберите страну назначения:</div>
+          <div class="kv-buch__title">{{$lng('step1.countryLabel')}}</div>
           <div class="kv-buch__list">
 
             <!-- select -->
@@ -19,7 +19,7 @@
                 <v-select
                     :options="countries"
                     label="name"
-                    placeholder="Выберите"
+                    :placeholder="$lng('step1.countryPlaceholder')"
                     v-model="selectedCountry"
                     :clearable="false"
                 />
@@ -35,7 +35,7 @@
       <!-- Groups -->
       <div class="kv-buch__col">
         <div class="kv-buch__col-inner" v-if="serviceGroups.length">
-          <div class="kv-buch__title">Выберите группу:</div>
+          <div class="kv-buch__title">{{$lng('step1.serviceGrpLabel')}}</div>
           <VisaTypes
               :data="serviceGroups"
               :selected="setup.serviceGroups"
@@ -50,7 +50,7 @@
       <!-- Services -->
       <div class="kv-buch__col">
         <div class="kv-buch__col-inner"  v-if="serviceGroupsSelected.length">
-          <div class="kv-buch__title">Выберите подтип визы:</div>
+          <div class="kv-buch__title">{{$lng('step1.serviceLabel')}}</div>
           <VisaTypes
               :data="serviceGroupsSelected"
               :selected="setup.service"
