@@ -119,7 +119,7 @@
 
       <!-- Processing days-->
       <div class="kv-processing-days kv-processing-days_slide"  v-if="setup.duration.name && prices.state === 0">
-        <div class="kv-processing-days__inner kv-processing-days__inner-showed-action-label">
+        <div class="kv-processing-days__inner kv-processing-days__inner-showed-action-label-">
           <!-- day -->
           <div class="kv-processing-days__item" v-for="(item, i) in prepareProductsPricesArr" :key="i">
             <div class="kv-processing-day" :class="{
@@ -138,7 +138,8 @@
 
                 <!-- item -->
                 <div class="kv-processing-day__item" v-for="(price, j) in item.prices" :key="`price-${j}`">
-                  <label class="kv-processing-day-chb" @click="setPrice({price: price, info: item.info})">
+
+                  <div class="kv-processing-day-chb" @click="setPrice({price: price, info: item.info})">
                     <input type="radio"
                            name="kv-processing-day-chb"
                            aria-label="checkbox"
@@ -159,7 +160,7 @@
                         </span>
                       </span>
                     </span>
-                  </label>
+                  </div>
 
                 </div>
                 <!-- /item -->
@@ -344,6 +345,16 @@ export default {
 
   },
   computed: {
+    priceModel: {
+      get() {
+        return this.setup.price.price.id
+      },
+      set (value) {
+
+        //this.setPrice({"info":{"dimension":"d","duration":"Werktage","hours":120,"quantity":5},"price":{"id":"bb39fd21-0180-0002-005d-660d98f98164","m":"2","price":285}});
+
+      },
+    },
 
     // v-model для селекта национальности
     nationalitiesModel: {

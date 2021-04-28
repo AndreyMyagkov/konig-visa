@@ -1265,8 +1265,21 @@ export default {
       this.selectedDuration = data;
     },
 
+    async updatePrice(data) {
+      // Конфирм сброса
+      if (this.confirmReset) {
+        if (await this.showResetConfirm()) {
+          console.log('Конфирм да')
+          this._updatePrice(data)
+        }
+      } else {
+        console.log('цена без спроса')
+        this._updatePrice(data)
+      }
+    },
 
-    updatePrice(data) {
+
+    _updatePrice(data) {
       this.selectedPrice = data
     },
   //  ПО выбору смотреть тип. Выбирать группу или сервис и открывать шаг
