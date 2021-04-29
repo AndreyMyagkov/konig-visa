@@ -347,7 +347,6 @@ import '@/assets/css/style.css';
 import BreadCrumbs from '@/components/BreadCrumbs.vue';
 import ProgressBar from '@/components/ui/ProgressBar.vue';
 import StepHeader from '@/components/ui/StepHeader';
-import kvSelect from '@/components/ui/kvSelect';
 import VisaTypes from "@/components/ui/VisaTypes";
 import Loading from 'vue-loading-overlay';
 import Step1 from "@/components/Step1";
@@ -381,7 +380,6 @@ export default {
     ProgressBar,
     StepHeader,
     VisaTypes,
-    kvSelect,
     Loading,
     Step1,
     Step2,
