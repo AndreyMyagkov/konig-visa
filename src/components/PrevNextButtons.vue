@@ -51,7 +51,7 @@
     <!-- шаг 8 -->
     <template v-if="currentStep === 8">
       <div class="kv-content__btn kv-content__btn_lg">
-        <button class="kv-step-button kv-step-button_book" type="button">
+        <button class="kv-step-button kv-step-button_book" type="button"  @click="saveOrder">
           <span class="kv-step-button__text">{{ $lng('common.btnCommitOrder') }}</span>
         </button>
       </div>
@@ -78,6 +78,9 @@ export default {
     },
     next() {
       this.$emit('nextStep')
+    },
+    saveOrder() {
+      this.$emit('saveOrder')
     }
   }
 }

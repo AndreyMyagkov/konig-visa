@@ -88,6 +88,7 @@
           :allowNext="allowNext"
           @prevStep="prevStep"
           @nextStep="nextStep"
+          @saveOrder="saveOrder"
       ></PrevNextButtons>
       <!-- /Top buttons -->
 
@@ -232,6 +233,7 @@
             :allowNext="allowNext"
             @prevStep="prevStep"
             @nextStep="nextStep"
+            @saveOrder="saveOrder"
             v-if="CONFIG.mode === 'default'"
         ></PrevNextButtons>
         <!-- /Bottom buttons -->
@@ -1424,7 +1426,62 @@ export default {
     setCustomerDelivery(data) {
       this.customer = data.customer;
       this.delivery = data.delivery
-    }
+    },
+
+
+    async saveOrder() {
+      console.log('Сохранение заявки');
+
+      const headers = new Headers();
+      headers.append("Content-Type", "application/x-www-form-urlencoded");
+
+      const requestOptions = {
+        method: 'POST',
+        headers: headers,
+        redirect: 'follow',
+        body: network.toFormUrlEncoded(
+            {
+              country: this.selectedCountry.codeA3,
+              service: this.selectedService.id,
+              serviceGroup: this.selectedServiceGroup.id,
+              productId: this.selectedPrice.price.id,
+              participants: this.tourists.map((item, i) => {
+                return {
+                  nr: i + 1,
+                  nationalityA2: item.nationality.codeA2 || this.CONFIG.nationality,
+                  residenceCode: item.residenceRegion.code || this.CONFIG.residenceRegions,
+                  discountCode: item.discount
+                }
+              }),
+              servicePackageId: this.selectedServicePackage.id,
+              suppServices: this.selectedSuppServices.map(_ => _.id),
+              postalServiceId: this.selectedPostalService === null ? "" : this.selectedPostalService.id,
+              customer: this.customer,
+              delivery: this.delivery,
+              paymentType: this.paymentType,
+              paymentData: this.paymentData
+            }
+        )
+      };
+      try {
+        this.isLoading = true;
+        /*let response = await fetch(`${this.CONFIG.API_URL}saveOrder?clientId=${this.CONFIG.clientId}`, requestOptions);
+        let responseData = await response.json();
+        if (response.status >= 400 && response.status < 600) {
+          throw new Error(responseData.Message);
+        }
+
+         */
+        console.log(requestOptions)
+        this.isLoading = false;
+
+        this.CONFIG.order = '111-2222';
+        this.CONFIG.mode = 'success';
+      } catch (err) {
+        this.isLoading = false;
+        console.log(err)
+      }
+    },
 
   },
   computed: {
