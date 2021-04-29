@@ -219,7 +219,10 @@
         <!-- /STEP 7 -->
 
         <!-- STEP 8 -->
-        <Step8 v-if="currentStep === 8 && CONFIG.mode === 'default'"/>
+        <Step8
+            @update:paymentType="updatePaymentType"
+            @update:paymentData="updatePaymentData"
+            v-if="currentStep === 8 && CONFIG.mode === 'default'"/>
         <!-- /STEP 8 -->
 
 
@@ -516,6 +519,12 @@ export default {
       postalServices: [],
       selectedPostalService: new constants.PostalServiceDefault(),
 
+      //Шаг 8
+      paymentType: null,
+      paymentData: {
+        iban: '',
+        bic: ''
+      },
 
       CONFIG: {
         mode: "default",
@@ -532,6 +541,12 @@ export default {
     }
   },
   methods: {
+    updatePaymentType(data) {
+      this.paymentType = data
+    },
+    updatePaymentData(data) {
+      this.paymentData = data
+    },
     /**
      * Подавить замену цифр на телефоны https://gist.github.com/yuezk/15c5bb1370e30d0a2a60
      */
