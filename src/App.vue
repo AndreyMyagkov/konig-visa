@@ -90,6 +90,7 @@
           @nextStep="nextStep"
           @sendOrder="sendOrder"
           @makePayment="makePayment"
+          v-if="currentStep !== 8"
       ></PrevNextButtons>
       <!-- /Top buttons -->
 
@@ -222,8 +223,11 @@
 
         <!-- STEP 8 -->
         <Step8
+            :paymentMethods="paymentMethods"
             @update:paymentType="updatePaymentType"
             @update:paymentData="updatePaymentData"
+            @active="loadStep8Data"
+            @isValid="steps[7].isValid = $event"
             v-if="currentStep === 8 && CONFIG.mode === 'default'"/>
         <!-- /STEP 8 -->
 
@@ -458,7 +462,8 @@ export default {
         {
           crumb: 'Способ оплаты',
           //header: 'Способ оплаты',
-          icon: 'step_8'
+          icon: 'step_8',
+          isValid: false
         }
       ],
       currentStep: 0,
@@ -523,6 +528,7 @@ export default {
       selectedPostalService: new constants.PostalServiceDefault(),
 
       //Шаг 8
+      paymentMethods: [],
       paymentType: null,
       paymentData: {
         iban: '',
@@ -539,7 +545,8 @@ export default {
         service: null,
         product: null,
         API_URL: "https://apisrv.ideo-software.com/Ideo/KoenigVN/Web/api/OrderPortal/",
-        lng: "ge"
+        lng: "de",
+        order: ""
       }
     }
   },
@@ -1431,6 +1438,7 @@ export default {
       this.delivery = data.delivery
     },
 
+    /* Step 7*/
     /**
      * Сохранение заявки
      * @return {Promise<void>}
@@ -1509,11 +1517,10 @@ export default {
         this.isLoading = false;
 
         this.CONFIG.order = responseData.orderNr;
-        if (responseData.state === 0) {
-          //this.CONFIG.mode = 'success';
+        if (responseData.state >= 0 && responseData.orderNr) {
           this.nextStep()
         } else {
-          this.showModal(responseData.stateDescription)
+          this.showModal(responseData.stateDescription, this.$lng("common.error"))
         }
       } catch (err) {
         this.isLoading = false;
@@ -1521,8 +1528,86 @@ export default {
       }
     },
 
-    async makePayment() {
+    /* Step 8 */
 
+    async loadStep8Data() {
+      await this.loadPaymentMethods();
+    },
+
+    async loadPaymentMethods() {
+      const headers = new Headers();
+      headers.append("Content-Type", "application/x-www-form-urlencoded");
+      const requestOptions = {
+        method: 'POST',
+        headers: headers,
+        body: network.toFormUrlEncoded(
+            {
+              orderNr: this.CONFIG.order,
+            }
+        ),
+        redirect: 'follow'
+      };
+      try {
+        this.isLoading = true;
+        let response = await fetch(`${this.CONFIG.API_URL}getPaymentMethods?clientId=${this.CONFIG.clientId}`, requestOptions);
+        let responseJSON = await response.json();
+        if (response.status >= 400 && response.status < 600) {
+          if (responseJSON.Message) {
+            this.showModal(responseJSON.Message, this.$lng("common.error"))
+          }
+          throw new Error(responseJSON.Message);
+        }
+
+        this.isLoading = false;
+        this.paymentMethods = responseJSON.paymentMethods;
+      } catch (err) {
+        this.isLoading = false;
+        console.log(err)
+      }
+    },
+
+
+    async makePayment() {
+      const headers = new Headers();
+      headers.append("Content-Type", "application/x-www-form-urlencoded");
+      const requestOptions = {
+        method: 'POST',
+        headers: headers,
+        body: network.toFormUrlEncoded(
+            {
+              orderNr: this.CONFIG.order,
+              payment: {
+                method: this.paymentType,
+                bankCode: this.paymentData.bic,
+                bankAccount: this.paymentData.iban
+              }
+            }
+        ),
+        redirect: 'follow'
+      };
+      try {
+        this.isLoading = true;
+        let response = await fetch(`${this.CONFIG.API_URL}makePayment?clientId=${this.CONFIG.clientId}`, requestOptions);
+        let responseJSON = await response.json();
+        if (response.status >= 400 && response.status < 600) {
+          if (responseJSON.Message) {
+            this.showModal(responseJSON.Message, this.$lng("common.error"))
+          }
+          throw new Error(responseJSON.Message);
+        }
+
+
+        this.isLoading = false;
+        if (responseJSON.state >= 0) {
+          this.CONFIG.mode = "success"
+        } else {
+          this.showModal(responseJSON.stateDescription, this.$lng("common.error"))
+        }
+
+      } catch (err) {
+        this.isLoading = false;
+        console.log(err)
+      }
     }
 
   },
@@ -1596,6 +1681,9 @@ export default {
       // TODO: проверка
       if (this.currentStep === 7) {
         return true
+      }
+      if (this.currentStep === 8) {
+        return this.steps[7].isValid
       }
       return false
     },

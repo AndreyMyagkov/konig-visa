@@ -10,6 +10,7 @@ export const lng = {
             "confirmResetText": "Achtung, alle ausgefüllte Daten werden gelöscht,weiter?",
             "btnYes": "Ja",
             "btnNo": "Nein",
+            "error": "Error"
         },
         "step1": {
             "crumb": "Buchungsauftrag",
@@ -54,7 +55,8 @@ export const lng = {
             "residenceRegions": "Wohnsitz",
             "discount": "Preisermäßigung",
             "birthDate": "Geburtsdatum",
-            "btnAdd": "Reisenden hinzufügen"
+            "btnAdd": "Reisenden hinzufügen",
+            "delete": "Löschen"
         },
         "step4": {
             "crumb": "Optionale Zusatzleistungen",
@@ -158,11 +160,12 @@ export const lng = {
             "btnPrev": "Назад",
             "btnNext": "Вперёд",
             "btnOrderAndPay": "Zahlungspflichtig buchen",
-            "btnCommitOrder": "Подать заявку на визу",
+            "btnCommitOrder": "Оплатить",
             "btnSaveOrder": "Сохранить заявку",
             "confirmResetText": "Внимание, выбор услуги и допуслуг будет сброшен, продолжить?",
             "btnYes": "Да",
             "btnNo": "Нет",
+            "error": "Ошибка"
         },
         "step1": {
             "crumb": "Buchungsauftrag",
@@ -207,7 +210,8 @@ export const lng = {
             "residenceRegions": "Место жительства",
             "discount": "Скидка",
             "birthDate": "Дата рождения",
-            "btnAdd": "Добавить туриста"
+            "btnAdd": "Добавить туриста",
+            "delete": "Удалить"
         },
         "step4": {
             "crumb": "Дополнительные услуги",
@@ -345,7 +349,8 @@ export const lng = {
             "residenceRegions": "Место жительства",
             "discount": "Скидка",
             "birthDate": "Дата рождения",
-            "btnAdd": "Добавить туриста"
+            "btnAdd": "Добавить туриста",
+            "delete": "Delete"
         },
         "step4": {
             "crumb": "Дополнительные услуги",

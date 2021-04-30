@@ -3,7 +3,7 @@
     <div class="kv-payment__col">
 
       <!-- item Vorkasse -->
-      <div class="kv-payment__item">
+      <div class="kv-payment__item" v-if="isAllow('prepayment')">
         <div class="kv-payment-chb">
           <div class="kv-payment-chb__top">
             <picture>
@@ -15,7 +15,7 @@
               <input
                   type="radio"
                   name="payment"
-                  value="Vorkasse"
+                  value="prepayment"
                   v-model="paymentType"
                   @change="changePaymentType">
               <span class="kv-checkbox__box">
@@ -78,7 +78,7 @@
     <div class="kv-payment__col">
 
       <!-- item Kontoeinzug (SEPA Lastschrift) -->
-      <div class="kv-payment__item">
+      <div class="kv-payment__item"  v-if="isAllow('SEPA direct debit')">
         <div class="kv-payment-chb">
           <div class="kv-payment-chb__top">
             <picture>
@@ -91,7 +91,7 @@
                   type="radio"
                   name="payment"
                   aria-label="payment"
-                  value="Kontoeinzug"
+                  value="SEPA direct debit"
                   v-model="paymentType"
                   @change="changePaymentType"
               >
@@ -101,21 +101,27 @@
             </label>
           </div>
           <div class="kv-payment-chb__drop" :class="{
-            'kv-payment-chb__drop_active': paymentType === 'Kontoeinzug'
+            'kv-payment-chb__drop_active': paymentType === 'SEPA direct debit'
           }">
             <input
                 class="kv-payment-chb__input"
+                :class="{
+                  'kv-payment-chb__input_error': $v.iban.$error
+                }"
                 type="text"
                 placeholder="IBAN"
-                v-model="iban"
-                @input="changePaymentData"
+                v-model.trim="$v.iban.$model"
+                @input="isFormCorrect"
             >
             <input
                 class="kv-payment-chb__input"
+                :class="{
+                  'kv-payment-chb__input_error': $v.bic.$error
+                }"
                 type="text"
                 placeholder="BIC"
-                v-model="bic"
-                @input="changePaymentData"
+                v-model.trim="$v.bic.$model"
+                @input="isFormCorrect"
             >
           </div>
         </div>
@@ -150,8 +156,15 @@
 </template>
 
 <script>
+import { required, minLength} from 'vuelidate/lib/validators';
 export default {
   name: "Step8",
+  props: {
+    paymentMethods: {
+      type: Array,
+      required: true
+    }
+  },
   data() {
     return {
       paymentType: null,
@@ -159,8 +172,19 @@ export default {
       bic: ''
     }
   },
+  validations: {
+    iban: {
+      required,
+     minLength: minLength(5)
+    },
+    bic: {
+      required,
+      minLength: minLength(5)
+    },
+  },
   methods: {
     changePaymentType() {
+      this.isFormCorrect()
       this.$emit('update:paymentType', this.paymentType);
     },
     changePaymentData() {
@@ -168,8 +192,45 @@ export default {
         iban: this.iban,
         bic: this.bic
       });
+    },
+    /**
+     * Показывать ли текущий метод оплаты
+     * @param method
+     * @return {boolean}
+     */
+    isAllow(method) {
+      return this.paymentMethods.some(_ => _.method === method)
+    },
+    /**
+     * Валидация формы
+     * @return {boolean}
+     */
+    isFormCorrect() {
+      this.changePaymentData();
+
+      let isValid = false;
+
+      if (this.paymentType === "prepayment") {
+        isValid = true
+      }
+      if (this.paymentType === "SEPA direct debit") {
+        isValid = !this.$v.iban.$invalid && !this.$v.bic.$invalid
+      }
+      console.log('валидность ' + isValid);
+      this.$emit('isValid', isValid)
+
+      return isValid
     }
+  },
+  mounted() {
+    this.$emit('active');
   }
 }
 </script>
+
+<style scoped>
+.kv-payment-chb__input_error {
+  border: solid 1px var(--c-error);
+}
+</style>
 

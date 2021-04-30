@@ -2,7 +2,7 @@
   <div class="kv-content__bottom">
 
     <!-- Назад -->
-    <div class="kv-content__prev"  v-if="currentStep > 1 && (currentStep <= 6 || currentStep === 8) ">
+    <div class="kv-content__prev"  v-if="currentStep > 1 && (currentStep <= 6) ">
       <div class="kv-content__btn">
         <button
             type="button"
@@ -51,7 +51,12 @@
     <!-- шаг 8 -->
     <template v-if="currentStep === 8">
       <div class="kv-content__btn kv-content__btn_lg">
-        <button class="kv-step-button kv-step-button_book" type="button"  @click="makePayment">
+        <button
+            class="kv-step-button kv-step-button_book"
+            :disabled="!allowNext"
+            type="button"
+            @click="makePayment"
+        >
           <span class="kv-step-button__text">{{ $lng('common.btnCommitOrder') }}</span>
         </button>
       </div>
