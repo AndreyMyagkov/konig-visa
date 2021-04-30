@@ -16,8 +16,8 @@ export const lng = {
             "header": "Buchungsauftrag",
             "countryLabel": "Zielland auswählen:",
             "countryPlaceholder": "Auswählen",
-            "serviceGrpLabel": "Выберите группу:",
-            "serviceLabel": "Wählen Sie eine Gruppe aus:"
+            "serviceGrpLabel": "Visum-Art auswählen:",
+            "serviceLabel": "Reisezweck:"
         },
         "step2": {
             "crumb": "Aufenthaltsdauer",
@@ -83,7 +83,7 @@ export const lng = {
             "tel": "Telefon",
             "ifThereIs": "(optional)",
             "mobile": "Handynummer",
-            "email": "e-Mail",
+            "email": "Е-Mail",
             "deliveryAddress": "Lieferanschrift",
             "addressCorresponds": "Lieferanschrift entspricht Auftraggeber",
             "addressDifferent": "abweichende Lieferanschrift",
@@ -96,8 +96,8 @@ export const lng = {
             "header": "Rückversand",
         },
         "step7": {
-            "crumb": "Проверка данных",
-            "header": "Проверка данных",
+            "crumb": "Ihre Daten",
+            "header": "Ihre Daten",
             "country": "Zielland",
             "duration": "Aufenthaltsdauer:",
             "serviceGrp": "Visum-Typ:",
@@ -119,7 +119,7 @@ export const lng = {
             "termsAndConditions": "Allgemeine Geschäftsbedingungen",
             "paymentTerms": "Zahlungsbedingungen",
             "cancellationPolicy": "Stornobedingungen",
-            "termsText": "Mit dem erfolgreichen Abschluss Ihrer Buchung kommt ein Vertrag mit dem Anbieter zustande. Die Bestätigung und Rechnung zu Ihrer Buchung werden Ihnen dann von HomeToGo und/oder dem Anbieter zugesandt. Durch Klicken auf \"Zahlungspflichtig buchen\" akzeptieren Sie die AGB des Anbieters und die AGB der HomeToGo GmbH. Weitere Informationen zur Verarbeitung Ihrer Daten finden Sie in unserer Datenschutzerklärung.",
+            "termsText": "Sobald Sie Ihr Visum zahlungspflichtig bei uns bestellen, kommt es zu einem Vertrag zwischen Ihnen und dem Portal Buch-dein-Visum.de (König Tours GmbH & Co KG). Darüber hinaus akzeptieren Sie bei einer zahlungspflichtigen Bestellung unsere AGB. Informationen zur Verarbeitung Ihrer persönlichen Daten finden Sie in unserer Datenschutzerklärung. Nach erfolgreichem Abschluss Ihrer Bestellung erhalten Sie von uns eine Bestellbestätigung sowie Ihre Rechnung zu Ihrem Auftrag.",
 
         },
         "step8": {
@@ -133,13 +133,28 @@ export const lng = {
             "orderProcessing": "Für Fragen stehen wir Ihnen telefonisch und per E-Mail zur Verfügung:",
             "statusText": "Der Auftragsstatus kann nachverfolgt werden",
             "cabinet": "Im Visum-Tracking-System",
-            "bottomText": "<p><b><i>Das sind die n&auml;chsten Schritte:</i></b></p><p><b>1.</b> Sie senden uns die ben&ouml;tigten Dokumente zu. Infos zu den Dokumenten finden Sie in der <i>Checkliste Visum-Unterlagen</i>, die Sie nach der Bestellung per Mail von uns erhalten. Alternativ k&ouml;nnen Sie uns die Unterlagen pers&ouml;nlich in unserem B&uuml;ro vorbeibringen. Infos zur Versandadresse bzw. der B&uuml;roadresse finden Sie in der Bestellbest&auml;tigung. </p><p><b>2.</b> Nach dem Eingang Ihrer Unterlagen erhalten Sie eine Empfangsbest&auml;tigung per Mail. Wir pr&uuml;fen alle Dokumente / Unterlagen und halten bei Bedarf R&uuml;cksprache mit Ihnen. </p> <p><b>3.</b> Wir beantragen Ihr Visum!</p> <p><b>4.</b> Sobald das Visum erteilt ist, stellen wir Ihnen dieses unmittelbar auf dem bestellten Versandweg zu.</p> <p><br /><b><i>Gerne bieten wir Ihnen auch folgende Zusatzleistungen an:</i></b></p> <ul> <li><b>Ausf&uuml;llen von Online-Visumantrag (15,00 EUR)</b> <p><i>Info zum Antrag-Service:</i> W&auml;hlen Sie diese Option, wenn wir f&uuml;r Sie den Visumantrag ausf&uuml;llen sollen. Senden Sie uns hierf&uuml;r bitte das Auftragsformular <i><b><u>\"Antrag Service\"</u></b></i></p> </li> </ul> <ul> <li><b>Visa-Comfort-Service (70,00 EUR)</b><br /><i>Info zum Visum-Comfort-Service:</i> Der Visa-Comfort-Service ist ein Paket mit folgenden Leistungen: Bearbeitung Visumantrag inkl. Ausf&uuml;ll-Service aller Unterlagen, Kl&auml;rung konsularischer Fragen, R&uuml;ckkehrwilligkeit und Versicherungspolice (Pr&auml;mie+Selbstbeteiligung), Notfall-Service bei Passverlust.</li> </ul> <p>Zur Beauftragung des Visa-Comfort-Service, senden Sie uns einfach Ihren Reisepass, Passfoto und das Formular <i><b><u>\"Visa-Comfort-Service\"</u></b></i></p> <p><i><b>Bitte geben Sie uns einfach <b><i>per Mail oder telefonisch Bescheid</i></b></b></i>, welche Zusatzleistung Sie buchen m&ouml;chten. Wir k&uuml;mmern uns dann um alle weiteren Schritte im Antragsprozess.</p>"
+            "bottomText": `<p><b><i>Das sind die n&auml;chsten Schritte:</i></b></p>
+<p><b>1.</b> Sie senden uns die ben&ouml;tigten Dokumente zu. Infos zu den Dokumenten finden Sie in der <i>Checkliste Visum-Unterlagen</i>, die Sie nach der Bestellung per Mail von uns erhalten. Alternativ k&ouml;nnen Sie uns die Unterlagen pers&ouml;nlich in unserem B&uuml;ro vorbeibringen. Infos zur Versandadresse bzw. der B&uuml;roadresse finden Sie in der Bestellbest&auml;tigung. </p>
+<p><b>2.</b> Nach dem Eingang Ihrer Unterlagen erhalten Sie eine Empfangsbest&auml;tigung per Mail. Wir pr&uuml;fen alle Dokumente / Unterlagen und halten bei Bedarf R&uuml;cksprache mit Ihnen. </p>
+<p><b>3.</b> Wir beantragen Ihr Visum!</p>
+<p><b>4.</b> Sobald das Visum erteilt ist, stellen wir Ihnen dieses unmittelbar auf dem bestellten Versandweg zu.</p>
+<p><br /><b><i>Gerne bieten wir Ihnen auch folgende Zusatzleistungen an:</i></b></p>
+<ul>
+<li><b>Ausf&uuml;llen von Online-Visumantrag (15,00 EUR)</b>
+<p><i>Info zum Antrag-Service:</i> W&auml;hlen Sie diese Option, wenn wir f&uuml;r Sie den Visumantrag ausf&uuml;llen sollen. Senden Sie uns hierf&uuml;r bitte das Auftragsformular <i><b><u>"Antrag Service"</u></b></i></p>
+</li>
+</ul>
+<ul>
+<li><b>Visa-Comfort-Service (70,00 EUR)</b><br /><i>Info zum Visum-Comfort-Service:</i> Der Visa-Comfort-Service ist ein Paket mit folgenden Leistungen: Bearbeitung Visumantrag inkl. Ausf&uuml;ll-Service aller Unterlagen, Kl&auml;rung konsularischer Fragen, R&uuml;ckkehrwilligkeit und Versicherungspolice (Pr&auml;mie+Selbstbeteiligung), Notfall-Service bei Passverlust.</li>
+</ul>
+<p>Zur Beauftragung des Visa-Comfort-Service, senden Sie uns einfach Ihren Reisepass, Passfoto und das Formular <i><b><u>"Visa-Comfort-Service"</u></b></i></p>
+<p><i><b>Bitte geben Sie uns einfach <b><i>per Mail oder telefonisch Bescheid</i></b></b></i>, welche Zusatzleistung Sie buchen m&ouml;chten. Wir k&uuml;mmern uns dann um alle weiteren Schritte im Antragsprozess.</p>`
         }
     },
 
-"ru": {
-    "common": {
-        "step": "Шаг",
+    "ru": {
+        "common": {
+            "step": "Шаг",
             "btnPrev": "Назад",
             "btnNext": "Вперёд",
             "btnOrderAndPay": "Zahlungspflichtig buchen",
@@ -148,17 +163,17 @@ export const lng = {
             "confirmResetText": "Внимание, выбор услуги и допуслуг будет сброшен, продолжить?",
             "btnYes": "Да",
             "btnNo": "Нет",
-    },
-    "step1": {
-        "crumb": "Buchungsauftrag",
+        },
+        "step1": {
+            "crumb": "Buchungsauftrag",
             "header": "Buchungsauftrag",
             "countryLabel": "Выберите страну назначения:",
             "countryPlaceholder": "Выберите",
             "serviceGrpLabel": "Выберите группу:",
             "serviceLabel": "Выберите подтип визы:"
-    },
-    "step2": {
-        "crumb": "Aufenthaltsdauer",
+        },
+        "step2": {
+            "crumb": "Aufenthaltsdauer",
             "header": "Расчет примерной стоимости для одного человека",
             "processingText": "<b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
             "btnInfo": "Инфо-кнопка",
@@ -169,23 +184,23 @@ export const lng = {
             "residenceRegionsPlaceholder": "Выберите",
             "processingDuration": "Bearbeitungszeit",
             "dimension": {
-            "h": "Stunden",
+                "h": "Stunden",
                 "d": "Werktage",
                 "m": "Monat"
-        },
-        "multiplicity": "malige Einreise",
+            },
+            "multiplicity": "malige Einreise",
             "order": "Kaufen",
             "included": "В стоимость входит: <b>консульский сбор, сервисный сбор, сбор за приглашение</b>"
-    },
-    "step3": {
-        "crumb": "Заполнение данных о туристах",
+        },
+        "step3": {
+            "crumb": "Заполнение данных о туристах",
             "header": "Заполнение данных",
             "participant": "Участник",
             "gender": {
-            "male": "Herr",
+                "male": "Herr",
                 "female": "Frau"
-        },
-        "btnDelete": "Удалить",
+            },
+            "btnDelete": "Удалить",
             "name": "Имя",
             "sname": "Фамилия",
             "nationality": "Гражданство",
@@ -193,26 +208,26 @@ export const lng = {
             "discount": "Скидка",
             "birthDate": "Дата рождения",
             "btnAdd": "Добавить туриста"
-    },
-    "step4": {
-        "crumb": "Дополнительные услуги",
+        },
+        "step4": {
+            "crumb": "Дополнительные услуги",
             "header": "Дополнительные услуги",
             "perPerson": "pro Person",
             "included": "включено",
             "added": "добавлено",
             "add": "добавить",
             "select": "Выбрать"
-    },
-    "step5": {
-        "crumb": "Информация о заказчике",
+        },
+        "step5": {
+            "crumb": "Информация о заказчике",
             "header": "Информация о заказчике",
             "company": "Фирма",
             "companyName": "Название фирмы",
             "gender": {
-            "male": "Herr",
+                "male": "Herr",
                 "female": "Frau"
-        },
-        "name": "Имя",
+            },
+            "name": "Имя",
             "sname": "Фамилия",
             "address": "Адрес",
             "zip": "Индекс",
@@ -228,13 +243,13 @@ export const lng = {
             "pickUp": "Abholen",
             "workingTime": "Время работы:",
             "deliveryByEmail": "Документы будут доставлены на электронный адрес клиента"
-    },
-    "step6": {
-        "crumb": "Способ отправки",
+        },
+        "step6": {
+            "crumb": "Способ отправки",
             "header": "Способ отправки",
-    },
-    "step7": {
-        "crumb": "Проверка данных",
+        },
+        "step7": {
+            "crumb": "Проверка данных",
             "header": "Проверка данных",
             "country": "Страна",
             "duration": "Срок визы:",
@@ -259,25 +274,25 @@ export const lng = {
             "cancellationPolicy": "Stornobedingungen",
             "termsText": "Mit dem erfolgreichen Abschluss Ihrer Buchung kommt ein Vertrag mit dem Anbieter zustande. Die Bestätigung und Rechnung zu Ihrer Buchung werden Ihnen dann von HomeToGo und/oder dem Anbieter zugesandt. Durch Klicken auf \"Zahlungspflichtig buchen\" akzeptieren Sie die AGB des Anbieters und die AGB der HomeToGo GmbH. Weitere Informationen zur Verarbeitung Ihrer Daten finden Sie in unserer Datenschutzerklärung.",
 
-    },
-    "step8": {
-        "crumb": "Способ оплаты",
+        },
+        "step8": {
+            "crumb": "Способ оплаты",
             "header": "Способ оплаты",
-    },
-    "success": {
-        "thanks": "спасибо",
+        },
+        "success": {
+            "thanks": "спасибо",
             "forOrder": "за Вашу заявку",
             "yourOrder": "Ваша заявка",
             "orderProcessing": "принята в обработку, мы свяжемся с Вами в ближайшее время!",
             "statusText": "Статус заказа можно отследить в",
             "cabinet": "Личном кабинете",
             "bottomText": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur commodi ipsam natus earum id fuga esse deleniti soluta assumenda libero, doloribus, molestiae explicabo accusamus quasi impedit asperiores aperiam placeat accusantium."
-    }
-},
+        }
+    },
 
-"en": {
-    "common": {
-        "step": "Step",
+    "en": {
+        "common": {
+            "step": "Step",
             "btnPrev": "Prev",
             "btnNext": "Next",
             "btnOrderAndPay": "Zahlungspflichtig buchen",
@@ -286,17 +301,17 @@ export const lng = {
             "confirmResetText": "Внимание, выбор услуги и допуслуг будет сброшен, продолжить?",
             "btnYes": "Да",
             "btnNo": "Нет",
-    },
-    "step1": {
-        "crumb": "Buchungsauftrag",
+        },
+        "step1": {
+            "crumb": "Buchungsauftrag",
             "header": "Buchungsauftrag",
             "countryLabel": "Выберите страну назначения:",
             "countryPlaceholder": "Выберите",
             "serviceGrpLabel": "Выберите группу:",
             "serviceLabel": "Выберите подтип визы:"
-    },
-    "step2": {
-        "crumb": "Aufenthaltsdauer",
+        },
+        "step2": {
+            "crumb": "Aufenthaltsdauer",
             "header": "Расчет примерной стоимости для одного человека",
             "processingText": "<b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
             "btnInfo": "Инфо-кнопка",
@@ -307,23 +322,23 @@ export const lng = {
             "residenceRegionsPlaceholder": "Выберите",
             "processingDuration": "Bearbeitungszeit",
             "dimension": {
-            "h": "Stunden",
+                "h": "Stunden",
                 "d": "Werktage",
                 "m": "Monat"
-        },
-        "multiplicity": "malige Einreise",
+            },
+            "multiplicity": "malige Einreise",
             "order": "Kaufen",
             "included": "В стоимость входит: <b>консульский сбор, сервисный сбор, сбор за приглашение</b>"
-    },
-    "step3": {
-        "crumb": "Заполнение данных о туристах",
+        },
+        "step3": {
+            "crumb": "Заполнение данных о туристах",
             "header": "Заполнение данных",
             "participant": "Участник",
             "gender": {
-            "male": "Herr",
+                "male": "Herr",
                 "female": "Frau"
-        },
-        "btnDelete": "Удалить",
+            },
+            "btnDelete": "Удалить",
             "name": "Имя",
             "sname": "Фамилия",
             "nationality": "Гражданство",
@@ -331,26 +346,26 @@ export const lng = {
             "discount": "Скидка",
             "birthDate": "Дата рождения",
             "btnAdd": "Добавить туриста"
-    },
-    "step4": {
-        "crumb": "Дополнительные услуги",
+        },
+        "step4": {
+            "crumb": "Дополнительные услуги",
             "header": "Дополнительные услуги",
             "perPerson": "pro Person",
             "included": "включено",
             "added": "добавлено",
             "add": "добавить",
             "select": "Выбрать"
-    },
-    "step5": {
-        "crumb": "Информация о заказчике",
+        },
+        "step5": {
+            "crumb": "Информация о заказчике",
             "header": "Информация о заказчике",
             "company": "Фирма",
             "companyName": "Название фирмы",
             "gender": {
-            "male": "Herr",
+                "male": "Herr",
                 "female": "Frau"
-        },
-        "name": "Имя",
+            },
+            "name": "Имя",
             "sname": "Фамилия",
             "address": "Адрес",
             "zip": "Индекс",
@@ -366,13 +381,13 @@ export const lng = {
             "pickUp": "Abholen",
             "workingTime": "Время работы:",
             "deliveryByEmail": "Документы будут доставлены на электронный адрес клиента"
-    },
-    "step6": {
-        "crumb": "Способ отправки",
+        },
+        "step6": {
+            "crumb": "Способ отправки",
             "header": "Способ отправки",
-    },
-    "step7": {
-        "crumb": "Проверка данных",
+        },
+        "step7": {
+            "crumb": "Проверка данных",
             "header": "Проверка данных",
             "country": "Страна",
             "duration": "Срок визы:",
@@ -397,19 +412,19 @@ export const lng = {
             "cancellationPolicy": "Stornobedingungen",
             "termsText": "Mit dem erfolgreichen Abschluss Ihrer Buchung kommt ein Vertrag mit dem Anbieter zustande. Die Bestätigung und Rechnung zu Ihrer Buchung werden Ihnen dann von HomeToGo und/oder dem Anbieter zugesandt. Durch Klicken auf \"Zahlungspflichtig buchen\" akzeptieren Sie die AGB des Anbieters und die AGB der HomeToGo GmbH. Weitere Informationen zur Verarbeitung Ihrer Daten finden Sie in unserer Datenschutzerklärung.",
 
-    },
-    "step8": {
-        "crumb": "Способ оплаты",
+        },
+        "step8": {
+            "crumb": "Способ оплаты",
             "header": "Способ оплаты",
-    },
-    "success": {
-        "thanks": "спасибо",
+        },
+        "success": {
+            "thanks": "спасибо",
             "forOrder": "за Вашу заявку",
             "yourOrder": "Ваша заявка",
             "orderProcessing": "принята в обработку, мы свяжемся с Вами в ближайшее время!",
             "statusText": "Статус заказа можно отследить в",
             "cabinet": "Личном кабинете",
             "bottomText": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur commodi ipsam natus earum id fuga esse deleniti soluta assumenda libero, doloribus, molestiae explicabo accusamus quasi impedit asperiores aperiam placeat accusantium."
+        }
     }
-}
 }

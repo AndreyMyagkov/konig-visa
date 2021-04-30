@@ -41,7 +41,7 @@
       </div>
       -->
       <div class="kv-content__btn kv-content__btn_lg">
-        <button class="kv-step-button kv-step-button_book" type="button" @click="next">
+        <button class="kv-step-button kv-step-button_book" type="button" @click="sendOrder">
           <span class="kv-step-button__text">{{ $lng('common.btnOrderAndPay') }}</span>
         </button>
       </div>
@@ -51,7 +51,7 @@
     <!-- шаг 8 -->
     <template v-if="currentStep === 8">
       <div class="kv-content__btn kv-content__btn_lg">
-        <button class="kv-step-button kv-step-button_book" type="button"  @click="saveOrder">
+        <button class="kv-step-button kv-step-button_book" type="button"  @click="makePayment">
           <span class="kv-step-button__text">{{ $lng('common.btnCommitOrder') }}</span>
         </button>
       </div>
@@ -79,8 +79,11 @@ export default {
     next() {
       this.$emit('nextStep')
     },
-    saveOrder() {
-      this.$emit('saveOrder')
+    sendOrder() {
+      this.$emit('sendOrder')
+    },
+    makePayment() {
+      this.$emit('makePayment')
     }
   }
 }

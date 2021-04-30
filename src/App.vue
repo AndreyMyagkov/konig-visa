@@ -88,7 +88,8 @@
           :allowNext="allowNext"
           @prevStep="prevStep"
           @nextStep="nextStep"
-          @saveOrder="saveOrder"
+          @sendOrder="sendOrder"
+          @makePayment="makePayment"
       ></PrevNextButtons>
       <!-- /Top buttons -->
 
@@ -233,7 +234,8 @@
             :allowNext="allowNext"
             @prevStep="prevStep"
             @nextStep="nextStep"
-            @saveOrder="saveOrder"
+            @sendOrder="sendOrder"
+            @makePayment="makePayment"
             v-if="CONFIG.mode === 'default'"
         ></PrevNextButtons>
         <!-- /Bottom buttons -->
@@ -397,6 +399,7 @@ export default {
   },
   data() {
     return {
+      uniqueKey: Date.now(),
       constants,
       formatter,
       isModalShow: false,
@@ -1428,8 +1431,11 @@ export default {
       this.delivery = data.delivery
     },
 
-
-    async saveOrder() {
+    /**
+     * Сохранение заявки
+     * @return {Promise<void>}
+     */
+    async sendOrder() {
       console.log('Сохранение заявки');
 
       const headers = new Headers();
@@ -1441,47 +1447,83 @@ export default {
         redirect: 'follow',
         body: network.toFormUrlEncoded(
             {
-              country: this.selectedCountry.codeA3,
-              service: this.selectedService.id,
-              serviceGroup: this.selectedServiceGroup.id,
               productId: this.selectedPrice.price.id,
+              servicePackageId: this.selectedServicePackage.id,
+              suppServices: this.selectedSuppServices.map(_ => _.id),
               participants: this.tourists.map((item, i) => {
                 return {
                   nr: i + 1,
-                  nationalityA2: item.nationality.codeA2 || this.CONFIG.nationality,
-                  residenceCode: item.residenceRegion.code || this.CONFIG.residenceRegions,
-                  discountCode: item.discount
+                  lastName: item.sname,
+                  firstName: item.name,
+                  sex: (item.gender === "Herr") ? "m" : "f",
+                  nationalityA2: item.nationality.codeA2 || "",
+                  residenceCode: item.residenceRegion.code || "",
+                  discountCode: item.discount,
+                  birthdate: item.birthDate
                 }
               }),
-              servicePackageId: this.selectedServicePackage.id,
-              suppServices: this.selectedSuppServices.map(_ => _.id),
-              postalServiceId: this.selectedPostalService === null ? "" : this.selectedPostalService.id,
-              customer: this.customer,
-              delivery: this.delivery,
-              paymentType: this.paymentType,
-              paymentData: this.paymentData
+              customer: {
+                title: this.customer.gender,
+                lastName: this.customer.sname,
+                firstName: this.customer.name,
+                organization: this.customer.companyName,
+                phone: this.customer.tel,
+                mobilePhone: this.customer.mobile,
+                email: this.customer.email,
+                address: {
+                  address: this.customer.address,
+                  zip: this.customer.zip,
+                  city: this.customer.city,
+                  countryA3: this.customer.addressingCountry.codeA3
+                }
+              },
+              delivery: {
+                method: ((this.delivery.type == 3) ? "pick-up" : "post"), // ??
+                pickupPointId: ((this.delivery.type == 3) ? this.delivery.branch.id : null),
+                postalServiceId: ((this.delivery.type == 2) ? this.selectedPostalService.id : null),
+                deliveryAddress: (this.delivery.type == 2) ? {
+                  title: this.delivery.gender,
+                  lastName: this.delivery.sname,
+                  firstName: this.delivery.name,
+                  organization: this.delivery.companyName,
+                  address: {
+                    address: this.delivery.address,
+                    zip: this.delivery.zip,
+                    city: this.delivery.city,
+                    countryA3: this.delivery.addressingCountry.codeA3
+                  }
+                } : null
+              },
+              uniqueKey: this.uniqueKey,
             }
         )
       };
       try {
         this.isLoading = true;
-        /*let response = await fetch(`${this.CONFIG.API_URL}saveOrder?clientId=${this.CONFIG.clientId}`, requestOptions);
+        let response = await fetch(`${this.CONFIG.API_URL}order?clientId=${this.CONFIG.clientId}`, requestOptions);
         let responseData = await response.json();
         if (response.status >= 400 && response.status < 600) {
           throw new Error(responseData.Message);
         }
 
-         */
-        console.log(requestOptions)
         this.isLoading = false;
 
-        this.CONFIG.order = '111-2222';
-        this.CONFIG.mode = 'success';
+        this.CONFIG.order = responseData.orderNr;
+        if (responseData.state === 0) {
+          //this.CONFIG.mode = 'success';
+          this.nextStep()
+        } else {
+          this.showModal(responseData.stateDescription)
+        }
       } catch (err) {
         this.isLoading = false;
         console.log(err)
       }
     },
+
+    async makePayment() {
+
+    }
 
   },
   computed: {

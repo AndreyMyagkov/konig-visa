@@ -6,13 +6,14 @@ export const dashSymbol = '—';
  * Продолжительность обработки словами
  * @param {char} code - код продолжительности
  */
+/*
 export function processDurationsToWords(code) {
     return {
         h: "Stunden",
         d: "Werktage",
         m: "Monat"
     }[code]
-}
+}*/
 
 export class CountryDefault {
     constructor() {

@@ -41,6 +41,7 @@
       <div class="kv-processing" v-if="setup.duration.index !== null">
         <p class="kv-processing__caption">
 
+        <!--
           <div class="kv-processing__btn">
 
             <div class="kv-btn-info"
@@ -52,6 +53,7 @@
             </div>
 
           </div>
+          -->
 
           <div class="kv-processing__text kv-user-text" v-html="$lng('step2.processingText')">
 
