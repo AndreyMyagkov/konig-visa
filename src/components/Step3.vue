@@ -46,14 +46,14 @@
           <div class="kv-form__item-wrap kv-form__col">
             <div class="kv-form__item kv-form__item_chb" :class="{ 'kv-form__item_error': item.gender.$error }">
               <label class="kv-form-radio">
-                <input type="radio" aria-label="checkbox" v-model="item.gender.$model"  value="Herr" @change="isValid">
+                <input type="radio" aria-label="checkbox" v-model="item.gender.$model" value="Herr" @change="isValid">
                 <span class="kv-form-radio__mark">
                    <svg><use href="#kv-icons_form_radio"></use></svg>
                 </span>
                 <span class="kv-form-radio__caption">{{ $lng('step3.gender.male') }}</span>
               </label>
               <label class="kv-form-radio">
-                <input type="radio" aria-label="checkbox" v-model="item.gender.$model"   value="Frau" @change="isValid">
+                <input type="radio" aria-label="checkbox" v-model="item.gender.$model"  value="Frau" @change="isValid">
                 <span class="kv-form-radio__mark">
                   <svg><use href="#kv-icons_form_radio"></use></svg>
                 </span>
@@ -333,6 +333,7 @@ export default {
      */
     addTourist() {
       this.$emit('addTourist');
+      this.isValid();
     },
     /**
      * Удаляет участника под номером Index
@@ -391,6 +392,7 @@ export default {
     },
 
     isValid() {
+      console.log('тест валидация')
       let isValid = false;
 
       // Если форма валидна
