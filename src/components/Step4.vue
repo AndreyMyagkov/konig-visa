@@ -8,7 +8,7 @@
       }">
 
       <!-- Tabs -->
-      <div class="kv-class-tabs kv-service-pack__tabs">
+      <div class="kv-class-tabs">
         <div class="kv-class-tabs_right">
 
           <!-- List -->
@@ -28,16 +28,19 @@
                    :class="{
                         'kv-class-tab_active': packageSelected.id === pcg.id,
                    }"
+                   style="position: relative;"
                 >
-                <svg class="kv-class-tab__info" @click="$emit('showModal', pcg.description, pcg.name)">
-                  <use href="#kv-icons_info"></use>
-                </svg>
-                <div class="kv-class-tab__rate">
-                  <svg class="kv-class-tab__star" v-for="star in (index + 1)" :key="star">
-                    <use href="#kv-icons_star"></use>
+                <div class="kv-class-tab__body">
+                  <svg class="kv-class-tab__info" @click="$emit('showModal', pcg.description, pcg.name)">
+                    <use href="#kv-icons_info"></use>
                   </svg>
+                  <div class="kv-class-tab__rate">
+                    <svg class="kv-class-tab__star" v-for="star in (index + 1)" :key="star">
+                      <use href="#kv-icons_star"></use>
+                    </svg>
+                  </div>
+                  <div class="kv-class-tab__title">{{pcg.name}}</div>
                 </div>
-                <div class="kv-class-tab__title">{{pcg.name}}</div>
               </div>
 
               <!-- select button/price -->
@@ -88,7 +91,7 @@
       <!-- /Tabs -->
 
       <!-- Services -->
-      <div class="kv-services kv-service-pack__services">
+      <div class="kv-services kv-services-showed">
         <!-- Services item-->
         <div class="kv-services__item" data-cq-max-w="991" v-for="(item, i) in data.suppServices" :key="item.id">
           <div class="kv-service kv-services__item-inner">
@@ -106,7 +109,7 @@
             </div>
           </div>
           <!-- Class-->
-          <div class="kv-class" data-cq-max-w="991">
+          <div class="kv-class kv-services__class" data-cq-max-w="991">
             <!-- Class item-->
             <div
                 class="kv-class__item"
