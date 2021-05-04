@@ -268,17 +268,18 @@ export default {
      * @return {string}
      */
     getPackagePrice(packageIndex) {
-      console.log('pi='+this.selectedTabIndex)
+      //console.log(`pi=${packageIndex} sel=${this.selectedTabIndex} abs=${this.getSelectedServicesPrice(packageIndex)}`)
+
       let price = 0;
       let priceCurrent = 0;
       if (packageIndex >= 0) {
         price = this.data.servicePackages[packageIndex].price + this.getSelectedServicesPrice(packageIndex);
-        if (this.selectedTabIndex && (packageIndex !== this.selectedTabIndex)) {
+        if (this.selectedTabIndex >=1 && (packageIndex !== (this.selectedTabIndex - 1))) {
           priceCurrent = this.data.servicePackages[this.selectedTabIndex - 1].price + this.getSelectedServicesPrice(this.selectedTabIndex - 1);
         }
       }
       const diffPrice = price - priceCurrent;
-      return diffPrice >= 0 ? `+ ${diffPrice}` : diffPrice;
+      return diffPrice > 0 && (packageIndex !== this.selectedTabIndex - 1) ? `+ ${diffPrice}` : diffPrice;
     },
     /**
      * Сумма стоимостей добавленных услуг в пакет
