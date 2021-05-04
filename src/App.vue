@@ -1047,6 +1047,7 @@ export default {
     async sendCalculateAndValidate() {
       console.log('Калькуляция, валидация');
       if (!this.selectedPrice.price.id) {
+        this.calculate = new constants.calculateDefault();
         return
       }
       const headers = new Headers();
@@ -1283,19 +1284,17 @@ export default {
     },
 
     _updateDuration(data){
-      this.updatePrice(new this.constants.PriceDefault());
       this.selectedDuration = data;
+      this._updatePrice(new this.constants.PriceDefault());
     },
 
     async updatePrice(data) {
       // Конфирм сброса
-      if (this.confirmReset) {
+      if (this.confirmReset && this.selectedPrice.price.id !== null) {
         if (await this.showResetConfirm()) {
-          console.log('Конфирм да')
           this._updatePrice(data)
         }
       } else {
-        console.log('цена без спроса')
         this._updatePrice(data)
       }
     },
@@ -1303,6 +1302,8 @@ export default {
 
     _updatePrice(data) {
       this.selectedPrice = data;
+      this.resetStep4();
+      this.resetStep6();
       this.sendCalculateAndValidate();
     },
   //  ПО выбору смотреть тип. Выбирать группу или сервис и открывать шаг
@@ -1427,11 +1428,26 @@ export default {
     changeSuppService(services) {
       this.selectedSuppServices = services;
     },
+    /**
+     * Сброс шага 4
+     */
+    resetStep4() {
+      this.selectedServicePackage = new constants.ServicePackage();
+      this.selectedSuppServices = [];
+    },
 
     /* Step 6 */
     setCustomerDelivery(data) {
       this.customer = data.customer;
       this.delivery = data.delivery
+    },
+
+    /**
+     * Сброс шага 6
+     */
+    resetStep6() {
+      this.postalServices = [];
+      this.selectedPostalService = new constants.PostalServiceDefault();
     },
 
     /* Step 7*/
