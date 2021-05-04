@@ -269,8 +269,27 @@ export default {
      */
     getPackagePrice(packageIndex) {
       if (packageIndex >= 0) {
-        return this.data.servicePackages[packageIndex].price
+        return this.data.servicePackages[packageIndex].price + this.getSelectedServicesPrice(packageIndex)
       }
+    },
+    /**
+     * Сумма стоимостей добавленных услуг в пакет
+     * @param {Number} packageIndex - порядковый номер пакета
+     */
+    getSelectedServicesPrice(packageIndex) {
+      let sum = 0;
+      // Услуги, которые НЕ включены, т.е. платные
+      const paidServices = this.serviceSelected.filter(item => {
+        return  !this.data.servicePackages[packageIndex].includedServices.includes(item)
+      })
+
+      //Сумма платных
+      this.data.suppServices.forEach(item => {
+        if (paidServices.includes(item.id)) {
+          sum = sum + item.price;
+        }
+      })
+      return sum;
     },
     /**
      * Выбрать сервисный пакет

@@ -67,6 +67,17 @@ export class Toursit {
         this.stateDescription = '';
     }
 }
+// Калькуляция
+export class calculateDefault {
+    constructor() {
+        this.amount = 0;
+        this.calculation = {
+            participants: []
+        };
+        this.state = 0;
+        this.stateDescription = '';
+    }
+}
 
 // Сервис, группа сервисов
 export class ServicesDefault {

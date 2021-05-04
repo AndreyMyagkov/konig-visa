@@ -493,14 +493,7 @@ export default {
       selectedService: new constants.ServicesDefault(),
       selectedServiceGroup: new constants.ServicesDefault(),
 
-      calculate: {
-        amount: 0,
-        calculation: {
-          participants: []
-        },
-        state: 0,
-        stateDescription: ''
-      },
+      calculate: new constants.calculateDefault(),
 
       // Название выбранной продолжительности
       selectedDuration: new constants.DurationDefault(),
@@ -1053,7 +1046,9 @@ export default {
 
     async sendCalculateAndValidate() {
       console.log('Калькуляция, валидация');
-
+      if (!this.selectedPrice.price.id) {
+        return
+      }
       const headers = new Headers();
       headers.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -1307,7 +1302,8 @@ export default {
 
 
     _updatePrice(data) {
-      this.selectedPrice = data
+      this.selectedPrice = data;
+      this.sendCalculateAndValidate();
     },
   //  ПО выбору смотреть тип. Выбирать группу или сервис и открывать шаг
     /**
@@ -1369,7 +1365,7 @@ export default {
       // Сброс Duration, Price ???
       this.selectedDuration = new constants.DurationDefault();
       this.selectedPrice = new constants.PriceDefault();
-
+      this.calculate = new constants.calculateDefault();
     },
 
     updateTouristField(data) {
