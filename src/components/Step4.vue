@@ -208,7 +208,7 @@
                 v-for="(pcg, packageIndex) in data.servicePackages" :key="packageIndex"
             >
               <div class="kv-price kv-price_second kv-services-price__price">
-                <template v-if="packageSelected.id !== pcg.id">+&nbsp;</template>
+                <template v-if="packageSelected.id !== pcg.id"></template>
                 {{getPackagePrice(packageIndex)}}
                 <span class="kv-price__currency">€</span>
               </div>
@@ -265,12 +265,20 @@ export default {
     /**
      * Возращает цену сервис-пакета
      * @param {Number} packageIndex - порядковый номер пакета
-     * @return {Decimal}
+     * @return {string}
      */
     getPackagePrice(packageIndex) {
+      console.log('pi='+this.selectedTabIndex)
+      let price = 0;
+      let priceCurrent = 0;
       if (packageIndex >= 0) {
-        return this.data.servicePackages[packageIndex].price + this.getSelectedServicesPrice(packageIndex)
+        price = this.data.servicePackages[packageIndex].price + this.getSelectedServicesPrice(packageIndex);
+        if (this.selectedTabIndex && (packageIndex !== this.selectedTabIndex)) {
+          priceCurrent = this.data.servicePackages[this.selectedTabIndex - 1].price + this.getSelectedServicesPrice(this.selectedTabIndex - 1);
+        }
       }
+      const diffPrice = price - priceCurrent;
+      return diffPrice >= 0 ? `+ ${diffPrice}` : diffPrice;
     },
     /**
      * Сумма стоимостей добавленных услуг в пакет
