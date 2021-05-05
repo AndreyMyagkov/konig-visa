@@ -250,7 +250,7 @@ export default {
   },
   data() {
     return {
-      packageSelected: {}, //new constants.ServicePackage(),
+      packageSelected: {}, //this.selectedServicePackage, //Object.assign({}, this.selectedServicePackage), //new constants.ServicePackage(),
       serviceSelected: []
     }
   },
@@ -405,12 +405,13 @@ export default {
     }
   },
   mounted(){
+    //this.$emit('active');
     this.packageSelected = Object.assign({}, this.selectedServicePackage);
     this.serviceSelected = this.selectedSuppServices.map(_ => _.id);
     // Выбор первого возможного сервис-пакета, если он еще не выбран
-    // if (this.data.servicePackages !== null && this.data.servicePackages.length && this.packageSelected.id === null) {
-    //   this.selectPackage(this.data.servicePackages[0])
-    // }
+    if (this.data.servicePackages !== null && this.data.servicePackages.length && this.packageSelected.id === null) {
+       this.selectPackage(this.data.servicePackages[0])
+    }
 
   }
 }

@@ -25,7 +25,7 @@
 
           <!-- cart -->
 
-          <div class="kv-step-values__aside" v-if="calculate.calculation.participants.length">
+          <div class="kv-step-values__aside" v-if="calculate.calculation.participants.length && steps[2].isValid">
 
             <div class="kv-participants">
               <svg class="kv-participants__icon"><use href="#kv-icons_user"></use></svg>
@@ -1007,12 +1007,21 @@ export default {
     },
 
     /**
+     * Активация шага 4
+
+    Step4Active() {
+      //this.setFirstPackage();
+    },
+     */
+    /**
      * Выбор первого возможного сервис-пакета, если он еще не выбран
      */
     setFirstPackage() {
+      console.log('setFirstPackage')
       if (this.productDetails.servicePackages !== null && this.productDetails.servicePackages.length && this.selectedServicePackage.id === null) {
         //this.selectPackage(this.data.servicePackages[0])
-        this.changePackage(this.productDetails.servicePackages[0])
+        //this.changePackage(this.productDetails.servicePackages[0]);
+        console.log('setFirstPackage+')
       }
     },
 
@@ -1021,7 +1030,7 @@ export default {
      */
     async loadProductDetails() {
       if (this.productDetails.id &&  this.productDetails.id === this.selectedPrice.price.id) {
-        this.setFirstPackage();
+        //this.setFirstPackage();
         return false
       }
       try {
@@ -1037,7 +1046,7 @@ export default {
         this.isLoading = false;
 
         this.setResidenceRegionsRequired();
-        this.setFirstPackage();
+        //this.setFirstPackage();
 
       } catch (err) {
         this.isLoading = false;
