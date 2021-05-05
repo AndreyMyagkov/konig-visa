@@ -48,11 +48,11 @@
 
                 <div class="kv-cart-table">
 
-                  <div class="kv-cart-table__row" v-for="(item, i) in calculate.calculation.participants" :key="i">
-                    <div class="kv-cart-table__item">{{item.nr}}</div>
-                    <div class="kv-cart-table__item kv-cart-table__item_col">{{ tourists[i].gender }} {{tourists[i].name}} {{tourists[i].sname}}</div>
+                  <div class="kv-cart-table__row" v-for="(item, i) in tourists" :key="i">
+                    <div class="kv-cart-table__item">{{ (i+1) }}</div>
+                    <div class="kv-cart-table__item kv-cart-table__item_col">{{ item.gender }} {{item.name}} {{item.sname}}</div>
                     <div class="kv-price kv-cart-table__item">
-                      <template  v-if="item.price !== null">{{formatter.priceFormat(item.price)}}</template>
+                      <template  v-if="calculate.calculation.participants[i] && (calculate.calculation.participants[i].price !== null)">{{formatter.priceFormat(calculate.calculation.participants[i].price)}}</template>
                       <template v-else><span v-html="constants.dashSymbol"></span> </template>
                       <span class="kv-price__currency">€</span>
                     </div>
