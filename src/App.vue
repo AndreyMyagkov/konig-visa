@@ -1021,6 +1021,7 @@ export default {
      */
     async loadProductDetails() {
       if (this.productDetails.id &&  this.productDetails.id === this.selectedPrice.price.id) {
+        this.setFirstPackage();
         return false
       }
       try {
@@ -1202,9 +1203,10 @@ export default {
      */
     async countryChange(data) {
       // Конфирм сброса
-      if (this.confirmReset) {
-        const ok = await this.showResetConfirm();
-        if (ok) {
+      if (this.confirmReset &&
+          (this.selectedService.id || this.selectedPrice.price.id !== null || this.selectedServicePackage.id !== null || this.selectedSuppServices.length || this.selectedPostalService.id !== null)
+      ) {
+        if (await this.showResetConfirm()) {
           await this._countryChange(data)
         }
       } else {
@@ -1214,6 +1216,11 @@ export default {
 
     async _countryChange(data) {
       this.selectedCountry = data;
+      this.selectedDuration = new constants.DurationDefault();
+      this.selectedPrice = new constants.PriceDefault();
+      this.calculate = new constants.calculateDefault();
+      this.resetStep4();
+      this.resetStep6();
       await this.loadServices();
     },
 
@@ -1274,7 +1281,9 @@ export default {
 
     async updateDuration(data){
       // Конфирм сброса
-      if (this.confirmReset) {
+      if (this.confirmReset &&
+          (this.selectedPrice.price.id !== null || this.selectedServicePackage.id !== null || this.selectedSuppServices.length || this.selectedPostalService.id !== null)
+      ) {
         if (await this.showResetConfirm()) {
           this._updateDuration(data)
         }
@@ -1290,7 +1299,10 @@ export default {
 
     async updatePrice(data) {
       // Конфирм сброса
-      if (this.confirmReset && this.selectedPrice.price.id !== null) {
+      //if (this.confirmReset && this.selectedPrice.price.id !== null) {
+      if (this.confirmReset &&
+          (this.selectedServicePackage.id !== null || this.selectedSuppServices.length || this.selectedPostalService.id !== null )
+      ) {
         if (await this.showResetConfirm()) {
           this._updatePrice(data)
         }
@@ -1333,7 +1345,8 @@ export default {
 
     async selectVisaType(item) {
       // Конфирм сброса
-      if (this.confirmReset) {
+      if (this.confirmReset &&
+          (this.selectedPrice.price.id !== null || this.selectedServicePackage.id !== null || this.selectedSuppServices.length || this.selectedPostalService.id !== null)      ) {
         if (await this.showResetConfirm()) {
           this._selectVisaType(item)
         }
@@ -1367,6 +1380,8 @@ export default {
       this.selectedDuration = new constants.DurationDefault();
       this.selectedPrice = new constants.PriceDefault();
       this.calculate = new constants.calculateDefault();
+      this.resetStep4();
+      this.resetStep6();
     },
 
     updateTouristField(data) {
