@@ -103,7 +103,7 @@
             :serviceGroupsSelected="serviceGroupsSelected"
             :setup="{
               country: selectedCountry,
-              serviceGroups: [selectedServiceGroup.id, selectedService.id],
+              serviceGroups: selectedServiceGroup.id ? [selectedServiceGroup.id, selectedService.id] : [selectedService.id],
               service: [selectedService.id],
             }"
             @update:country="countryChange"
@@ -1383,7 +1383,13 @@ export default {
       } else {
         this.selectedService = item;
         //this.selectedServiceGroup = new this.constants.ServicesDefault();
-        this.selectedServiceGroup.id = item.srvGrpId;
+        //this.selectedServiceGroup.id = item.srvGrpId ? item.srvGrpId : '-';
+
+        if (item.srvGrpId) {
+          this.selectedServiceGroup.id = item.srvGrpId;
+        } else {
+          this.selectedServiceGroup = new this.constants.ServicesDefault();
+        }
       }
 
       this.serviceGroups.forEach(_ => {
