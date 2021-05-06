@@ -14,7 +14,7 @@
         name:'Russian Federation'
       };
       $v.tourists.$each.$iter[0].residenceRegion.$model = {
-        code:'DEU\BW',
+        code:'DEU\\BW',
         name:'Deutschland, Baden-Württemberg'
       }; isValid();
     ">Тестовые данные</button>
@@ -341,6 +341,7 @@ export default {
      */
     deleteTourist(index) {
       this.$emit('deleteTourist', index);
+      if (!this.$v.tourists.$anyDirty) {this.$v.$touch();}
       this.isValid();
     },
     /**
@@ -438,6 +439,10 @@ export default {
 .kv-form__item .vs__dropdown-toggle,
 .vs__dropdown-toggle {
   border: none;
+}
+
+.kv_is-focused .kv-form__sel {
+  padding-top: 10px;
 }
 
 /*

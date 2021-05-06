@@ -212,7 +212,8 @@
                   servicePackage: this.selectedServicePackage,
                   suppServices: this.selectedSuppServices,
                   calculate: this.calculate,
-                  discounts: this.productDetails.discounts
+                  discounts: this.productDetails.discounts,
+                  servedResidenceRegions: this.productDetails.servedResidenceRegions
 
                }"
                @setStep="setStep"
@@ -1040,7 +1041,15 @@ export default {
         if (response.status >= 400 && response.status < 600) {
           throw new Error(productDetails.Message);
         }
-
+/*
+        if (productDetails.product.servedResidenceRegions !==null) {
+          productDetails.product.servedResidenceRegions.map(item => {
+            //item.code = item.code.replace(/\\/g, "\\\\");
+            //item.code = item.code.replace(/\\/g, "*");
+            return item
+          })
+        }
+*/
         this.productDetails = productDetails.product;
 
         this.isLoading = false;
@@ -1522,7 +1531,7 @@ export default {
                 }
               },
               delivery: {
-                method: ((this.delivery.type == 3) ? "pick-up" : "post"), // ??
+                method: this.calculate.deliveryMedia === "digital" ? "electronic" : ((this.delivery.type == 3) ? "pick-up" : "post"),
                 pickupPointId: ((this.delivery.type == 3) ? this.delivery.branch.id : null),
                 postalServiceId: ((this.delivery.type == 2) ? this.selectedPostalService.id : null),
                 deliveryAddress: (this.delivery.type == 2) ? {

@@ -57,8 +57,8 @@
           <th class="kv-review-members__item_title">№</th>
           <th class="kv-review-members__item_title">{{ $lng('step7.nameSurname') }}</th>
           <th class="kv-review-members__item_title">{{ $lng('step7.nationality') }}</th>
-          <th class="kv-review-members__item_title">{{ $lng('step7.location') }}</th>
-          <th class="kv-review-members__item_title">{{ $lng('step7.additionally') }}</th>
+          <th class="kv-review-members__item_title" v-if="isShowResidenceRegion">{{ $lng('step7.location') }}</th>
+          <th class="kv-review-members__item_title" v-if="isShowDiscount">{{ $lng('step7.additionally') }}</th>
           <th class="kv-review-members__item_title"> </th>
         </tr>
         </thead>
@@ -67,8 +67,8 @@
           <td class="kv-review-members__item">{{index+1}}</td>
           <td class="kv-review-members__item">{{item.gender}} {{item.name}} {{item.sname}}</td>
           <td class="kv-review-members__item">{{item.nationality.name}}</td>
-          <td class="kv-review-members__item">{{item.residenceRegion.name}}</td>
-          <td class="kv-review-members__item">{{getTouristDiscount(index)}}</td>
+          <td class="kv-review-members__item" v-if="isShowResidenceRegion">{{item.residenceRegion.name}}</td>
+          <td class="kv-review-members__item" v-if="isShowDiscount">{{getTouristDiscount(index)}}</td>
           <td class="kv-review-members__item">
             <div class="kv-edit" @click="setStep({step:3, block: '#kv-tourist-'+index})">
               <svg class="kv-edit__icon">
@@ -178,7 +178,7 @@
     </div>
 
 
-    <div class="kv-row kv-review__row kv-review__item kv-review__row_gap">
+    <div class="kv-row kv-review__row kv-review__item">
 
 
       <!-- Информация о клиенте -->
@@ -339,6 +339,16 @@ export default {
       }
 
       return `${discountName} ${touristBirthDate}`
+    }
+  },
+  computed: {
+    isShowResidenceRegion() {
+      return this.data.servedResidenceRegions !== null
+      //return this.data.tourists.some(item => item.residenceRegion.code !== null)
+    },
+    isShowDiscount() {
+      return this.data.discounts !== null
+      //return this.data.tourists.some(item => item.discount !== null)
     }
   }
 }
