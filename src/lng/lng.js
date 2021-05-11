@@ -12,6 +12,11 @@ export const lng = {
             "btnNo": "Nein",
             "error": "Error"
         },
+        "price": {
+            "header": "Расчет примерной стоимости для одного человека",
+            "subtype": "Подтип визы",
+            "selectSubtypePlaceholder": "Auswählen"
+        },
         "step1": {
             "crumb": "Buchungsauftrag",
             "header": "Buchungsauftrag",
@@ -167,13 +172,18 @@ export const lng = {
             "btnNo": "Нет",
             "error": "Ошибка"
         },
+        "price": {
+            "header": "Расчет примерной стоимости для одного человека",
+            "subtype": "Подтип визы",
+            "selectSubtypePlaceholder": "Выберите"
+        },
         "step1": {
             "crumb": "Buchungsauftrag",
             "header": "Buchungsauftrag",
             "countryLabel": "Выберите страну назначения:",
             "countryPlaceholder": "Выберите",
             "serviceGrpLabel": "Выберите группу:",
-            "serviceLabel": "Выберите подтип визы:"
+            "serviceLabel": "Выберите подтип визы:",
         },
         "step2": {
             "crumb": "Aufenthaltsdauer",

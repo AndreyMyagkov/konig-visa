@@ -254,45 +254,37 @@
 
     <div class="kv-content" v-if="CONFIG.mode === 'price'">
 
-        <div class="kv-content__body">
+      <!-- Step Header -->
+      <StepHeader icon="step_2" :text="$lng('price.header')"/>
+      <!-- /Step Header -->
 
-          <div class="kv-buch">
-            <div class="kv-buch__row">
-            <!-- Services -->
-            <div class="kv-buch__col">
-              <div class="kv-buch__col-inner"  v-if="serviceGroupsSelected.length">
-                <div class="kv-buch__title">Выберите подтип визы:</div>
-                <VisaTypes
-                    :data="serviceGroupsSelected"
-                    :selected="[selectedService.id]"
-                    @change="selectVisaType"
-                    @showModal="showModal"
-                >
-                </VisaTypes>
+      <div class="kv-content__body">
 
+
+
+
+          <!-- select subtype -->
+          <div class="kv-pre-staying kv-mb-30" v-if="serviceGroupsSelected.length">
+            <div class="kv-horizontal-labeling">
+              <div class="kv-label">{{ $lng('price.subtype') }}</div>
+              <div class="kv-select kv-flex-grow-1">
+                <div class="kv-select__badge">
+                  <svg class="kv-select__icon">
+                    <use href="#kv-icons_home"></use>
+                  </svg>
+                </div>
+                <select class="kv-select__input" v-model="priceVisaTypeModel">
+                  <option value="null">{{ $lng('price.selectSubtypePlaceholder') }}</option>
+                  <option :value="item.id" v-for="item in serviceGroupsSelected" :key="item.id">{{ item.name }}</option>
+                </select>
+                <svg class="kv-selct__arrow">
+                  <use href="#kv-icons_arrow_down"></use>
+                </svg>
               </div>
             </div>
-          <!-- /Services -->
-        </div>
           </div>
+          <!-- /select subtype -->
 
-           <!-- Step 1 -->
-          <Step1
-              :countries="countries"
-              :serviceGroups="serviceGroups"
-              :serviceGroupsSelected="serviceGroupsSelected"
-              :setup="{
-                country: selectedCountry,
-                serviceGroups: [selectedServiceGroup.id, selectedService.id],
-                service: [selectedService.id],
-              }"
-              @update:country="countryChange"
-              @update:service="selectVisaType"
-              @showModal="showModal()"
-              @active="loadStep1Data"
-          ></Step1>
-          <!-- /Step 1 -->
-          <br><br>
           <!-- STEP 2 -->
           <Step2
               :serviceDetails="serviceDetails"
@@ -609,7 +601,11 @@ export default {
       if (this.CONFIG.product && !this.selectedPrice.price.id && this.CONFIG.mode === "default") {
         await this.setDefaultProduct();
 
-      } else {
+      } else if (this.CONFIG.mode === "price") {
+        this.loadStep1Data();
+      }
+
+      else {
         this.currentStep = 1;
       }
 
@@ -1412,6 +1408,8 @@ export default {
       this.resetStep6();
     },
 
+
+
     updateTouristField(data) {
       this.tourists[data.index][data.field] = data.value;
     },
@@ -1782,6 +1780,21 @@ export default {
       } else {
         return this.constants.dashSymbol
       }
+    },
+
+    /* Price mode */
+    priceVisaTypeModel: {
+      get () {
+        if (this.CONFIG.service) {
+          return this.serviceGroupsSelected.find(item => item.id === this.CONFIG.service).id;
+        }
+        return null
+      },
+      set (value) {
+        if (value) {
+          this.selectVisaType(this.serviceGroupsSelected.find(item => item.id === value))
+        }
+      },
     },
 
 
