@@ -111,7 +111,11 @@
 
       <!-- Processing days-->
       <div class="kv-processing-days kv-processing-days_slide"  v-if="setup.duration.name && prices.state === 0">
-        <div class="kv-processing-days__inner kv-processing-days__inner-showed-action-label-">
+        <div class="kv-processing-days__inner"
+             :class="{
+              'kv-processing-days__inner-showed-action-label': setup.redirectUrl && setup.mode === 'price' && setup.price.price.id
+          }">
+
           <!-- day -->
           <div class="kv-processing-days__item" v-for="(item, i) in prepareProductsPricesArr" :key="i">
             <div class="kv-processing-day" :class="{
@@ -157,7 +161,13 @@
                 </div>
                 <!-- /item -->
 
-                <a class="kv-processing-day__action-label" href="#">{{ $lng('step2.order') }}</a>
+                <a
+                    class="kv-processing-day__action-label"
+                    :href="`${setup.redirectUrl}?product=${setup.price.price.id}`"
+                    v-if="isActiveCurrentPriceBlock(i)"
+                >
+                  {{ $lng('step2.order') }}
+                </a>
 
                 <div
                     class="kv-processing-day__text kv-user-text"
@@ -429,25 +439,3 @@ export default {
 
 }
 </script>
-
-<style scoped>
-/*
-FIXME: не надо, удалить 28 апр
-.kv-app .kv-processing-day.kv-processing-day_disabled.kv-processing-day_active .kv-processing-day__body {
-  border: 3px solid var(--c-disabled_dark);
-}
-
-.kv-app .kv-staying .kv-staying__list {
-  flex-wrap: nowrap;
-  overflow: auto;
-}
-*/
-
-/*
-FIXME: отдал в верстку, удалить
-.kv-app .kv-processing-day-chb input[disabled]:checked ~ .kv-processing-day-chb__inner {
-  background-color: hsl(0deg 0% 0% / 10%);
-}
-*/
-
-</style>

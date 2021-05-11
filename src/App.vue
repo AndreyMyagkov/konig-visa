@@ -125,7 +125,9 @@
               nationality: CONFIG.nationality,
               residenceRegions: CONFIG.residenceRegions,
               duration: selectedDuration,
-              price: selectedPrice
+              price: selectedPrice,
+              redirectUrl: CONFIG.redirectUrl,
+              mode: CONFIG.mode
             }"
 
             @active="loadStep2Data"
@@ -301,7 +303,9 @@
                 nationality: CONFIG.nationality,
                 residenceRegions: CONFIG.residenceRegions,
                 duration: selectedDuration,
-                price: selectedPrice
+                price: selectedPrice,
+                redirectUrl: CONFIG.redirectUrl,
+                mode: CONFIG.mode
               }"
 
               @active="loadStep2Data"
