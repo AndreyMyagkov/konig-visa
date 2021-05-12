@@ -53,7 +53,7 @@
 
               >
                 <div class="kv-price kv-price_second kv-services-price__price">
-                  <template v-if="packageSelected.id !== pcg.id">+&nbsp;</template>
+                  <template v-if="packageSelected.id !== pcg.id"></template>
                   {{getPackagePrice(index)}}
                   <span class="kv-price__currency">€</span>
                 </div>
@@ -89,6 +89,37 @@
         </div>
       </div>
       <!-- /Tabs -->
+
+
+      <!-- Class footer-->
+      <div class="kv-service-pack__header kv-service-pack__header-showed">
+        <div class="kv-service-pack__prices">
+
+          <div
+              class="kv-services-price kv-service-pack__price"
+              :class="{
+                  'kv-services-price_active':  packageSelected.id === pcg.id,
+                  'kv-services-price_showed': (packageIndex +1) === selectedTabIndex
+                }"
+              v-for="(pcg, packageIndex) in data.servicePackages" :key="packageIndex"
+          >
+            <div class="kv-price kv-price_second kv-services-price__price">
+              <template v-if="packageSelected.id !== pcg.id"></template>
+              {{getPackagePrice(packageIndex)}}
+              <span class="kv-price__currency">€</span>
+            </div>
+            <div class="kv-services-price__person">{{ $lng('step4.perPerson') }}</div>
+            <div
+                class="kv-services-price__btn"
+                @click="selectPackage(pcg)"
+                v-if="packageSelected.id !== pcg.id">
+              {{ $lng('step4.select') }}
+            </div>
+          </div>
+
+
+        </div>
+      </div>
 
       <!-- Services -->
       <div class="kv-services kv-services-showed">

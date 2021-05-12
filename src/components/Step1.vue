@@ -4,7 +4,7 @@
     <div class="kv-buch__row">
 
       <!-- Country -->
-      <div class="kv-buch__col">
+      <div class="kv-buch__col kv-buch__col-mobile-expand">
 
         <div class="kv-buch__col-inner">
           <div class="kv-buch__title">{{$lng('step1.countryLabel')}}</div>
