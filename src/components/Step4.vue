@@ -3,7 +3,9 @@
 
     <div class="kv-content__text" v-html="data.servicePackagesInfo"></div>
 
-    <div :class="{
+    <div
+        class="kv-service-pack__wrapper"
+        :class="{
       'kv-service-pack_empty': data.suppServices === null || !data.suppServices.length
       }">
 
@@ -14,24 +16,26 @@
           <!-- List -->
           <!-- kv-class-tabs__list_show-price -->
           <div class="kv-class-tabs__list" :class="{
-            'kv-class-tabs__list_show-price': data.suppServices !== null && data.suppServices.length > 3
+            'kv-class-tabs__list_show-price': data.suppServices !== null
           }">
 
             <!-- Class tab-->
             <div
                 class="kv-class-tabs__item"
                 v-for="(pcg, index) in data.servicePackages"
+                @click="showPackage(pcg)"
                 :key="`tab-top-${index}`">
 
               <div data-cq-max-w="94"
                    class="kv-class-tab"
                    :class="{
                         'kv-class-tab_active': packageSelected.id === pcg.id,
+                        'kv-services-price_showed': packageShowed === pcg.id
                    }"
                    style="position: relative;"
                 >
                 <div class="kv-class-tab__body">
-                  <svg class="kv-class-tab__info" @click="$emit('showModal', pcg.description, pcg.name)">
+                  <svg class="kv-class-tab__info" @click.stop="$emit('showModal', pcg.description, pcg.name)">
                     <use href="#kv-icons_info"></use>
                   </svg>
                   <div class="kv-class-tab__rate">
@@ -41,31 +45,33 @@
                   </div>
                   <div class="kv-class-tab__title">{{pcg.name}}</div>
                 </div>
-              </div>
-
-              <!-- select button/price -->
-              <div
-                  class="kv-services-price  kv-services-price_top"
-                  :class="{
+                <!-- select button/price -->
+                <div
+                    class="kv-services-price  kv-services-price_top"
+                    :class="{
                   'kv-services-price_active':  packageSelected.id === pcg.id,
                   'kv-services-price_active_top': packageSelected.id === pcg.id
                 }"
 
-              >
-                <div class="kv-price kv-price_second kv-services-price__price">
-                  <template v-if="packageSelected.id !== pcg.id"></template>
-                  {{getPackagePrice(index)}}
-                  <span class="kv-price__currency">€</span>
+                >
+                  <div class="kv-price kv-price_second kv-services-price__price">
+                    <template v-if="packageSelected.id !== pcg.id"></template>
+                    {{getPackagePrice(index)}}
+                    <span class="kv-price__currency">€</span>
+                  </div>
+                  <div class="kv-services-price__person">{{ $lng('step4.perPerson') }}</div>
+                  <div
+                      class="kv-services-price__btn"
+                      @click="selectPackage(pcg)"
+                      v-if="packageSelected.id !== pcg.id">
+                    Выбрать
+                  </div>
                 </div>
-                <div class="kv-services-price__person">{{ $lng('step4.perPerson') }}</div>
-                <div
-                    class="kv-services-price__btn"
-                    @click="selectPackage(pcg)"
-                    v-if="packageSelected.id !== pcg.id">
-                  Выбрать
-                </div>
+                <!-- /select button/price -->
+
               </div>
-              <!-- /select button/price -->
+
+
 
             </div>
 
@@ -92,14 +98,18 @@
 
 
       <!-- Class footer-->
-      <div class="kv-service-pack__header kv-service-pack__header-showed">
+      <div class="kv-service-pack__header"
+           :class="{
+            'kv-service-pack__header-showed': isTopButtonsShow_
+            }">
         <div class="kv-service-pack__prices">
 
           <div
               class="kv-services-price kv-service-pack__price"
               :class="{
                   'kv-services-price_active':  packageSelected.id === pcg.id,
-                  'kv-services-price_showed': (packageIndex +1) === selectedTabIndex
+                  //'kv-services-price_showed': (packageIndex +1) === selectedTabIndex
+                   'kv-services-price_showed': packageShowed === pcg.id
                 }"
               v-for="(pcg, packageIndex) in data.servicePackages" :key="packageIndex"
           >
@@ -234,7 +244,8 @@
                 class="kv-services-price kv-service-pack__price"
                 :class="{
                   'kv-services-price_active':  packageSelected.id === pcg.id,
-                  'kv-services-price_showed': (packageIndex +1) === selectedTabIndex
+                  //'kv-services-price_showed': (packageIndex +1) === selectedTabIndex
+                   'kv-services-price_showed': packageShowed === pcg.id
                 }"
                 v-for="(pcg, packageIndex) in data.servicePackages" :key="packageIndex"
             >
@@ -281,8 +292,10 @@ export default {
   },
   data() {
     return {
-      packageSelected: {}, //this.selectedServicePackage, //Object.assign({}, this.selectedServicePackage), //new constants.ServicePackage(),
-      serviceSelected: []
+      packageSelected: {id: null }, //this.selectedServicePackage, //Object.assign({}, this.selectedServicePackage), //new constants.ServicePackage(),
+      packageShowed: null,
+      serviceSelected: [],
+      isTopButtonsShow_: false
     }
   },
   methods: {
@@ -324,11 +337,13 @@ export default {
       })
 
       //Сумма платных
-      this.data.suppServices.forEach(item => {
-        if (paidServices.includes(item.id)) {
-          sum = sum + item.price;
-        }
-      })
+      if (this.data.suppServices !== null) {
+        this.data.suppServices.forEach(item => {
+          if (paidServices.includes(item.id)) {
+            sum = sum + item.price;
+          }
+        })
+      }
       return sum;
     },
     /**
@@ -337,8 +352,17 @@ export default {
      */
     selectPackage(pcg) {
       this.packageSelected = pcg;
+      if (this.packageShowed === null) {
+        this.packageShowed = pcg.id
+      }
       this.$emit('changePackage',pcg);
       this.$emit('calculate');
+    },
+    /**
+     * Показать пакет
+     */
+    showPackage(pcg) {
+      this.packageShowed = pcg.id;
     },
     /**
      * Выбрать услугу в  пакете
@@ -351,7 +375,36 @@ export default {
 
       this.$emit('changeSuppService',suppServices);
       this.$emit('calculate');
+    },
+    /**
+     * Показываем ли кнопки под табами
+     */
+    isTopButtonsShow() {
+      // высота экрана
+      const windowHeight = document.documentElement.clientHeight;
+
+      // высота шапки
+      const headerHeight = document.querySelector('#kv-app .kv-header').getBoundingClientRect().height;
+
+      // Паддинги сверху, снизу
+      const addHeight = 15 + 15;
+
+      // Высота таблицы
+      const infoHeight = document.querySelector('.kv-service-pack__wrapper') ? document.querySelector('.kv-service-pack__wrapper').getBoundingClientRect().height : 0;
+
+      const freeHeight = windowHeight - headerHeight - addHeight;
+
+      const visibleTopButtons = !(freeHeight >= infoHeight);
+      console.log(`wH=${windowHeight}`);
+      console.log(`hH=${headerHeight}`);
+      console.log(`iH=${infoHeight}`);
+      console.log(``);
+      console.log(`fH=${freeHeight}`);
+      console.log(visibleTopButtons)
+      //return visibleTopButtons
+      this.isTopButtonsShow_ = visibleTopButtons
     }
+
   },
   computed: {
     selectedTabIndex() {
@@ -364,6 +417,21 @@ export default {
       }
       return selectedTab
     },
+
+    showedTabIndex() {
+      let showedTab = 1;
+      // if (this.packageShowed === null) {
+      //   return null
+      // }
+      if (this.data.servicePackages !== null && this.data.servicePackages.length) {
+        showedTab = this.data.servicePackages.findIndex(item => item.id === this.packageShowed) + 1;
+        if (showedTab) {
+          return showedTab
+        }
+      }
+      return showedTab
+    },
+
     tabClasses() {
       if (this.data.servicePackages === null || !this.data.servicePackages.length) {
         return {
@@ -373,15 +441,13 @@ export default {
       let isLeft = false;
       let isRight = false;
       let isCenter = false;
-      let tabsHalfIndex;
+      //let tabsHalfIndex;
 
       const tabCount = this.data.servicePackages.length;
-      const selectedTabIndex = this.selectedTabIndex;
+      const selectedTabIndex = this.showedTabIndex ? this.showedTabIndex : this.selectedTabIndex;
       const isTabsEven = tabCount % 2 === 0;
 
-      console.log('табы')
-      console.log(selectedTabIndex)
-      console.log(tabCount)
+
       // Четное кол-во табов
       if (isTabsEven) {
         let tabsHalfIndex = tabCount / 2;
@@ -418,7 +484,9 @@ export default {
       }
 
       const tabCount = this.data.servicePackages.length;
-      const selectedTabIndex = this.selectedTabIndex;
+      //const selectedTabIndex = this.selectedTabIndex;
+      const selectedTabIndex = this.showedTabIndex ? this.showedTabIndex : this.selectedTabIndex;
+
       const isTabsEven = tabCount % 2 === 0;
       let tabsHalfIndex;
       let offset;
@@ -433,26 +501,49 @@ export default {
         offset =  Math.abs(selectedTabIndex - tabsHalfIndex);
         return tabWidth * offset
       }
-    }
+    },
+
   },
   mounted(){
     //this.$emit('active');
     this.packageSelected = Object.assign({}, this.selectedServicePackage);
+    this.packageShowed = this.packageSelected.id
     this.serviceSelected = this.selectedSuppServices.map(_ => _.id);
     // Выбор первого возможного сервис-пакета, если он еще не выбран
     if (this.data.servicePackages !== null && this.data.servicePackages.length && this.packageSelected.id === null) {
-       this.selectPackage(this.data.servicePackages[0])
+      this.selectPackage(this.data.servicePackages[0])
     }
+    setTimeout(() => {this.isTopButtonsShow()}, 100);
+
 
   }
 }
 </script>
 
 <style scoped>
-/* FIXME: del 28 апр
-.kv-service-pack_empty .kv-class-tabs__list .kv-services-price_top {
-  display: none !important;
+.kv-app[max-width~="991px"] .kv-class-tabs__item .kv-services-price__btn {
+  display: none;
 }
-*/
 
+/* центрируем пакеты, если нет услуг */
+.kv-app .kv-service-pack_empty .kv-class-tabs
+/*.kv-app .kv-service-pack_empty .kv-service-pack__header*/
+{
+  justify-content: center;
+}
+/* убираем дублирование цен в верхних табах, если нет услуг */
+.kv-app .kv-service-pack_empty .kv-service-pack__header {
+  display: none;
+}
+/* убираем курсор с табов, кроме [i] */
+.kv-app .kv-class-tab__body, .kv-app .kv-class-tab__body * {
+  cursor: default;
+}
+.kv-app .kv-class-tab__info, .kv-app .kv-class-tab__info * {
+  cursor: pointer;
+}
+/* убираем бордюр у активного таба сверху*/
+.kv-app .kv-services-price_active.kv-services-price_active_top {
+  border: none;
+}
 </style>

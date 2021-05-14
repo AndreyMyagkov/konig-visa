@@ -13,8 +13,8 @@ export const lng = {
             "error": "Error"
         },
         "price": {
-            "header": "Расчет примерной стоимости для одного человека",
-            "subtype": "Подтип визы",
+            "header": "Visum Kalkulator",
+            "subtype": "Visum-Art",
             "selectSubtypePlaceholder": "Auswählen"
         },
         "step1": {

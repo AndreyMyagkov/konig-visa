@@ -1925,7 +1925,7 @@ export default {
 
 .kv-app .kv-form__item input:not(:placeholder-shown) ~ .kv-form__label,
 .kv-app .kv-form__item input:focus ~ .kv-form__label,
-.kv-app .kv-form__item select:focus ~ .kv-form__label,
+/*.kv-app .kv-form__item select:focus ~ .kv-form__label,*/
 .kv-app .kv-form__item.kv_is-focused .kv-form__label,
 .kv-app .kv_is-focused .kv-form__label {
   top: 3px;
@@ -1933,7 +1933,7 @@ export default {
   line-height: 25px;
 }
 
-
+/*
 .kv-app .kv-form__label {
   pointer-events: auto;
   top: 0;
@@ -1943,7 +1943,7 @@ export default {
   line-height: 60px;
   z-index: 1;
 }
-
+*/
 .kv-form__sublabel {
   position: absolute;
   bottom: 3px;
