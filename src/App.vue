@@ -824,12 +824,13 @@ export default {
      */
     scrollTo(element) {
       console.log('прокрутка ', element);
+      let elementTarget;
       if (element === null) {
-        return
+        //return
+        elementTarget = document.querySelector('.kv-content__header');
+      } else {
+        elementTarget = document.querySelector(element);
       }
-
-
-      const elementTarget = document.querySelector(element);
 
       console.log(elementTarget);
       if (elementTarget === null) {
