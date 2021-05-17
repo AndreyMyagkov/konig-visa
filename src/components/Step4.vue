@@ -22,16 +22,16 @@
             <!-- Class tab-->
             <div
                 class="kv-class-tabs__item"
+                :class="{
+                        'kv-class-tab_active': packageSelected.id === pcg.id,
+                        'kv-services-price_showed': packageShowed === pcg.id
+                   }"
                 v-for="(pcg, index) in data.servicePackages"
                 @click="showPackage(pcg)"
                 :key="`tab-top-${index}`">
 
-              <div data-cq-max-w="94"
+              <div
                    class="kv-class-tab"
-                   :class="{
-                        'kv-class-tab_active': packageSelected.id === pcg.id,
-                        'kv-services-price_showed': packageShowed === pcg.id
-                   }"
                    style="position: relative;"
                 >
                 <div class="kv-class-tab__body">
@@ -45,33 +45,33 @@
                   </div>
                   <div class="kv-class-tab__title">{{pcg.name}}</div>
                 </div>
-                <!-- select button/price -->
-                <div
-                    class="kv-services-price  kv-services-price_top"
-                    :class="{
+
+
+              </div>
+
+              <!-- select button/price -->
+              <div
+                  class="kv-services-price  kv-services-price_top"
+                  :class="{
                   'kv-services-price_active':  packageSelected.id === pcg.id,
                   'kv-services-price_active_top': packageSelected.id === pcg.id
                 }"
 
-                >
-                  <div class="kv-price kv-price_second kv-services-price__price">
-                    <template v-if="packageSelected.id !== pcg.id"></template>
-                    {{getPackagePrice(index)}}
-                    <span class="kv-price__currency">€</span>
-                  </div>
-                  <div class="kv-services-price__person">{{ $lng('step4.perPerson') }}</div>
-                  <div
-                      class="kv-services-price__btn"
-                      @click="selectPackage(pcg)"
-                      v-if="packageSelected.id !== pcg.id">
-                    Выбрать
-                  </div>
+              >
+                <div class="kv-price kv-price_second kv-services-price__price">
+                  <template v-if="packageSelected.id !== pcg.id"></template>
+                  {{getPackagePrice(index)}}
+                  <span class="kv-price__currency">€</span>
                 </div>
-                <!-- /select button/price -->
-
+                <div class="kv-services-price__person">{{ $lng('step4.perPerson') }}</div>
+                <div
+                    class="kv-services-price__btn"
+                    @click="selectPackage(pcg)"
+                    v-if="packageSelected.id !== pcg.id">
+                  Выбрать
+                </div>
               </div>
-
-
+              <!-- /select button/price -->
 
             </div>
 
@@ -155,7 +155,8 @@
             <div
                 class="kv-class__item"
                 :class="{
-                  'kv-class__item_active': packageSelected.id === pcg.id,
+                  'kv-class__item_active': packageSelected.id === pcg.id && packageShowed === pcg.id,
+                  'kv-class__item_showed': packageShowed === pcg.id && packageSelected.id !== pcg.id,
                   'kv-class__item_checked': serviceSelected.indexOf(item.id) !== -1,
                   'kv-class__item_add': isIncluded(item.id, packageIndex)
                 }"
@@ -546,4 +547,10 @@ export default {
 .kv-app .kv-services-price_active.kv-services-price_active_top {
   border: none;
 }
+
+
+
+/**/
+
+
 </style>

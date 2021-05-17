@@ -6,21 +6,21 @@
       <div class="kv-payment__item" v-if="isAllow('prepayment')">
         <div class="kv-payment-chb">
           <div class="kv-payment-chb__top">
-            <picture>
-              <!--<source :srcset="require('@/assets/img/payment/payment_1.webp')" type="image/webp">-->
-              <img class="kv-payment-chb__icon" :src="require('@/assets/img/payment/payment_1.png')" alt="img">
-            </picture>
-            <div class="kv-payment-chb__title">Vorkasse</div>
-            <label class="kv-payment-chb__item">
+            <label class="kv-form-radio">
               <input
                   type="radio"
                   name="payment"
                   value="prepayment"
                   v-model="paymentType"
                   @change="changePaymentType">
-              <span class="kv-checkbox__box">
-              <svg><use href="#kv-icons_check"></use></svg>
-            </span>
+              <span class="kv-form-radio__mark">
+                <svg><use href="#kv-icons_form_radio"></use></svg>
+              </span>
+              <picture>
+                <!--<source :srcset="require('@/assets/img/payment/payment_1.webp')" type="image/webp">-->
+                <img class="kv-payment-chb__icon" :src="require('@/assets/img/payment/payment_1.png')" alt="img">
+              </picture>
+              <div class="kv-payment-chb__title">Vorkasse</div>
             </label>
           </div>
         </div>
@@ -81,12 +81,7 @@
       <div class="kv-payment__item"  v-if="isAllow('SEPA direct debit')">
         <div class="kv-payment-chb">
           <div class="kv-payment-chb__top">
-            <picture>
-              <!--<source :srcset="require('@/assets/img/payment/payment_4.webp')">-->
-              <img class="kv-payment-chb__icon" :src="require('@/assets/img/payment/payment_4.png')" alt="img">
-            </picture>
-            <div class="kv-payment-chb__title">Kontoeinzug (SEPA Lastschrift)</div>
-            <label class="kv-payment-chb__item">
+            <label class="kv-form-radio">
               <input
                   type="radio"
                   name="payment"
@@ -95,9 +90,14 @@
                   v-model="paymentType"
                   @change="changePaymentType"
               >
-              <span class="kv-checkbox__box">
-              <svg><use href="#kv-icons_check"></use></svg>
-            </span>
+              <span class="kv-form-radio__mark">
+                <svg><use href="#kv-icons_form_radio"></use></svg>
+              </span>
+              <picture>
+                <!--<source :srcset="require('@/assets/img/payment/payment_4.webp')">-->
+                <img class="kv-payment-chb__icon" :src="require('@/assets/img/payment/payment_4.png')" alt="img">
+              </picture>
+              <div class="kv-payment-chb__title">Kontoeinzug (SEPA Lastschrift)</div>
             </label>
           </div>
           <div class="kv-payment-chb__drop" :class="{
