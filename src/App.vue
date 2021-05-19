@@ -24,8 +24,8 @@
           </div>
 
           <!-- cart -->
-
-          <div class="kv-step-values__aside" v-if="calculate.calculation.participants.length && steps[2].isValid">
+          <!--  && steps[2].isValid -->
+          <div class="kv-step-values__aside" v-if="calculate.calculation.participants.length">
 
             <div class="kv-participants">
               <svg class="kv-participants__icon"><use href="#kv-icons_user"></use></svg>
@@ -86,6 +86,7 @@
       <PrevNextButtons
           :currentStep="currentStep"
           :allowNext="allowNext"
+          position="top"
           @prevStep="prevStep"
           @nextStep="nextStep"
           @sendOrder="sendOrder"
@@ -239,6 +240,7 @@
         <PrevNextButtons
             :currentStep="currentStep"
             :allowNext="allowNext"
+            position="bottom"
             @prevStep="prevStep"
             @nextStep="nextStep"
             @sendOrder="sendOrder"
@@ -426,7 +428,8 @@ export default {
         {
           crumb: 'Aufenthaltsdauer',
          // header: 'Расчет примерной стоимости для одного человека',
-          icon: 'step_2'
+          icon: 'step_2',
+          allowOrder: true
         },
         {
           crumb: 'Заполнение данных о туристах',
@@ -842,7 +845,11 @@ export default {
 
       const elementPosition = elementTarget.getBoundingClientRect().top;
 
-      const headerHeight = document.querySelector('#kv-app .kv-header').getBoundingClientRect().height;
+      const header =  document.querySelector('#kv-app .kv-header');
+      let headerHeight = 0
+      if (header) {
+        headerHeight = header.getBoundingClientRect().height;
+      }
       const topOffset = headerHeight + parentOffset;
 
       const offsetPosition = elementPosition + window.pageYOffset - topOffset;
@@ -992,10 +999,39 @@ export default {
           prices.prices = []
         }
         this.prices = prices;
+
+
+        // console.warn('***');
+        // console.log(`prices.state = ${prices.state}`);
+        // console.log(`id = ${this.selectedPrice.price.id}`)
+        // console.log(this.getPriceByProductId(this.selectedPrice.price.id))
+        // Если заказ невозможен
+        if (prices.state !== 0 /*|| (prices.state === 0 && this.selectedPrice.price.id && this.getPriceByProductId(this.selectedPrice.price.id) === null )*/ ) {
+          this.steps[1].allowOrder = false;
+          //this.calculate.amount = null
+        } else {
+          this.steps[1].allowOrder = true;
+        }
+
         this.isLoading = false;
       } catch (err) {
         this.isLoading = false;
         console.log(err)
+      }
+    },
+
+    /**
+     *  Возращает Цену по id продукта
+     */
+    getPriceByProductId(id) {
+      if (!this.prices.prices.length) {
+        return null;
+      }
+      const price = this.prices.prices.find(_ => _.productId === id);
+      if (price && 'price' in price) {
+        return price.price
+      } else {
+        return null
       }
     },
 
@@ -1065,7 +1101,6 @@ export default {
     },
 
     async sendCalculateAndValidate() {
-      console.log('Калькуляция, валидация');
       if (!this.selectedPrice.price.id) {
         this.calculate = new constants.calculateDefault();
         return
@@ -1114,7 +1149,12 @@ export default {
         }
         // Если заказ невозможен показываем попап
         if (calculate.state !== 0) {
-          this.showModal(calculate.stateDescription, "Заказ невозможен!");
+          /*if (this.tourists[0].nationality.codeA3) {
+            this.showModal(calculate.stateDescription, this.$lng('common.error'));
+          }*/
+          if (this.tourists.every(item => item.nationality.codeA3)) {
+            this.showModal(calculate.stateDescription, this.$lng('common.error'));
+          }
           this.steps[2].allowOrder = false;
         } else {
           this.steps[2].allowOrder = true;
@@ -1288,9 +1328,15 @@ export default {
     },
 
 
-    updateNationality(data){
+    async updateNationality(data){
       this.CONFIG.nationality = data;
-      this.loadPrices();
+      await this.loadPrices();
+      //await this.sendCalculateAndValidate();
+
+
+      this.resetStep4();
+      this.resetStep6();
+
     },
 
     updateResidenceRegions(data){
@@ -1332,10 +1378,18 @@ export default {
 
 
     _updatePrice(data) {
+      console.log('Обновление цены')
       this.selectedPrice = data;
       this.resetStep4();
       this.resetStep6();
       this.sendCalculateAndValidate();
+
+      // Если цена не доступна - не пускаем на 3-й шаг
+      // if (this.selectedPrice.price.id && this.getPriceByProductId(this.selectedPrice.price.id) === null) {
+      //   this.steps[1].allowOrder = false;
+      // } else {
+      //   this.steps[1].allowOrder = true;
+      // }
     },
   //  ПО выбору смотреть тип. Выбирать группу или сервис и открывать шаг
     /**
@@ -1653,7 +1707,11 @@ export default {
 
         this.isLoading = false;
         if (responseJSON.state >= 0) {
-          this.CONFIG.mode = "success"
+          this.CONFIG.mode = "success";
+          setTimeout(
+              () => {this.scrollTo(null)},
+              500
+          )
         } else {
           this.showModal(responseJSON.stateDescription, this.$lng("common.error"))
         }
@@ -1708,7 +1766,7 @@ export default {
 
       // TODO: проверка
       if (this.currentStep === 2) {
-        if (this.selectedPrice.price.price !== null) {
+        if (this.selectedPrice.price.price !== null && this.steps[1].allowOrder) {
           return true
         }
       }

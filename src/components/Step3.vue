@@ -26,13 +26,13 @@
       <!-- Form card-->
       <div class="kv-form-card"
            :class="{
-              'kv-form-card_error': (item.$anyDirty && item.$anyError) || item.$model.state !== 0
+              'kv-form-card_error': (item.$anyDirty && item.$anyError) || (item.$model.state !== 0 && item.$model.nationality.codeA3)
           }"
            :id="`kv-tourist-${index}`"
            v-for="(item, index) in $v.tourists.$each.$iter"
            :key="index">
 
-        <div class="kv-alert" v-if="item.$model.state !== 0" v-html="item.$model.stateDescription">
+        <div class="kv-alert" v-if="(item.$model.state !== 0 && item.$model.nationality.codeA3)" v-html="item.$model.stateDescription">
 
         </div>
 

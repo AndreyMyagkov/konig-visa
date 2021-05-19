@@ -1,6 +1,7 @@
 <template>
   <!-- Success Page-->
   <div class="kv-content">
+    <div class="kv-header"></div>
     <div class="kv-result kv-success">
       <div class="kv-result__main-icon kv-text-center">
         <svg>

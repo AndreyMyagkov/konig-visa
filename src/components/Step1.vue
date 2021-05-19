@@ -48,7 +48,7 @@
       <!-- /Groups -->
 
       <!-- Services -->
-      <div class="kv-buch__col">
+      <div class="kv-buch__col" id="kv-services">
         <div class="kv-buch__col-inner"  v-if="serviceGroupsSelected.length">
           <div class="kv-buch__title">{{$lng('step1.serviceLabel')}}</div>
           <VisaTypes

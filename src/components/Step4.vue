@@ -155,8 +155,8 @@
             <div
                 class="kv-class__item"
                 :class="{
-                  'kv-class__item_active': packageSelected.id === pcg.id && packageShowed === pcg.id,
-                  'kv-class__item_showed': packageShowed === pcg.id && packageSelected.id !== pcg.id,
+                  'kv-class__item_active': packageSelected.id === pcg.id /*&& packageShowed === pcg.id*/,
+                  'kv-class__item_showed': packageShowed === pcg.id /*&& packageSelected.id !== pcg.id*/,
                   'kv-class__item_checked': serviceSelected.indexOf(item.id) !== -1,
                   'kv-class__item_add': isIncluded(item.id, packageIndex)
                 }"
@@ -526,31 +526,10 @@ export default {
   display: none;
 }
 
-/* центрируем пакеты, если нет услуг */
-.kv-app .kv-service-pack_empty .kv-class-tabs
-/*.kv-app .kv-service-pack_empty .kv-service-pack__header*/
-{
-  justify-content: center;
-}
-/* убираем дублирование цен в верхних табах, если нет услуг */
-.kv-app .kv-service-pack_empty .kv-service-pack__header {
-  display: none;
-}
-/* убираем курсор с табов, кроме [i] */
-.kv-app .kv-class-tab__body, .kv-app .kv-class-tab__body * {
-  cursor: default;
-}
-.kv-app .kv-class-tab__info, .kv-app .kv-class-tab__info * {
-  cursor: pointer;
-}
-/* убираем бордюр у активного таба сверху*/
-.kv-app .kv-services-price_active.kv-services-price_active_top {
-  border: none;
-}
 
 
 
-/**/
+
 
 
 </style>

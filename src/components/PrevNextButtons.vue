@@ -40,7 +40,7 @@
         </button>
       </div>
       -->
-      <div class="kv-content__btn kv-content__btn_lg">
+      <div class="kv-content__btn kv-content__btn_lg" v-if="position === 'bottom'">
         <button class="kv-step-button kv-step-button_book" type="button" @click="sendOrder">
           <span class="kv-step-button__text">{{ $lng('common.btnOrderAndPay') }}</span>
         </button>
@@ -75,6 +75,9 @@ export default {
     },
     allowNext: {
       type: Boolean
+    },
+    position: {
+      type: String
     }
   },
   methods: {
