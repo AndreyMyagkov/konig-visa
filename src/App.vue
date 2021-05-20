@@ -1152,7 +1152,8 @@ export default {
           /*if (this.tourists[0].nationality.codeA3) {
             this.showModal(calculate.stateDescription, this.$lng('common.error'));
           }*/
-          if (this.tourists.every(item => item.nationality.codeA3)) {
+          /* && item.state === 0 */
+          if (this.tourists.every(item => item.nationality.codeA3 && item.gender !== '' )) {
             this.showModal(calculate.stateDescription, this.$lng('common.error'));
           }
           this.steps[2].allowOrder = false;
