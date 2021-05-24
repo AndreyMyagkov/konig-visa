@@ -11,10 +11,35 @@
         </div>
         <!-- /text -->
 
+
+
+
+        <hooper
+            :settings="hooperDurations"
+            class=" kv-staying__list-">
+
+            <!-- item -->
+            <slide class="story-carousel__slide" v-for="(item, index) in serviceDetails.durations" :key="item.name" :index="index">
+              <div class="kv-staying__item">
+                <div class="kv-staying-chb" :class="{'kv-staying-chb__active' : item.name === setup.duration.name}"  @click="selectDurations(item)">
+                  <div class="kv-staying-chb__text" v-html="item.nameHTML"></div>
+                  <div class="kv-staying-chb__info" @click.stop="$emit('showModal', item.description, item.name)">
+                    <svg class="kv-staying-chb__info-icon"><use href="#kv-icons_info"></use></svg>
+                  </div>
+                </div>
+              </div>
+            </slide>
+            <!-- /item -->
+
+          <hooper-navigation slot="hooper-addons"></hooper-navigation>
+          <hooper-pagination slot="hooper-addons"></hooper-pagination>
+        </hooper>
+
         <!-- Duration list -->
+        <!--
         <div class="kv-staying__list">
 
-          <!-- item -->
+           item
           <div class="kv-staying__item" v-for="(item) in serviceDetails.durations" :key="item.name">
             <div class="kv-staying-chb" :class="{'kv-staying-chb__active' : item.name === setup.duration.name}"  @click="selectDurations(item)">
               <div class="kv-staying-chb__text" v-html="item.nameHTML"></div>
@@ -23,9 +48,10 @@
               </div>
             </div>
           </div>
-          <!-- /item -->
+           /item
 
         </div>
+      -->
         <!-- /Staying list -->
 
         <div class="kv-staying__info" v-if="setup.duration.description">
@@ -217,11 +243,26 @@ import vSelect from "vue-select";
 import * as constants from "@/helpers/constants";
 import * as formatter from "@/helpers/format";
 
+//import { Carousel, Slide } from 'vue-snap'
+//import 'vue-snap/dist/vue-snap.css'
+
+import {
+  Hooper,
+  Slide,
+  Navigation as HooperNavigation,
+  Pagination as HooperPagination
+} from 'hooper';
+import 'hooper/dist/hooper.css';
+
 
 export default {
   name: "Step2",
   components: {
-    vSelect
+    vSelect,
+    Hooper,
+    Slide,
+    HooperNavigation,
+    HooperPagination
   },
   props: {
     serviceDetails: {
@@ -245,6 +286,16 @@ export default {
     return {
       constants,
       formatter,
+      hooperDurations: {
+        itemsToShow: 1.25,
+        trimWhiteSpace:true,
+        breakpoints: {
+          500: {itemsToShow: 2.25},
+          600: {itemsToShow: 3.25},
+          800: {itemsToShow: 4.25},
+          1000: {itemsToShow: 6}
+        }
+      }
       // Выбранная продолжительность
       //selectedDuration: Object.assign({}, this.setup.duration),
       //selectedDuration: this.setup.duration,
@@ -439,3 +490,169 @@ export default {
 
 }
 </script>
+
+<style>
+.hooper {
+  height: auto;
+}
+.hooper:not(.is-empty) {
+  margin: 0 auto;
+  max-width: calc(100% - 100px);
+}
+.hooper-prev {
+  left: -50px;
+}
+.hooper-next {
+  right: -50px;
+}
+.is-empty .hooper-navigation {
+  display: none;
+}
+
+.is-empty .hooper-pagination {
+  display: none;
+}
+
+
+.hooper-indicators li {
+  list-style-type: none;
+}
+.kv-staying .hooper-indicator {
+  background-color: var(--c-second);
+  cursor: pointer;
+}
+
+.kv-staying .hooper-indicator:hover,
+.kv-staying .hooper-indicator.is-active {
+  background-color: var(--c-success);
+}
+
+.kv-staying .hooper-pagination {
+  bottom: -12px;
+}
+
+
+
+.kv-app .kv-staying-chb {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.kv-app[max-width~="991px"] .hooper {
+  max-width: 100%;
+}
+.kv-app[max-width~="991px"] .hooper-navigation {
+  display: none;
+}
+.kv-app[min-width~="991px"] .hooper-pagination {
+  display: none;
+}
+
+
+
+.vs-carousel {
+  position: relative;
+}
+
+.vs-carousel__wrapper {
+  display: flex;
+   overflow-x: scroll;
+  /* overflow-y: hidden;
+   scroll-snap-type: x mandatory;
+   scroll-behavior: smooth;
+   scrollbar-width: none;
+   -webkit-overflow-scrolling: touch;
+   -ms-overflow-style: none;*/
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.vs-carousel__wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.vs-carousel__slide {
+  flex: 0 0 100%;
+  height: 100%;
+  /*scroll-snap-align: start;*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+}
+
+.vs-carousel__arrows {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.vs-carousel__arrows:disabled {
+  cursor: not-allowed;
+}
+
+.vs-carousel__arrows--left {
+  left: 0;
+}
+
+.vs-carousel__arrows--right {
+  right: 0;
+}
+
+
+
+.vs-carousel__arrows--left {
+  left: 0;
+}
+.vs-carousel__arrows--right {
+  right: 0;
+}
+
+.kv-app .vs-carousel__wrapper {
+  max-width: calc(100% - 100px);
+  margin: 0 auto;
+}
+.kv-app[max-width~="991px"] .vs-carousel__wrapper {
+  max-width: 100%;
+}
+.kv-app[max-width~="991px"] .vs-carousel__arrows {
+  display: none;
+}
+
+.kv-app .vs-carousel__arrows {
+  padding: 8px 12px;
+  border-radius: 6px;
+  height: 40px;
+  background-color: var(--c-success);
+  color:#fff;
+}
+.kv-app .vs-carousel__arrows[disabled] {
+  background-color: var(--c-disabled);
+  color:#fff;
+}
+.story-carousel--non-regular .vs-carousel__slide {
+  flex: 0 0 auto;
+}
+.story-carousel--multiple .story-carousel__slide{flex:0 0 100%}
+@media(min-width: 500px){
+  .story-carousel--multiple .story-carousel__slide{flex:0 0 50%}
+}
+@media(min-width: 768px){
+  .story-carousel--multiple .story-carousel__slide{flex:0 0 33.33%}
+}
+@media(min-width: 1024px){
+  .story-carousel--multiple .story-carousel__slide{flex:0 0 25%}
+}
+@media(min-width: 1280px) {
+  .story-carousel--multiple .story-carousel__slide{
+    flex:0 0 20%;
+    height: 200px;
+  }
+}
+</style>
