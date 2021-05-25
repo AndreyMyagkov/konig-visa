@@ -136,78 +136,91 @@
       <!-- /Processing-->
 
       <!-- Processing days-->
-      <div class="kv-processing-days kv-processing-days_slide"  v-if="setup.duration.name && prices.state === 0">
-        <div class="kv-processing-days__inner"
-             :class="{
+      <div
+          class="kv-processing-days kv-processing-days_slide-"
+          v-if="setup.duration.name && prices.state === 0">
+        <hooper
+            :settings="hooperPrice"
+            trimWhiteSpace
+            class="kv-processing-days__inner-"
+            :class="{
               'kv-processing-days__inner-showed-action-label': setup.redirectUrl && setup.mode === 'price' && setup.price.price.id
           }">
 
           <!-- day -->
-          <div class="kv-processing-days__item" v-for="(item, i) in prepareProductsPricesArr" :key="i">
-            <div class="kv-processing-day" :class="{
-              'kv-processing-day_active': isActiveCurrentPriceBlock(i),
-              'kv-processing-day_disabled': !isDisabledCurrentPrice(i),
-              'kv-processing-day_blocked': isBlockedCurrentPrice(i)
-            }">
+          <slide
+               v-for="(item, i) in prepareProductsPricesArr"
+               :key="i"
+               :index="i"
+          >
+            <div class="kv-processing-days__item">
+              <div class="kv-processing-day" :class="{
+                'kv-processing-day_active': isActiveCurrentPriceBlock(i),
+                'kv-processing-day_disabled': !isDisabledCurrentPrice(i),
+                'kv-processing-day_blocked': isBlockedCurrentPrice(i)
+              }">
 
-              <div class="kv-processing-day__header">
-                <div class="kv-processing-day__title">{{ $lng('step2.processingDuration') }}</div>
-                <div class="kv-processing-day__nuber">{{item.info.quantity}}</div>
-                <div class="kv-processing-day__subtitle">{{ $lng('step2.dimension')[item.info.dimension] }}</div>
-              </div>
+                <div class="kv-processing-day__header">
+                  <div class="kv-processing-day__title">{{ $lng('step2.processingDuration') }}</div>
+                  <div class="kv-processing-day__nuber">{{item.info.quantity}}</div>
+                  <div class="kv-processing-day__subtitle">{{ $lng('step2.dimension')[item.info.dimension] }}</div>
+                </div>
 
-              <div class="kv-processing-day__body">
+                <div class="kv-processing-day__body">
 
-                <!-- item -->
-                <div class="kv-processing-day__item" v-for="(price, j) in item.prices" :key="`price-${j}`">
+                  <!-- item -->
+                  <div class="kv-processing-day__item" v-for="(price, j) in item.prices" :key="`price-${j}`">
 
-                  <div class="kv-processing-day-chb" @click="setPrice({price: price, info: item.info})">
-                    <input type="radio"
-                           name="kv-processing-day-chb"
-                           aria-label="checkbox"
-                           :checked="price.id === setup.price.price.id"
-                           :disabled="price.price === null"
-                    >
-                    <span class="kv-processing-day-chb__inner">
-                      <span class="kv-processing-day-chb__box">
-                        <svg><use href="#kv-icons_radio"></use></svg>
-                      </span>
-                      <span class="kv-processing-day-chb__caption">
-                        <span class="kv-processing-day-chb__text">{{price.m}}-{{ $lng('step2.multiplicity') }}</span>
-                        <span class="kv-processing-day-chb__title">
-                          <template  v-if="price.price !== null">{{formatter.priceFormat(price.price)}}</template>
-                          <!-- &minus -->
-                          <template v-else><span v-html="constants.dashSymbol"></span> </template>
-                          <span> €</span>
+                    <div class="kv-processing-day-chb" @click="setPrice({price: price, info: item.info})">
+                      <input type="radio"
+                             name="kv-processing-day-chb"
+                             aria-label="checkbox"
+                             :checked="price.id === setup.price.price.id"
+                             :disabled="price.price === null"
+                      >
+                      <span class="kv-processing-day-chb__inner">
+                        <span class="kv-processing-day-chb__box">
+                          <svg><use href="#kv-icons_radio"></use></svg>
+                        </span>
+                        <span class="kv-processing-day-chb__caption">
+                          <span class="kv-processing-day-chb__text">{{price.m}}-{{ $lng('step2.multiplicity') }}</span>
+                          <span class="kv-processing-day-chb__title">
+                            <template  v-if="price.price !== null">{{formatter.priceFormat(price.price)}}</template>
+                            <!-- &minus -->
+                            <template v-else><span v-html="constants.dashSymbol"></span> </template>
+                            <span> €</span>
+                          </span>
                         </span>
                       </span>
-                    </span>
+                    </div>
+
+                  </div>
+                  <!-- /item -->
+
+                  <a
+                      class="kv-processing-day__action-label"
+                      :href="`${setup.redirectUrl}?product=${setup.price.price.id}`"
+                      v-if="isActiveCurrentPriceBlock(i)"
+                  >
+                    {{ $lng('step2.order') }}
+                  </a>
+
+                  <div
+                      class="kv-processing-day__text kv-user-text"
+                      v-html="prices.stateDescription"
+                      v-if="!isDisabledCurrentPrice(i)">
                   </div>
 
+
                 </div>
-                <!-- /item -->
-
-                <a
-                    class="kv-processing-day__action-label"
-                    :href="`${setup.redirectUrl}?product=${setup.price.price.id}`"
-                    v-if="isActiveCurrentPriceBlock(i)"
-                >
-                  {{ $lng('step2.order') }}
-                </a>
-
-                <div
-                    class="kv-processing-day__text kv-user-text"
-                    v-html="prices.stateDescription"
-                    v-if="!isDisabledCurrentPrice(i)">
-                </div>
-
 
               </div>
-
             </div>
-          </div>
+          </slide>
           <!-- day -->
-        </div>
+          <hooper-navigation slot="hooper-addons"></hooper-navigation>
+          <hooper-pagination slot="hooper-addons"></hooper-pagination>
+        </hooper>
       </div>
       <!-- /Processing days-->
 
@@ -287,13 +300,23 @@ export default {
       constants,
       formatter,
       hooperDurations: {
-        itemsToShow: 1.25,
+        itemsToShow: 1,
         trimWhiteSpace:true,
         breakpoints: {
-          500: {itemsToShow: 2.25},
-          600: {itemsToShow: 3.25},
-          800: {itemsToShow: 4.25},
+          500: {itemsToShow: 2},
+          600: {itemsToShow: 3},
+          800: {itemsToShow: 4},
           1000: {itemsToShow: 6}
+        }
+      },
+      hooperPrice: {
+        itemsToShow: 1,
+        trimWhiteSpace:true,
+        breakpoints: {
+          500: {itemsToShow: 1, trimWhiteSpace:true},
+          600: {itemsToShow: 2, trimWhiteSpace:true},
+          800: {itemsToShow: 3, trimWhiteSpace:true},
+          1000: {itemsToShow: 4, trimWhiteSpace:true}
         }
       }
       // Выбранная продолжительность
@@ -497,13 +520,13 @@ export default {
 }
 .hooper:not(.is-empty) {
   margin: 0 auto;
-  max-width: calc(100% - 100px);
+  max-width: calc(100% - 90px);
 }
 .hooper-prev {
-  left: -50px;
+  left: -45px;
 }
 .hooper-next {
-  right: -50px;
+  right: -45px;
 }
 .is-empty .hooper-navigation {
   display: none;
@@ -531,6 +554,44 @@ export default {
   bottom: -12px;
 }
 
+/* поправить в исходнике на */
+.kv-app .kv-processing-days__item {
+  flex: 1 0 auto;
+  padding: 0 5px;
+}
+
+.kv-app .kv-processing-days__item:first-child:last-child {
+  max-width: 100%;
+}
+.kv-app .kv-processing-days__inner {
+
+}
+/* /поправить в исходнике на */
+
+/* hooper process */
+.kv-processing-days .hooper-indicator {
+  background-color: var(--c-second);
+  cursor: pointer;
+}
+
+.kv-processing-days .hooper-indicator:hover,
+.kv-processing-days .hooper-indicator.is-active {
+  background-color: var(--c-success);
+}
+
+.kv-processing-days .hooper-pagination {
+  bottom: -25px;
+}
+.kv-processing-days .hooper-navigation .hooper-prev,
+.kv-processing-days .hooper-navigation .hooper-next {
+  height: 100%;
+  padding: 0;
+  background: whitesmoke;
+  border-radius: 6px;
+  width: 35px;
+  text-align: center;
+}
+/* /hooper process */
 
 
 .kv-app .kv-staying-chb {
@@ -540,6 +601,7 @@ export default {
 
 .kv-app[max-width~="991px"] .hooper {
   max-width: 100%;
+  margin-bottom: 30px;
 }
 .kv-app[max-width~="991px"] .hooper-navigation {
   display: none;
