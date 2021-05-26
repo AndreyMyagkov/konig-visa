@@ -397,7 +397,8 @@ export default {
       let isValid = false;
 
       // Если форма валидна
-      const isFormValid = this.$v.tourists.$anyDirty &&  !this.$v.tourists.$invalid;
+      //const isFormValid = this.$v.tourists.$anyDirty &&  !this.$v.tourists.$invalid;
+      const isFormValid =   !this.$v.tourists.$invalid;
 
       // Калькуляция валидна
       //const isCalculateValid = this.tourists.every(item => item.state === 0);
@@ -426,6 +427,8 @@ export default {
   },
   mounted() {
     this.$emit('active');
+    setTimeout(() => {this.isValid();}, 100)
+
     // Создаем первого туриста, если их нет вообще
     /*
     if (!this.tourists.length) {

@@ -6,7 +6,8 @@
     <div
         class="kv-service-pack__wrapper"
         :class="{
-      'kv-service-pack_empty': data.suppServices === null || !data.suppServices.length
+          'kv-service-pack_empty': data.suppServices === null || !data.suppServices.length,
+          'kv-service-pack_is-no-package': data.servicePackages === null || !data.servicePackages.length
       }">
 
       <!-- Tabs -->
@@ -526,8 +527,21 @@ export default {
   display: none;
 }
 
+/* ЕСЛИ НЕТ ПАКЕТОВ */
+/* скрыть табы */
+.kv-service-pack_is-no-package .kv-class-tabs {
+  display: none;
+}
+/* Скрыть показать чекбоксы (почему то они скрыты были) */
+.kv-app.kv-app[max-width~="991px"] .kv-service-pack_is-no-package  .kv-class .kv-class__item {
+  display: flex;
+}
+/* /ЕСЛИ НЕТ ПАКЕТОВ */
 
-
+/* fix высоты блоков с одной кратностью и блоком с недоступным процессом */
+.kv-app .kv-processing-day .kv-processing-day__text {
+  padding: 16px 10px;
+}
 
 
 

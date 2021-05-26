@@ -522,6 +522,13 @@ export default {
   margin: 0 auto;
   max-width: calc(100% - 90px);
 }
+.hooper-slide {
+  height: auto;
+}
+.kv-app .kv-processing-days__item {
+  height: 100%;
+}
+
 .hooper-prev {
   left: -45px;
 }
@@ -536,6 +543,18 @@ export default {
   display: none;
 }
 
+.hooper-next.is-disabled,
+.hooper-prev.is-disabled {
+  opacity: 1;
+}
+.hooper-navigation svg {
+  fill: var(--c-second);
+}
+.hooper-next.is-disabled svg,
+.hooper-prev.is-disabled svg {
+  opacity: .6;
+}
+
 
 .hooper-indicators li {
   list-style-type: none;
@@ -547,7 +566,7 @@ export default {
 
 .kv-staying .hooper-indicator:hover,
 .kv-staying .hooper-indicator.is-active {
-  background-color: var(--c-success);
+  background-color: var(--c-prim);
 }
 
 .kv-staying .hooper-pagination {
@@ -576,7 +595,7 @@ export default {
 
 .kv-processing-days .hooper-indicator:hover,
 .kv-processing-days .hooper-indicator.is-active {
-  background-color: var(--c-success);
+  background-color: var(--c-prim);
 }
 
 .kv-processing-days .hooper-pagination {
