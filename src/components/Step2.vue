@@ -547,12 +547,23 @@ export default {
 .hooper-prev.is-disabled {
   opacity: 1;
 }
-.hooper-navigation svg {
+.hooper-navigation .hooper-next svg,
+.hooper-navigation .hooper-prev svg{
   fill: var(--c-second);
 }
+.hooper-navigation .hooper-next *,
+.hooper-navigation .hooper-prev * {
+  cursor: pointer ;
+}
+
 .hooper-next.is-disabled svg,
 .hooper-prev.is-disabled svg {
   opacity: .6;
+}
+
+.hooper-next.is-disabled *,
+.hooper-prev.is-disabled * {
+  cursor: not-allowed;
 }
 
 

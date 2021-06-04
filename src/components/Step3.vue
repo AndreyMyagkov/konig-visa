@@ -124,7 +124,7 @@
                   placeholder=" "
                   v-model="item.nationality.$model"
                   :clearable="false"
-                  @option:selected="$refs.nationality[index].classList.add('kv_is-focused');calculateAndValidate()"
+                  @option:selected="$refs.nationality[index].classList.add('kv_is-focused');calculateAndValidate(index)"
                   @search:focus="$refs.nationality[index].classList.add('kv_is-focused')"
               />
               <svg class="kv-form__sel-arrow"><use href="#kv-icons_select"></use></svg>
@@ -386,9 +386,10 @@ export default {
     },
     /**
      * Проверяет данные и калькулирует стоимость виз
+     * @param {number} index -  индекс редактируемого туриста
      */
-    calculateAndValidate() {
-      this.$emit('change');
+    calculateAndValidate(index) {
+      this.$emit('change', index);
       this.isValid();
     },
 

@@ -58,6 +58,35 @@
                     </div>
                   </div>
 
+                  <div class="kv-cart-table__row" v-if="calculate.calculation.servicePackage !== null">
+                    <div class="kv-cart-table__item">&nbsp;</div>
+                    <div class="kv-cart-table__item kv-cart-table__item_col">{{ calculate.calculation.servicePackage.name }}</div>
+                    <div class="kv-price kv-cart-table__item">
+                      <template>{{ formatter.priceFormat(calculate.calculation.servicePackage.price *  calculate.calculation.participants.length) }}</template>
+                      <span class="kv-price__currency">€</span>
+                    </div>
+                  </div>
+
+                  <template v-if="calculate.calculation.suppServices !== null">
+                    <div class="kv-cart-table__row" v-for="suppServices in calculate.calculation.suppServices.filter(_ => !_.isIncluded)" :key="suppServices.id">
+                      <div class="kv-cart-table__item">&nbsp;</div>
+                      <div class="kv-cart-table__item kv-cart-table__item_col">{{ suppServices.name }}</div>
+                      <div class="kv-price kv-cart-table__item">
+                        <template>{{ formatter.priceFormat(suppServices.price * calculate.calculation.participants.length) }}</template>
+                        <span class="kv-price__currency">€</span>
+                      </div>
+                    </div>
+                  </template>
+
+                  <div class="kv-cart-table__row" v-if="calculate.calculation.postalService !== null">
+                    <div class="kv-cart-table__item">&nbsp;</div>
+                    <div class="kv-cart-table__item kv-cart-table__item_col">{{ calculate.calculation.postalService.name }}</div>
+                    <div class="kv-price kv-cart-table__item">
+                      <template>{{ formatter.priceFormat(calculate.calculation.postalService.price) }}</template>
+                      <span class="kv-price__currency">€</span>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -160,6 +189,7 @@
                @change="sendCalculateAndValidate"
 
                @isValid="steps[2].isValid = $event"
+
         >
         </Step3>
         <!-- /STEP 3 -->
@@ -484,6 +514,7 @@ export default {
         servedResidenceRegions: null,
         discounts: null
       },
+      currentEditTourist: null,
 
       //TODO: Препарированные. Сверху убрать?
       serviceGroupsPrepared: [],
@@ -910,6 +941,7 @@ export default {
       }
     },
 
+
     /**
      * Загружает справочник стран
      */
@@ -1100,7 +1132,9 @@ export default {
       }
     },
 
-    async sendCalculateAndValidate() {
+    async sendCalculateAndValidate(index = null) {
+      this.currentEditTourist = index;
+
       if (!this.selectedPrice.price.id) {
         this.calculate = new constants.calculateDefault();
         return
@@ -1147,13 +1181,23 @@ export default {
             this.tourists[index].stateDescription = item.stateDescription;
           })
         }
+        // Если заказ невозможен на шаге 2 по причине проблем с туристами шага 3 (возврат) - показываем попап
+        if (calculate.state !== 0 && this.currentStep === 2) {
+          this.showModal(this.$lng('step2.errorByTourists'), this.$lng('common.error'));
+        }
         // Если заказ невозможен показываем попап
-        if (calculate.state !== 0) {
+        if (calculate.state !== 0 && this.currentStep === 3) {
           /*if (this.tourists[0].nationality.codeA3) {
             this.showModal(calculate.stateDescription, this.$lng('common.error'));
           }*/
           /* && item.state === 0 */
-          if (this.tourists.every(item => item.nationality.codeA3 && item.gender !== '' )) {
+          /* && item.gender !== '' */
+          /*
+          if (this.tourists.every(item => item.nationality.codeA3) && this.currentEditTourist == (item.nr - 1) ) {
+            this.showModal(calculate.stateDescription, this.$lng('common.error'));
+          }
+          */
+          if (this.tourists[this.currentEditTourist].nationality.codeA3  && this.tourists[this.currentEditTourist].state !== 0 ) {
             this.showModal(calculate.stateDescription, this.$lng('common.error'));
           }
           this.steps[2].allowOrder = false;
@@ -1467,6 +1511,7 @@ export default {
 
 
     updateTouristField(data) {
+      this.currentEditTourist = data.index
       this.tourists[data.index][data.field] = data.value;
     },
 
