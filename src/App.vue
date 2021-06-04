@@ -1490,6 +1490,11 @@ export default {
       if (item.type === 'group') {
         this.selectedServiceGroup = item;
         this.selectedService = new this.constants.ServicesDefault();
+
+
+        if (document.querySelector('#kv-app').getBoundingClientRect().width < 640) {
+          this.scrollTo('#kv-services')
+        }
       } else {
         this.selectedService = item;
         //this.selectedServiceGroup = new this.constants.ServicesDefault();
