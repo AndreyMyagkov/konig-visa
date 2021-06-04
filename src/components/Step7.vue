@@ -162,12 +162,52 @@
         <div class="kv-cart__body drop__body">
           <!-- Cart table-->
           <div class="kv-cart-table">
+
             <div class="kv-cart-table__row" v-for="(item, i) in data.calculate.calculation.participants" :key="i">
               <div class="kv-cart-table__item">{{item.nr}}</div>
               <div class="kv-cart-table__item kv-cart-table__item_col">{{ data.tourists[i].gender }} {{data.tourists[i].name}} {{data.tourists[i].sname}}</div>
               <div class="kv-price kv-cart-table__item">
                 <template  v-if="item.price !== null">{{ formatter.priceFormat(item.price) }}</template>
                 <template v-else><span v-html="constants.dashSymbol"></span> </template>
+                <span class="kv-price__currency">€</span>
+              </div>
+            </div>
+
+            <!-- Пакеты -->
+            <div class="kv-cart-table__row" v-if="data.calculate.calculation.servicePackage !== null && data.calculate.calculation.servicePackage.participants.length">
+              <div class="kv-cart-table__item kv-cart-table__item_col">
+                {{ data.calculate.calculation.servicePackage.name }}
+                <!--<svg><use href="#kv-icons_multiply"></use></svg> -->
+                х
+                {{ data.calculate.calculation.servicePackage.participants.length }}
+              </div>
+              <div class="kv-price kv-cart-table__item">
+                <template>{{ formatter.priceFormat(data.calculate.calculation.servicePackage.price *  data.calculate.calculation.servicePackage.participants.length) }}</template>
+                <span class="kv-price__currency">€</span>
+              </div>
+            </div>
+
+            <!-- Услуги -->
+            <template v-if="data.calculate.calculation.suppServices !== null">
+              <div class="kv-cart-table__row" v-for="suppServices in data.calculate.calculation.suppServices.filter(_ => !_.isIncluded)" :key="suppServices.id">
+                <div class="kv-cart-table__item kv-cart-table__item_col">
+                  {{ suppServices.name }}
+                  <!-- <svg><use href="#kv-icons_multiply"></use></svg> -->
+                  x
+                  {{ suppServices.participants.length }}
+                </div>
+                <div class="kv-price kv-cart-table__item">
+                  <template>{{ formatter.priceFormat(suppServices.price * suppServices.participants.length) }}</template>
+                  <span class="kv-price__currency">€</span>
+                </div>
+              </div>
+            </template>
+
+            <!-- Почта -->
+            <div class="kv-cart-table__row" v-if="data.calculate.calculation.postalService !== null">
+              <div class="kv-cart-table__item kv-cart-table__item_col">{{ data.calculate.calculation.postalService.name }}</div>
+              <div class="kv-price kv-cart-table__item">
+                <template>{{ formatter.priceFormat(data.calculate.calculation.postalService.price) }}</template>
                 <span class="kv-price__currency">€</span>
               </div>
             </div>
