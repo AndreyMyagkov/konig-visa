@@ -103,7 +103,8 @@
            :class="{
             'kv-service-pack__header-showed': isTopButtonsShow_
             }">
-          <div
+        <!-- Итог для варианта с пакетами -->
+        <div
               class="kv-services-price"
               :class="{
                   'kv-services-price_active':  packageSelected.id === pcg.id,
@@ -125,6 +126,24 @@
               {{ $lng('step4.select') }}
             </div>
           </div>
+        <!-- /Итог для варианта с пакетами -->
+
+        <!-- Итог для варианта без пакетов -->
+        <div
+            class="kv-services-price"
+            :class="{
+                    'kv-services-price_active':  true,
+                     'kv-services-price_showed': false
+                  }"
+            v-if="data.servicePackages === null && data.suppServices !== null"
+        >
+          <div class="kv-price kv-price_second kv-services-price__price">
+            {{getNoPackageServicesPrice(null)}}
+            <span class="kv-price__currency">€</span>
+          </div>
+          <div class="kv-services-price__person">{{ $lng('step4.perPerson') }}</div>
+        </div>
+        <!-- /Итог для варианта без пакетов -->
       </div>
 
       <!-- Services -->
@@ -231,7 +250,8 @@
 
       <!-- footer -->
       <div class="kv-service-pack__prices kv-service-pack__footer">
-            <div
+          <!-- Итог для варианта с пакетами -->
+          <div
                 class="kv-services-price"
                 :class="{
                   'kv-services-price_active':  packageSelected.id === pcg.id,
@@ -252,7 +272,26 @@
                   v-if="packageSelected.id !== pcg.id">
                 {{ $lng('step4.select') }}
               </div>
+          </div>
+          <!-- /Итог для варианта с пакетами -->
+
+          <!-- Итог для варианта без пакетов -->
+          <div
+              class="kv-services-price"
+              :class="{
+                    'kv-services-price_active':  true,
+                     'kv-services-price_showed': false
+                  }"
+              v-if="data.servicePackages === null && data.suppServices !== null"
+          >
+            <div class="kv-price kv-price_second kv-services-price__price">
+              {{getNoPackageServicesPrice(null)}}
+              <span class="kv-price__currency">€</span>
             </div>
+            <div class="kv-services-price__person">{{ $lng('step4.perPerson') }}</div>
+          </div>
+          <!-- /Итог для варианта без пакетов -->
+
       </div>
       <!-- /footer -->
 
@@ -321,14 +360,32 @@ export default {
     getSelectedServicesPrice(packageIndex) {
       let sum = 0;
       // Услуги, которые НЕ включены, т.е. платные
+
       const paidServices = this.serviceSelected.filter(item => {
         return  !this.data.servicePackages[packageIndex].includedServices.includes(item)
       })
+
 
       //Сумма платных
       if (this.data.suppServices !== null) {
         this.data.suppServices.forEach(item => {
           if (paidServices.includes(item.id)) {
+            sum = sum + item.price;
+          }
+        })
+      }
+      return sum;
+    },
+    /**
+     * Сумма стоимостей услуг вне пакета
+     */
+    getNoPackageServicesPrice() {
+      let sum = 0;
+      const selectedSuppServicesIds = this.selectedSuppServices.map(_ => _.id);
+      //Сумма платных
+      if (this.data.suppServices !== null) {
+        this.data.suppServices.forEach(item => {
+          if (selectedSuppServicesIds.includes(item.id)) {
             sum = sum + item.price;
           }
         })
