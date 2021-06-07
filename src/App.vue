@@ -1493,7 +1493,8 @@ export default {
 
 
         if (document.querySelector('#kv-app').getBoundingClientRect().width < 640) {
-          this.scrollTo('#kv-services')
+          setTimeout(() => {this.scrollTo('#kv-services')}, 200)
+
         }
       } else {
         this.selectedService = item;

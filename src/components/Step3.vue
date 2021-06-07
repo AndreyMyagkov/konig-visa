@@ -37,12 +37,7 @@
         </div>
 
         <div class="kv-form__row kv-row kv-row_rev">
-          <div class="kv-form__item-wrap_center kv-form__col_2">
-            <div class="kv-form-title">{{ $lng('step3.participant') }} №{{parseInt(index)+1}}</div>
-          </div>
-        </div>
 
-        <div class="kv-form__row kv-row kv-row_rev">
           <div class="kv-form__item-wrap kv-form__col">
             <div class="kv-form__item kv-form__item_chb" :class="{ 'kv-form__item_error': item.gender.$error }">
               <label class="kv-form-radio">
@@ -62,10 +57,14 @@
             </div>
           </div>
 
-          <div class="kv-col-plug"></div>
-          <div class="kv-form__item-wrap kv-form__item-wrap_right kv-form__col">
-            <div class="kv-form-title kv-form-title_hv" @click="deleteTourist(index)" v-if="tourists.length > 1">{{ $lng('step3.delete') }}</div>
+          <div class="kv-col-plug">
+            <div class="kv-form-title">{{ $lng('step3.participant') }} №{{parseInt(index)+1}}</div>
           </div>
+
+          <div class="kv-form__item-wrap kv-form__item-wrap_right kv-form__col">
+            <div class="kv-form-title_hv" @click="deleteTourist(index)" v-if="tourists.length > 1">{{ $lng('step3.delete') }}</div>
+          </div>
+
         </div>
 
         <div class="kv-form__row kv-row">
