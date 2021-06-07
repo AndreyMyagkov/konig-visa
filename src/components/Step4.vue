@@ -98,15 +98,13 @@
       <!-- /Tabs -->
 
 
-      <!-- Class footer-->
-      <div class="kv-service-pack__header"
+      <!-- Class header-->
+      <div class="kv-service-pack__prices kv-service-pack__header"
            :class="{
             'kv-service-pack__header-showed': isTopButtonsShow_
             }">
-        <div class="kv-service-pack__prices">
-
           <div
-              class="kv-services-price kv-service-pack__price"
+              class="kv-services-price"
               :class="{
                   'kv-services-price_active':  packageSelected.id === pcg.id,
                   //'kv-services-price_showed': (packageIndex +1) === selectedTabIndex
@@ -127,9 +125,6 @@
               {{ $lng('step4.select') }}
             </div>
           </div>
-
-
-        </div>
       </div>
 
       <!-- Services -->
@@ -150,100 +145,94 @@
               <div class="kv-service__caption">{{ $lng('step4.perPerson') }}</div>
             </div>
           </div>
-          <!-- Class-->
-          <div class="kv-class kv-services__class" data-cq-max-w="991">
-            <!-- Class item-->
-            <div
-                class="kv-class__item"
-                :class="{
-                  'kv-class__item_active': packageSelected.id === pcg.id /*&& packageShowed === pcg.id*/,
-                  'kv-class__item_showed': packageShowed === pcg.id /*&& packageSelected.id !== pcg.id*/,
-                  'kv-class__item_checked': serviceSelected.indexOf(item.id) !== -1,
-                  'kv-class__item_add': isIncluded(item.id, packageIndex)
-                }"
-                 v-for="(pcg, packageIndex) in data.servicePackages" :key="packageIndex">
+          <!-- Class item-->
+          <div
+              class="kv-class__item"
+              :class="{
+                'kv-class__item_active': packageSelected.id === pcg.id /*&& packageShowed === pcg.id*/,
+                'kv-class__item_showed': packageShowed === pcg.id /*&& packageSelected.id !== pcg.id*/,
+                'kv-class__item_checked': serviceSelected.indexOf(item.id) !== -1,
+                'kv-class__item_add': isIncluded(item.id, packageIndex)
+              }"
+                v-for="(pcg, packageIndex) in data.servicePackages" :key="packageIndex">
 
-              <template v-if="isIncluded(item.id, packageIndex)">
-                <div class="kv-class__caption">{{ $lng('step4.included') }}</div>
-                <svg class="kv-class__check">
-                  <use href="#kv-icons_check"></use>
-                </svg>
-              </template>
+            <template v-if="isIncluded(item.id, packageIndex)">
+              <div class="kv-class__caption">{{ $lng('step4.included') }}</div>
+              <svg class="kv-class__check">
+                <use href="#kv-icons_check"></use>
+              </svg>
+            </template>
 
-              <template v-else>
+            <template v-else>
 
 
-                  <label class="kv-switcher kv-class__switcher">
-                    <input class="kv-switcher__input"
-                           type="checkbox"
-                           name="suppService"
-                           :value="item.id"
-                           v-model="serviceSelected"
-                           @change="suppServiceChange"
-                    >
-                    <span class="kv-switcher__inner">
-                        <div class="kv-switcher__caption kv-class__caption" :data-kv_on="$lng('step4.added')" :data-kv_off="$lng('step4.add')"></div>
-                        <div class="kv-switcher__box">
-                           <svg class="kv-switcher__icon">
-                              <use href="#kv-icons_check"></use>
-                           </svg>
-                           <div class="kv-switcher__mark"></div>
-                        </div>
-                     </span>
-                  </label>
-
-
-              </template>
-
-            </div>
-
-            <!-- no service package -->
-            <div
-                class="kv-class__item"
-                :class="{
-                  'kv-class__item_active': true,
-                  'kv-class__item_checked': serviceSelected.indexOf(item.id) !== -1
-                }"
-                v-if="(data.servicePackages === null || !data.servicePackages.length) && data.suppServices.length"
-                >
-
-
-              <template >
                 <label class="kv-switcher kv-class__switcher">
                   <input class="kv-switcher__input"
-                         type="checkbox"
-                         name="suppService"
-                         :value="item.id"
-                         v-model="serviceSelected"
-                         @change="suppServiceChange"
+                          type="checkbox"
+                          name="suppService"
+                          :value="item.id"
+                          v-model="serviceSelected"
+                          @change="suppServiceChange"
                   >
                   <span class="kv-switcher__inner">
-                        <div class="kv-switcher__caption kv-class__caption" :data-kv_on="$lng('step4.added')" :data-kv_off="$lng('step4.add')"></div>
-                        <div class="kv-switcher__box">
-                           <svg class="kv-switcher__icon">
-                              <use href="#kv-icons_check"></use>
-                           </svg>
-                           <div class="kv-switcher__mark"></div>
-                        </div>
-                     </span>
+                      <div class="kv-switcher__caption kv-class__caption" :data-kv_on="$lng('step4.added')" :data-kv_off="$lng('step4.add')"></div>
+                      <div class="kv-switcher__box">
+                          <svg class="kv-switcher__icon">
+                            <use href="#kv-icons_check"></use>
+                          </svg>
+                          <div class="kv-switcher__mark"></div>
+                      </div>
+                    </span>
                 </label>
-              </template>
 
-            </div>
-            <!--/ -->
+
+            </template>
 
           </div>
+
+          <!-- no service package -->
+          <div
+              class="kv-class__item"
+              :class="{
+                'kv-class__item_active': true,
+                'kv-class__item_checked': serviceSelected.indexOf(item.id) !== -1
+              }"
+              v-if="(data.servicePackages === null || !data.servicePackages.length) && data.suppServices.length"
+              >
+
+
+            <template >
+              <label class="kv-switcher kv-class__switcher">
+                <input class="kv-switcher__input"
+                        type="checkbox"
+                        name="suppService"
+                        :value="item.id"
+                        v-model="serviceSelected"
+                        @change="suppServiceChange"
+                >
+                <span class="kv-switcher__inner">
+                      <div class="kv-switcher__caption kv-class__caption" :data-kv_on="$lng('step4.added')" :data-kv_off="$lng('step4.add')"></div>
+                      <div class="kv-switcher__box">
+                          <svg class="kv-switcher__icon">
+                            <use href="#kv-icons_check"></use>
+                          </svg>
+                          <div class="kv-switcher__mark"></div>
+                      </div>
+                    </span>
+              </label>
+            </template>
+
+          </div>
+          <!--/ -->
         </div>
         <!-- /Services item-->
       </div>
       <!-- /Services -->
 
       <!-- footer -->
-      <div class="kv-service-pack__footer">
-        <div class="kv-service-pack__prices">
-
+      <div class="kv-service-pack__prices kv-service-pack__footer">
             <div
-                class="kv-services-price kv-service-pack__price"
+                class="kv-services-price"
                 :class="{
                   'kv-services-price_active':  packageSelected.id === pcg.id,
                   //'kv-services-price_showed': (packageIndex +1) === selectedTabIndex
@@ -264,8 +253,6 @@
                 {{ $lng('step4.select') }}
               </div>
             </div>
-
-        </div>
       </div>
       <!-- /footer -->
 
