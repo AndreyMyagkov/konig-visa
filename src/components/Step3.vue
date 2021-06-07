@@ -123,7 +123,7 @@
                   placeholder=" "
                   v-model="item.nationality.$model"
                   :clearable="false"
-                  @option:selected="$refs.nationality[index].classList.add('kv_is-focused');calculateAndValidate(index)"
+                  @option:selected="$refs.nationality[index].classList.add('kv_is-focused');calculateAndValidate(index);scrollTo('#kv-residence')"
                   @search:focus="$refs.nationality[index].classList.add('kv_is-focused')"
               />
               <svg class="kv-form__sel-arrow"><use href="#kv-icons_select"></use></svg>
@@ -136,7 +136,7 @@
           <!-- Nationality -->
 
           <!-- Residence -->
-          <div class="kv-form__item-wrap kv-form__col">
+          <div class="kv-form__item-wrap kv-form__col" id="kv-residence">
             <div
                 class="kv-form__item kv_is-focused-"
                 ref="residenceRegion"
@@ -308,6 +308,12 @@ export default {
     }
   },
   methods: {
+    /**
+     * Прокрутка
+     */
+    scrollTo(element) {
+      this.$emit('scroll-to', element, true);
+    },
     /**
      * Обновляет поле для туриста
      */

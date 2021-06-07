@@ -197,7 +197,7 @@
 
                @active="Step3Active"
                @change="sendCalculateAndValidate"
-
+               @scroll-to="scrollTo"
                @isValid="steps[2].isValid = $event"
 
         >
@@ -443,6 +443,7 @@ export default {
   data() {
     return {
       uniqueKey: Date.now(),
+      isMobile: false,
       constants,
       formatter,
       isModalShow: false,
@@ -866,9 +867,13 @@ export default {
     /**
      * Прокрутка экрана до элемента
      */
-    scrollTo(element) {
+    scrollTo(element, mobileOnly = false) {
       console.log('прокрутка ', element);
       let elementTarget;
+
+      if (mobileOnly && !this.isMobile) {
+        return
+      }
       if (element === null) {
         //return
         elementTarget = document.querySelector('.kv-content__header');
@@ -895,11 +900,14 @@ export default {
 
       const offsetPosition = elementPosition + window.pageYOffset - topOffset;
       console.log('прокрутка до ' + offsetPosition);
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-        block: 'start'
-      });
+
+      setTimeout(() => {
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+          block: 'start'
+        });
+      }, 200)
 
 /*
       setTimeout(
@@ -1392,6 +1400,8 @@ export default {
       this.resetStep4();
       this.resetStep6();
 
+      this.scrollTo('#kv-residence-regions', true)
+
     },
 
     updateResidenceRegions(data){
@@ -1491,11 +1501,7 @@ export default {
         this.selectedServiceGroup = item;
         this.selectedService = new this.constants.ServicesDefault();
 
-
-        if (document.querySelector('#kv-app').getBoundingClientRect().width < 640) {
-          setTimeout(() => {this.scrollTo('#kv-services')}, 200)
-
-        }
+        setTimeout(() => {this.scrollTo('#kv-services', true)}, 200)
       } else {
         this.selectedService = item;
         //this.selectedServiceGroup = new this.constants.ServicesDefault();
@@ -1928,8 +1934,7 @@ export default {
       return false
     }
 
-
-
+    this.isMobile = document.querySelector('#kv-app').getBoundingClientRect().width < 640
 
 /*
     function resizeElement(e, s, t, l) {

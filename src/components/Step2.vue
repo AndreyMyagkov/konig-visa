@@ -109,7 +109,7 @@
           </div>
 
           <!-- Место жительства -->
-          <div class="kv-processing__item">
+          <div class="kv-processing__item" id="kv-residence-regions">
             <template  v-if="serviceDetails.servedResidenceRegions !== null">
               <div class="kv-processing__label">{{ $lng('step2.residenceRegionsLabel') }}</div>
 
