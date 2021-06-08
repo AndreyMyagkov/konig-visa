@@ -203,13 +203,14 @@
               <input type="date" id="birthDate" v-model.trim="item.birthDate.$model" @input="isValid">
               <label class="kv-form__label" for="birthDate">{{ $lng('step3.birthDate') }}</label>
             </div>
-            <div class="kv-form__msg kv-form__msg_label">
-              <div v-html="getDiscountDescription(index)"></div>
-            </div>
+
 
           </div>
-
-          <div class="kv-form__item-wrap kv-form__msg kv-form__col" v-else  v-html="getDiscountDescription(index)">
+          <div class="kv-form__msg kv-form__msg_label" v-if="isRequireBirthDate(index)">
+            <div v-html="getDiscountDescription(index)"></div>
+          </div>
+          <!-- kv-form__item-wrap kv-form__msg kv-form__col -->
+          <div class="kv-form__msg kv-form__msg_label" v-else  v-html="getDiscountDescription(index)">
 
           </div>
           <!-- /BirthDate -->
