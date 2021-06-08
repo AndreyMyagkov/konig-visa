@@ -2003,6 +2003,7 @@ export default {
 }
 .v-select .vs__selected {
   color: var(--c-second_dark);
+  font-size: 18px;
 }
 .kv-select__input .vs__clear,
 .kv-select__input .vs__open-indicator {
