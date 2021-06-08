@@ -4763,6 +4763,11 @@
           justify-content: flex-end;
 }
 
+.kv-app .kv-service-pack_is-no-package .kv-service-pack__header .kv-services-price_active {
+  border-top: 2px solid var(--c-success);
+  border-radius: 6px 6px 0 0;
+}
+
 .kv-app .kv-service-pack_is-no-package .kv-service-pack__prices {
   display: none;
 }
