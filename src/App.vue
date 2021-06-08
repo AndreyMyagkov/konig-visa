@@ -2100,4 +2100,11 @@ export default {
   height: auto;
   padding: 8px 20px;
 }
+
+/* FIRE FOX FIXES */
+@-moz-document url-prefix() {
+  .kv-app .kv-form__sel {
+    padding-left: 14px;
+  }
+}
 </style>
