@@ -2001,8 +2001,8 @@ export default {
 .kv-app .kv-select .vs__dropdown-toggle {
   border: none;
 }
-.kv-select__input .vs__selected {
-  color: var(--c-second);
+.v-select .vs__selected {
+  color: var(--c-second_dark);
 }
 .kv-select__input .vs__clear,
 .kv-select__input .vs__open-indicator {

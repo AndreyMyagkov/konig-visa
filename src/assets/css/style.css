@@ -5013,3 +5013,13 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
+
+
+.kv-app[min-width~="991px"] .hooper-pagination {
+    display: none;
+}
+@media screen and (min-width: 991px) {
+    .kv-app .hooper-pagination {
+        display: none;
+    }
+}
