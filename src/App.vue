@@ -380,7 +380,6 @@
         </div>
       </template>
     </simple-modal>
-
     <loading :active="isLoading"
              :can-cancel="false"
              :is-full-page="true">
