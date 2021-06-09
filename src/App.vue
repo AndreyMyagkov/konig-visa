@@ -1974,10 +1974,6 @@ export default {
   white-space: initial;
   overflow-wrap: initial;
 }
-/* Убираем прокрутку списка  */
-.kv-app .kv-cart .kv-cart__body {
-  max-height: initial;
-}
 
 
 .vld-overlay {
