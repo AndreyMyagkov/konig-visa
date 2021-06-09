@@ -1564,9 +1564,10 @@ export default {
     /**
      * Добавляет туриста
      */
-    addTourist() {
+    async addTourist() {
       this.tourists.push(new this.constants.Toursit());
-      this.sendCalculateAndValidate();
+      await this.sendCalculateAndValidate();
+      this.scrollTo(`#kv-tourist-${this.tourists.length - 1}`);
     },
     /**
      * Удаляет участника под номером Index
