@@ -256,16 +256,16 @@ import vSelect from "vue-select";
 import * as constants from "@/helpers/constants";
 import * as formatter from "@/helpers/format";
 
-//import { Carousel, Slide } from 'vue-snap'
-//import 'vue-snap/dist/vue-snap.css'
 
 import {
   Hooper,
   Slide,
   Navigation as HooperNavigation,
   Pagination as HooperPagination
-} from 'hooper';
-import 'hooper/dist/hooper.css';
+//} from 'hooper';
+} from '@/components/ui/hooper/hooper.esm.js';
+//import 'hooper/dist/hooper.css';
+import '@/components/ui/hooper/hooper.css';
 
 
 export default {
