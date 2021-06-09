@@ -41,7 +41,7 @@
 
 .kv-app,
 .kv-app * {
-  font-family: var(--fnt-main);
+ font-family: var(--fnt-main);
   -webkit-animation: none;
           animation: none;
   -webkit-animation-delay: 0;
@@ -242,7 +242,23 @@
   word-spacing: normal;
   z-index: auto;
 }
-
+/* vue-loading-overlay */
+.vld-overlay svg g g {
+    transform: translate(1px, 1px) !important;
+}
+.vld-overlay circle {
+    stroke: var(--c-prim);
+}
+.vld-overlay path {
+    animation:spin 0.8s linear infinite !important;
+    transform-origin: 18px 18px;
+    stroke: var(--c-prim);
+}
+@keyframes spin {
+    0%   { transform: rotate(0); }
+    100% { transform: rotate(360deg); }
+}
+/* /vue-loading-overlay */
 .kv-app a,
 .kv-app input,
 .kv-app button,
