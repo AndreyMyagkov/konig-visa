@@ -2001,6 +2001,19 @@ export default {
   color: var(--c-second_dark);
   font-size: 18px;
 }
+
+.vs__dropdown-option {
+   white-space: initial;
+}
+
+.kv-app .kv-processing .vs__selected {
+  padding: 0 0.25em;
+}
+
+.kv-app .vs__search:focus {
+  font-size: 18px;
+}
+
 .kv-select__input .vs__clear,
 .kv-select__input .vs__open-indicator {
   fill: var(--c-second);

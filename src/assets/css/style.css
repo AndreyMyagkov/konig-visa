@@ -678,7 +678,7 @@
 }
 
 .kv-app .kv-form__item .v-select {
-  padding: 0 45px 0 5px;
+  /*padding: 0 45px 0 5px;*/
 }
 
 .kv-app .kv-form__item > input,
@@ -762,7 +762,7 @@
   font-size: 14px;
   color: var(--c-disabled_dark);
 }
-
+/*
 .kv-app .kv-form__item .vs__selected-options {
   min-width: 0;
 }
@@ -782,7 +782,7 @@
 .kv-app .kv-form__item .vs__selected-options input {
   display: none;
 }
-
+*/
 .kv-app .kv-form__item_error {
   -webkit-box-shadow: 0 0 0 1px var(--c-error);
           box-shadow: 0 0 0 1px var(--c-error);
@@ -2374,10 +2374,11 @@
   white-space: nowrap;
 }
 
+/*
 .kv-app .kv-select .kv-select__input .vs__search {
   display: none;
 }
-
+*/
 .kv-app.kv-app[max-width~="640px"] .kv-horizontal-labeling {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -2795,7 +2796,7 @@
           flex: 0 1 360px;
   max-width: 100%;
 }
-
+/*
 .kv-app .kv-processing .vs__dropdown-toggle {
   padding: 2px 0 4px;
 }
@@ -2805,15 +2806,15 @@
 }
 
 .kv-app .kv-processing .vs__selected {
-  margin: 0;
-  padding: 0;
+ margin: 0;
+ padding: 0;
   display: block;
   -o-text-overflow: ellipsis;
      text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
-
+*/
 .kv-app .kv-processing .vs--single.vs--open .vs__selected {
   position: relative;
 }
