@@ -452,9 +452,9 @@ export default {
   border: none;
 }
 
-.kv_is-focused .kv-form__sel {
+/* .kv_is-focused .kv-form__sel {
   padding-top: 10px;
-}
+} */
 
 /*
 FIXME: del 28 апреля

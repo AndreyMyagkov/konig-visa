@@ -661,13 +661,14 @@
   -webkit-box-flex: 1;
       -ms-flex: 1 1 0%;
           flex: 1 1 0%;
-  padding: 7px 0px;
+  /* padding: 7px 0px; */
+  padding: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
   background-color: #fff;
   position: relative;
   overflow: visible;
@@ -679,6 +680,14 @@
 
 .kv-app .kv-form__item .v-select {
   /*padding: 0 45px 0 5px;*/
+  height: 100%;
+}
+.kv-form__sel-custom .vs__dropdown-toggle {
+  height: 100%;
+  cursor: default;
+}
+.kv-form__sel-custom .vs__dropdown-toggle .vs__selected {
+  margin: 20px 2px 0;
 }
 
 .kv-app .kv-form__item > input,
@@ -761,6 +770,9 @@
   top: 7px;
   font-size: 14px;
   color: var(--c-disabled_dark);
+}
+.kv-app .kv-form__item .vs__selected-options input {
+  display: none;
 }
 /*
 .kv-app .kv-form__item .vs__selected-options {
@@ -853,8 +865,8 @@
 
 .kv-app .kv-form__sel {
   width: 100%;
-  height: calc(var(--height) - 14px);
-  line-height: calc(var(--height) - 14px);
+  /* height: calc(var(--height) - 14px); */
+  /* line-height: calc(var(--height) - 14px); */
   max-width: 100%;
   min-width: 0;
   font-weight: normal;
@@ -862,6 +874,9 @@
   color: var(--c-second_dark);
   padding: 0 40px 0 20px;
   cursor: pointer;
+}
+.kv_is-focused .kv-form__sel {
+  padding-top: 20px;
 }
 
 .kv-app .kv-form__sel option[disabled] {
@@ -961,6 +976,13 @@
   padding: 5px 0;
 }
 
+.kv-app.kv-app[max-width~="640px"] .kv-form__item  .vs__selected {
+  padding: 0;
+}
+.kv-app.kv-app[max-width~="640px"] .kv-form__sel-custom .vs__dropdown-toggle .vs__selected {
+  margin: 10px 0 0;
+}
+
 .kv-app.kv-app[max-width~="640px"] .kv-form__item > input,
 .kv-app.kv-app[max-width~="640px"] .kv-form__item > textarea {
   padding: 9px 14px 0px;
@@ -1004,7 +1026,7 @@
 
 .kv-app.kv-app[max-width~="640px"] .kv_is-focused .kv-form__label {
   top: 0px;
-  left: 14px;
+  left: 20px;
 }
 
 .kv-app.kv-app[max-width~="640px"] .kv-form__sel {
@@ -1013,6 +1035,9 @@
 
 .kv-app.kv-app[max-width~="640px"] .kv-form__item_chb {
   padding: 0;
+}
+.kv-app.kv-app[max-width~="640px"] .kv-form__sel-custom .vs__selected-options {
+  padding-left: 20px;
 }
 
 .kv-app .kv-user-text s,
