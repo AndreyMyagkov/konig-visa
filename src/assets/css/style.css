@@ -2142,6 +2142,12 @@
   background-color: var(--c-main);
 }
 
+@media screen and (max-width: 540px) {
+    .kv-app .kv-cart-table {
+        width: calc(100vw - 66px);
+    }
+}
+
 .kv-app .kv-cart-table__row {
   display: -webkit-box;
   display: -ms-flexbox;
