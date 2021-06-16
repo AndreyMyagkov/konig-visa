@@ -2079,13 +2079,23 @@
   right: 0;
   display: none;
   z-index: 1;
-  display: none;
   background-color: var(--c-main);
   border-radius: 6px 0 6px 6px;
   max-height: 210px;
-  overflow-x: auto;
+  overflow-y: auto;
+}
+/* FireFox scrollbar bug fix */
+@-moz-document url-prefix() {
+    .kv-app .kv-cart .kv-cart__body {
+        overflow-x: hidden;
+    }
+    /* Отодвинуть контент от скроллбара */
+    .kv-app .kv-cart-table__item {
+        padding-right: 24px !important;
+    }
 }
 
+/*
 .kv-app .kv-cart .kv-cart__body::-webkit-scrollbar {
   width: 0px;
   height: auto;
@@ -2107,7 +2117,7 @@
   opacity: 1;
   background-clip: content-box;
 }
-
+*/
 .kv-app .kv-cart .kv-cart__body,
 .kv-app .kv-cart .kv-cart__body * {
   cursor: auto;
