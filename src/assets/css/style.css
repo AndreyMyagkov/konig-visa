@@ -2119,6 +2119,9 @@
 .kv-app .kv-cart:hover .kv-cart__body {
   display: block;
 }
+.kv-review__item .kv-cart:hover .kv-cart__body {
+    border-top-right-radius: 6px;
+}
 
 .kv-app .kv-cart-table {
   width: 487px;
