@@ -238,7 +238,7 @@
           <div class="kv-form__row kv-row">
             <!-- Адрес доставки соответствует заказчику -->
             <div class="kv-form__item-wrap kv-form__col">
-              <div class="kv-form__item kv-form__item_chb"
+              <div class="kv-form__item kv-form__item_chb kv_height-100"
                    :class="{
                     'kv-form__item_border': delivery.type == 1
                   }"
@@ -256,7 +256,7 @@
 
             <!-- другой адрес доставки -->
             <div class="kv-form__item-wrap kv-form__col">
-              <div class="kv-form__item kv-form__item_chb"
+              <div class="kv-form__item kv-form__item_chb kv_height-100"
                    :class="{
                     'kv-form__item_border': delivery.type == 2
                   }"
@@ -274,7 +274,7 @@
 
             <!-- самовывоз -->
             <div class="kv-form__item-wrap kv-form__col" v-if="preparedPickupPoints !== null && preparedPickupPoints.length > 0">
-              <div class="kv-form__item kv-form__item_chb"
+              <div class="kv-form__item kv-form__item_chb kv_height-100"
                    :class="{
                     'kv-form__item_border': delivery.type == 3
                   }"
@@ -459,7 +459,7 @@
           <div class="kv-row kv-form__row" v-for="(row, i) in preparedPickupPoints" :key="i">
 
             <div class="kv-form__item-wrap kv-form__col_half"  v-for="item in row" :key="item.id">
-              <div class="kv-form__item kv-form__item_chb" :data-i="item.id"  :data-vue="delivery.branch.id"
+              <div class="kv-form__item kv-form__item_chb kv_height-100" :data-i="item.id"  :data-vue="delivery.branch.id"
                    :class="{
                 'kv-form__item_border': item.id === delivery.branch.id
               }">

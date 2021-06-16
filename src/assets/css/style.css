@@ -353,6 +353,9 @@
 .kv-app select::-ms-expand {
   display: none;
 }
+.kv-app .kv_height-100 {
+    height:100%;
+}
 
 .kv-app .kv-form__badge,
 .kv-app .kv-switcher__inner,
