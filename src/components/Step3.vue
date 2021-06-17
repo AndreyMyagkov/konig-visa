@@ -192,7 +192,8 @@
 
             </div>
 
-            <div class="kv-form__msg kv-form__msg_label" v-if="!isRequireBirthDate(index)"  v-html="getDiscountDescription(index)">
+            <div class="kv-form__msg kv-form__msg_label" v-if="!isRequireBirthDate(index)">
+              <div class="kv-form__msg_label-text" v-html="getDiscountDescription(index)"></div>
             </div>
           </div>
           <!-- /Discounts -->
@@ -207,7 +208,7 @@
                 <label class="kv-form__label" for="birthDate">{{ $lng('step3.birthDate') }}</label>
               </div>
               <div class="kv-form__msg kv-form__msg_label">
-                <div v-html="getDiscountDescription(index)"></div>
+                <div class="kv-form__msg_label-text" v-html="getDiscountDescription(index)"></div>
               </div>
             </template>
 
