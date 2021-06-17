@@ -691,6 +691,7 @@
 }
 .kv-form__sel-custom .vs__dropdown-toggle .vs__selected {
   margin: 20px 2px 0;
+    top: 7px;
 }
 
 .kv-app .kv-form__item > input,
@@ -774,9 +775,7 @@
   font-size: 14px;
   color: var(--c-disabled_dark);
 }
-.kv-app .kv-form__item .vs__selected-options input {
-  display: none;
-}
+
 /*
 .kv-app .kv-form__item .vs__selected-options {
   min-width: 0;
@@ -793,11 +792,11 @@
   font-size: 18px;
   line-height: 25px;
 }
-
-.kv-app .kv-form__item .vs__selected-options input {
-  display: none;
-}
 */
+.kv-app .kv-form__item .vs__selected-options input {
+    margin: 20px 0 0;
+}
+
 .kv-app .kv-form__item_error {
   -webkit-box-shadow: 0 0 0 1px var(--c-error);
           box-shadow: 0 0 0 1px var(--c-error);
