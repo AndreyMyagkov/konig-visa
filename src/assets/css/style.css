@@ -2144,7 +2144,7 @@
 
 @media screen and (max-width: 540px) {
     .kv-app .kv-cart-table {
-        width: calc(100vw - 66px);
+        width: calc(100vw - 69px);
     }
 }
 
