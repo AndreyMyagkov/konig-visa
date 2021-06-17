@@ -191,28 +191,30 @@
               </svg>
 
             </div>
+
+            <div class="kv-form__msg kv-form__msg_label" v-if="!isRequireBirthDate(index)"  v-html="getDiscountDescription(index)">
+            </div>
           </div>
           <!-- /Discounts -->
 
           <!-- BirthDate -->
-          <div class="kv-form__item-wrap kv-form__col" v-if="isRequireBirthDate(index)">
-            <div class="kv-form__item"
-                 :class="{ 'kv-form__item_error': item.birthDate.$error }"
-
-            >
-              <input type="date" id="birthDate" v-model.trim="item.birthDate.$model" @input="isValid">
-              <label class="kv-form__label" for="birthDate">{{ $lng('step3.birthDate') }}</label>
-            </div>
-            <div class="kv-form__msg kv-form__msg_label">
-              <div v-html="getDiscountDescription(index)"></div>
-            </div>
+          <div class="kv-form__item-wrap kv-form__col">
+            <template  v-if="isRequireBirthDate(index)">
+              <div class="kv-form__item"
+                   :class="{ 'kv-form__item_error': item.birthDate.$error }"
+              >
+                <input type="date" id="birthDate" v-model.trim="item.birthDate.$model" @input="isValid">
+                <label class="kv-form__label" for="birthDate">{{ $lng('step3.birthDate') }}</label>
+              </div>
+              <div class="kv-form__msg kv-form__msg_label">
+                <div v-html="getDiscountDescription(index)"></div>
+              </div>
+            </template>
 
           </div>
 
           <!-- kv-form__item-wrap kv-form__msg kv-form__col -->
-          <div class="kv-form__msg kv-form__msg_label" v-else  v-html="getDiscountDescription(index)">
 
-          </div>
           <!-- /BirthDate -->
 
         </div>
