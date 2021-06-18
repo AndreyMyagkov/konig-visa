@@ -1936,24 +1936,30 @@ export default {
 
     this.isMobile = document.querySelector('#kv-app').getBoundingClientRect().width < 640
 
-/*
-    function resizeElement(e, s, t, l) {
-      let i, v = document.querySelectorAll(e);
-      if (v)
-        for (let c = 0; c < v.length; c++) {
-          let a = v[c];
-          if (i = e !== s && s ? a.querySelectorAll(s) : document.querySelectorAll(e), i)
-            for (let e = 0; e < i.length; e++) {
-              let s = i[e];
-              a.offsetWidth <= l ? s.classList.add(t) : s.classList.contains(t) && s.classList.remove(t)
+    const isIOS =  /iPad|iPhone|iPod/i.test(navigator.userAgent) || "MacIntel" === navigator.platform && navigator.maxTouchPoints > 1
+    const isMobile = /Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || isIOS
+    if (isMobile) {
+      document.querySelector('#kv-app').classList.add('kv_is-mobile');
+    }
+
+    /*
+        function resizeElement(e, s, t, l) {
+          let i, v = document.querySelectorAll(e);
+          if (v)
+            for (let c = 0; c < v.length; c++) {
+              let a = v[c];
+              if (i = e !== s && s ? a.querySelectorAll(s) : document.querySelectorAll(e), i)
+                for (let e = 0; e < i.length; e++) {
+                  let s = i[e];
+                  a.offsetWidth <= l ? s.classList.add(t) : s.classList.contains(t) && s.classList.remove(t)
+                }
             }
-        }
-    } ["resize", "load"].forEach(e => window.addEventListener(e, () => {
-      resizeElement(".kv-class-tabs", ".kv-class-tab", "kv-class-tab_bp", 991), resizeElement(".kv-class-tab", ".kv-class-tab__title", "kv-class-tab__title_hidden", 94), resizeElement(".kv-services", ".kv-classes__item", "kv-classes__item_bp", 991), resizeElement(".kv-services", ".kv-classes", "kv-classes_bp", 991), resizeElement(".kv-services", ".kv-class", "kv-class_bp", 991), resizeElement(".kv-services", ".kv-services", "kv-services_bp", 991), resizeElement(".kv-services", ".kv-services__item", "kv-services__item_bp", 991), resizeElement(".kv-class-tabs", ".kv-tabs-tail", "kv-tabs-tail_bp", 991), resizeElement(".kv-class-tabs", ".kv-class-tabs", "kv-class-tabs_bp", 991), resizeElement(".kv-services__footer", ".kv-services__prices", "kv-services__prices_bp", 991)
-    }, !1));
+        } ["resize", "load"].forEach(e => window.addEventListener(e, () => {
+          resizeElement(".kv-class-tabs", ".kv-class-tab", "kv-class-tab_bp", 991), resizeElement(".kv-class-tab", ".kv-class-tab__title", "kv-class-tab__title_hidden", 94), resizeElement(".kv-services", ".kv-classes__item", "kv-classes__item_bp", 991), resizeElement(".kv-services", ".kv-classes", "kv-classes_bp", 991), resizeElement(".kv-services", ".kv-class", "kv-class_bp", 991), resizeElement(".kv-services", ".kv-services", "kv-services_bp", 991), resizeElement(".kv-services", ".kv-services__item", "kv-services__item_bp", 991), resizeElement(".kv-class-tabs", ".kv-tabs-tail", "kv-tabs-tail_bp", 991), resizeElement(".kv-class-tabs", ".kv-class-tabs", "kv-class-tabs_bp", 991), resizeElement(".kv-services__footer", ".kv-services__prices", "kv-services__prices_bp", 991)
+        }, !1));
 
 
- */
+     */
 
   }
 }

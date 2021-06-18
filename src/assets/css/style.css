@@ -696,11 +696,11 @@
     padding-top: 18px;
 }
 
-@media screen and (max-width: 500px) {
-    .kv-app .kv-form__item > input[type='date'] {
-        padding-left: 10px !important;
-    }
+
+.kv_is-mobile.kv-app .kv-form__item > input[type='date'] {
+    padding-left: 10px !important;
 }
+
 
 /* FireFox data field */
 @-moz-document url-prefix() {
@@ -1118,7 +1118,7 @@
 }
 
 .kv-app.kv-app[max-width~="640px"] .kv-form__label {
-  top: 10px;
+  top: 14px;
 }
 
 .kv-app.kv-app[max-width~="640px"] .kv-form__msg_label {
