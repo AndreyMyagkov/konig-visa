@@ -692,6 +692,25 @@
   color: var(--c-second_dark);
   padding: 9px 20px 0px;
 }
+.kv-app .kv-form__item > input[type='date'] {
+    padding-top: 18px;
+}
+
+@media screen and (max-width: 500px) {
+    .kv-app .kv-form__item > input[type='date'] {
+        padding-left: 10px !important;
+    }
+}
+
+/* FireFox data field */
+@-moz-document url-prefix() {
+    .kv-app .kv-form__item > input[type='date'] {
+        padding-left: 17px;
+    }
+    .kv-app .kv-form__label {
+        left: 19px;
+    }
+}
 
 .kv-app .kv-form__item > input::-webkit-input-placeholder, .kv-app .kv-form__item > textarea::-webkit-input-placeholder {
   font-weight: normal;
@@ -1064,6 +1083,7 @@
     padding: 4px 34px 4px 0px;
 }
 
+
 .kv-app.kv-app[max-width~="640px"] .kv-form-radio {
     padding: 8px 14px;
 }
@@ -1121,6 +1141,14 @@
 .kv-app.kv-app[max-width~="640px"] .kv-form__sel {
   padding: 12px 40px 0 14px;
 }
+
+@-moz-document url-prefix() {
+    .kv-app.kv-app[max-width~="640px"] .kv-form__sel {
+        padding: 12px 40px 0 10px;
+    }
+}
+
+
 .kv-app.kv-app[max-width~="640px"] .kv-form__sel-arrow {
     right: 14px;
 }
