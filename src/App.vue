@@ -1991,6 +1991,7 @@ export default {
 
 
 /* select */
+/*
 .v-select {
   width: 100%;
 }
@@ -2010,35 +2011,7 @@ export default {
   padding: 0 0.25em;
 }
 
-.kv-app .vs__search:focus {
-  font-size: 18px;
-}
-
-.kv-select__input .vs__clear,
-.kv-select__input .vs__open-indicator {
-  fill: var(--c-second);
-}
-.kv-select__input .vs__dropdown-option--highlight{
-  background:#ADE1F5;
-}
-.vs__dropdown-menu {
-  border-color: var(--c-second);
-}
-
-.kv-form__sel-custom .vs__actions {
-  display: none;
-}
-.kv-form__sel-custom .vs__selected-options {
-  padding-left: 13px;
-}
-
-.kv-form__sel-custom .vs__dropdown-toggle {
-  padding: 0;
-}
-
-.kv-form__sel-custom {
-  width: 100%;
-}
+*/
 
 
 /* modal */
@@ -2082,17 +2055,7 @@ export default {
   line-height: 25px;
 }
 
-/*
-.kv-app .kv-form__label {
-  pointer-events: auto;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding-left: 20px;
-  line-height: 60px;
-  z-index: 1;
-}
-*/
+
 .kv-form__sublabel {
   position: absolute;
   bottom: 3px;

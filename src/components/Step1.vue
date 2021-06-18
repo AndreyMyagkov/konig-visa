@@ -15,7 +15,7 @@
               <div class="kv-select__badge">
                 <svg class="kv-select__icon"><use href="#kv-icons_pin"></use></svg>
               </div>
-              <div class="kv-select__input">
+              <div class="kv-select__input kv-select_hide-arrow">
                 <v-select
                     :options="countries"
                     label="name"
@@ -23,6 +23,7 @@
                     v-model="selectedCountry"
                     :clearable="false"
                 />
+                <svg class="kv-form__sel-arrow"><use href="#kv-icons_select"></use></svg>
               </div>
             </div>
             <!-- /select -->

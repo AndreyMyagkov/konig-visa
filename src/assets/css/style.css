@@ -345,7 +345,6 @@
   border: 0 solid transparent;
   -webkit-appearance: none;
   -moz-appearance: none;
-  text-indent: 1px;
   -o-text-overflow: '';
      text-overflow: '';
 }
@@ -681,18 +680,6 @@
   max-width: 100%;
 }
 
-.kv-app .kv-form__item .v-select {
-  /*padding: 0 45px 0 5px;*/
-  height: 100%;
-}
-.kv-form__sel-custom .vs__dropdown-toggle {
-  height: 100%;
-  cursor: default;
-}
-.kv-form__sel-custom .vs__dropdown-toggle .vs__selected {
-  margin: 20px 2px 0;
-    top: 7px;
-}
 
 .kv-app .kv-form__item > input,
 .kv-app .kv-form__item > textarea {
@@ -793,9 +780,99 @@
   line-height: 25px;
 }
 */
+
+/**
+ * VUE-SELECT
+ */
+.kv-app .v-select {
+    width: 100%;
+}
+.kv-app .vs__search:focus {
+    font-size: 18px;
+}
+
+.kv-app .kv-select .vs__dropdown-toggle {
+    border: none;
+}
+.v-select .vs__selected {
+    color: var(--c-second_dark);
+    font-size: 18px;
+}
+
+.kv-app .vs__dropdown-option {
+    white-space: initial;
+}
+
+.kv-app .kv-processing .vs__selected {
+    padding: 0 0.25em;
+}
+
+
 .kv-app .kv-form__item .vs__selected-options input {
     margin: 20px 0 0;
+    padding: 0;
+    border:none;
 }
+/* fix высоты многострочного текста */
+.kv-app .vs__selected-options {
+    flex-wrap: nowrap;
+    max-width: calc(100% - 23px);
+}
+
+
+.kv-select__input .vs__clear,
+.kv-select__input .vs__open-indicator {
+    fill: var(--c-second);
+}
+.kv-select__input .vs__dropdown-option--highlight{
+    background:#ADE1F5;
+}
+.vs__dropdown-menu {
+    border-color: var(--c-second);
+}
+
+.kv-form__sel-custom .vs__actions,
+.kv-select_hide-arrow .vs__actions {
+    display: none;
+}
+
+
+.kv-form__sel-custom .vs__dropdown-toggle {
+    padding: 0;
+}
+
+.kv-form__sel-custom {
+    width: 100%;
+}
+.kv-form__sel-custom .vs__selected-options {
+    padding-left: 13px;
+}
+
+.kv-app .kv-form__item .v-select {
+    height: 100%;
+    padding: 0 45px 0 5px;
+
+}
+.kv-form__sel-custom .vs__dropdown-toggle {
+    height: 100%;
+    cursor: default;
+}
+.kv-form__sel-custom .vs__dropdown-toggle .vs__selected {
+    margin: 18px 0 0;
+    top: 9px;
+    border: none;
+    padding: 0;
+}
+
+.kv-select__badge + .kv-select__input .vs__dropdown-toggle{
+    padding-left: 2px;
+}
+/*
+.kv-select__badge + .kv-select__input .v-select {
+    padding: 0 45px 0 5px;
+}
+*/
+/* /Vue Select */
 
 .kv-app .kv-form__item_error {
   -webkit-box-shadow: 0 0 0 1px var(--c-error);
@@ -982,12 +1059,22 @@
   padding: 0;
 }
 .kv-app.kv-app[max-width~="640px"] .kv-form__sel-custom .vs__dropdown-toggle .vs__selected {
-  margin: 10px 0 0;
+  margin: 12px 0 0;
+  line-height: 1;
+    padding: 4px 34px 4px 0px;
 }
+
+.kv-app.kv-app[max-width~="640px"] .kv-form-radio {
+    padding: 8px 14px;
+}
+.kv-app.kv-app[max-width~="640px"] .kv-form__label {
+    left: 14px;
+}
+
 
 .kv-app.kv-app[max-width~="640px"] .kv-form__item > input,
 .kv-app.kv-app[max-width~="640px"] .kv-form__item > textarea {
-  padding: 9px 14px 0px;
+  padding: 10px 14px 0px;
 }
 
 .kv-app.kv-app[max-width~="640px"] .kv-form__item input:not(:-moz-placeholder-shown) ~ .kv-form__label {
@@ -1006,7 +1093,7 @@
 }
 
 .kv-app.kv-app[max-width~="640px"] .kv-form__item input:focus ~ .kv-form__label {
-  top: 0px;
+  top: -1px;
   left: 14px;
 }
 
@@ -1028,18 +1115,26 @@
 
 .kv-app.kv-app[max-width~="640px"] .kv_is-focused .kv-form__label {
   top: 0px;
-  left: 20px;
+  left: 14px;
 }
 
 .kv-app.kv-app[max-width~="640px"] .kv-form__sel {
-  padding: 6px 40px 0 14px;
+  padding: 12px 40px 0 14px;
+}
+.kv-app.kv-app[max-width~="640px"] .kv-form__sel-arrow {
+    right: 14px;
 }
 
 .kv-app.kv-app[max-width~="640px"] .kv-form__item_chb {
   padding: 0;
 }
 .kv-app.kv-app[max-width~="640px"] .kv-form__sel-custom .vs__selected-options {
-  padding-left: 20px;
+  padding-left: 13px;
+    padding-left: 8px;
+}
+
+.kv-app.kv-app[max-width~="640px"] .kv-step-button__text {
+    font-size: 16px;
 }
 
 .kv-app .kv-user-text s,
@@ -2420,11 +2515,7 @@
   white-space: nowrap;
 }
 
-/*
-.kv-app .kv-select .kv-select__input .vs__search {
-  display: none;
-}
-*/
+
 .kv-app.kv-app[max-width~="640px"] .kv-horizontal-labeling {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -2861,8 +2952,16 @@
   overflow: hidden;
 }
 */
+/* образать текст в инпуте с бейджем */
+.kv-select__badge + .kv-select__input .vs__selected {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    display: block;
+}
 .kv-app .kv-processing .vs--single.vs--open .vs__selected {
-  position: relative;
+  /*position: relative;*/
 }
 
 .kv-app .kv-processing-days_slide {
