@@ -2413,7 +2413,7 @@
 .kv-app .kv-buch .kv-buch__row {
   display: grid;
   grid-gap: 25px;
-  grid-template-columns: repeat(auto-fit, minmax(calc(10% + 10rem), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(calc(16% + 10rem), 1fr));
 }
 
 .kv-app .kv-buch .kv-buch__row:not(:last-child) {
@@ -2463,6 +2463,14 @@
 
 .kv-app.kv-app[max-width~="640px"] .kv-buch__row {
   grid-template-columns: 1fr;
+   /* display: block;*/
+}
+.kv-app.kv-app[max-width~="640px"] .kv-buch .kv-buch__list {
+   /* padding: 0*/
+}
+
+.kv-app.kv-app[max-width~="640px"]  .kv-buch .kv-buch__title {
+    white-space: normal;
 }
 
 .kv-app .kv-horizontal-labeling {
@@ -2483,7 +2491,7 @@
   display: -ms-flexbox;
   display: flex;
   position: relative;
-  height: 34px;
+  min-height: 34px;
 }
 
 .kv-app .kv-select .kv-select__badge {
@@ -2494,7 +2502,6 @@
       -ms-flex: 0 0 40px;
           flex: 0 0 40px;
   width: 40px;
-  height: 100%;
 }
 
 .kv-app .kv-select .kv-select__icon {
@@ -2880,9 +2887,7 @@
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
+  /*align-items: flex-start;*/
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -2900,7 +2905,7 @@
   font-size: 15px;
   line-height: 20px;
   color: var(--c-second);
-  padding: 10px;
+  padding: 15px 0;
 }
 
 .kv-app .kv-processing .kv-processing__text .kv-processing__text_bold {
@@ -2917,22 +2922,19 @@
   --kv-clg: 1;
   --kv-cls: 1;
   --kv-clb: 700px;
-  -webkit-box-flex: var(--kv-clg);
-      -ms-flex: var(--kv-clg) var(--kv-cls) calc((var(--kv-clb) - 100%) * 999);
-          flex: var(--kv-clg) var(--kv-cls) calc((var(--kv-clb) - 100%) * 999);
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  flex: var(--kv-clg) var(--kv-cls) calc((var(--kv-clb) - 100%) * 999);
+  /*display: flex;*/
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  align-items: center;
   padding: 10px;
   max-width: 100%;
+}
+
+.kv-processing__item-wr {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .kv-app .kv-processing .kv-processing__label {
@@ -2946,9 +2948,7 @@
   --kv-clg: 0.52;
   --kv-cls: 1;
   --kv-clb: 500px;
-  -webkit-box-flex: var(--kv-clg);
-      -ms-flex: var(--kv-clg) var(--kv-cls) calc((var(--kv-clb) - 100%) * 999);
-          flex: var(--kv-clg) var(--kv-cls) calc((var(--kv-clb) - 100%) * 999);
+  /*flex: var(--kv-clg) var(--kv-cls) calc((var(--kv-clb) - 100%) * 999);*/
 }
 
 .kv-app .kv-processing .kv-processing__label:not(:last-child) {
@@ -2956,10 +2956,9 @@
 }
 
 .kv-app .kv-processing .kv-processing__select {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 1 360px;
-          flex: 0 1 360px;
-  max-width: 100%;
+    /*flex: 0 1 360px;*/
+    flex: 0 1 100%;
+    max-width: 100%;
 }
 /*
 .kv-app .kv-processing .vs__dropdown-toggle {
@@ -2981,16 +2980,24 @@
 }
 */
 /* образать текст в инпуте с бейджем */
+
+/* центрирование текста в инпуте */
+.kv-select__badge + .kv-select__input {
+    display: flex;
+    align-items: center;
+}
+
 .kv-select__badge + .kv-select__input .vs__selected {
-    white-space: nowrap;
+   /* white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis;*/
     max-width: 100%;
     display: block;
 }
 .kv-app .kv-processing .vs--single.vs--open .vs__selected {
   /*position: relative;*/
 }
+
 
 .kv-app .kv-processing-days_slide {
   overflow-x: auto;

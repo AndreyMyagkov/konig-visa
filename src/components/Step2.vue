@@ -89,6 +89,7 @@
         <!-- selects -->
         <div class="kv-processing__row">
           <div class="kv-processing__item">
+            <div class="kv-processing__item-wr">
             <div class="kv-processing__label">{{ $lng('step2.nationalitiesLabel') }}</div>
 
             <div class="kv-processing__select kv-select">
@@ -106,7 +107,7 @@
                 <svg class="kv-form__sel-arrow"><use href="#kv-icons_select"></use></svg>
               </div>
             </div>
-
+            </div>
           </div>
 
           <!-- Место жительства -->
