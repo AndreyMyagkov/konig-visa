@@ -4870,7 +4870,7 @@
 .kv-app .kv-services-price_active .kv-services-price__price {
   font-weight: bold;
   font-size: 30px;
-  line-height: 41px;
+  line-height: 49px;
   color: var(--c-second);
 }
 
@@ -4894,9 +4894,6 @@
   border-radius: 0 0 6px 6px;
 }
 
-.kv-app.kv-app[max-width~="991px"] .kv-services-price {
-  display: none;
-}
 
 .kv-app.kv-app[max-width~="991px"] .kv-class-tabs__list .kv-services-price_active .kv-services-price__price {
   font-size: 19px;
@@ -4915,8 +4912,11 @@
   display: none;
 }
 
-.kv-app.kv-app[max-width~="991px"] .kv-services-price {
+.kv-app.kv-app[max-width~="991px"] .kv-service-pack_package-and-service .kv-services-price:not(.kv-services-price_showed) {
   display: none;
+}
+.kv-app.kv-app[max-width~="991px"] .kv-service-pack_is-no-package .kv-services-price:not(.kv-services-price_active) {
+    display: none;
 }
 
 .kv-app.kv-app[max-width~="991px"] .kv-services-price_showed {
@@ -5018,11 +5018,39 @@
   display: -ms-flexbox;
   display: flex;
 }
+/* Закруглить правую колонку для первой услуги, когда нет пакетов и все услуги помещаются в экран */
+.kv-app .kv-service-pack_is-no-package .kv-service-pack__header:not(.kv-service-pack__header-showed) + .kv-services  .kv-services__item:first-child .kv-services__item-inner {
+    border-top: none;
+}
+.kv-app .kv-service-pack_is-no-package .kv-service-pack__header:not(.kv-service-pack__header-showed) + .kv-services .kv-services__item:first-child .kv-class__item {
+    border-top: 2px solid var(--c-success);
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+/* / */
+
+/* Закруглить правую колонку для первой услуги, когда есть пакеты и услуги и все услуги помещаются в экран */
+.kv-app.kv-app[max-width~="991px"] .kv-service-pack_package-and-service .kv-service-pack__header:not(.kv-service-pack__header-showed) + .kv-services  .kv-services__item:first-child .kv-services__item-inner {
+    border-top: none;
+}
+.kv-app.kv-app[max-width~="991px"]  .kv-service-pack_package-and-service .kv-service-pack__header:not(.kv-service-pack__header-showed) + .kv-services .kv-services__item:first-child .kv-class__item {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    margin-top: 10px;
+}
+.kv-app.kv-app[max-width~="991px"]  .kv-service-pack_package-and-service .kv-service-pack__header:not(.kv-service-pack__header-showed) + .kv-services .kv-services__item:first-child .kv-class__item_showed {
+    border-top: 2px solid var(--c-prim);
+}
+.kv-app.kv-app[max-width~="991px"]  .kv-service-pack_package-and-service .kv-service-pack__header:not(.kv-service-pack__header-showed) + .kv-services .kv-services__item:first-child .kv-class__item_active {
+    border-top: 2px solid var(--c-success);
+}
+/* / */
+
 
 .kv-app .kv-service-pack__prices {
-  display: -webkit-box;
+  /*display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
+  display: flex;*/
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
@@ -5034,7 +5062,7 @@
 }
 
 .kv-app .kv-service-pack_is-no-package .kv-service-pack__prices {
-  display: none;
+  /*display: none;*/
 }
 
 .kv-app .kv-services-price {
@@ -5061,7 +5089,8 @@
 
 .kv-app .kv-service-pack_empty .kv-class-tabs,
 .kv-app .kv-service-pack_empty .kv-service-pack__tabs,
-.kv-app .kv-service-pack_empty .kv-service-pack__footer {
+.kv-app .kv-service-pack_empty .kv-service-pack__footer,
+.kv-app .kv-service-pack_empty .kv-class-tabs__list {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -5096,7 +5125,7 @@
 }
 
 .kv-app.kv-app[max-width~="991px"] .kv-service-pack_empty .kv-services-price {
-  margin-left: 5px;
+  margin-left: 0;
 }
 
 .kv-app.kv-app[max-width~="991px"] .kv-service-pack_empty .kv-service-pack__tail {

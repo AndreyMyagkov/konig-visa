@@ -7,7 +7,8 @@
         class="kv-service-pack__wrapper"
         :class="{
           'kv-service-pack_empty': data.suppServices === null || !data.suppServices.length,
-          'kv-service-pack_is-no-package': data.servicePackages === null || !data.servicePackages.length
+          'kv-service-pack_is-no-package': data.servicePackages === null || !data.servicePackages.length,
+          'kv-service-pack_package-and-service': (data.suppServices !== null && data.suppServices.length) && (data.servicePackages !== null && data.servicePackages.length)
       }">
 
       <!-- Tabs -->
@@ -559,7 +560,14 @@ export default {
     if (this.data.servicePackages !== null && this.data.servicePackages.length && this.packageSelected.id === null) {
       this.selectPackage(this.data.servicePackages[0])
     }
+    // обрезка услуг для теста FIXME:
+    //this.data.suppServices = this.data.suppServices.slice(0,3)
     setTimeout(() => {this.isTopButtonsShow()}, 100);
+
+    window.addEventListener('resize', () => {
+      console.log('res')
+      this.isTopButtonsShow()
+    })
 
 
   }
