@@ -2255,7 +2255,8 @@
   display: block;
 }
 .kv-review__item .kv-cart:hover .kv-cart__body {
-    border-top-right-radius: 6px;
+    /*border-top-right-radius: 6px;*/
+    /*border-top-left-radius: 0;*/
 }
 
 .kv-app .kv-cart-table {
@@ -4395,6 +4396,16 @@
   line-height: 20px;
   color: var(--c-second);
   padding: 10px 15px;
+  position: relative;
+}
+.kv-app .kv-review-total__plug:hover:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    background: #ffe900;
 }
 
 .kv-app .kv-review-total__arrow {
