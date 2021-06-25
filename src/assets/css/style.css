@@ -806,6 +806,7 @@
 .kv-app .v-select {
     width: 100%;
 }
+.kv-app .vs__search,
 .kv-app .vs__search:focus {
     font-size: 18px;
 }
