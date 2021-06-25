@@ -836,7 +836,7 @@
 /* fix высоты многострочного текста */
 .kv-app .vs__selected-options {
     flex-wrap: nowrap;
-    max-width: calc(100% - 23px);
+    max-width: calc(100% - 30px);
 }
 
 
@@ -870,7 +870,7 @@
 
 .kv-app .kv-form__item .v-select {
     height: 100%;
-    padding: 0 45px 0 5px;
+    padding: 0 0 0 5px;
 
 }
 .kv-form__sel-custom .vs__dropdown-toggle {
@@ -994,7 +994,7 @@
   fill: var(--c-second);
   position: absolute;
   top: 50%;
-  right: 20px;
+  right: 12px;
   -webkit-transform: translateY(-50%);
       -ms-transform: translateY(-50%);
           transform: translateY(-50%);
@@ -1079,9 +1079,15 @@
   padding: 0;
 }
 .kv-app.kv-app[max-width~="640px"] .kv-form__sel-custom .vs__dropdown-toggle .vs__selected {
-  margin: 12px 0 0;
+  /*margin: 12px 0 0;
   line-height: 1;
     padding: 4px 34px 4px 0px;
+*/
+    margin: 20px 0 0;
+    padding: 0px 34px 0px 0px;
+    font-size: 18px;
+    line-height: 1.4;
+    top: 0;
 }
 
 
