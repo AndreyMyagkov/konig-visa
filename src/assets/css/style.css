@@ -3401,7 +3401,7 @@
 
 .kv-app .kv-form-card {
   background-color: var(--c-prim_light);
-  padding: 20px;
+    padding: 20px 20px 10px 20px;
 }
 
 .kv-app .kv-form-card:not(:last-child) {
