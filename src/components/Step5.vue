@@ -645,11 +645,10 @@ export default {
      * Смена офиса доставки
      */
     changeBranch(value){
-      console.log('бранч')
-      console.log(value)
       this.delivery.branch = value;
       //this.$v.delivery.branch.$model = value;
       this.$v.delivery.$touch();
+      this.$emit('postalReset');
       this.isFormCorrect();
     },
     isFormCorrect() {

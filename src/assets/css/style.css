@@ -1101,7 +1101,7 @@
 
 .kv-app.kv-app[max-width~="640px"] .kv-form__item > input,
 .kv-app.kv-app[max-width~="640px"] .kv-form__item > textarea {
-  padding: 10px 14px 0px;
+  padding: 18px 14px 0px;
 }
 
 .kv-app.kv-app[max-width~="640px"] .kv-form__item input:not(:-moz-placeholder-shown) ~ .kv-form__label {
@@ -1120,7 +1120,7 @@
 }
 
 .kv-app.kv-app[max-width~="640px"] .kv-form__item input:focus ~ .kv-form__label {
-  top: -1px;
+  top: 0px;
   left: 14px;
 }
 
@@ -1146,12 +1146,12 @@
 }
 
 .kv-app.kv-app[max-width~="640px"] .kv-form__sel {
-  padding: 12px 40px 0 14px;
+  padding: 18px 40px 0 14px;
 }
 
 @-moz-document url-prefix() {
     .kv-app.kv-app[max-width~="640px"] .kv-form__sel {
-        padding: 12px 40px 0 10px;
+        padding: 18px 40px 0 10px;
     }
 }
 

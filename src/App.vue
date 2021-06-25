@@ -228,6 +228,7 @@
                @active="loadStep5Data"
                @isValid="steps[4].isValid = $event"
                @update="setCustomerDelivery"
+               @postalReset="postalReset"
         />
         <!-- /STEP 5 -->
 
@@ -1551,6 +1552,14 @@ export default {
      */
     postalChange(data) {
       this.selectedPostalService = data;
+      this.sendCalculateAndValidate();
+    },
+
+    /**
+     * Сброс способа доставки
+     */
+    postalReset() {
+      this.selectedPostalService = new constants.PostalServiceDefault();
       this.sendCalculateAndValidate();
     },
 
