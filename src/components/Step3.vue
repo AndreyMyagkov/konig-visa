@@ -201,11 +201,14 @@
           <!-- BirthDate -->
           <div class="kv-form__item-wrap kv-form__col">
             <template  v-if="isRequireBirthDate(index)">
-              <div class="kv-form__item"
+              <div class="kv-form__item kv-form__field-date"
                    :class="{ 'kv-form__item_error': item.birthDate.$error }"
               >
                 <input type="date" id="birthDate" v-model.trim="item.birthDate.$model" @input="isValid">
                 <label class="kv-form__label" for="birthDate">{{ $lng('step3.birthDate') }}</label>
+                <svg class="kv-form__sel-arrow">
+                  <use href="#kv-icons_select"></use>
+                </svg>
               </div>
               <div class="kv-form__msg kv-form__msg_label">
                 <div class="kv-form__msg_label-text" v-html="getDiscountDescription(index)"></div>

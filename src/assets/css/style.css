@@ -694,8 +694,24 @@
 }
 .kv-app .kv-form__item > input[type='date'] {
     padding-top: 18px;
+    padding-right: 0;
 }
 
+.kv-app .kv-form__item > input[type='date']::-webkit-calendar-picker-indicator {
+    background: none;
+}
+
+.kv-form__field-date:after {
+    content: '';
+    display: block;
+    width: 12px;
+    position: absolute;
+    top: 8px;
+    right: 0px;
+    bottom: 8px;
+    background: #fff;
+    z-index: 0;
+}
 
 .kv_is-mobile.kv-app .kv-form__item > input[type='date'] {
     padding-left: 10px !important;
