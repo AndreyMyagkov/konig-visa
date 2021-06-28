@@ -199,7 +199,7 @@
           <!-- /Discounts -->
 
           <!-- BirthDate -->
-          <div class="kv-form__item-wrap kv-form__col">
+          <div class="kv-form__item-wrap kv-form__col" :class="{'kv-form__col_no-padding': !isRequireBirthDate(index)}">
             <template  v-if="isRequireBirthDate(index)">
               <div class="kv-form__item kv-form__field-date"
                    :class="{ 'kv-form__item_error': item.birthDate.$error }"

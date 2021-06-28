@@ -659,6 +659,12 @@
       align-self: center;
 }
 
+.kv-app .kv-form__item-wrap.kv-form__item-wrap_right,
+.kv-app .kv-form__col_no-padding{
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
 .kv-app .kv-form__item {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 0%;
