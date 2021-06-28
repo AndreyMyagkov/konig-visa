@@ -252,7 +252,7 @@
       </div>
 
       <!-- Адрес доставки -->
-      <div class="kv-review__col" v-if="data.delivery.type == 2">
+      <div class="kv-review__col" v-if="data.delivery.type == 2 && data.calculate.deliveryMedia !== 'digital'">
         <div class="kv-review-card kv-review-card_light">
           <div class="kv-review-card__header">
             <svg class="kv-review-card__icon">
@@ -285,7 +285,7 @@
       </div>
 
       <!-- Самовывоз из -->
-      <div class="kv-review__col" v-if="data.delivery.type == 3">
+      <div class="kv-review__col" v-if="data.delivery.type == 3 && data.calculate.deliveryMedia !== 'digital'">
         <div class="kv-review-card kv-review-card_light">
           <div class="kv-review-card__header">
             <svg class="kv-review-card__icon">
