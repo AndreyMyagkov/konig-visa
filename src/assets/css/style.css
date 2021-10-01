@@ -142,7 +142,7 @@
      -moz-column-width: auto;
           column-width: auto;
   content: '';
-  content: none;
+  /*content: none;*/ /* fix FireFox select options*/
   counter-increment: none;
   counter-reset: none;
   cursor: auto;
@@ -710,7 +710,7 @@
 .kv-form__field-date:after {
     content: '';
     display: block;
-    width: 12px;
+    width: 14px;
     position: absolute;
     top: 8px;
     right: 0px;
@@ -3062,9 +3062,6 @@
   display: flex;
 }
 
-.kv-app .kv-processing-days__inner.kv-processing-days__inner-showed-action-label .kv-processing-day__action-label {
-  display: block;
-}
 
 .kv-app .kv-processing-days__item {
   -webkit-box-flex: 1;
@@ -3165,6 +3162,10 @@
   border-radius: 0 0 6px 6px;
   margin: 0 -3px -3px;
   font-size: 20px;
+}
+
+.kv-app .kv-processing-days .kv-processing-days__inner-showed-action-label .kv-processing-day__action-label {
+    display: block;
 }
 
 .kv-app .kv-processing-day .kv-processing-day__text {
