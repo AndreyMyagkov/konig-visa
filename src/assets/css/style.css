@@ -710,7 +710,7 @@
 .kv-form__field-date:after {
     content: '';
     display: block;
-    width: 14px;
+    width: 32px; /*14*/
     position: absolute;
     top: 8px;
     right: 0px;
@@ -1021,6 +1021,7 @@
       -ms-transform: translateY(-50%);
           transform: translateY(-50%);
   pointer-events: none;
+    z-index: 1;
 }
 
 .kv-app .kv-form__label {
