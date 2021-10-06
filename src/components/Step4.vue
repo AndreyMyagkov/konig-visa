@@ -35,6 +35,7 @@
               <div
                    class="kv-class-tab"
                    style="position: relative;"
+                   data-cq-max-w="94"
                 >
                 <div class="kv-class-tab__body">
                   <svg class="kv-class-tab__info" @click.stop="$emit('showModal', pcg.description, pcg.name)">
@@ -575,8 +576,8 @@ export default {
 </script>
 
 <style scoped>
-.kv-app[max-width~="991px"] .kv-class-tabs__item .kv-services-price__btn {
-  display: none;
+.kv-app[cq-max-w-991] .kv-class-tabs__item .kv-services-price__btn {
+  /*display: none;  FIXME: нужно ли? */
 }
 
 /* ЕСЛИ НЕТ ПАКЕТОВ */
@@ -585,8 +586,8 @@ export default {
   display: none;
 }
 /* Скрыть показать чекбоксы (почему то они скрыты были) */
-.kv-app.kv-app[max-width~="991px"] .kv-service-pack_is-no-package  .kv-class .kv-class__item {
-  display: flex;
+.kv-app.kv-app[cq-max-w-991] .kv-service-pack_is-no-package  .kv-class .kv-class__item {
+  /* display: flex;  FIXME: нужно ли? */
 }
 /* /ЕСЛИ НЕТ ПАКЕТОВ */
 

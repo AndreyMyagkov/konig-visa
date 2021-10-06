@@ -1,5 +1,5 @@
 <template>
-  <div id="kv-app" class="kv-app" notranslate>
+  <div id="kv-app" class="kv-app" notranslate data-cq-max-w="991, 640, 480">
     <!-- HEADER -->
     <div class="kv-header" v-if="CONFIG.mode === 'default'">
 
@@ -418,7 +418,7 @@ import * as formatter from "@/helpers/format";
 
 // TODO: стили изолировать
 import 'vue-loading-overlay/dist/vue-loading.css';
-//import "css-container-queries"
+
 
 export default {
   name: 'App',

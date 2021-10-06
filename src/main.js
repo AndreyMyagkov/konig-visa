@@ -5,10 +5,11 @@ import Lng from './lng'
 Vue.use(Lng, __KV_CONFIG.lng || "ge")
 
 import App from './App.vue'
-import store from './store'
+//import store from './store'
 
-import ElementQueries from "css-element-queries/src/ElementQueries"
-ElementQueries.listen();
+//import ElementQueries from "css-element-queries/src/ElementQueries"
+//ElementQueries.listen();
+import "css-container-queries"
 
 const req = require.context('./assets/svg', false, /\.svg$/)
 const requireAll = requireContext => requireContext.keys().map(requireContext);
@@ -17,6 +18,6 @@ requireAll(req);
 Vue.config.productionTip = false
 
 new Vue({
-  store,
+  //store,
   render: h => h(App)
 }).$mount('#kv-app')

@@ -318,8 +318,8 @@ export default {
         breakpoints: {
           500: {itemsToShow: 1, trimWhiteSpace:true},
           600: {itemsToShow: 2, trimWhiteSpace:true},
-          800: {itemsToShow: 3, trimWhiteSpace:true},
-          1000: {itemsToShow: 4, trimWhiteSpace:true}
+          900: {itemsToShow: 3, trimWhiteSpace:true},
+          1100: {itemsToShow: 4, trimWhiteSpace:true}
         }
       }
       // Выбранная продолжительность
@@ -632,17 +632,25 @@ export default {
   justify-content: space-between;
 }
 
-.kv-app[max-width~="991px"] .hooper {
+.kv-app[cq-max-w-991] .hooper {
   max-width: 100%;
   margin-bottom: 30px;
 }
-.kv-app[max-width~="991px"] .hooper-navigation {
+.kv-app[cq-max-w-991] .hooper-navigation {
   display: none;
 }
-.kv-app[min-width~="991px"] .hooper-pagination {
+/*
+.kv-app[cq-min-w-991] .hooper-pagination {
   display: none;
 }
+*/
 
+.kv-app .hooper-pagination {
+  display: none;
+}
+.kv-app[cq-max-w-991] .hooper-pagination {
+  display: block
+}
 
 
 .vs-carousel {
@@ -713,10 +721,10 @@ export default {
   max-width: calc(100% - 100px);
   margin: 0 auto;
 }
-.kv-app[max-width~="991px"] .vs-carousel__wrapper {
+.kv-app[cq-max-w-991] .vs-carousel__wrapper {
   max-width: 100%;
 }
-.kv-app[max-width~="991px"] .vs-carousel__arrows {
+.kv-app[cq-max-w-991] .vs-carousel__arrows {
   display: none;
 }
 
