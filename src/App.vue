@@ -1478,7 +1478,7 @@ export default {
      */
     servicesGroupsPrepare(groups, services) {
       services = services.filter(item => item.srvGrpId === null)
-      return [...groups, ...services]
+      return [...services, ...groups]
     },
 
     async selectVisaType(item) {

@@ -43,7 +43,7 @@
         </div>
         <div class="kv-review-info__col">
           <div class="kv-review-info__name">{{ $lng('step7.processingDuration') }}</div>
-          <div class="kv-review-info__value">{{data.price.info.quantity}} {{data.price.info.duration}}</div>
+          <div class="kv-review-info__value">{{data.price.info.quantity}} {{ $lng(`step2.dimension.${data.price.info.dimension}`) }}</div>
         </div>
       </div>
 
