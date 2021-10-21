@@ -106,7 +106,7 @@ export const lng = {
         "step7": {
             "crumb": "Ihre Daten",
             "header": "Ihre Daten",
-            "country": "Zielland",
+            "country": "Zielland:",
             "duration": "Aufenthaltsdauer:",
             "serviceGrp": "Visum-Typ:",
             "multiplicity": "Einreisetyp:",
@@ -267,7 +267,7 @@ export const lng = {
         "step7": {
             "crumb": "Проверка данных",
             "header": "Проверка данных",
-            "country": "Страна",
+            "country": "Страна:",
             "duration": "Срок визы:",
             "serviceGrp": "Тип визы:",
             "multiplicity": "Кратность:",
@@ -406,7 +406,7 @@ export const lng = {
         "step7": {
             "crumb": "Проверка данных",
             "header": "Проверка данных",
-            "country": "Страна",
+            "country": "Страна:",
             "duration": "Срок визы:",
             "serviceGrp": "Тип визы:",
             "multiplicity": "Кратность:",
