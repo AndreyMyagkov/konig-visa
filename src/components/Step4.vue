@@ -38,7 +38,10 @@
                    data-cq-max-w="94"
                 >
                 <div class="kv-class-tab__body">
-                  <svg class="kv-class-tab__info" @click.stop="$emit('showModal', pcg.description, pcg.name)">
+                  <svg class="kv-class-tab__info"
+                       @click.stop="$emit('showModal', pcg.description, pcg.name)"
+                       v-if="pcg.description"
+                  >
                     <use href="#kv-icons_info"></use>
                   </svg>
                   <div class="kv-class-tab__rate">
