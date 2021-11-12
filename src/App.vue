@@ -18,7 +18,11 @@
 
             <div class="kv-step-values__item" v-if="selectedService.name">
               <span>{{selectedService.name}}</span>
-              <span v-if="selectedDuration.name">{{selectedDuration.name}} <span v-if="selectedPrice.price.m">| {{selectedPrice.price.m}}-malige Einreise</span></span>
+              <span v-if="selectedDuration.name">
+                {{selectedDuration.name}}
+                <span v-if="selectedPrice.price.m">| {{selectedPrice.price.m}}-malige Einreise</span>
+                <span v-if="selectedPrice.info.quantity">| {{selectedPrice.info.quantity}} {{ $lng(`step2.dimension.${selectedPrice.info.dimension}`) }}</span>
+              </span>
             </div>
 
           </div>
