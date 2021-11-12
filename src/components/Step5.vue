@@ -35,7 +35,7 @@
     $v.customer.$touch();
     $v.delivery.$touch();
     $v.$touch();
-    isFormCorrect()'>Тестовые данные</button>
+    isFormCorrect()' style="display: none">Тестовые данные</button>
     <div class="kv-form">
 
       <!-- Customer-->

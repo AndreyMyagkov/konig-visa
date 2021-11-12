@@ -17,7 +17,7 @@
         code:'DEU\\BW',
         name:'Deutschland, Baden-Württemberg'
       }; isValid();
-    ">Тестовые данные</button>
+    " style="display: none">Тестовые данные</button>
 
 
     <div class="kv-form">
