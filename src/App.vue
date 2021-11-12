@@ -913,16 +913,6 @@ export default {
         });
       }, 200)
 
-/*
-      setTimeout(
-          () => {
-            document.querySelector('#form-delivery').scrollIntoView({
-              block: "start",
-              behavior: "smooth"
-            });
-          },
-          1000
-      )*/
     },
 
     /**
@@ -1516,6 +1506,8 @@ export default {
         } else {
           this.selectedServiceGroup = new this.constants.ServicesDefault();
         }
+        // Переход к шагу 2, если выбрали тип визы
+        this.nextStep();
       }
 
       this.serviceGroups.forEach(_ => {
