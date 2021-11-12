@@ -5030,6 +5030,10 @@
 .kv-app .kv-alert_center {
   text-align: center;
 }
+.kv-app .kv-alert_yellow {
+    background-color: #feffe5;
+    color: #e60f0f;
+}
 
 .kv-app.kv-app[cq-max-w-640] .kv-alert {
   font-size: 20px;

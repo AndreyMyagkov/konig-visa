@@ -32,7 +32,11 @@
            v-for="(item, index) in $v.tourists.$each.$iter"
            :key="index">
 
-        <div class="kv-alert" v-if="(item.$model.state !== 0 && item.$model.nationality.codeA3)" v-html="item.$model.stateDescription">
+        <div class="kv-alert"
+             :class="{
+              'kv-alert_yellow': item.$model.state < 0
+            }"
+             v-if="(item.$model.state !== 0 && item.$model.nationality.codeA3)" v-html="item.$model.stateDescription">
 
         </div>
 
