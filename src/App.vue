@@ -369,7 +369,7 @@
 
     <simple-modal v-model="isModalShow" :title="modal.title" size="small">
       <template slot="body">
-        <div v-html="modal.content"></div>
+        <div v-html="modal.content" class="kv-user-text"></div>
       </template>
     </simple-modal>
 

@@ -328,6 +328,10 @@
   font-weight: bolder;
 }
 
+.kv-app br {
+    display: block
+}
+
 .kv-app progress {
   vertical-align: baseline;
 }
@@ -1202,7 +1206,11 @@
 
 .kv-app .kv-user-text p {
   line-height: 1.33;
-  margin-bottom: 30px;
+  margin-bottom: 1.33em;
+}
+.kv-app .kv-user-text p:last-child,
+.kv-app .kv-user-text p:empty{
+    margin-bottom: 0;
 }
 
 .kv-app .kv-user-text a {
@@ -1247,7 +1255,8 @@
 .kv-app .kv-user-text dir,
 .kv-app .kv-user-text hr,
 .kv-app .kv-user-text menu,
-.kv-app .kv-user-text pre {
+.kv-app .kv-user-text pre,
+.kv-app .kv-user-text br {
   display: block;
   unicode-bidi: embed;
 }
