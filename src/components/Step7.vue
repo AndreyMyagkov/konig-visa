@@ -189,7 +189,8 @@
 
             <!-- Услуги -->
             <template v-if="data.calculate.calculation.suppServices !== null">
-              <div class="kv-cart-table__row" v-for="suppServices in data.calculate.calculation.suppServices.filter(_ => !_.isIncluded)" :key="suppServices.id">
+              <!-- .filter(_ => !_.isIncluded) -->
+              <div class="kv-cart-table__row" v-for="suppServices in data.calculate.calculation.suppServices" :key="suppServices.id">
                 <div class="kv-cart-table__item kv-cart-table__item_col">
                   {{ suppServices.name }}
                   <!-- <svg><use href="#kv-icons_multiply"></use></svg> -->
@@ -197,7 +198,7 @@
                   {{ suppServices.participants.length }}
                 </div>
                 <div class="kv-price kv-cart-table__item">
-                  <template>{{ formatter.priceFormat(suppServices.price * suppServices.participants.length) }}</template>
+                  <template>{{ formatter.priceFormat((suppServices.isIncluded ? 0 : suppServices.price) * suppServices.participants.length) }}</template>
                   <span class="kv-price__currency">€</span>
                 </div>
               </div>
