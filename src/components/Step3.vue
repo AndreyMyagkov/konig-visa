@@ -422,8 +422,8 @@ export default {
       //const isCalculateValid = this.tourists.every(item => item.state === 0);
 
       isValid = isFormValid; // && isCalculateValid;
-      console.log('Проверка фомы')
-      console.log(isFormValid);
+      //console.log('Проверка фомы')
+      //console.log(isFormValid);
      // console.log(isCalculateValid);
 
       this.$emit('isValid', isValid)
@@ -461,20 +461,5 @@ export default {
 .vs__dropdown-toggle {
   border: none;
 }
-
-/* .kv_is-focused .kv-form__sel {
-  padding-top: 10px;
-} */
-
-/*
-FIXME: del 28 апреля
-.kv-app .kv-form__item input:focus ~ .kv-form__label,
-.kv-app .kv-form__item.kv_is-focused .kv-form__label {
-  top: 7px;
-  font-size: 14px;
-  color: var(--c-disabled_dark);
-}
-*/
-
 
 </style>

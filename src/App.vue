@@ -1210,7 +1210,9 @@ export default {
           }
           */
           if (this.tourists[this.currentEditTourist].nationality.codeA3  && this.tourists[this.currentEditTourist].state !== 0 ) {
-            this.showModal(calculate.stateDescription, this.$lng('common.error'));
+            //this.showModal(calculate.stateDescription, this.$lng('common.error'));
+            //Fix 04 от 2021-11-08
+            this.showModal(this.tourists[index].stateDescription, this.$lng('common.error'));
           }
           this.steps[2].allowOrder = false;
         } else {
@@ -1437,7 +1439,7 @@ export default {
 
 
     _updatePrice(data) {
-      console.log('Обновление цены')
+      //console.log('Обновление цены')
       this.selectedPrice = data;
       this.resetStep4();
       this.resetStep6();
