@@ -103,9 +103,9 @@
       <div class="kv-review-card__body">
         <div class="kv-review-card__text" v-html="data.servicePackage.description"></div>
 
-        <div class="kv-review-card__list" v-if="data.suppServices !== null && data.suppServices.length">
+        <div class="kv-review-card__list" v-if="data.calculate.calculation.suppServices !== null && data.calculate.calculation.suppServices.length">
           <div class="kv-review-card__list-title">{{ $lng('step7.suppServices') }}</div>
-          <div class="kv-review-card__list-item" v-for="item in data.suppServices" :key="item.id">
+          <div class="kv-review-card__list-item" v-for="item in data.calculate.calculation.suppServices" :key="item.id">
             {{item.name}}
           </div>
         </div>
