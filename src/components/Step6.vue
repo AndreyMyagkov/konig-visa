@@ -35,6 +35,7 @@
 
 <script>
 import * as arrayHelper from "@/helpers/array";
+import {arrayToCols} from "@/helpers/array";
 
 export default {
   name: "Step6",
@@ -59,7 +60,7 @@ export default {
   },
   computed: {
     postalServicesPrepared() {
-      return arrayHelper.arrayToSubArrays(this.postalServices, 2)
+      return arrayHelper.arrayToCols(this.postalServices, 2)
     }
   },
   mounted() {
