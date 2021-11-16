@@ -7,7 +7,7 @@
 
         <!-- text -->
         <div class="kv-staying__text">
-          <span class="kv-user-text" v-html="serviceDetails.durationsInfo"></span>
+          <div class="kv-user-text"><b>{{$lng('step2.modalDefaultInfo')}}</b> <span v-html="serviceDetails.durationsInfo"></span></div>
         </div>
         <!-- /text -->
 
@@ -24,8 +24,8 @@
                 <div class="kv-staying-chb" :class="{'kv-staying-chb__active' : item.name === setup.duration.name}"  @click="selectDurations(item)">
                   <div class="kv-staying-chb__text" v-html="item.nameHTML"></div>
                   <div class="kv-staying-chb__info"
-                       @click.stop="$emit('showModal', `<p>${$lng('step2.modalDefaultInfo')}</p>` + (item.description ? `<p>${item.description}</p>` : ''), item.name)"
-
+                       @click.stop="$emit('showModal', item.description, item.name)"
+                        v-if="item.description"
                   >
                     <svg class="kv-staying-chb__info-icon"><use href="#kv-icons_info"></use></svg>
                   </div>
