@@ -5388,3 +5388,13 @@
     }
 }
 */
+.kv-app .kv-step6-postal_desktop {
+    display: none;
+}
+.kv-app[cq-min-w-640] .kv-step6-postal_mobile {
+    display: none;
+}
+.kv-app[cq-min-w-640] .kv-step6-postal_desktop {
+    display: block;
+}
+

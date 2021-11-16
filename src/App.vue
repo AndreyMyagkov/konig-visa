@@ -1,5 +1,5 @@
 <template>
-  <div id="kv-app" class="kv-app" notranslate data-cq-max-w="991, 640, 480">
+  <div id="kv-app" class="kv-app" notranslate data-cq-max-w="991, 640, 480" data-cq-min-w="991, 640, 480">
     <!-- HEADER -->
     <div class="kv-header" v-if="CONFIG.mode === 'default'">
 

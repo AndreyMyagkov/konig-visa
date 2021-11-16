@@ -306,6 +306,7 @@ export default {
       constants,
       formatter,
       hooperDurations: {
+        initialSlide: this.setup.duration.index === null ? 1 : this.setup.duration.index,
         itemsToShow: 1,
         trimWhiteSpace:true,
         breakpoints: {

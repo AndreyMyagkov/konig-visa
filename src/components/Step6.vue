@@ -1,9 +1,8 @@
 <template>
   <div class="kv-content__body">
-    <div class="kv-form">
 
-      <!-- From row-->
-
+    <!-- for desktop 2 columns-->
+    <form class="kv-form kv-step6-postal_desktop">
       <div class="kv-row" v-for="(row, i) in postalServicesPrepared" :key="i">
 
         <div class="kv-form__item-wrap kv-form__col_half"  v-for="item in row" :key="item.id">
@@ -28,13 +27,39 @@
         </div>
 
       </div>
+    </form>
 
-    </div>
+    <!-- for mobile-->
+    <form class="kv-form kv-step6-postal_mobile">
+      <div class="kv-row kv-form__item-wrap" v-for="(item, i) in postalServices" :key="`mobile-${i}`">
+
+          <div class="kv-form__item kv-form__item_chb kv-form__item_light kv_height-100">
+            <label class="kv-form-radio">
+              <input type="radio" name="branch" :value="item.id" v-model="postalServiceMobile" @change="postalChange(item)">
+              <span class="kv-form-radio__mark">
+                <svg><use href="#kv-icons_form_radio"></use></svg>
+              </span>
+              <span>
+                <div class="kv-form-radio__title">{{item.name}}</div>
+                <div class="kv-form-radio__text" v-html="item.description"></div>
+            </span>
+            </label>
+            <div class="kv-form__badge">
+              <div class="kv-price">
+                {{item.price}}
+                <span class="kv-price__currency">€</span>
+              </div>
+            </div>
+          </div>
+
+      </div>
+    </form>
+
   </div>
 </template>
 
 <script>
-import * as arrayHelper from "@/helpers/array";
+//import * as arrayHelper from "@/helpers/array";
 import {arrayToCols} from "@/helpers/array";
 
 export default {
@@ -50,7 +75,8 @@ export default {
   },
   data() {
     return {
-      postalService: null
+      //postalService: null,
+      //postalServiceMobile: null
     }
   },
   methods: {
@@ -60,12 +86,31 @@ export default {
   },
   computed: {
     postalServicesPrepared() {
-      return arrayHelper.arrayToCols(this.postalServices, 2)
-    }
+      return arrayToCols(this.postalServices, 2)
+    },
+    postalService: {
+      get () {
+        return this.selectedPostalService
+      },
+      set() {
+
+      }
+
+    },
+    postalServiceMobile: {
+      get () {
+        return this.selectedPostalService
+      },
+      set() {
+
+      }
+
+    },
   },
   mounted() {
     this.$emit('active');
-    this.postalService = this.selectedPostalService;
+   // this.postalService = this.selectedPostalService;
+   // this.postalServiceMobile = this.selectedPostalService;
   }
 }
 </script>
