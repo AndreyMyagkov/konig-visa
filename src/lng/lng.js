@@ -117,7 +117,7 @@ export const lng = {
             "nationality": "Staatsangehörigkeit",
             "location": "Wohnsitz",
             "additionally": "Zusatzinformation",
-            "servicePackage": "Servicepakete:",
+            "servicePackage": "Servicepaket:",
             "suppServices": "Zusatzleistungen:",
             "delivery": " Rückversandart:",
             "amount": "Gesamtpreis:",
