@@ -10,42 +10,45 @@
       </div>
 
       <div class="kv-row">
+        <div class="kv-review-info__col-half">
 
-        <div class="kv-review-info__col">
-          <div class="kv-review-info__name">{{ $lng('step7.country') }}</div>
-          <div class="kv-review-info__value">{{data.toCountry.name}}</div>
+          <div class="kv-review-info__col">
+            <div class="kv-review-info__name">{{ $lng('step7.country') }}</div>
+            <div class="kv-review-info__value">{{data.toCountry.name}}</div>
+          </div>
+
+          <div class="kv-review-info__col">
+            <div class="kv-review-info__name">{{ $lng('step7.serviceGrp') }}</div>
+            <div class="kv-review-info__value">{{data.service.name}}</div>
+          </div>
+
         </div>
 
-        <div class="kv-review-info__col">
-          <div class="kv-review-info__name">{{ $lng('step7.duration') }}</div>
-          <div class="kv-review-info__value">{{data.duration.name}}</div>
+
+        <div class="kv-review-info__col-half">
+          <div class="kv-review-info__col">
+            <div class="kv-review-info__name">{{ $lng('step7.duration') }}</div>
+            <div class="kv-review-info__value">{{data.duration.name}}</div>
+          </div>
+
+          <div class="kv-review-info__col">
+            <div class="kv-review-info__name">{{ $lng('step7.multiplicity') }}</div>
+            <div class="kv-review-info__value">{{data.price.price.m}}-malige Einreise</div>
+          </div>
+
+          <div class="kv-review-info__col">
+            <div class="kv-review-info__name">{{ $lng('step7.processingDuration') }}</div>
+            <div class="kv-review-info__value">{{data.price.info.quantity}} {{ $lng(`step2.dimension.${data.price.info.dimension}`) }}</div>
+          </div>
         </div>
+
+
+
+
 
       </div>
 
 
-      <div class="kv-row">
-        <div class="kv-review-info__col">
-          <div class="kv-review-info__name">{{ $lng('step7.serviceGrp') }}</div>
-          <div class="kv-review-info__value">{{data.serviceGroup.name}}</div>
-        </div>
-        <div class="kv-review-info__col">
-          <div class="kv-review-info__name">{{ $lng('step7.multiplicity') }}</div>
-          <div class="kv-review-info__value">{{data.price.price.m}}-malige Einreise</div>
-        </div>
-      </div>
-
-
-      <div class="kv-row">
-        <div class="kv-review-info__col">
-          <div class="kv-review-info__name">{{ $lng('step7.service') }}</div>
-          <div class="kv-review-info__value">{{data.service.name}}</div>
-        </div>
-        <div class="kv-review-info__col">
-          <div class="kv-review-info__name">{{ $lng('step7.processingDuration') }}</div>
-          <div class="kv-review-info__value">{{data.price.info.quantity}} {{ $lng(`step2.dimension.${data.price.info.dimension}`) }}</div>
-        </div>
-      </div>
 
     </div>
 

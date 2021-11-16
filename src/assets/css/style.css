@@ -3835,17 +3835,26 @@
 }
 
 .kv-app .kv-review-info__col {
-  --kv-clg: 1;
-  --kv-cls: 1;
-  --kv-clb: 992px;
-  -webkit-box-flex: var(--kv-clg);
-      -ms-flex: var(--kv-clg) var(--kv-cls) calc((var(--kv-clb) - 100%) * 999);
-          flex: var(--kv-clg) var(--kv-cls) calc((var(--kv-clb) - 100%) * 999);
+  /*--kv-clg: 1;*/
+  /*--kv-cls: 1;*/
+  /*--kv-clb: 992px;*/
+  /*-webkit-box-flex: var(--kv-clg);*/
+  /*    -ms-flex: var(--kv-clg) var(--kv-cls) calc((var(--kv-clb) - 100%) * 999);*/
+  /*        flex: var(--kv-clg) var(--kv-cls) calc((var(--kv-clb) - 100%) * 999);*/
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+}
+.kv-app .kv-review-info__col-half {
+    flex: 0 0 50%;
+}
+.kv-app[cq-max-w-640] .kv-review-info__col-half {
+    flex: 0 0 100%;
+}
+.kv-app[cq-max-w-640] .kv-review-info__col {
+    margin-bottom: 12px;
 }
 
 .kv-app .kv-review-info__name {
@@ -3857,7 +3866,7 @@
   padding: 10px;
   --kv-clg: 1;
   --kv-cls: 1;
-  --kv-clb: 500px;
+  --kv-clb: 350px;
   -webkit-box-flex: var(--kv-clg);
       -ms-flex: var(--kv-clg) var(--kv-cls) calc((var(--kv-clb) - 100%) * 999);
           flex: var(--kv-clg) var(--kv-cls) calc((var(--kv-clb) - 100%) * 999);
@@ -3871,7 +3880,7 @@
   padding: 10px;
   --kv-clg: 1;
   --kv-cls: 1;
-  --kv-clb: 500px;
+  --kv-clb: 350px;
   -webkit-box-flex: var(--kv-clg);
       -ms-flex: var(--kv-clg) var(--kv-cls) calc((var(--kv-clb) - 100%) * 999);
           flex: var(--kv-clg) var(--kv-cls) calc((var(--kv-clb) - 100%) * 999);
