@@ -48,6 +48,7 @@ export class PriceDefault {
             hours: 0,
             quantity: 0,
         };
+        this.index = null
     }
 }
 // Турист

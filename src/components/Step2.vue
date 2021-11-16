@@ -177,7 +177,7 @@
                   <!-- item -->
                   <div class="kv-processing-day__item" v-for="(price, j) in item.prices" :key="`price-${j}`">
 
-                    <div class="kv-processing-day-chb" @click="setPrice({price: price, info: item.info})">
+                    <div class="kv-processing-day-chb" @click="setPrice({price: price, info: item.info, index: i})">
                       <input type="radio"
                              name="kv-processing-day-chb"
                              aria-label="checkbox"
@@ -317,6 +317,7 @@ export default {
         }
       },
       hooperPrice: {
+        initialSlide: this.setup.price.index === null ? 1 : this.setup.price.index,
         itemsToShow: 1,
         trimWhiteSpace:true,
         breakpoints: {
