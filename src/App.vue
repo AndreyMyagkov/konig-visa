@@ -1845,9 +1845,11 @@ export default {
 
       // TODO: проверка
       if (this.currentStep === 2) {
-        if (this.selectedPrice.price.price !== null && this.steps[1].allowOrder) {
-          return true
-        }
+        // fix 2021-11-17 - task11
+        // if (this.selectedPrice.price.price !== null && this.steps[1].allowOrder) {
+        //   return true
+        // }
+        return true
       }
 
       if (this.currentStep === 3) {
