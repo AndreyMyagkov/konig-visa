@@ -255,6 +255,32 @@
         </div>
       </div>
 
+
+      <!-- Адрес доставки совпадает -->
+      <div class="kv-review__col" v-if="data.delivery.type == 1 && data.calculate.deliveryMedia !== 'digital'">
+        <div class="kv-review-card kv-review-card_light">
+          <div class="kv-review-card__header">
+            <svg class="kv-review-card__icon">
+              <use href="#kv-icons_delivery"></use>
+            </svg>
+            <div class="kv-review-card__title">{{ $lng('step7.address') }}</div>
+            <div class="kv-review-card__edit">
+              <div class="kv-edit">
+                <svg class="kv-edit__icon" @click="setStep({step: 5, block: '#kv-delivery'})">
+                  <use href="#kv-icons_edit"></use>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="kv-review-card__body" >
+            <div class="kv-review-card__text">{{ $lng('step5.addressCorresponds') }}</div>
+          </div>
+
+        </div>
+      </div>
+
       <!-- Адрес доставки -->
       <div class="kv-review__col" v-if="data.delivery.type == 2 && data.calculate.deliveryMedia !== 'digital'">
         <div class="kv-review-card kv-review-card_light">
@@ -295,7 +321,7 @@
             <svg class="kv-review-card__icon">
               <use href="#kv-icons_delivery"></use>
             </svg>
-            <div class="kv-review-card__title">{{ $lng('step7.address') }}</div>
+            <div class="kv-review-card__title">{{ $lng('step7.pickUp') }}</div>
             <div class="kv-review-card__edit">
               <div class="kv-edit">
                 <svg class="kv-edit__icon" @click="setStep({step: 5, block: '#kv-delivery'})">
@@ -307,12 +333,37 @@
 
 
           <div class="kv-review-card__body">
-            <div class="kv-review-card__text">{{ $lng('step7.pickUp') }}</div>
+
             <div class="kv-review-card__text">{{data.delivery.branch.name}}</div>
             <div class="kv-review-card__text">{{data.delivery.branch.address}}</div>
             <div class="kv-review-card__text">{{data.delivery.branch.workingTime}}</div>
 
 
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Способ доставки цифровой -->
+      <div class="kv-review__col" v-if="data.calculate.deliveryMedia === 'digital'">
+        <div class="kv-review-card kv-review-card_light">
+          <div class="kv-review-card__header">
+            <svg class="kv-review-card__icon">
+              <use href="#kv-icons_delivery"></use>
+            </svg>
+            <div class="kv-review-card__title">{{ $lng('step7.address') }}</div>
+            <div class="kv-review-card__edit">
+              <div class="kv-edit">
+                <svg class="kv-edit__icon" @click="setStep({step: 5, block: '#kv-delivery'})">
+                  <use href="#kv-icons_edit"></use>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="kv-review-card__body" >
+            <div class="kv-review-card__text">{{ $lng('step5.deliveryByEmail') }}</div>
           </div>
 
         </div>
