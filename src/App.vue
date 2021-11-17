@@ -1447,11 +1447,11 @@ export default {
       this.sendCalculateAndValidate();
 
       // Если цена не доступна - не пускаем на 3-й шаг
-      // if (this.selectedPrice.price.id && this.getPriceByProductId(this.selectedPrice.price.id) === null) {
-      //   this.steps[1].allowOrder = false;
-      // } else {
-      //   this.steps[1].allowOrder = true;
-      // }
+      if (this.selectedPrice.price.id && this.getPriceByProductId(this.selectedPrice.price.id) === null) {
+        this.steps[1].allowOrder = false;
+      } else {
+        this.steps[1].allowOrder = true;
+      }
     },
   //  ПО выбору смотреть тип. Выбирать группу или сервис и открывать шаг
     /**
