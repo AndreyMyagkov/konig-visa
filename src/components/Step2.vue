@@ -306,7 +306,7 @@ export default {
       constants,
       formatter,
       hooperDurations: {
-        initialSlide: this.setup.duration.index === null ? 1 : this.setup.duration.index,
+        initialSlide: this.setup.duration.index === null ? 0 : this.setup.duration.index,
         itemsToShow: 1,
         trimWhiteSpace:true,
         breakpoints: {
@@ -317,7 +317,7 @@ export default {
         }
       },
       hooperPrice: {
-        initialSlide: this.setup.price.index === null ? 1 : this.setup.price.index,
+        initialSlide: this.setup.price.index === null ? 0 : this.setup.price.index,
         itemsToShow: 1,
         trimWhiteSpace:true,
         breakpoints: {
