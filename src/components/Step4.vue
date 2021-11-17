@@ -446,12 +446,12 @@ export default {
       const freeHeight = windowHeight - headerHeight - addHeight;
 
       const visibleTopButtons = !(freeHeight >= infoHeight);
-      console.log(`wH=${windowHeight}`);
-      console.log(`hH=${headerHeight}`);
-      console.log(`iH=${infoHeight}`);
-      console.log(``);
-      console.log(`fH=${freeHeight}`);
-      console.log(visibleTopButtons)
+      // console.log(`wH=${windowHeight}`);
+      // console.log(`hH=${headerHeight}`);
+      // console.log(`iH=${infoHeight}`);
+      // console.log(``);
+      // console.log(`fH=${freeHeight}`);
+      // console.log(visibleTopButtons)
       //return visibleTopButtons
       this.isTopButtonsShow_ = visibleTopButtons
     }
@@ -569,7 +569,7 @@ export default {
     setTimeout(() => {this.isTopButtonsShow()}, 100);
 
     window.addEventListener('resize', () => {
-      console.log('res')
+      //console.log('res')
       this.isTopButtonsShow()
     })
 

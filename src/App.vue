@@ -873,7 +873,7 @@ export default {
      * Прокрутка экрана до элемента
      */
     scrollTo(element, mobileOnly = false) {
-      console.log('прокрутка ', element);
+      //console.log('прокрутка ', element);
       let elementTarget;
 
       if (mobileOnly && !this.isMobile) {
@@ -886,7 +886,7 @@ export default {
         elementTarget = document.querySelector(element);
       }
 
-      console.log(elementTarget);
+      //console.log(elementTarget);
       if (elementTarget === null) {
         return false
       }
@@ -904,7 +904,7 @@ export default {
       const topOffset = headerHeight + parentOffset;
 
       const offsetPosition = elementPosition + window.pageYOffset - topOffset;
-      console.log('прокрутка до ' + offsetPosition);
+      //console.log('прокрутка до ' + offsetPosition);
 
       setTimeout(() => {
         window.scrollTo({
@@ -1100,11 +1100,11 @@ export default {
      * Выбор первого возможного сервис-пакета, если он еще не выбран
      */
     setFirstPackage() {
-      console.log('setFirstPackage')
+      //console.log('setFirstPackage')
       if (this.productDetails.servicePackages !== null && this.productDetails.servicePackages.length && this.selectedServicePackage.id === null) {
         //this.selectPackage(this.data.servicePackages[0])
         //this.changePackage(this.productDetails.servicePackages[0]);
-        console.log('setFirstPackage+')
+
       }
     },
 
@@ -1210,13 +1210,15 @@ export default {
             this.showModal(calculate.stateDescription, this.$lng('common.error'));
           }
           */
-          if (this.tourists[this.currentEditTourist].nationality.codeA3  && this.tourists[this.currentEditTourist].state !== 0 ) {
+          if (this.currentEditTourist !== null && this.tourists[this.currentEditTourist].nationality.codeA3  && this.tourists[this.currentEditTourist].state !== 0 ) {
             //this.showModal(calculate.stateDescription, this.$lng('common.error'));
             //Fix 04 от 2021-11-08
             this.showModal(this.tourists[index].stateDescription, this.$lng('common.error'));
           }
+          console.warn('stop');
           this.steps[2].allowOrder = false;
         } else {
+          console.warn('go');
           this.steps[2].allowOrder = true;
         }
 
@@ -1269,7 +1271,7 @@ export default {
     /**
      * Загрузка служб доставки виз */
     async loadPostalServices() {
-      console.log('Загрузка почтовых сервисов');
+      //console.log('Загрузка почтовых сервисов');
       const headers = new Headers();
       headers.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -1350,7 +1352,7 @@ export default {
       const selectedCountryId = this.selectedCountry.codeA3;
 
       if (!selectedCountryId) {
-        console.log('Страна не выбрана'); // TODO: что делаем?
+        //console.log('Страна не выбрана'); // TODO: что делаем?
         return
       }
 
@@ -1447,11 +1449,12 @@ export default {
       this.sendCalculateAndValidate();
 
       // Если цена не доступна - не пускаем на 3-й шаг
-      if (this.selectedPrice.price.id && this.getPriceByProductId(this.selectedPrice.price.id) === null) {
-        this.steps[1].allowOrder = false;
-      } else {
-        this.steps[1].allowOrder = true;
-      }
+      // if (this.selectedPrice.price.id && this.getPriceByProductId(this.selectedPrice.price.id) === null) {
+      //   this.steps[1].allowOrder = false;
+      // } else {
+      //   this.steps[1].allowOrder = true;
+      // }
+
     },
   //  ПО выбору смотреть тип. Выбирать группу или сервис и открывать шаг
     /**
@@ -1628,7 +1631,7 @@ export default {
      * @return {Promise<void>}
      */
     async sendOrder() {
-      console.log('Сохранение заявки');
+      //console.log('Сохранение заявки');
 
       const headers = new Headers();
       headers.append("Content-Type", "application/x-www-form-urlencoded");
