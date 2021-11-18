@@ -1364,6 +1364,98 @@ export default {
           throw new Error(services.Message);
         }
 
+        // services = {
+        //   "services": [
+        //     {
+        //       "srvGrpId": null,
+        //       "serviceId": "1",
+        //       "name": "Бизнес",
+        //       "description": "нет"
+        //     },
+        //     {
+        //       "srvGrpId": null,
+        //       "serviceId": "2",
+        //       "name": "Бизнес + Приглашение",
+        //       "description": "нет"
+        //     },
+        //     {
+        //       "srvGrpId": "100",
+        //       "serviceId": "3",
+        //       "name": "Отдых",
+        //       "description": "Туризм"
+        //     },
+        //     {
+        //       "srvGrpId": "100",
+        //       "serviceId": "4",
+        //       "name": "Автотуризм",
+        //       "description": "Туризм"
+        //     },
+        //     {
+        //       "srvGrpId": "200",
+        //       "serviceId": "5",
+        //       "name": "Отдых + Приглашение",
+        //       "description": ""
+        //     },
+        //     {
+        //       "srvGrpId": "200",
+        //       "serviceId": "6",
+        //       "name": "Автотуризм + Приглашение",
+        //       "description": ""
+        //     },
+        //     {
+        //       "srvGrpId": null,
+        //       "serviceId": "7",
+        //       "name": "Обучение",
+        //       "description": "нет"
+        //     },
+        //     {
+        //       "srvGrpId": "300",
+        //       "serviceId": "8",
+        //       "name": "Водитель грузового автомобиля",
+        //       "description": ""
+        //     },
+        //     {
+        //       "srvGrpId": "300",
+        //       "serviceId": "9",
+        //       "name": "Член экипажа",
+        //       "description": ""
+        //     },
+        //     {
+        //       "srvGrpId": "400",
+        //       "serviceId": "10",
+        //       "name": "Бизнес",
+        //       "description": ""
+        //     },
+        //     {
+        //       "srvGrpId": "100",
+        //       "serviceId": "11",
+        //       "name": "Охота",
+        //       "description": "Туризм"
+        //     }
+        //   ],
+        //   "serviceGroups": [
+        //     {
+        //       "id": "100",
+        //       "name": "Туризм",
+        //       "description": ""
+        //     },
+        //     {
+        //       "id": "200",
+        //       "name": "Туризм + Приглашение",
+        //       "description": ""
+        //     },
+        //     {
+        //       "id": "300",
+        //       "name": "Рабочая виза",
+        //       "description": ""
+        //     },
+        //     {
+        //       "id": "400",
+        //       "name": "Командировка",
+        //       "description": ""
+        //     }
+        //   ]
+        // }
         const srv = this.servicesPrepare(services.services)
 
         const grp = this.servicesPrepare(services.serviceGroups)
@@ -1476,9 +1568,33 @@ export default {
     /**
      * Возращает группы сервисов, плюс сервисы без группы
      */
-    servicesGroupsPrepare(groups, services) {
-      services = services.filter(item => item.srvGrpId === null)
-      return [...services, ...groups]
+    // servicesGroupsPrepare(groups, services) {
+    //   services = services.filter(item => item.srvGrpId === null)
+    //   return [...services, ...groups]
+    // },
+
+    /**
+     * Возращает сервисы без групп и группы в порядке следования сервисов
+     * Группы возращаются без дублирования
+     * @param {*} grp
+     * @param {*} srv
+     */
+    servicesGroupsPrepare(grp = [], srv = []) {
+      const group = [];
+      srv.forEach(item => {
+        // Сервис без группы
+        if (item.srvGrpId === null) {
+          group.push(item)
+        } else {
+          // Группа
+          const grpId = item.srvGrpId;
+          const serviceGroup = grp.find(_ => _.id === grpId)
+          if (group.findIndex(_ => _.id === grpId) === -1) {
+            group.push(serviceGroup)
+          }
+        }
+      });
+      return group
     },
 
     async selectVisaType(item) {
