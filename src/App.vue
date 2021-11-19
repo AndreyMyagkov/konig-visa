@@ -135,6 +135,7 @@
           @nextStep="nextStep"
           @sendOrder="sendOrder"
           @makePayment="makePayment"
+          @checkForm="checkForm"
           v-if="currentStep !== 8"
       ></PrevNextButtons>
       <!-- /Top buttons -->
@@ -203,8 +204,10 @@
                @active="Step3Active"
                @change="sendCalculateAndValidate"
                @scroll-to="scrollTo"
+               @showModal="showModal"
                @isValid="steps[2].isValid = $event"
 
+               ref="step3"
         >
         </Step3>
         <!-- /STEP 3 -->
@@ -291,6 +294,7 @@
             @nextStep="nextStep"
             @sendOrder="sendOrder"
             @makePayment="makePayment"
+            @checkForm="checkForm"
             v-if="CONFIG.mode === 'default'"
         ></PrevNextButtons>
         <!-- /Bottom buttons -->
@@ -549,6 +553,7 @@ export default {
       //Шаг 3
       // Список туристов
       tourists: [new constants.Toursit()],
+      step3IsActive: false,
 
       // Шаг 4
       selectedServicePackage: new constants.ServicePackage(),
@@ -850,6 +855,15 @@ export default {
       }
 
       this.setStep({step: step, block: null})
+    },
+    /**
+     * Проверка формы текущего шага
+     * Проверяем формы 3, 5 шага напредмет незаполненных полей
+     */
+    checkForm() {
+      if (this.currentStep === 3 && this.step3IsActive) {
+        this.$refs.step3.checkForm();
+      }
     },
 
     /**
@@ -1683,8 +1697,10 @@ export default {
 
     /*STEP 3*/
     async Step3Active() {
+      this.step3IsActive = false;
       await this.loadProductDetails();
       await this.sendCalculateAndValidate();
+      this.step3IsActive = true;
     },
 
     /**

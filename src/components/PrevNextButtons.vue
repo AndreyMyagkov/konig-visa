@@ -19,14 +19,17 @@
     <!-- Вперед -->
     <div class="kv-content__next"  v-if="currentStep <= 6">
       <div class="kv-content__btn">
-        <button
-            type="button"
-            class="kv-step-button kv-step-button_right"
-            :class="{'kv-step-button_success': allowNext}"
-            :disabled="!allowNext"
-            @click="next">
-          <span class="kv-step-button__text">{{ $lng('common.btnNext') }}</span>
-          <svg class="kv-step-button__icon"><use href="#kv-icons_next"></use></svg></button>
+        <div  @click="checkForm">
+          <button
+              type="button"
+              class="kv-step-button kv-step-button_right"
+              :class="{'kv-step-button_success': allowNext}"
+              :disabled="!allowNext"
+              @click="next">
+            <span class="kv-step-button__text">{{ $lng('common.btnNext') }}</span>
+            <svg class="kv-step-button__icon"><use href="#kv-icons_next"></use></svg>
+          </button>
+        </div>
       </div>
     </div>
     <!-- /Вперед -->
@@ -92,6 +95,9 @@ export default {
     },
     makePayment() {
       this.$emit('makePayment')
+    },
+    checkForm() {
+      this.$emit('checkForm')
     }
   }
 }

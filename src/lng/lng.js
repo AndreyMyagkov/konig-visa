@@ -10,7 +10,8 @@ export const lng = {
             "confirmResetText": "Achtung, alle ausgefüllte Daten werden gelöscht,weiter?",
             "btnYes": "Ja",
             "btnNo": "Nein",
-            "error": "Error"
+            "error": "Error",
+            "checkFormPopup": "Es sind nicht alle Felder vollständig ausgefüllt."
         },
         "price": {
             "header": "Visum Kalkulator",
@@ -172,7 +173,8 @@ export const lng = {
             "confirmResetText": "Внимание, выбор услуги и допуслуг будет сброшен, продолжить?",
             "btnYes": "Да",
             "btnNo": "Нет",
-            "error": "Ошибка"
+            "error": "Ошибка",
+            "checkFormPopup": "Не все данные заполнены."
         },
         "price": {
             "header": "Расчет примерной стоимости для одного человека",

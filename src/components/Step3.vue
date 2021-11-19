@@ -82,6 +82,7 @@
                   placeholder=" "
                   v-model.trim="item.name.$model"
                   @input="isValid"
+                  @blur="item.name.$touch()"
               >
               <label class="kv-form__label" :for="`name-${index}`">{{ $lng('step3.name') }}</label>
             </div>
@@ -97,6 +98,7 @@
                   placeholder=" "
                   v-model.trim="item.sname.$model"
                   @input="isValid"
+                  @blur="item.sname.$touch()"
               >
               <label class="kv-form__label" :for="`sname-${index}`">{{ $lng('step3.sname') }}</label>
             </div>
@@ -128,7 +130,8 @@
                   v-model="item.nationality.$model"
                   :clearable="false"
                   @option:selected="$refs.nationality[index].classList.add('kv_is-focused');calculateAndValidate(index);scrollTo(`#kv-residence-${index}`)"
-                  @search:focus="$refs.nationality[index].classList.add('kv_is-focused')"
+                  @search:focus="$refs.nationality[index].classList.add('kv_is-focused');"
+                  @search:blur="item.nationality.$touch();"
               />
               <svg class="kv-form__sel-arrow"><use href="#kv-icons_select"></use></svg>
 <!-- @search:focus="tourists[index].nationalityIsFocused = true" -->
@@ -161,7 +164,7 @@
                     @option:selected="$refs.residenceRegion[index].classList.add('kv_is-focused');calculateAndValidate();"
                     @search:focus="$refs.residenceRegion[index].classList.add('kv_is-focused');"
                     @search:focusDEL="item.residenceRegionsFocused = true"
-                    @search:blur="item.residenceRegionsFocused = false"
+                    @search:blur="item.residenceRegionsFocused = false;item.residenceRegion.$touch();"
                     @option:selecting=""
                 />
                 <label class="kv-form__label" :for="`residenceRegion-${index}`">{{ $lng('step3.residenceRegions') }}</label>
@@ -411,7 +414,7 @@ export default {
     },
 
     isValid() {
-      console.log('тест валидация')
+
       let isValid = false;
 
       // Если форма валидна
@@ -438,6 +441,21 @@ export default {
     isRegFocused(index) {
       return this.$v.tourists.$each.$iter[index].residenceRegion.isResidenceRegionSelected
     },
+    checkForm(){
+      this.$v.tourists.$touch();
+      if (this.$v.tourists.$error) {
+        this.$emit('showModal', this.$lng('common.checkFormPopup'), this.$lng('common.error'));
+        let errorIndex;
+        for (const index in this.$v.tourists.$each.$iter) {
+          if (this.$v.tourists.$each.$iter[index].$error) {
+            errorIndex = index;
+            break;
+          }
+        }
+        console.log(`#kv-tourist-${errorIndex}`)
+        this.$emit('scroll-to', `#kv-tourist-${errorIndex}`)
+      }
+    },
 
   },
   computed: {
@@ -445,7 +463,11 @@ export default {
   },
   mounted() {
     this.$emit('active');
-    setTimeout(() => {this.isValid();}, 100)
+    setTimeout(() => {this.isValid();}, 100);
+
+    //this.$parent.$on('checkForm', this.$v.tourists.$touch());
+    //this.$v.tourists.touch()
+
 
     // Создаем первого туриста, если их нет вообще
     /*
