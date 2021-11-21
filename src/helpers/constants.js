@@ -33,6 +33,14 @@ export class DurationDefault {
         this.index = null;
     }
 }
+// Национальность
+export class NationalityDefault {
+    constructor() {
+        this.codeA2 = null;
+        this.codeA3 = null;
+        this.name = " "
+    }
+}
 
 // Цена, кратность, срок обработки
 export class PriceDefault {
@@ -57,7 +65,7 @@ export class Toursit {
         this.gender = '';
         this.name = '';
         this.sname = '';
-        this.nationality = {name: " ", codeA3: null};
+        this.nationality = {name: " ", codeA3: null, codeA2: null};
         this.residenceRegion = {name: " ", code: null};
         this.discount = null;
         this.birthDate = '';

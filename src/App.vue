@@ -489,6 +489,7 @@ export default {
           isValid: false, // флаг валидности шага, флаг показа попапа при изменении данных
           allowOrder: false,  // флаг возможности заказа виз
           isActive: false, // загружены все данные
+          defaultNationality: new constants.NationalityDefault() // Дефолтная национальность
         },
         {
           crumb: 'Дополнительные услуги',
@@ -554,7 +555,7 @@ export default {
 
       //Шаг 3
       // Список туристов
-      tourists: [new constants.Toursit()],
+      tourists: [], //new constants.Toursit()
 
       // Шаг 4
       selectedServicePackage: new constants.ServicePackage(),
@@ -1173,20 +1174,37 @@ export default {
       const headers = new Headers();
       headers.append("Content-Type", "application/x-www-form-urlencoded");
 
+      let participants;
+      // Для 3-го шага, когда уже завели участников
+      if (this.tourists.length) {
+        participants = this.tourists.map((item, i) => {
+          return {
+            nr: i + 1,
+            nationalityA2: item.nationality.codeA2, // || this.CONFIG.nationality
+            residenceCode: item.residenceRegion.code, //  || this.CONFIG.residenceRegions
+            discountCode: item.discount
+          }
+        })
+      } else {
+        // Для шага 2, когда еще не создали туристов используем фейкового туриста
+        // с национальностью и местом жительства из шага 2
+        participants = [
+            {
+              nr: 1,
+              nationalityA2: this.CONFIG.nationality,
+              residenceCode: this.CONFIG.residenceRegions,
+            }
+        ]
+
+      }
+
       const requestOptions = {
         method: 'POST',
         headers: headers,
         body: network.toFormUrlEncoded(
             {
               productId: this.selectedPrice.price.id,
-              participants: this.tourists.map((item, i) => {
-                return {
-                  nr: i + 1,
-                  nationalityA2: item.nationality.codeA2 || this.CONFIG.nationality,
-                  residenceCode: item.residenceRegion.code || this.CONFIG.residenceRegions,
-                  discountCode: item.discount
-                }
-              }),
+              participants: participants,
               servicePackageId: this.selectedServicePackage.id,
               suppServices: this.selectedSuppServices.map(_ => _.id),
               postalServiceId: this.selectedPostalService === null ? "" : this.selectedPostalService.id
@@ -1205,8 +1223,8 @@ export default {
         this.calculate = calculate;
         this.setResidenceRegionsRequired();
 
-        // Проверка туристов на возможность оформления виз
-        if (calculate.calculation.participants !== null) {
+        // Проверка туристов на возможность оформления виз, для или после шага 3
+        if (calculate.calculation.participants !== null && this.tourists.length) {
           calculate.calculation.participants.forEach((item, index) => {
             this.tourists[index].state = item.state;
             this.tourists[index].stateDescription = item.stateDescription;
@@ -1233,10 +1251,8 @@ export default {
             //Fix 04 от 2021-11-08
             this.showModal(this.tourists[index].stateDescription, this.$lng('common.error'));
           }
-          console.warn('stop');
           this.steps[2].allowOrder = false;
         } else {
-          console.warn('go');
           this.steps[2].allowOrder = true;
         }
 
@@ -1505,7 +1521,13 @@ export default {
       await this.loadPrices();
       //await this.sendCalculateAndValidate();
 
-
+      // Установка национальности по умолчанию для шага 3
+      // Устанавливаем, если сенили национальность и
+      // для нее нужнна виза, но продукт не выбран в данный момент, а выбран ранее
+      if (this.selectedPrice.price.price && this.prices.state === 0) {
+        //console.log('Дефолтный при смене нац')
+        this.steps[2].defaultNationality = this.nationalities.find(item => item.codeA2 === this.CONFIG.nationality);
+      }
       this.resetStep4();
       this.resetStep6();
 
@@ -1563,9 +1585,14 @@ export default {
       this.resetStep6();
       this.sendCalculateAndValidate();
 
-      console.log('update Price');
-      console.log(this.selectedPrice.price.price);
-      console.log()
+      // Установка национальности по умолчанию для шага 3
+      // Устанавливаем, если для текущей национальности
+      // Пришла цена и она выбрана сейчас
+      if (this.selectedPrice.price.price && this.calculate.state === 0) {
+        //console.log('Дефолтный при смене цены')
+        this.steps[2].defaultNationality = this.nationalities.find(item => item.codeA2 === this.CONFIG.nationality);
+      }
+
       // Если цена не доступна - не пускаем на 3-й шаг
       // if (this.selectedPrice.price.id && this.getPriceByProductId(this.selectedPrice.price.id) === null) {
       //   this.steps[1].allowOrder = false;
@@ -1749,7 +1776,13 @@ export default {
     async Step3Active() {
       this.steps[2].isActive = false;
       await this.loadProductDetails();
-      await this.sendCalculateAndValidate();
+
+      // Добавляем туриста, если их еще нет
+      if (!this.tourists.length) {
+        await this.addTourist();
+      }
+      // Убрал калькуляцию, т.к. она выполнится после добавления туриста
+      //await this.sendCalculateAndValidate();
       // Задержка автивности шага на тот случай, если
       // не выбрана цена, что бы сразу не запускать проверку формы
       setTimeout(()=> {
@@ -1762,7 +1795,12 @@ export default {
      * Добавляет туриста
      */
     async addTourist() {
-      this.tourists.push(new this.constants.Toursit());
+      const tourist = new this.constants.Toursit();
+      // Национальность последняя, для которой была получена цена
+      tourist.nationality.codeA3 = this.steps[2].defaultNationality.codeA3;
+      tourist.nationality.codeA2 = this.steps[2].defaultNationality.codeA2;
+      tourist.nationality.name = this.steps[2].defaultNationality.name;
+      this.tourists.push(tourist);
       await this.sendCalculateAndValidate();
       this.scrollTo(`#kv-tourist-${this.tourists.length - 1}`);
     },
