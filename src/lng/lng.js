@@ -24,7 +24,15 @@ export const lng = {
             "countryLabel": "Zielland auswählen:",
             "countryPlaceholder": "Auswählen",
             "serviceGrpLabel": "Visum-Art auswählen:",
-            "serviceLabel": "Reisezweck:"
+            "serviceLabel": "Reisezweck:",
+            "confirmReset": {
+                "begin": "Внимание, выбор",
+                "servicePacket": "сервисного пакета",
+                "suppServices": "дополнительных услуг",
+                "delivery": "способа доставки",
+                "end": "будет сброшен. Продолжить?",
+                "and": " и "
+            }
         },
         "step2": {
             "crumb": "Aufenthaltsdauer",
@@ -188,6 +196,14 @@ export const lng = {
             "countryPlaceholder": "Выберите",
             "serviceGrpLabel": "Выберите группу:",
             "serviceLabel": "Выберите подтип визы:",
+            "confirmReset": {
+                "begin": "Внимание, выбор",
+                "servicePacket": "сервисного пакета",
+                "suppServices": "дополнительных услуг",
+                "delivery": "способа доставки",
+                "end": "будет сброшен. Продолжить?",
+                "and": " и "
+            }
         },
         "step2": {
             "crumb": "Aufenthaltsdauer",

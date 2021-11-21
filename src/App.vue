@@ -479,14 +479,15 @@ export default {
           crumb: 'Aufenthaltsdauer',
          // header: 'Расчет примерной стоимости для одного человека',
           icon: 'step_2',
-          allowOrder: true
+          allowOrder: false
         },
         {
           crumb: 'Заполнение данных о туристах',
           //header: 'Заполнение данных',
           icon: 'step_3',
           isValid: false, // флаг валидности шага, флаг показа попапа при изменении данных
-          allowOrder: false  // флаг возможности заказа виз
+          allowOrder: false,  // флаг возможности заказа виз
+          isActive: false, // загружены все данные
         },
         {
           crumb: 'Дополнительные услуги',
@@ -553,7 +554,6 @@ export default {
       //Шаг 3
       // Список туристов
       tourists: [new constants.Toursit()],
-      step3IsActive: false,
 
       // Шаг 4
       selectedServicePackage: new constants.ServicePackage(),
@@ -861,7 +861,7 @@ export default {
      * Проверяем формы 3, 5 шага напредмет незаполненных полей
      */
     checkForm() {
-      if (this.currentStep === 3 && this.step3IsActive) {
+      if (this.currentStep === 3 && this.steps[2].isActive) {
         this.$refs.step3.checkForm();
       }
     },
@@ -1066,7 +1066,7 @@ export default {
         // console.log(this.getPriceByProductId(this.selectedPrice.price.id))
         // Если заказ невозможен
         if (prices.state !== 0 /*|| (prices.state === 0 && this.selectedPrice.price.id && this.getPriceByProductId(this.selectedPrice.price.id) === null )*/ ) {
-          this.steps[1].allowOrder = false;
+          //this.steps[1].allowOrder = false;
           //this.calculate.amount = null
         } else {
           this.steps[1].allowOrder = true;
@@ -1126,6 +1126,9 @@ export default {
      * Загружает детальную инфо по продукту
      */
     async loadProductDetails() {
+      if (!this.selectedPrice.price.id) {
+        return false
+      }
       if (this.productDetails.id &&  this.productDetails.id === this.selectedPrice.price.id) {
         //this.setFirstPackage();
         return false
@@ -1530,6 +1533,11 @@ export default {
     _updateDuration(data){
       this.selectedDuration = data;
       this._updatePrice(new this.constants.PriceDefault());
+      if (data.name) {
+        this.steps[1].allowOrder = true
+      } else {
+        this.steps[1].allowOrder = false
+      }
     },
 
     async updatePrice(data) {
@@ -1697,10 +1705,15 @@ export default {
 
     /*STEP 3*/
     async Step3Active() {
-      this.step3IsActive = false;
+      this.steps[2].isActive = false;
       await this.loadProductDetails();
       await this.sendCalculateAndValidate();
-      this.step3IsActive = true;
+      // Задержка автивности шага на тот случай, если
+      // не выбрана цена, что бы сразу не запускать проверку формы
+      setTimeout(()=> {
+        this.steps[2].isActive = true;
+      }, 1000)
+
     },
 
     /**
@@ -1977,11 +1990,13 @@ export default {
 
       // TODO: проверка
       if (this.currentStep === 2) {
-        // fix 2021-11-17 - task11
-        // if (this.selectedPrice.price.price !== null && this.steps[1].allowOrder) {
-        //   return true
-        // }
-        return true
+        if (this.selectedPrice.price.price !== null && this.steps[1].allowOrder) {
+           return true
+        }
+        //if (this.steps[1].allowOrder) {
+        //    return true
+        //}
+        return false
       }
 
       if (this.currentStep === 3) {
