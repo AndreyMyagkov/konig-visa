@@ -361,7 +361,7 @@ export default {
      */
     deleteTourist(index) {
       this.$emit('deleteTourist', index);
-      if (!this.$v.tourists.$anyDirty) {this.$v.$touch();}
+      //if (!this.$v.tourists.$anyDirty) {this.$v.$touch();}
       this.isValid();
     },
     /**
