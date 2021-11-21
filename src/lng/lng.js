@@ -7,7 +7,7 @@ export const lng = {
             "btnOrderAndPay": "Zahlungspflichtig buchen",
             "btnCommitOrder": "Visum beantragen",
             "btnSaveOrder": "Anfrage speichern",
-            "confirmResetText": "Achtung, alle ausgefüllte Daten werden gelöscht,weiter?",
+            "confirmResetText": "Achtung, alle ausgefüllte Daten werden gelöscht, weiter?",
             "btnYes": "Ja",
             "btnNo": "Nein",
             "error": "Error",
@@ -26,12 +26,12 @@ export const lng = {
             "serviceGrpLabel": "Visum-Art auswählen:",
             "serviceLabel": "Reisezweck:",
             "confirmReset": {
-                "begin": "Внимание, выбор",
-                "servicePacket": "сервисного пакета",
-                "suppServices": "дополнительных услуг",
-                "delivery": "способа доставки",
-                "end": "будет сброшен. Продолжить?",
-                "and": " и "
+                "begin": "Bitte beachten Sie, dass die ausgewählte Leistung, wie ",
+                "servicePacket": "Servicepaket",
+                "suppServices": "Zusatzleistung",
+                "delivery": "die Rückversandart",
+                "end": " zurückgesetzt wird. Möchten Sie fortfahren?",
+                "and": " und "
             }
         },
         "step2": {
@@ -197,11 +197,11 @@ export const lng = {
             "serviceGrpLabel": "Выберите группу:",
             "serviceLabel": "Выберите подтип визы:",
             "confirmReset": {
-                "begin": "Внимание, выбор",
+                "begin": "Внимание, выбор ",
                 "servicePacket": "сервисного пакета",
                 "suppServices": "дополнительных услуг",
                 "delivery": "способа доставки",
-                "end": "будет сброшен. Продолжить?",
+                "end": " будет сброшен. Продолжить?",
                 "and": " и "
             }
         },
@@ -344,7 +344,15 @@ export const lng = {
             "countryLabel": "Выберите страну назначения:",
             "countryPlaceholder": "Выберите",
             "serviceGrpLabel": "Выберите группу:",
-            "serviceLabel": "Выберите подтип визы:"
+            "serviceLabel": "Выберите подтип визы:",
+            "confirmReset": {
+                "begin": "Внимание, выбор ",
+                "servicePacket": "сервисного пакета",
+                "suppServices": "дополнительных услуг",
+                "delivery": "способа доставки",
+                "end": " будет сброшен. Продолжить?",
+                "and": " и "
+            }
         },
         "step2": {
             "crumb": "Aufenthaltsdauer",

@@ -473,7 +473,8 @@ export default {
         {
           crumb: 'Buchungsauftrag',
           //header: this.$lng('step1.header'),//'Buchungsauftrag',
-          icon: 'step_1'
+          icon: 'step_1',
+          showModalWhenChangeVisa: true // Флаг показа модалки, при возврате на первый шаг и смене визы
         },
         {
           crumb: 'Aufenthaltsdauer',
@@ -1562,6 +1563,9 @@ export default {
       this.resetStep6();
       this.sendCalculateAndValidate();
 
+      console.log('update Price');
+      console.log(this.selectedPrice.price.price);
+      console.log()
       // Если цена не доступна - не пускаем на 3-й шаг
       // if (this.selectedPrice.price.id && this.getPriceByProductId(this.selectedPrice.price.id) === null) {
       //   this.steps[1].allowOrder = false;
@@ -1620,11 +1624,48 @@ export default {
     },
 
     async selectVisaType(item) {
+      // Ничего не делаем, если выбрали тоже самое
+      if (item.type === 'group' && this.selectedServiceGroup.id === item.id ||
+          item.type === 'item' && this.selectedService.id === item.id) {
+        return
+      }
       // Конфирм сброса
-      if (this.confirmReset &&
-          (this.selectedPrice.price.id !== null || this.selectedServicePackage.id !== null || this.selectedSuppServices.length || this.selectedPostalService.id !== null)      ) {
-        if (await this.showResetConfirm()) {
-          this._selectVisaType(item)
+      if (this.steps[0].showModalWhenChangeVisa && this.confirmReset &&
+          ( this.selectedServicePackage.id !== null || this.selectedSuppServices.length || this.selectedPostalService.id !== null)      ) {
+        //this.selectedPrice.price.id !== null ||
+        // Строка сообщения
+        let content = this.$lng('step1.confirmReset.begin');
+        const contentParts = [];
+
+        if (this.selectedServicePackage.id !== null) {
+          contentParts.push(this.$lng('step1.confirmReset.servicePacket'))
+        }
+
+        if (this.selectedSuppServices.length) {
+          contentParts.push(this.$lng('step1.confirmReset.suppServices'))
+        }
+
+        if (this.selectedPostalService.id !== null) {
+          contentParts.push(this.$lng('step1.confirmReset.delivery'))
+        }
+
+        if (contentParts.length === 1) {
+          content = `${content} ${contentParts[0]} `
+        }
+
+        if (contentParts.length === 2) {
+          content = `${content} ${contentParts[0]} ${this.$lng('step1.confirmReset.and')} ${contentParts[1]} `
+        }
+
+        if (contentParts.length === 3) {
+          content = `${content} ${contentParts[0]}, ${contentParts[1]} ${this.$lng('step1.confirmReset.and')} ${contentParts[2]} `
+        }
+
+        content = content + this.$lng('step1.confirmReset.end');
+
+        if (await this.showResetConfirm(content)) {
+          this._selectVisaType(item);
+          this.steps[0].showModalWhenChangeVisa = false
         }
       } else {
         this._selectVisaType(item)
@@ -1693,6 +1734,7 @@ export default {
     postalChange(data) {
       this.selectedPostalService = data;
       this.sendCalculateAndValidate();
+      this.steps[0].showModalWhenChangeVisa = true
     },
 
     /**
@@ -1739,7 +1781,8 @@ export default {
      * Смена сервисного пакета
      */
     changePackage(pcg) {
-      this.selectedServicePackage = pcg
+      this.selectedServicePackage = pcg;
+      this.steps[0].showModalWhenChangeVisa = true
     },
 
     /**
@@ -1747,6 +1790,7 @@ export default {
      */
     changeSuppService(services) {
       this.selectedSuppServices = services;
+      this.steps[0].showModalWhenChangeVisa = true;
     },
     /**
      * Сброс шага 4
