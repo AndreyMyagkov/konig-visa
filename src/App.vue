@@ -1523,7 +1523,7 @@ export default {
 
       // Установка национальности по умолчанию для шага 3
       // Устанавливаем, если сменили национальность и
-      // для нее нужнна виза и есть продукт, но продукт не выбран в данный момент, а выбран ранее
+      // для нее нужна виза и есть продукт, но продукт не выбран в данный момент, а выбран ранее
 
       if (this.selectedPrice.price.price && this.prices.state === 0 && this.getPriceByProductId(this.selectedPrice.price.id)) {
         //console.log('Дефолтный при смене нац')
@@ -1797,10 +1797,7 @@ export default {
      */
     async addTourist() {
       const tourist = new this.constants.Toursit();
-      // Национальность последняя, для которой была получена цена
-      //tourist.nationality.codeA3 = this.steps[2].defaultNationality.codeA3;
-      //tourist.nationality.codeA2 = this.steps[2].defaultNationality.codeA2;
-      //tourist.nationality.name = this.steps[2].defaultNationality.name;
+
       this.tourists.push(tourist);
       await this.sendCalculateAndValidate();
       this.scrollTo(`#kv-tourist-${this.tourists.length - 1}`);
