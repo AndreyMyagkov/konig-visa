@@ -82,7 +82,12 @@ export default {
   methods: {
     postalChange(item) {
       this.$emit('change', item)
-    }
+    },
+    checkForm(){
+      if (this.selectedPostalService === null) {
+        this.$emit('showModal', this.$lng('common.checkFormPopup'), this.$lng('common.error'));
+      }
+    },
   },
   computed: {
     postalServicesPrepared() {

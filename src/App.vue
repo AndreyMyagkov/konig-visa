@@ -249,6 +249,8 @@
                :selectedPostalService="selectedPostalService.id"
                @change="postalChange"
                @active="loadPostalServices"
+               @showModal="showModal"
+               ref="step6"
         />
         <!-- /STEP 6 -->
 
@@ -872,6 +874,9 @@ export default {
       }
       if (this.currentStep === 5) {
         this.$refs.step5.checkForm();
+      }
+      if (this.currentStep === 6) {
+        this.$refs.step6.checkForm();
       }
     },
 
