@@ -485,7 +485,8 @@ export default {
           crumb: 'Aufenthaltsdauer',
          // header: 'Расчет примерной стоимости для одного человека',
           icon: 'step_2',
-          allowOrder: false
+          allowOrder: false,
+          showModalCorrectParticipant: true
         },
         {
           crumb: 'Заполнение данных о туристах',
@@ -1253,8 +1254,9 @@ export default {
           })
         }
         // Если заказ невозможен на шаге 2 по причине проблем с туристами шага 3 (возврат) - показываем попап
-        if (calculate.state !== 0 && this.currentStep === 2) {
+        if (calculate.state !== 0 && this.currentStep === 2 && this.steps[1].showModalCorrectParticipant) {
           this.showModal(this.$lng('step2.errorByTourists'), this.$lng('common.error'));
+          this.steps[1].showModalCorrectParticipant = false;
         }
         // Если заказ невозможен показываем попап
         if (calculate.state !== 0 && this.currentStep === 3) {
@@ -1365,6 +1367,7 @@ export default {
     },
 
     async loadStep2Data() {
+      this.steps[1].showModalCorrectParticipant = true;
       await this.loadServiceDetails();
       await this.loadNationalities();
       await this.loadPrices();
