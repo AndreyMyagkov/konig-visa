@@ -869,7 +869,17 @@ export default {
      * Остальные шаги на предмет не выбранных опций
      */
     checkForm() {
-      if (this.currentStep === 3 && this.steps[2].isActive) {
+      if (this.currentStep === 1) {
+        if (this.selectedService.id === null) {
+          this.showModal(this.$lng('common.checkFormPopup'), this.$lng('common.error'))
+        }
+      }
+      if (this.currentStep === 2) {
+        if (!this.allowNext) {
+          this.showModal(this.$lng('common.checkFormPopup'), this.$lng('common.error'))
+        }
+      }
+      if (this.currentStep === 3) {
         this.$refs.step3.checkForm();
       }
       if (this.currentStep === 5) {
@@ -1798,9 +1808,9 @@ export default {
       //await this.sendCalculateAndValidate();
       // Задержка автивности шага на тот случай, если
       // не выбрана цена, что бы сразу не запускать проверку формы
-      setTimeout(()=> {
+     // setTimeout(()=> {
         this.steps[2].isActive = true;
-      }, 1000)
+     // }, 1000)
 
     },
 
