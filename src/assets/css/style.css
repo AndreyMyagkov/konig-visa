@@ -1763,9 +1763,10 @@
   opacity: .8;
 }
 
-.kv-app .kv-step-button:disabled {
+.kv-app .kv-step-button:disabled,
+.kv-app .kv-step-button_disabled {
   background-color: var(--c-disabled_dark);
-  pointer-events: none;
+  /*pointer-events: none;*/
 }
 
 .kv-app .kv-step-button:disabled .kv-step-button__text {

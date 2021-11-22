@@ -237,6 +237,9 @@
                @isValid="steps[4].isValid = $event"
                @update="setCustomerDelivery"
                @postalReset="postalReset"
+               @showModal="showModal"
+               @scroll-to="scrollTo"
+               ref="step5"
         />
         <!-- /STEP 5 -->
 
@@ -860,11 +863,15 @@ export default {
     },
     /**
      * Проверка формы текущего шага
-     * Проверяем формы 3, 5 шага напредмет незаполненных полей
+     * Проверяем формы 3, 5 шага на предмет незаполненных полей
+     * Остальные шаги на предмет не выбранных опций
      */
     checkForm() {
       if (this.currentStep === 3 && this.steps[2].isActive) {
         this.$refs.step3.checkForm();
+      }
+      if (this.currentStep === 5) {
+        this.$refs.step5.checkForm();
       }
     },
 

@@ -60,10 +60,10 @@
 
         <div class="kv-form__row kv-row" v-if="customer.isCompany">
           <!-- company name -->
-          <div class="kv-form__item-wrap kv-form__col">
+          <div class="kv-form__item-wrap kv-form__col" id="kv-customer-field-companyName">
             <div class="kv-form__item"  :class="{ 'kv-form__item_error': $v.customer.companyName.$error }">
-              <input type="text" id="companyname" placeholder=" " v-model="$v.customer.companyName.$model"  @input="isFormCorrect">
-              <label class="kv-form__label" for="companyname">{{ $lng('step5.companyName') }}</label>
+              <input type="text" id="kv-customer-companyname" placeholder=" " v-model="$v.customer.companyName.$model"  @input="isFormCorrect">
+              <label class="kv-form__label" for="kv-customer-companyname">{{ $lng('step5.companyName') }}</label>
             </div>
           </div>
           <!-- company name -->
@@ -72,7 +72,7 @@
         <!-- From row-->
         <div class="kv-row kv-form__row">
           <!-- gender -->
-          <div class="kv-form__item-wrap kv-form__col">
+          <div class="kv-form__item-wrap kv-form__col" id="kv-customer-field-gender">
             <div class="kv-form__item kv-form__item_chb" :class="{ 'kv-form__item_error': $v.customer.gender.$error }">
               <label class="kv-form-radio">
                 <input type="radio" name="gender" aria-label="Herr" value="Herr" v-model="$v.customer.gender.$model"  @change="isFormCorrect">
@@ -94,19 +94,19 @@
           <!-- /gender -->
 
           <!-- name -->
-          <div class="kv-form__item-wrap kv-form__col">
+          <div class="kv-form__item-wrap kv-form__col" id="kv-customer-field-name">
             <div class="kv-form__item"  :class="{ 'kv-form__item_error': $v.customer.name.$error }">
-              <input type="text" placeholder=" " id="name1" v-model.trim="$v.customer.name.$model"  @input="isFormCorrect">
-              <label class="kv-form__label" for="name1">{{ $lng('step5.name') }}</label>
+              <input type="text" placeholder=" " id="kv-customer-name" v-model.trim="$v.customer.name.$model"  @input="isFormCorrect">
+              <label class="kv-form__label" for="kv-customer-name">{{ $lng('step5.name') }}</label>
             </div>
           </div>
           <!-- /name -->
 
           <!-- sname -->
-          <div class="kv-form__item-wrap kv-form__col">
+          <div class="kv-form__item-wrap kv-form__col" id="kv-customer-field-sname">
             <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.customer.sname.$error }">
-              <input type="text" placeholder=" " id="sname1" v-model.trim="$v.customer.sname.$model" @input="isFormCorrect">
-              <label class="kv-form__label" for="sname1">{{ $lng('step5.sname') }}</label>
+              <input type="text" placeholder=" " id="kv-customer-sname" v-model.trim="$v.customer.sname.$model" @input="isFormCorrect">
+              <label class="kv-form__label" for="kv-customer-sname">{{ $lng('step5.sname') }}</label>
             </div>
           </div>
           <!-- /sname -->
@@ -117,7 +117,7 @@
         <!-- From row-->
         <div class="kv-form__row kv-row">
           <!-- address -->
-          <div class="kv-form__item-wrap kv-form__col">
+          <div class="kv-form__item-wrap kv-form__col" id="kv-customer-field-address">
             <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.customer.address.$error }">
               <input type="text" placeholder=" " id="address1"  v-model.trim="$v.customer.address.$model"  @input="isFormCorrect">
               <label class="kv-form__label" for="address1">{{ $lng('step5.address') }}</label>
@@ -131,7 +131,7 @@
         <div class="kv-form__row kv-row">
 
           <!-- index -->
-          <div class="kv-form__item-wrap kv-form__col">
+          <div class="kv-form__item-wrap kv-form__col" id="kv-customer-field-zip">
             <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.customer.zip.$error }">
               <input type="text" placeholder=" " id="zip1" v-model.trim="$v.customer.zip.$model"  @input="isFormCorrect">
               <label class="kv-form__label" for="zip1">{{ $lng('step5.zip') }}</label>
@@ -140,7 +140,7 @@
           <!-- /index -->
 
           <!-- city -->
-          <div class="kv-form__item-wrap kv-form__col">
+          <div class="kv-form__item-wrap kv-form__col" id="kv-customer-field-city">
             <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.customer.city.$error }">
               <input type="text" placeholder=" " id="city1" v-model.trim="$v.customer.city.$model"  @input="isFormCorrect">
               <label class="kv-form__label" for="city1">{{ $lng('step5.city') }}</label>
@@ -149,7 +149,7 @@
           <!-- /city -->
 
           <!-- country -->
-          <div class="kv-form__item-wrap kv-form__col">
+          <div class="kv-form__item-wrap kv-form__col" id="kv-customer-field-addressingCountry">
             <div class="kv-form__item kv_is-focused-"
                  ref="addressingCountries"
                  :class="{
@@ -202,7 +202,7 @@
           <!-- /phone -->
 
           <!-- mphone -->
-          <div class="kv-form__item-wrap kv-form__col">
+          <div class="kv-form__item-wrap kv-form__col" id="kv-customer-field-mobile">
             <div class="kv-form__item"  :class="{ 'kv-form__item_error': $v.customer.mobile.$error }">
               <input type="text" placeholder=" " id="cellphone1"  v-model="$v.customer.mobile.$model"  @input="isFormCorrect">
               <!--<the-mask mask="# (###) ### ## ##" type="tel" :masked="false" placeholder=" " id="cellphone1" v-model="$v.customer.mobile.$model"  @input="isFormCorrect"></the-mask>-->
@@ -212,7 +212,7 @@
           <!-- /mphone -->
 
           <!-- email -->
-          <div class="kv-form__item-wrap kv-form__col">
+          <div class="kv-form__item-wrap kv-form__col" id="kv-customer-field-email">
             <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.customer.email.$error }">
               <input type="email" placeholder=" " id="email1"  v-model.trim="$v.customer.email.$model"  @input="isFormCorrect">
               <label class="kv-form__label" for="email1">{{ $lng('step5.email') }}</label>
@@ -296,7 +296,7 @@
         <!-- From row-->
           <div class="kv-row kv-form__row">
             <!--  company -->
-            <div class="kv-form__item-wrap kv-form__col">
+            <div class="kv-form__item-wrap kv-form__col" id="kv-delivery-field-companyName">
               <div class="kv-form__item kv-form__item_chb">
                 <label class="kv-form-radio">
                   <input type="checkbox" v-model="delivery.isCompany"  @change="$v.delivery.companyName.$reset; isFormCorrect()">
@@ -329,7 +329,7 @@
           <!-- From row-->
           <div class="kv-row kv-form__row">
             <!--  gender -->
-            <div class="kv-form__item-wrap kv-form__col">
+            <div class="kv-form__item-wrap kv-form__col" id="kv-delivery-field-gender">
               <div class="kv-form__item kv-form__item_chb" :class="{ 'kv-form__item_error': $v.delivery.gender.$error }">
                 <label class="kv-form-radio">
                   <input type="radio" name="gender2" value="Herr"  v-model="$v.delivery.gender.$model"  @change="isFormCorrect">
@@ -349,7 +349,7 @@
             </div>
 
 
-            <div class="kv-form__item-wrap kv-form__col">
+            <div class="kv-form__item-wrap kv-form__col" id="kv-delivery-field-name">
               <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.name.$error }">
                 <input type="text" placeholder=" " id="name2" name="name2" v-model.trim="$v.delivery.name.$model"  @input="isFormCorrect">
                 <label class="kv-form__label" for="name2">{{ $lng('step5.name') }}</label>
@@ -357,7 +357,7 @@
             </div>
 
 
-          <div class="kv-form__item-wrap kv-form__col">
+          <div class="kv-form__item-wrap kv-form__col" id="kv-delivery-field-sname">
             <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.sname.$error }">
               <input type="text" placeholder=" " id="sname2" name="sname2" v-model.trim="$v.delivery.sname.$model"  @change="isFormCorrect">
               <label class="kv-form__label" for="sname2">{{ $lng('step5.sname') }}</label>
@@ -370,7 +370,7 @@
           <!-- From row-->
 
           <div class="kv-form__row kv-row">
-            <div class="kv-form__item-wrap kv-form__col">
+            <div class="kv-form__item-wrap kv-form__col" id="kv-delivery-field-address">
               <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.address.$error }">
                 <input type="text" placeholder=" " id="address2" name="address2" v-model.trim="$v.delivery.address.$model"  @input="isFormCorrect">
                 <label class="kv-form__label" for="address2">{{ $lng('step5.address') }}</label>
@@ -380,21 +380,21 @@
           <!-- From row-->
 
           <div class="kv-form__row kv-row">
-            <div class="kv-form__item-wrap kv-form__col">
+            <div class="kv-form__item-wrap kv-form__col" id="kv-delivery-field-zip">
               <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.zip.$error }">
                 <input type="text" placeholder=" " id="zip2" name="zip2" v-model.trim="$v.delivery.zip.$model"  @input="isFormCorrect">
                 <label class="kv-form__label" for="zip2">{{ $lng('step5.zip') }}</label>
               </div>
             </div>
 
-            <div class="kv-form__item-wrap kv-form__col">
+            <div class="kv-form__item-wrap kv-form__col" id="kv-delivery-field-city">
               <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.city.$error }">
                 <input type="text" placeholder=" " id="city2" name="city2" v-model.trim="$v.delivery.city.$model"  @input="isFormCorrect">
                 <label class="kv-form__label" for="city2">{{ $lng('step5.city') }}</label>
               </div>
             </div>
 
-            <div class="kv-form__item-wrap kv-form__col">
+            <div class="kv-form__item-wrap kv-form__col" id="kv-delivery-field-addressingCountry">
               <div class="kv-form__item"
                    ref="addressingCountries2"
                    :class="{
@@ -436,7 +436,7 @@
               </div>
             </div>
 
-            <div class="kv-form__item-wrap kv-form__col">
+            <div class="kv-form__item-wrap kv-form__col" id="kv-delivery-field-mobile">
               <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.mobile.$error }">
                 <input type="text" placeholder=" " id="cellphone2" name="cellphone2" v-model="$v.delivery.mobile.$model" @input="isFormCorrect">
                 <!--<the-mask mask="# (###) ### ## ##" type="tel"
@@ -445,7 +445,7 @@
               </div>
             </div>
 
-            <div class="kv-form__item-wrap kv-form__col">
+            <div class="kv-form__item-wrap kv-form__col" id="kv-delivery-field-email">
               <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.email.$error }">
                 <input type="email" placeholder=" " id="email2" name="email2"  v-model="$v.delivery.email.$model"  @input="isFormCorrect">
                 <label class="kv-form__label" for="email2">{{ $lng('step5.email') }}</label>
@@ -458,7 +458,7 @@
 
           <div class="kv-row kv-form__row" v-for="(row, i) in preparedPickupPoints" :key="i">
 
-            <div class="kv-form__item-wrap kv-form__col_half"  v-for="item in row" :key="item.id">
+            <div class="kv-form__item-wrap kv-form__col_half"  v-for="item in row" :key="item.id" id="kv-delivery-field-branch">
               <div class="kv-form__item kv-form__item_chb kv_height-100" :data-i="item.id"  :data-vue="delivery.branch.id"
                    :class="{
                 'kv-form__item_border': item.id === delivery.branch.id
@@ -683,7 +683,44 @@ export default {
       this.$emit('isValid', isValid)
 
       return isValid
-    }
+    },
+    checkForm() {
+      const fields = ['companyName', 'gender', 'name', 'sname', 'address', 'zip', 'city', 'addressingCountry', 'mobile', 'email'];
+      this.$v.customer.$touch();
+      if (this.delivery.type == 2) {
+        this.$v.delivery.$touch();
+      }
+
+
+      if (!this.isFormCorrect()) {
+        this.$emit('showModal', this.$lng('common.checkFormPopup'), this.$lng('common.error'));
+      } else {
+        return
+      }
+
+      if (this.$v.customer.$error) {
+        for (let i = 0; i < fields.length; i++ ) {
+          if (this.$v.customer[fields[i]].$error) {
+            this.$emit('scroll-to', `#kv-customer-field-${fields[i]}`)
+            break;
+          }
+        }
+      }
+
+      if (this.delivery.type == 2 && this.$v.delivery.$error) {
+        for (let i = 0; i < fields.length; i++ ) {
+          if (this.$v.delivery[fields[i]].$error) {
+            this.$emit('scroll-to', `#kv-delivery-field-${fields[i]}`)
+            break;
+          }
+        }
+      }
+
+      if (this.delivery.type == 3 && this.delivery.branch.id !== null) {
+        this.$emit('scroll-to', `#kv-delivery-field-branch`)
+      }
+
+    },
   },
   computed: {
 

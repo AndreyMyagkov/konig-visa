@@ -452,7 +452,6 @@ export default {
             break;
           }
         }
-        console.log(`#kv-tourist-${errorIndex}`)
         this.$emit('scroll-to', `#kv-tourist-${errorIndex}`)
       }
     },
