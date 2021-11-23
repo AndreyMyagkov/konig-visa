@@ -1677,9 +1677,10 @@ export default {
     },
 
     async selectVisaType(item) {
-      // Ничего не делаем, если выбрали тоже самое
+      // Идем на шаг 2, если выбрали тоже самое
       if (item.type === 'group' && this.selectedServiceGroup.id === item.id ||
           item.type === 'item' && this.selectedService.id === item.id) {
+        this.nextStep();
         return
       }
       // Конфирм сброса
