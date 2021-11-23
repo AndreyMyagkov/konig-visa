@@ -54,7 +54,7 @@ export const lng = {
             "multiplicity": "malige Einreise",
             "order": "beantragen",
             "included": "Die Kosten für Ihr Visum setzen sich aus <b>der Botschaftsgebühr</b>, <b>unserer Servicegebühr</b> und Einladung (Visum Support Brief) zusammen.</b>",
-            "errorByTourists": "В результате изменения заказа, необходимо откорректировать внесенные ранее данные участников"
+            "errorByTourists": "Bezüglich einer Änderung der Bestellung ist es notwendig, die bereits eingegebenen Daten der Teilnehmer zu korrigieren."
         },
         "step3": {
             "crumb": "Daten zu dem/der Reisenden",
