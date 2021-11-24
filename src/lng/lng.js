@@ -10,7 +10,7 @@ export const lng = {
             "confirmResetText": "Achtung, alle ausgefüllte Daten werden gelöscht, weiter?",
             "btnYes": "Ja",
             "btnNo": "Nein",
-            "error": "Error",
+            "error": "Fehler",
             "checkFormPopup": "Es sind nicht alle Felder vollständig ausgefüllt."
         },
         "price": {
@@ -53,7 +53,7 @@ export const lng = {
             },
             "multiplicity": "malige Einreise",
             "order": "beantragen",
-            "included": "Die Kosten für Ihr Visum setzen sich aus <b>der Botschaftsgebühr</b>, <b>unserer Servicegebühr</b> und Einladung (Visum Support Brief) zusammen.</b>",
+            "included": "Die Kosten für Ihr Visum setzen sich aus <b>der Botschaftsgebühr</b>, <b>unserer Servicegebühr</b> und ggf. Einladung (Visum Support Brief) zusammen.</b>",
             "errorByTourists": "Bezüglich einer Änderung der Bestellung ist es notwendig, die bereits eingegebenen Daten der Teilnehmer zu korrigieren."
         },
         "step3": {
