@@ -1568,10 +1568,11 @@ export default {
 
     async updateDuration(data){
       // Конфирм сброса
-      if (this.confirmReset &&
-          (this.selectedPrice.price.id !== null || this.selectedServicePackage.id !== null || this.selectedSuppServices.length || this.selectedPostalService.id !== null)
+      if (this.steps[0].showModalWhenChangeVisa && this.confirmReset &&
+          (this.selectedServicePackage.id !== null || this.selectedSuppServices.length || this.selectedPostalService.id !== null)
+          //this.selectedPrice.price.id !== null ||
       ) {
-        if (await this.showResetConfirm()) {
+        if (await this.showResetConfirm(this.getResetConfirmMessage())) {
           this._updateDuration(data)
         }
       } else {
@@ -1592,10 +1593,10 @@ export default {
     async updatePrice(data) {
       // Конфирм сброса
       //if (this.confirmReset && this.selectedPrice.price.id !== null) {
-      if (this.confirmReset &&
+      if (this.steps[0].showModalWhenChangeVisa && this.confirmReset &&
           (this.selectedServicePackage.id !== null || this.selectedSuppServices.length || this.selectedPostalService.id !== null )
       ) {
-        if (await this.showResetConfirm()) {
+        if (await this.showResetConfirm(this.getResetConfirmMessage())) {
           this._updatePrice(data)
         }
       } else {
@@ -1687,37 +1688,8 @@ export default {
       if (this.steps[0].showModalWhenChangeVisa && this.confirmReset &&
           ( this.selectedServicePackage.id !== null || this.selectedSuppServices.length || this.selectedPostalService.id !== null)      ) {
         //this.selectedPrice.price.id !== null ||
-        // Строка сообщения
-        let content = this.$lng('step1.confirmReset.begin');
-        const contentParts = [];
 
-        if (this.selectedServicePackage.id !== null) {
-          contentParts.push(this.$lng('step1.confirmReset.servicePacket'))
-        }
-
-        if (this.selectedSuppServices.length) {
-          contentParts.push(this.$lng('step1.confirmReset.suppServices'))
-        }
-
-        if (this.selectedPostalService.id !== null) {
-          contentParts.push(this.$lng('step1.confirmReset.delivery'))
-        }
-
-        if (contentParts.length === 1) {
-          content = `${content} ${contentParts[0]} `
-        }
-
-        if (contentParts.length === 2) {
-          content = `${content} ${contentParts[0]} ${this.$lng('step1.confirmReset.and')} ${contentParts[1]} `
-        }
-
-        if (contentParts.length === 3) {
-          content = `${content} ${contentParts[0]}, ${contentParts[1]} ${this.$lng('step1.confirmReset.and')} ${contentParts[2]} `
-        }
-
-        content = content + this.$lng('step1.confirmReset.end');
-
-        if (await this.showResetConfirm(content)) {
+        if (await this.showResetConfirm(this.getResetConfirmMessage())) {
           this._selectVisaType(item);
           this.steps[0].showModalWhenChangeVisa = false
         }
@@ -1765,7 +1737,41 @@ export default {
       this.resetStep6();
     },
 
+    /**
+     * Формирует конфирм о сбросе данных при возврате с шага 7 на шаг 1, 2
+     * Возращает предупреждение о конкретных сбрасываемых данных (сервисный пакет | допуслуги | доставка)
+     */
+    getResetConfirmMessage() {
+      let content = this.$lng('step1.confirmReset.begin');
+      const contentParts = [];
 
+      if (this.selectedServicePackage.id !== null) {
+        contentParts.push(this.$lng('step1.confirmReset.servicePacket'))
+      }
+
+      if (this.selectedSuppServices.length) {
+        contentParts.push(this.$lng('step1.confirmReset.suppServices'))
+      }
+
+      if (this.selectedPostalService.id !== null) {
+        contentParts.push(this.$lng('step1.confirmReset.delivery'))
+      }
+
+      if (contentParts.length === 1) {
+        content = `${content} ${contentParts[0]} `
+      }
+
+      if (contentParts.length === 2) {
+        content = `${content} ${contentParts[0]} ${this.$lng('step1.confirmReset.and')} ${contentParts[1]} `
+      }
+
+      if (contentParts.length === 3) {
+        content = `${content} ${contentParts[0]}, ${contentParts[1]} ${this.$lng('step1.confirmReset.and')} ${contentParts[2]} `
+      }
+
+      content = content + this.$lng('step1.confirmReset.end');
+      return content
+    },
 
     updateTouristField(data) {
       this.currentEditTourist = data.index
