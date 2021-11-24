@@ -1679,11 +1679,15 @@ export default {
 
     async selectVisaType(item) {
       // Идем на шаг 2, если выбрали тоже самое
-      if (item.type === 'group' && this.selectedServiceGroup.id === item.id ||
-          item.type === 'item' && this.selectedService.id === item.id) {
+      if (item.type === 'group' && this.selectedServiceGroup.id === item.id) {
+        return
+      }
+
+      if (item.type === 'item' && this.selectedService.id === item.id) {
         this.nextStep();
         return
       }
+
       // Конфирм сброса
       if (this.steps[0].showModalWhenChangeVisa && this.confirmReset &&
           ( this.selectedServicePackage.id !== null || this.selectedSuppServices.length || this.selectedPostalService.id !== null)      ) {
