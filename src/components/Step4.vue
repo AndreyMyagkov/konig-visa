@@ -351,7 +351,7 @@ export default {
       let priceCurrent = 0;
       if (packageIndex >= 0) {
         price = this.data.servicePackages[packageIndex].price + this.getSelectedServicesPrice(packageIndex);
-        if (this.selectedTabIndex >=1 && (packageIndex !== (this.selectedTabIndex - 1))) {
+        if (this.selectedTabIndex >= 1 && (packageIndex !== (this.selectedTabIndex - 1))) {
           priceCurrent = this.data.servicePackages[this.selectedTabIndex - 1].price + this.getSelectedServicesPrice(this.selectedTabIndex - 1);
         }
       }
@@ -542,11 +542,11 @@ export default {
       let tabsHalfIndex;
       let offset;
       const tabWidth = 100 / tabCount;
-
+      //console.log(this.selectedTabIndex);
       if (isTabsEven) {
-        tabsHalfIndex = tabCount / 2;
+        tabsHalfIndex = (tabCount / 2) + 0.5;
         offset =  Math.abs(selectedTabIndex - tabsHalfIndex);
-        return tabWidth * (0.5 + offset)
+        return tabWidth * offset
       } else {
         tabsHalfIndex = (tabCount / 2) + 0.5;
         offset =  Math.abs(selectedTabIndex - tabsHalfIndex);
