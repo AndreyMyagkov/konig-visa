@@ -501,7 +501,7 @@ export default {
 
       // Четное кол-во табов
       if (isTabsEven) {
-        let tabsHalfIndex = tabCount / 2;
+        let tabsHalfIndex = tabCount / 2 + 0.5;
 
         if (selectedTabIndex < tabsHalfIndex) {
           isLeft = true
