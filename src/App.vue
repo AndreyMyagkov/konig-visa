@@ -1031,7 +1031,7 @@ export default {
         let response = await fetch(`${this.CONFIG.API_URL}getCSNationalities?clientId=${this.CONFIG.clientId}`);
         let nationalities = await response.json();
         if (response.status >= 400 && response.status < 600) {
-          throw new Error(countries.Message);
+          throw new Error(nationalities.Message);
         }
         this.nationalities = nationalities.nationalities;
         this.isLoading = false;
@@ -1050,7 +1050,7 @@ export default {
         let response = await fetch(`${this.CONFIG.API_URL}getCSServiceDetails?clientId=${this.CONFIG.clientId}&serviceId=${this.selectedService.id}`);
         let serviceDetails = await response.json();
         if (response.status >= 400 && response.status < 600) {
-          throw new Error(countries.Message);
+          throw new Error(serviceDetails.Message);
         }
         // Случай, если недоступны цены
         if (serviceDetails.processDurations === null) {
@@ -1081,7 +1081,7 @@ export default {
         let response = await fetch(`${this.CONFIG.API_URL}getCSPrices?clientId=${this.CONFIG.clientId}&serviceId=${this.selectedService.id}&nationalityA2=${this.CONFIG.nationality}&residenceCode=${this.CONFIG.residenceRegions}&withDetails=false`);
         let prices = await response.json();
         if (response.status >= 400 && response.status < 600) {
-          throw new Error(countries.Message);
+          throw new Error(prices.Message);
         }
         // Случай, если недоступны цены TODO: ???
         if (prices.prices === null) {
@@ -1981,6 +1981,7 @@ export default {
         }
       } catch (err) {
         this.isLoading = false;
+        this.showModal(this.$lng("step7.orderError"), this.$lng("common.error"))
         console.log(err)
       }
     },

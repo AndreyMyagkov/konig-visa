@@ -138,6 +138,7 @@ export const lng = {
             "paymentTerms": "Zahlungsbedingungen",
             "cancellationPolicy": "Stornobedingungen",
             "termsText": "Sobald Sie Ihr Visum zahlungspflichtig bei uns bestellen, kommt es zu einem Vertrag zwischen Ihnen und dem Portal Buch-dein-Visum.de (König Tours GmbH & Co KG). Darüber hinaus akzeptieren Sie bei einer zahlungspflichtigen Bestellung unsere AGB. Informationen zur Verarbeitung Ihrer persönlichen Daten finden Sie in unserer Datenschutzerklärung. Nach erfolgreichem Abschluss Ihrer Bestellung erhalten Sie von uns eine Bestellbestätigung sowie Ihre Rechnung zu Ihrem Auftrag.",
+            "orderError": "Aufgrund eines technischen Fehlers kann Ihre Bestellung im Moment nicht durchgeführt werden. Bitte versuchen Sie es später erneut oder wenden Sie sich an unseren Kundenservice. Vielen Dank für Ihr Verständnis.",
 
         },
         "step8": {
@@ -309,6 +310,7 @@ export const lng = {
             "paymentTerms": "Zahlungsbedingungen",
             "cancellationPolicy": "Stornobedingungen",
             "termsText": "Mit dem erfolgreichen Abschluss Ihrer Buchung kommt ein Vertrag mit dem Anbieter zustande. Die Bestätigung und Rechnung zu Ihrer Buchung werden Ihnen dann von HomeToGo und/oder dem Anbieter zugesandt. Durch Klicken auf \"Zahlungspflichtig buchen\" akzeptieren Sie die AGB des Anbieters und die AGB der HomeToGo GmbH. Weitere Informationen zur Verarbeitung Ihrer Daten finden Sie in unserer Datenschutzerklärung.",
+            "orderError": "Из-за технической ошибки ваш заказ на данный момент не может быть выполнен. Пожалуйста, повторите попытку позже или обратитесь в нашу службу поддержки клиентов. Спасибо за ваше понимание.",
 
         },
         "step8": {
@@ -457,6 +459,7 @@ export const lng = {
             "paymentTerms": "Zahlungsbedingungen",
             "cancellationPolicy": "Stornobedingungen",
             "termsText": "Mit dem erfolgreichen Abschluss Ihrer Buchung kommt ein Vertrag mit dem Anbieter zustande. Die Bestätigung und Rechnung zu Ihrer Buchung werden Ihnen dann von HomeToGo und/oder dem Anbieter zugesandt. Durch Klicken auf \"Zahlungspflichtig buchen\" akzeptieren Sie die AGB des Anbieters und die AGB der HomeToGo GmbH. Weitere Informationen zur Verarbeitung Ihrer Daten finden Sie in unserer Datenschutzerklärung.",
+            "orderError": "Aufgrund eines technischen Fehlers kann Ihre Bestellung im Moment nicht durchgeführt werden. Bitte versuchen Sie es später erneut oder wenden Sie sich an unseren Kundenservice. Vielen Dank für Ihr Verständnis.",
 
         },
         "step8": {
