@@ -1936,12 +1936,15 @@ export default {
               delivery: {
                 method: this.calculate.deliveryMedia === "digital" ? "electronic" : ((this.delivery.type == 3) ? "pick-up" : "post"),
                 pickupPointId: ((this.delivery.type == 3) ? this.delivery.branch.id : null),
-                postalServiceId: ((this.delivery.type == 2) ? this.selectedPostalService.id : null),
+                postalServiceId: ((this.delivery.type == 1 || this.delivery.type == 2) ? this.selectedPostalService.id : null),
                 deliveryAddress: (this.delivery.type == 2) ? {
                   title: this.delivery.gender,
                   lastName: this.delivery.sname,
                   firstName: this.delivery.name,
                   organization: this.delivery.companyName,
+                  phone: this.customer.tel,
+                  mobilePhone: this.customer.mobile,
+                  email: this.customer.email,
                   address: {
                     address: this.delivery.address,
                     zip: this.delivery.zip,
