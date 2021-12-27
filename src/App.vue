@@ -599,7 +599,8 @@ export default {
         product: null,
         API_URL: "https://apisrv.ideo-software.com/Ideo/KoenigVN/Web/api/OrderPortal/",
         lng: "de",
-        order: ""
+        order: "",
+        agnr: null
       }
     }
   },
@@ -658,6 +659,10 @@ export default {
       const allowMode = ["default", "price", "success"];
       if (allowMode.indexOf(this.CONFIG.mode) === -1) {
         this.CONFIG.mode = "default";
+      }
+
+      if (__KV_CONFIG && __KV_CONFIG.agnr) {
+        this.CONFIG.agnr = __KV_CONFIG.agnr;
       }
 
 
@@ -1954,6 +1959,7 @@ export default {
                 } : null
               },
               uniqueKey: this.uniqueKey,
+              //agnr: this.CONFIG.agnr
             }
         )
       };
