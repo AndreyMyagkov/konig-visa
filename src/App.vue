@@ -1947,9 +1947,9 @@ export default {
                   lastName: this.delivery.sname,
                   firstName: this.delivery.name,
                   organization: this.delivery.companyName,
-                  phone: this.customer.tel,
-                  mobilePhone: this.customer.mobile,
-                  email: this.customer.email,
+                  phone: this.delivery.tel,
+                  mobilePhone: this.delivery.mobile,
+                  email: this.delivery.email,
                   address: {
                     address: this.delivery.address,
                     zip: this.delivery.zip,
