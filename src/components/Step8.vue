@@ -103,6 +103,7 @@
           <div class="kv-payment-chb__drop" :class="{
             'kv-payment-chb__drop_active': paymentType === 'SEPA direct debit'
           }">
+            <!--
             <input
                 class="kv-payment-chb__input"
                 :class="{
@@ -123,6 +124,42 @@
                 v-model.trim="$v.bic.$model"
                 @input="isFormCorrect"
             >
+            -->
+            <div class="kv-form__item-wrap">
+              <div class="kv-form__item"
+                   :class="{ 'kv-payment-chb__input_error': $v.iban.$error }">
+                <input
+                    class=""
+
+                    type="text"
+                    placeholder=" "
+                    v-model.trim="$v.iban.$model"
+                    @input="isFormCorrect"
+                    @blur="$v.iban.$touch()"
+                    id="iban"
+                >
+                <label for="iban" class="kv-form__label">IBAN</label>
+              </div>
+            </div>
+
+            <div class="kv-form__item-wrap">
+              <div class="kv-form__item"
+                   :class="{ 'kv-payment-chb__input_error': $v.bic.$error }">
+                <input
+                    class=""
+
+                    type="text"
+                    placeholder=" "
+                    v-model.trim="$v.bic.$model"
+                    @input="isFormCorrect"
+                    @blur="$v.bic.$touch()"
+                    id="bic"
+                >
+                <label for="bic" class="kv-form__label">BIC</label>
+              </div>
+            </div>
+
+
           </div>
         </div>
       </div>
@@ -229,8 +266,29 @@ export default {
 </script>
 
 <style scoped>
-.kv-payment-chb__input_error {
+.kv-app .kv-form__item {
+  flex: 1 1 0;
+  padding: 0;
+  display: flex;
+  align-items: stretch;
+  background-color: #fff;
+  position: relative;
+  overflow: visible;
+  border-radius: 6px;
+  min-height: 60px;
+  max-width: 100%;
+  border: 1px solid var(--c-second);
+}
+.kv-app  .kv-payment-chb__input_error {
   border: solid 1px var(--c-error);
 }
+
+ .kv-app .kv-form__item-wrap {
+   padding: 10px 0;
+   display: flex;
+   align-items: flex-start;
+   flex-wrap: wrap;
+   max-width: 100%;
+ }
 </style>
 
