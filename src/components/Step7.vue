@@ -379,11 +379,13 @@
     <div class="kv-review-terms kv-review__item">
       <div class="kv-review-terms__title">{{ $lng('step7.termsAndConditions') }}</div>
       <div class="kv-review-terms__links">
+        <!--
         <div class="kv-review-terms__links-inner">
           <a class="kv-review-terms__link" href="/agb" target="_blank">{{ $lng('step7.paymentTerms') }}</a>
           <span class="kv-review-terms__sep">•</span>
           <a class="kv-review-terms__link" href="/datenschutz" target="_blank">{{ $lng('step7.cancellationPolicy') }}</a>
         </div>
+        -->
       </div>
       <div class="kv-review-terms__text kv-user-text" v-html="$lng('step7.termsText')"></div>
     </div>

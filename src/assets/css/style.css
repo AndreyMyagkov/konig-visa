@@ -1222,15 +1222,15 @@
 }
 
 .kv-app .kv-user-text a {
-  color: #0000EE;
+  color: var(--c-second);
 }
 
 .kv-app .kv-user-text a:link {
-  color: #0000EE;
+  color: var(--c-second);
 }
 
 .kv-app .kv-user-text a:visited {
-  color: #551A8B;
+  color: var(--c-second);
 }
 
 .kv-app .kv-user-text a:hover {
@@ -1821,6 +1821,8 @@
   padding-left: 20px;
   padding-right: 20px;
   width: 100%;
+    max-width: 626px;
+    margin: 0 auto;
 }
 
 .kv-app .kv-step-button_book .kv-step-button__text {
@@ -2414,7 +2416,7 @@
 .kv-app .kv-content__bottom {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  max-width: 626px;
+  max-width: 992px;
   margin: 0 auto;
 }
 
@@ -5399,3 +5401,43 @@
     display: block;
 }
 
+.kv-app .kv-icon__completed {
+    width: 16px;
+    height: 16px;
+    fill: #0d8763;
+    flex: 0 0 auto;
+}
+
+.kv-st7-footer {
+    margin-top: 30px;
+}
+.kv-st7-footer__row {
+    display:flex;
+    gap: 40px;
+    justify-content: center;
+}
+.kv-st7-footer__col {
+    flex: 1 1 33.3333%;
+    max-width: 33.3333%;
+    margin-bottom: 1em;
+}
+.kv-st7-footer__header {
+    margin-bottom: 1em;
+    display: flex;
+    align-items: center;
+    gap: 0.5em
+}
+.kv-st7-footer__header span{
+    font-weight: 700;
+}
+.kv-st7-footer__text {
+    line-height: 1.5em;
+}
+
+.kv-app[cq-max-w-640] .kv-st7-footer__row {
+    display: block;
+}
+.kv-app[cq-max-w-640] .kv-st7-footer__col {
+    max-width: 100%;
+    margin-bottom: 2em;
+}
