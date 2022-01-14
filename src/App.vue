@@ -432,6 +432,7 @@ import * as formatter from "@/helpers/format";
 
 // TODO: стили изолировать
 import 'vue-loading-overlay/dist/vue-loading.css';
+import Vue from "vue";
 
 
 export default {
@@ -638,7 +639,7 @@ export default {
      * Инициирует виджет, проверяет входные данные
      */
     async initiateWidget() {
-
+      const __KV_CONFIG = Vue.prototype.$__KV_CONFIG
       // eslint-disable-next-line no-undef
       if (__KV_CONFIG && __KV_CONFIG.clientId) {
         // eslint-disable-next-line no-undef
