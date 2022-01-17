@@ -40,7 +40,7 @@ export const lng = {
             "processingText": "<b>Wichtig</b> Bitte beachten Sie, dass Versandwege für Unterlagen und der Rückversand des Visums zu Ihnen zusätzlich zur gewählten Bearbeitungszeit zu kalkulieren sind. Wir starten mit der Bearbeitung Ihres Auftrages, wenn wir alle notwendigen Unterlagen zur Beantragung Ihres Visums vorliegen haben. Die Bearbeitungsdauer kann in Einzelfällen von der Botschaft verlängert werden. Ein unvollständiges Dokumentenpaket verzögert die Bearbeitungsdauer.",
             "btnInfo": "Info",
             "modalInfoHeader": "Information",
-            "modalDefaultInfo": "AUFENTHALTSDAUER",
+            "modalDefaultInfo": "GÜLTIGKEITSDAUER",
             "nationalitiesLabel": "Staatsangehörigkeit:",
             "nationalitiesPlaceholder": "Auswählen",
             "residenceRegionsLabel": "Wohnsitz:",
@@ -52,6 +52,7 @@ export const lng = {
                 "m": "Monat"
             },
             "multiplicity": "malige Einreise",
+            "multiplicities": "mehrmalige Einreise",
             "order": "beantragen",
             "included": "Die Kosten für Ihr Visum setzen sich aus <b>der Botschaftsgebühr</b>, <b>unserer Servicegebühr</b> und ggf. Einladung (Visum Support Brief) zusammen.</b>",
             "errorByTourists": "Bezüglich einer Änderung der Bestellung ist es notwendig, die bereits eingegebenen Daten der Teilnehmer zu korrigieren."
@@ -117,7 +118,7 @@ export const lng = {
             "crumb": "Ihre Daten",
             "header": "Ihre Daten",
             "country": "Zielland:",
-            "duration": "Aufenthaltsdauer:",
+            "duration": "Gültigkeitsdauer:",
             "serviceGrp": "Visum-Typ:",
             "multiplicity": "Einreisetyp:",
             "service": "Zweck der Reise:",
@@ -209,7 +210,7 @@ export const lng = {
         "step2": {
             "crumb": "Aufenthaltsdauer",
             "header": "Расчет примерной стоимости для одного человека",
-            "processingText": "<b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+            "processingText": "<b>СРОК ДЕЙСТВИЯ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
             "btnInfo": "Инфо-кнопка",
             "modalInfoHeader": "Информация",
             "modalDefaultInfo": "СРОК ПРЕБЫВАНИЯ",
@@ -224,6 +225,7 @@ export const lng = {
                 "m": "Monat"
             },
             "multiplicity": "malige Einreise",
+            "multiplicities": "mehrmalige Einreise",
             "order": "Kaufen",
             "included": "В стоимость входит: <b>консульский сбор, сервисный сбор, сбор за приглашение</b>",
             "errorByTourists": "В результате изменения заказа, необходимо откорректировать внесенные ранее данные участников"
@@ -359,7 +361,7 @@ export const lng = {
         "step2": {
             "crumb": "Aufenthaltsdauer",
             "header": "Расчет примерной стоимости для одного человека",
-            "processingText": "<b>СРОК ОБРАБОТКИ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+            "processingText": "<b>СРОК ДЕЙСТВИЯ</b> статический текст is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
             "btnInfo": "Инфо-кнопка",
             "modalInfoHeader": "Информация",
             "modalDefaultInfo": "VISA DURATION",
@@ -374,6 +376,7 @@ export const lng = {
                 "m": "Monat"
             },
             "multiplicity": "malige Einreise",
+            "multiplicities": "mehrmalige Einreise",
             "order": "Kaufen",
             "included": "В стоимость входит: <b>консульский сбор, сервисный сбор, сбор за приглашение</b>"
         },

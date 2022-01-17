@@ -189,7 +189,10 @@
                           <svg><use href="#kv-icons_radio"></use></svg>
                         </span>
                         <span class="kv-processing-day-chb__caption">
-                          <span class="kv-processing-day-chb__text">{{price.m}}-{{ $lng('step2.multiplicity') }}</span>
+                          <span class="kv-processing-day-chb__text">
+                            <template v-if="price.m !== 'm'">{{price.m}}-{{ $lng('step2.multiplicity') }}</template>
+                            <template v-else>{{ $lng('step2.multiplicities') }}</template>
+                          </span>
                           <span class="kv-processing-day-chb__title">
                             <template  v-if="price.price !== null">{{formatter.priceFormat(price.price)}}</template>
                             <!-- &minus -->
@@ -309,6 +312,7 @@ export default {
         initialSlide: this.setup.duration.index === null ? 0 : this.setup.duration.index,
         itemsToShow: 1,
         trimWhiteSpace:true,
+        wheelControl: false,
         breakpoints: {
           500: {itemsToShow: 2},
           600: {itemsToShow: 3},
@@ -320,6 +324,7 @@ export default {
         initialSlide: this.setup.price.index === null ? 0 : this.setup.price.index,
         itemsToShow: 1,
         trimWhiteSpace:true,
+        wheelControl: false,
         breakpoints: {
           500: {itemsToShow: 1, trimWhiteSpace:true},
           600: {itemsToShow: 2, trimWhiteSpace:true},

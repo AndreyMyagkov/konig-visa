@@ -20,7 +20,10 @@
               <span>{{selectedService.name}}</span>
               <span v-if="selectedDuration.name">
                 {{selectedDuration.name}}
-                <span v-if="selectedPrice.price.m">| {{selectedPrice.price.m}}-malige Einreise</span>
+                <span v-if="selectedPrice.price.m">|&nbsp;
+                    <template v-if="selectedPrice.price.m !== 'm'">{{selectedPrice.price.m}}-{{ $lng('step2.multiplicity') }}</template>
+                    <template v-else>{{ $lng('step2.multiplicities') }}</template>
+                </span>
                 <span v-if="selectedPrice.info.quantity">| {{selectedPrice.info.quantity}} {{ $lng(`step2.dimension.${selectedPrice.info.dimension}`) }}</span>
               </span>
             </div>

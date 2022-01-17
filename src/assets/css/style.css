@@ -3386,10 +3386,10 @@
   font-size: 12px;
   line-height: 16px;
   color: var(--c-second);
-  width: 66px;
+  width: 73px;
   -webkit-box-flex: 0;
-      -ms-flex: 0 0 66px;
-          flex: 0 0 66px;
+      -ms-flex: 0 0 73px;
+          flex: 0 0 73px;
 }
 
 .kv-app .kv-processing-day-chb .kv-processing-day-chb__text:not(:last-child) {

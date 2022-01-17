@@ -33,7 +33,10 @@
 
           <div class="kv-review-info__col">
             <div class="kv-review-info__name">{{ $lng('step7.multiplicity') }}</div>
-            <div class="kv-review-info__value">{{data.price.price.m}}-malige Einreise</div>
+            <div class="kv-review-info__value">
+              <template v-if="data.price.price.m !== 'm'">{{data.price.price.m}}-{{ $lng('step2.multiplicity') }}</template>
+              <template v-else>{{ $lng('step2.multiplicities') }}</template>
+            </div>
           </div>
 
           <div class="kv-review-info__col">
