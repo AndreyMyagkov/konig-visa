@@ -18,7 +18,7 @@
           <!-- List -->
           <!-- kv-class-tabs__list_show-price -->
           <div class="kv-class-tabs__list" :class="{
-            'kv-class-tabs__list_show-price': data.suppServices !== null
+            'kv-class-tabs__list_show-price': data.suppServices !== null && data.suppServices.length
           }">
 
             <!-- Class tab-->
@@ -140,7 +140,7 @@
                     'kv-services-price_active':  true,
                      'kv-services-price_showed': false
                   }"
-            v-if="data.servicePackages === null && data.suppServices !== null"
+            v-if="(data.servicePackages === null || !data.servicePackages.length) && (data.suppServices !== null && data.suppServices.length)"
         >
           <div class="kv-price kv-price_second kv-services-price__price">
             {{getNoPackageServicesPrice(null)}}
@@ -221,7 +221,7 @@
                 'kv-class__item_active': true,
                 'kv-class__item_checked': serviceSelected.indexOf(item.id) !== -1
               }"
-              v-if="(data.servicePackages === null || !data.servicePackages.length) && data.suppServices.length"
+              v-if="(data.servicePackages === null || !data.servicePackages.length) && (data.suppServices !== null && data.suppServices.length)"
               >
 
 
@@ -287,7 +287,7 @@
                     'kv-services-price_active':  true,
                      'kv-services-price_showed': false
                   }"
-              v-if="data.servicePackages === null && data.suppServices !== null"
+              v-if="(data.servicePackages === null || !data.servicePackages.length) && (data.suppServices !== null && data.suppServices.length)"
           >
             <div class="kv-price kv-price_second kv-services-price__price">
               {{getNoPackageServicesPrice(null)}}
@@ -333,14 +333,14 @@ export default {
   },
   methods: {
     /**
-     * Вкючена ли услуга по умолчанию в сервисный пакет
+     * Включена ли услуга по умолчанию в сервисный пакет
      *
      */
     isIncluded(serviceId, packageIndex) {
       return this.data.servicePackages[packageIndex].includedServices.indexOf(serviceId) >= 0
     },
     /**
-     * Возращает цену сервис-пакета
+     * Возвращает цену сервис-пакета
      * @param {Number} packageIndex - порядковый номер пакета
      * @return {string}
      */
@@ -372,7 +372,7 @@ export default {
 
 
       //Сумма платных
-      if (this.data.suppServices !== null) {
+      if (this.data.suppServices !== null && this.data.suppServices.length) {
         this.data.suppServices.forEach(item => {
           if (paidServices.includes(item.id)) {
             sum = sum + item.price;

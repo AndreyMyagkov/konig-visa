@@ -194,7 +194,7 @@
             </div>
 
             <!-- Услуги -->
-            <template v-if="data.calculate.calculation.suppServices !== null">
+            <template v-if="data.calculate.calculation.suppServices !== null && data.calculate.calculation.suppServices.length">
               <!-- .filter(_ => !_.isIncluded) -->
               <div class="kv-cart-table__row" v-for="suppServices in data.calculate.calculation.suppServices" :key="suppServices.id">
                 <div class="kv-cart-table__item kv-cart-table__item_col">

@@ -829,10 +829,12 @@ export default {
         }
         */
 
-        if (this.productDetails.servicePackages === null && this.productDetails.suppServices === null) {
+        if ((this.productDetails.servicePackages === null || !this.productDetails.servicePackages.length) &&
+            (this.productDetails.suppServices === null || !this.productDetails.suppServices.length)) {
           return true
         }
-        if (this.productDetails.servicePackages === null && !this.productDetails.suppServices.length) {
+        if ((this.productDetails.servicePackages === null || !this.productDetails.servicePackages.length) &&
+            !this.productDetails.suppServices.length) {
           return true
         }
 
