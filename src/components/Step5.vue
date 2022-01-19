@@ -9,7 +9,7 @@
       sname: "Иванов",
       name: "2",
       address: "3",
-      zip: "4",
+      zip: "4321",
       city: "5",
       tel: "6",
       mobile: "77777777777",
@@ -24,7 +24,7 @@
       sname: "Петров",
       name: "2",
       address: "3",
-      zip: "4",
+      zip: "4321",
       city: "5",
       tel: "6",
       mobile: "77777777777",
@@ -133,7 +133,7 @@
           <!-- index -->
           <div class="kv-form__item-wrap kv-form__col" id="kv-customer-field-zip">
             <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.customer.zip.$error }">
-              <input type="text" placeholder=" " id="zip1" v-model.trim="$v.customer.zip.$model"  @input="isFormCorrect">
+              <input type="text" placeholder=" " id="zip1" maxlength="10" v-model.trim="$v.customer.zip.$model"  @input="isFormCorrect">
               <label class="kv-form__label" for="zip1">{{ $lng('step5.zip') }}</label>
             </div>
           </div>
@@ -382,7 +382,7 @@
           <div class="kv-form__row kv-row">
             <div class="kv-form__item-wrap kv-form__col" id="kv-delivery-field-zip">
               <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.zip.$error }">
-                <input type="text" placeholder=" " id="zip2" name="zip2" v-model.trim="$v.delivery.zip.$model"  @input="isFormCorrect">
+                <input type="text" placeholder=" " id="zip2" name="zip2" maxlength="10" v-model.trim="$v.delivery.zip.$model"  @input="isFormCorrect">
                 <label class="kv-form__label" for="zip2">{{ $lng('step5.zip') }}</label>
               </div>
             </div>
@@ -497,8 +497,8 @@
 
 <script>
 import vSelect from "vue-select";
-import { TheMask } from 'vue-the-mask';
-import { required, minLength, email } from 'vuelidate/lib/validators';
+//import { TheMask } from 'vue-the-mask';
+import { required, minLength, maxLength, email } from 'vuelidate/lib/validators';
 import * as arrayHelper from '@/helpers/array';
 
 const isCountrySelected = (value) => value.codeA3 !== null; //!Array.isArray(value);
@@ -534,7 +534,7 @@ export default {
   },
   components: {
     vSelect,
-    TheMask
+    //TheMask
   },
   data() {
     return {
@@ -573,7 +573,8 @@ export default {
       },
       zip: {
         required,
-        minLength: minLength(1)
+        minLength: minLength(3),
+        maxLength: maxLength(10)
       },
       city: {
         required,
@@ -617,7 +618,8 @@ export default {
       },
       zip: {
         required,
-        minLength: minLength(1)
+        minLength: minLength(3),
+        maxLength: maxLength(10)
       },
       city: {
         required,
