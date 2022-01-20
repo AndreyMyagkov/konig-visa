@@ -85,6 +85,7 @@ export class calculateDefault {
         };
         this.state = 0;
         this.stateDescription = '';
+        this.deliveryMedia = null
     }
 }
 

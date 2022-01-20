@@ -1198,6 +1198,50 @@ export default {
       }
     },
 
+    /**
+     * Возвращает данные по адресу отправки виз в зависимости от варианта доставки
+     * Адрес клиента или другой выбранный адрес. Если доставка цифровая или самовывоз - null
+     * @return {Object}
+     */
+    getPostalData(customer, delivery) {
+
+      if (!customer || !delivery) {
+        return null
+      }
+      let postalData = null;
+      if (this.calculate.deliveryMedia === "digital") {
+        return null
+      }
+      // Проверка на не 100% заполненность адреса
+      const isEmptyPostalData = (data) => {
+        if (data.zip === null || data.zip.length < 3) {
+          return true
+        }
+        if (data.city === null || !data.city.length) {
+          return true
+        }
+        if (data.addressingCountry.codeA3 === null || !data.addressingCountry.codeA3.length) {
+          return true
+        }
+        return false
+      }
+      if (delivery.type == 1 && !isEmptyPostalData(customer)) {
+        postalData = {
+          zip: customer.zip,
+          city: customer.city,
+          countryA3: customer.addressingCountry.codeA3,
+        }
+      }
+      if (delivery.type == 2 && !isEmptyPostalData(delivery)) {
+        postalData = {
+          zip: delivery.zip,
+          city: delivery.city,
+          countryA3: delivery.addressingCountry.codeA3,
+        }
+      }
+      return postalData
+    },
+
     async sendCalculateAndValidate(index = null) {
       this.currentEditTourist = index;
 
@@ -1232,6 +1276,8 @@ export default {
 
       }
 
+      const postalData = this.getPostalData(this.customer, this.delivery);
+
       const requestOptions = {
         method: 'POST',
         headers: headers,
@@ -1241,7 +1287,8 @@ export default {
               participants: participants,
               servicePackageId: this.selectedServicePackage.id,
               suppServices: this.selectedSuppServices.map(_ => _.id),
-              postalServiceId: this.selectedPostalService === null ? "" : this.selectedPostalService.id
+              postalServiceId: this.selectedPostalService === null ? "" : this.selectedPostalService.id,
+              postalData: postalData
             }
         ),
         redirect: 'follow'
@@ -1344,17 +1391,11 @@ export default {
       const headers = new Headers();
       headers.append("Content-Type", "application/x-www-form-urlencoded");
 
-        //TODO: ? брать из заказчика или адреса по типу
+      const postalData = this.getPostalData(this.customer, this.delivery);
       const requestOptions = {
         method: 'POST',
         headers: headers,
-        body: network.toFormUrlEncoded(
-            {
-              zip: this.customer.zip,
-              city: this.customer.city,
-              countryA3: this.customer.addressingCountry.codeA3,
-            }
-        ),
+        body: network.toFormUrlEncoded(postalData),
         redirect: 'follow'
       };
       try {
@@ -1367,6 +1408,14 @@ export default {
 
         this.postalServices = responseJSON.services;
         this.isLoading = false;
+
+        // Сброс выбранного почтового сервиса, если его нет в доступных сервисах
+        const selectedPostalServiceIndex = this.postalServices.findIndex(_ => _.id === this.selectedPostalService.id);
+        if (selectedPostalServiceIndex === -1) {
+          this.selectedPostalService = new constants.PostalServiceDefault();
+          await this.sendCalculateAndValidate()
+        }
+
       } catch (err) {
         this.isLoading = false;
         console.log(err)
@@ -1885,16 +1934,45 @@ export default {
 
     /* Step 6 */
     setCustomerDelivery(data) {
-      this.customer = data.customer;
-      this.delivery = data.delivery
+      //data = Object.assign({}, data);
+      let changePostalData = false;
+      // Сброс почтовых сервисов и калькуляция:
+      // если выбрали самовывоз
+      // если поменялся фактический адрес доставки и он заполнен полностью
+      if (data.delivery.type == 3) {
+        changePostalData = true
+      }
+
+      const postalDataNew = this.getPostalData(data.customer, data.delivery);
+      const postalDataOld = this.getPostalData(this.customer, this.delivery);
+      if (JSON.stringify(postalDataNew) !== JSON.stringify(postalDataOld)) {
+        changePostalData = true
+      }
+
+      this.customer = Object.assign({}, data.customer);
+      this.delivery = Object.assign({}, data.delivery);
+      console.log(changePostalData)
+      if (changePostalData) {
+        if ((postalDataNew !== null /*&& this.selectedPostalService.id*/) || data.delivery.type == 3) {
+
+          this.resetStep6(true);
+        } else {
+
+          this.resetStep6();
+        }
+      }
+
     },
 
     /**
      * Сброс шага 6
      */
-    resetStep6() {
+    resetStep6(calculate = false) {
       this.postalServices = [];
       this.selectedPostalService = new constants.PostalServiceDefault();
+      if (calculate) {
+        this.sendCalculateAndValidate();
+      }
     },
 
     /* Step 7*/
