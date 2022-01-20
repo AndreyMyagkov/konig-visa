@@ -9,8 +9,8 @@
       sname: "Иванов",
       name: "2",
       address: "3",
-      zip: "4321",
-      city: "5",
+      zip: "1111",
+      city: "222",
       tel: "6",
       mobile: "77777777777",
       email: "qw@qw.ru",
@@ -24,8 +24,8 @@
       sname: "Петров",
       name: "2",
       address: "3",
-      zip: "4321",
-      city: "5",
+      zip: "333",
+      city: "444",
       tel: "6",
       mobile: "77777777777",
       email: "qw@qw.ru",
@@ -133,7 +133,7 @@
           <!-- index -->
           <div class="kv-form__item-wrap kv-form__col" id="kv-customer-field-zip">
             <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.customer.zip.$error }">
-              <input type="text" placeholder=" " id="zip1" maxlength="10" v-model.trim="$v.customer.zip.$model"  @input="isFormCorrect">
+              <input type="text" placeholder=" " id="zip1" maxlength="10" v-model.trim="$v.customer.zip.$model"  @blur="isFormCorrect">
               <label class="kv-form__label" for="zip1">{{ $lng('step5.zip') }}</label>
             </div>
           </div>
@@ -142,7 +142,7 @@
           <!-- city -->
           <div class="kv-form__item-wrap kv-form__col" id="kv-customer-field-city">
             <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.customer.city.$error }">
-              <input type="text" placeholder=" " id="city1" v-model.trim="$v.customer.city.$model"  @input="isFormCorrect">
+              <input type="text" placeholder=" " id="city1" v-model.trim="$v.customer.city.$model"  @blur="isFormCorrect">
               <label class="kv-form__label" for="city1">{{ $lng('step5.city') }}</label>
             </div>
           </div>
@@ -382,14 +382,14 @@
           <div class="kv-form__row kv-row">
             <div class="kv-form__item-wrap kv-form__col" id="kv-delivery-field-zip">
               <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.zip.$error }">
-                <input type="text" placeholder=" " id="zip2" name="zip2" maxlength="10" v-model.trim="$v.delivery.zip.$model"  @input="isFormCorrect">
+                <input type="text" placeholder=" " id="zip2" name="zip2" maxlength="10" v-model.trim="$v.delivery.zip.$model"  @blur="isFormCorrect">
                 <label class="kv-form__label" for="zip2">{{ $lng('step5.zip') }}</label>
               </div>
             </div>
 
             <div class="kv-form__item-wrap kv-form__col" id="kv-delivery-field-city">
               <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.city.$error }">
-                <input type="text" placeholder=" " id="city2" name="city2" v-model.trim="$v.delivery.city.$model"  @input="isFormCorrect">
+                <input type="text" placeholder=" " id="city2" name="city2" v-model.trim="$v.delivery.city.$model"  @blur="isFormCorrect">
                 <label class="kv-form__label" for="city2">{{ $lng('step5.city') }}</label>
               </div>
             </div>
