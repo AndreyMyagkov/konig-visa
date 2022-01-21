@@ -48,7 +48,7 @@ export const lng = {
             "processingDuration": "Bearbeitungszeit",
             "dimension": {
                 "h": "Stunden",
-                "d": "Werktage",
+                "d": "Arbeitstage",
                 "m": "Monat"
             },
             "multiplicity": "malige Einreise",
@@ -221,7 +221,7 @@ export const lng = {
             "processingDuration": "Bearbeitungszeit",
             "dimension": {
                 "h": "Stunden",
-                "d": "Werktage",
+                "d": "Arbeitstage",
                 "m": "Monat"
             },
             "multiplicity": "malige Einreise",
@@ -372,7 +372,7 @@ export const lng = {
             "processingDuration": "Bearbeitungszeit",
             "dimension": {
                 "h": "Stunden",
-                "d": "Werktage",
+                "d": "Arbeitstage",
                 "m": "Monat"
             },
             "multiplicity": "malige Einreise",
