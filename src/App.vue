@@ -1,7 +1,7 @@
 <template>
   <div id="kv-app" class="kv-app" notranslate data-cq-max-w="991, 640, 480" data-cq-min-w="991, 640, 480">
     <!-- HEADER -->
-    <div class="kv-header" v-if="CONFIG.mode === 'default'">
+    <div class="kv-header" v-if="CONFIG.mode === 'default' || CONFIG.mode === 'payment'">
 
       <!-- Bread Crumbs -->
       <BreadCrumbs :crumbs="crumbs" v-if="false"/>
@@ -14,6 +14,10 @@
             <div class="kv-step-values__item" v-if="selectedCountry.name">
               <span>{{selectedCountry.name}}</span>
             </div>
+            <div class="kv-step-values__item" v-if="CONFIG.mode === 'payment'">
+              <span>{{ $lng('step8.ordernumber') }}: {{ CONFIG.order }}</span>
+            </div>
+
 
 
             <div class="kv-step-values__item" v-if="selectedService.name">
@@ -379,6 +383,37 @@
       <!-- /SUCCESS -->
     </div>
 
+    <!-- Mode payment -->
+    <div class="kv-content" v-if="CONFIG.mode === 'payment'">
+      <!-- Step Header -->
+      <StepHeader :icon="stepInfo.icon" :text="$lng(`step${currentStep}.header`)"/>
+      <!-- /Step Header -->
+      <div class="kv-content__body">
+        <!-- STEP 8 -->
+        <Step8
+            :paymentMethods="paymentMethods"
+            @update:paymentType="updatePaymentType"
+            @update:paymentData="updatePaymentData"
+            @active="loadStep8Data"
+            @isValid="steps[7].isValid = $event"
+            />
+        <!-- /STEP 8 -->
+
+        <!-- Bottom buttons -->
+        <PrevNextButtons
+            :currentStep="currentStep"
+            :allowNext="allowNext"
+            position="bottom"
+            @prevStep="prevStep"
+            @nextStep="nextStep"
+            @sendOrder="sendOrder"
+            @makePayment="makePayment"
+            @checkForm="checkForm"
+        ></PrevNextButtons>
+        <!-- /Bottom buttons -->
+      </div>
+    </div>
+    <!-- /Mode payment -->
 
     <simple-modal v-model="isModalShow" :title="modal.title" size="small">
       <template slot="body">
@@ -660,7 +695,7 @@ export default {
 
 
       // Режим модуля
-      const allowMode = ["default", "price", "success"];
+      const allowMode = ["default", "price", "success", "payment"];
       if (allowMode.indexOf(this.CONFIG.mode) === -1) {
         this.CONFIG.mode = "default";
       }
@@ -675,9 +710,9 @@ export default {
 
       } else if (this.CONFIG.mode === "price") {
         this.loadStep1Data();
-      }
-
-      else {
+      } else if (this.CONFIG.mode === "payment" && this.CONFIG.order) {
+        this.currentStep = 8;
+      } else {
         this.currentStep = 1;
       }
 

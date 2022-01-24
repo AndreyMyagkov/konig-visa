@@ -145,6 +145,7 @@ export const lng = {
         "step8": {
             "crumb": "Zahlungsart",
             "header": "Zahlungsart",
+            "ordernumber": "Bestellnummer",
         },
         "success": {
             "thanks": "Vielen Dank",
@@ -318,6 +319,7 @@ export const lng = {
         "step8": {
             "crumb": "Способ оплаты",
             "header": "Способ оплаты",
+            "ordernumber": "Номер заказа",
         },
         "success": {
             "thanks": "спасибо",
@@ -468,6 +470,7 @@ export const lng = {
         "step8": {
             "crumb": "Способ оплаты",
             "header": "Способ оплаты",
+            "ordernumber": "Order number",
         },
         "success": {
             "thanks": "спасибо",
