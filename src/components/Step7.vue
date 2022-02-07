@@ -248,7 +248,7 @@
             <div class="kv-review-card__text">{{data.customer.gender}} {{data.customer.name}} {{data.customer.sname}}</div>
             <div class="kv-review-card__text">{{data.customer.companyName}}</div>
             <div class="kv-review-card__text">{{data.customer.address}}</div>
-            <div class="kv-review-card__text">{{data.customer.zip}}, {{data.customer.city}}, {{data.customer.addressingCountry.name}}</div>
+            <div class="kv-review-card__text">{{data.customer.zip}} {{data.customer.city}}, {{data.customer.addressingCountry.name}}</div>
             <div class="kv-row">
               <div class="kv-review-card__text kv-customer__tel" v-if="data.customer.tel.length">{{data.customer.tel}}</div>
               <div class="kv-review-card__text">{{data.customer.mobile}}</div>
@@ -306,7 +306,7 @@
             <div class="kv-review-card__text">{{data.delivery.gender}} {{data.delivery.name}} {{data.delivery.sname}}</div>
             <div class="kv-review-card__text" v-if="data.delivery.isCompany">{{data.delivery.companyName}}</div>
             <div class="kv-review-card__text">{{data.delivery.address}}</div>
-            <div class="kv-review-card__text">{{data.delivery.zip}}, {{data.delivery.city}}, {{data.delivery.addressingCountry.name}}</div>
+            <div class="kv-review-card__text">{{data.delivery.zip}} {{data.delivery.city}}, {{data.delivery.addressingCountry.name}}</div>
             <div class="kv-row">
               <div class="kv-review-card__text kv-customer__tel"  v-if="data.delivery.tel.length">{{data.delivery.tel}}</div>
               <div class="kv-review-card__text">{{data.delivery.mobile}}</div>
