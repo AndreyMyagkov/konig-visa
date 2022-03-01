@@ -108,7 +108,8 @@ export const lng = {
             "addressDifferent": "abweichende Lieferanschrift",
             "pickUp": "Abholen",
             "workingTime": "Öffnungszeiten:",
-            "deliveryByEmail": "Die Dokumente werden an die E-Mail-Adresse des Kunden versendet"
+            "deliveryByEmail": "Die Dokumente werden an die E-Mail-Adresse des Kunden versendet",
+            "errorAddress": "Bitte überprüfen Sie Ihre Straße und Hausnummer im Feld."
         },
         "step6": {
             "crumb": "Rückversand",
@@ -282,7 +283,8 @@ export const lng = {
             "addressDifferent": "abweichende Lieferanschrift",
             "pickUp": "Abholen",
             "workingTime": "Время работы:",
-            "deliveryByEmail": "Документы будут доставлены на электронный адрес клиента"
+            "deliveryByEmail": "Документы будут доставлены на электронный адрес клиента",
+            "errorAddress": "Bitte überprüfen Sie Ihre Straße und Hausnummer im Feld."
         },
         "step6": {
             "crumb": "Способ отправки",
@@ -433,7 +435,8 @@ export const lng = {
             "addressDifferent": "abweichende Lieferanschrift",
             "pickUp": "Abholen",
             "workingTime": "Время работы:",
-            "deliveryByEmail": "Документы будут доставлены на электронный адрес клиента"
+            "deliveryByEmail": "Документы будут доставлены на электронный адрес клиента",
+            "errorAddress": "Bitte überprüfen Sie Ihre Straße und Hausnummer im Feld."
         },
         "step6": {
             "crumb": "Способ отправки",

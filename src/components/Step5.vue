@@ -119,12 +119,13 @@
           <!-- address -->
           <div class="kv-form__item-wrap kv-form__col" id="kv-customer-field-address">
             <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.customer.address.$error }">
-              <input type="text" placeholder=" " id="address1"  v-model.trim="$v.customer.address.$model"  @input="isFormCorrect">
+              <input type="text" placeholder=" " id="address1"  v-model.trim.lazy="$v.customer.address.$model"  @input="isFormCorrect">
               <label class="kv-form__label" for="address1">{{ $lng('step5.address') }}</label>
             </div>
           </div>
           <!-- /address -->
         </div>
+        <div class="kv-error" v-if="!$v.customer.address.addressValidator">{{ $lng('step5.errorAddress') }}</div>
 
 
         <!-- From row-->
@@ -372,12 +373,13 @@
           <div class="kv-form__row kv-row">
             <div class="kv-form__item-wrap kv-form__col" id="kv-delivery-field-address">
               <div class="kv-form__item" :class="{ 'kv-form__item_error': $v.delivery.address.$error }">
-                <input type="text" placeholder=" " id="address2" name="address2" v-model.trim="$v.delivery.address.$model"  @input="isFormCorrect">
+                <input type="text" placeholder=" " id="address2" name="address2" v-model.trim.lazy="$v.delivery.address.$model"  @input="isFormCorrect">
                 <label class="kv-form__label" for="address2">{{ $lng('step5.address') }}</label>
               </div>
             </div>
           </div>
           <!-- From row-->
+          <div class="kv-error" v-if="!$v.delivery.address.addressValidator">{{ $lng('step5.errorAddress') }}</div>
 
           <div class="kv-form__row kv-row">
             <div class="kv-form__item-wrap kv-form__col" id="kv-delivery-field-zip">
@@ -503,7 +505,7 @@ import * as arrayHelper from '@/helpers/array';
 
 const isCountrySelected = (value) => value.codeA3 !== null; //!Array.isArray(value);
 const checkCompany = (value, vm) => !vm.isCompany || (vm.isCompany && value.length > 0);
-
+const addressValidator = (value) => !value.length || /\d+/.test(value);
 
 export default {
   name: "Step5",
@@ -569,7 +571,7 @@ export default {
       },
       address: {
         required,
-        minLength: minLength(1)
+        addressValidator
       },
       zip: {
         required,
@@ -614,7 +616,7 @@ export default {
       },
       address: {
         required,
-        minLength: minLength(1)
+        addressValidator
       },
       zip: {
         required,
@@ -763,6 +765,11 @@ export default {
 </script>
 
 <style scoped>
-
+  .kv-error {
+    padding: 10px;
+    background: #ffeded;
+    border-radius: 3px;
+    color: red;
+  }
 </style>
 
