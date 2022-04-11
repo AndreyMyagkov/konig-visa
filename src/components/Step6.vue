@@ -6,7 +6,11 @@
       <div class="kv-row" v-for="(row, i) in postalServicesPrepared" :key="i">
 
         <div class="kv-form__item-wrap kv-form__col_half"  v-for="item in row" :key="item.id">
-          <div class="kv-form__item kv-form__item_chb kv-form__item_light kv_height-100">
+          <div class="kv-form__item kv-form__item_chb kv-form__item_light kv_height-100"
+            :class="{
+              'kv-form__item_error': error
+            }"
+          >
             <label class="kv-form-radio">
               <input type="radio" name="branch" :value="item.id" v-model="postalService" @change="postalChange(item)">
               <span class="kv-form-radio__mark">
@@ -77,14 +81,17 @@ export default {
     return {
       //postalService: null,
       //postalServiceMobile: null
+      error: false
     }
   },
   methods: {
     postalChange(item) {
-      this.$emit('change', item)
+      this.error = false;
+      this.$emit('change', item);
     },
     checkForm(){
       if (this.selectedPostalService === null) {
+        this.error = true;
         this.$emit('showModal', this.$lng('common.checkFormPopup'), this.$lng('common.error'));
       }
     },

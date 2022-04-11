@@ -3281,6 +3281,18 @@
   opacity: 1;
 }
 
+.kv-app .kv-processing-day.kv-processing-day_error .kv-processing-day__header {
+    border-color: var(--c-error);
+    border-style: solid;
+    border-width: 3px 3px 0 3px;
+}
+.kv-app .kv-processing-day.kv-processing-day_error .kv-processing-day__body {
+    border-color: var(--c-error);
+    border-style: solid;
+    border-width: 0 3px 3px 3px;
+}
+
+
 .kv-app .kv-calc-info {
   background-color: var(--c-disabled);
   display: -webkit-box;

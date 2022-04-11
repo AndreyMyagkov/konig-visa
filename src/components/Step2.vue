@@ -21,7 +21,13 @@
             <!-- item -->
             <slide class="story-carousel__slide" v-for="(item, index) in serviceDetails.durations" :key="item.name" :index="index">
               <div class="kv-staying__item">
-                <div class="kv-staying-chb" :class="{'kv-staying-chb__active' : item.name === setup.duration.name}"  @click="selectDurations(item)">
+                <div class="kv-staying-chb"
+                     :class="{
+                        'kv-staying-chb__active' : item.name === setup.duration.name,
+                        'kv-form__item_error': error.duration
+                     }"
+                     @click="selectDurations(item)"
+                >
                   <div class="kv-staying-chb__text" v-html="item.nameHTML"></div>
                   <div class="kv-staying-chb__info"
                        @click.stop="$emit('showModal', item.description, item.name)"
@@ -163,7 +169,8 @@
               <div class="kv-processing-day" :class="{
                 'kv-processing-day_active': isActiveCurrentPriceBlock(i),
                 'kv-processing-day_disabled': !isDisabledCurrentPrice(i),
-                'kv-processing-day_blocked': isBlockedCurrentPrice(i)
+                'kv-processing-day_blocked': isBlockedCurrentPrice(i),
+                'kv-processing-day_error': error.price
               }">
 
                 <div class="kv-processing-day__header">
@@ -240,7 +247,7 @@
       </div>
 
 
-      <!-- Calc bloc info-->
+      <!-- Calc block info-->
       <div class="kv-calc-block__info"  v-if="setup.duration.name  && prices.state === 0">
 
         <div class="kv-calc-info">
@@ -331,6 +338,11 @@ export default {
           900: {itemsToShow: 3, trimWhiteSpace:true},
           1100: {itemsToShow: 4, trimWhiteSpace:true}
         }
+      },
+      // Флаги ошибок
+      error: {
+        duration: false,
+        price: false
       }
       // Выбранная продолжительность
       //selectedDuration: Object.assign({}, this.setup.duration),
@@ -358,7 +370,8 @@ export default {
         return
       }
       //this.selectedPriceId = data.price.id;
-      this.$emit('update:price', data)
+      this.error.price = false;
+      this.$emit('update:price', data);
     },
 
     /**
@@ -367,13 +380,14 @@ export default {
      */
     selectDurations(item) {
       //this.resetPrice();
+      this.error.duration = false;
       this.$emit('update:duration', item);
     },
 
 
     /**
-     * Текщий блок процесса активный?
-     * @param {integer} index - индекс блока процесса
+     * Текущий блок процесса активный?
+     * @param {Number} index - индекс блока процесса
      */
     isActiveCurrentPriceBlock(index) {
       if (!this.setup.price.price.id) {
@@ -414,7 +428,7 @@ export default {
     },
 
     /**
-     *  Возращает Цену по id продукта
+     *  Возвращает Цену по id продукта
      *  TODO: подгрузить цену
      */
     getPriceByProductId(id) {
@@ -428,6 +442,60 @@ export default {
         return null
       }
     },
+
+    /**
+     * Проверка шага на заполненность срока пребывания и цены
+     */
+    checkForm() {
+      this.error.duration = this.setup.duration.index === null;
+      this.error.price = this.setup.price.index === null && this.setup.duration.index !== null;
+    },
+
+    /**
+     * Возвращает id единственно возможной цены для выбора, либо false, если доступно несколько вариантов цен
+     */
+    isSinglePrice() {
+      console.log('изме')
+      let priceCount = 0;
+      let id = null;
+      let priceObject = {
+        info: {},
+        price: {},
+        index: null
+      };
+
+      for(let i = 0; i < this.prepareProductsPricesArr.length; i++) {
+        // Не проверяем блоки цен недоступные по сроку обработки
+        if (this.prepareProductsPricesArr[i].info.hours < this.prices.minProcessDuration) {
+          continue
+        }
+        // Считаем кол-во доступных цен и id первой
+        this.prepareProductsPricesArr[i].prices.forEach((prices, idx) => {
+          if (prices.price) {
+            priceCount++;
+            if (!id) {
+              id = prices.id
+              priceObject = {
+                price: this.prepareProductsPricesArr[i].prices[idx],
+                info: this.prepareProductsPricesArr[i].info,
+                index: i
+              }
+            }
+          }
+        });
+
+        console.log(priceCount);
+        // Если нашли больше одной - это не наш случай
+        if (priceCount > 1) {
+          break
+        }
+      }
+      if (priceCount === 1) {
+        console.log(priceObject)
+        this.setPrice(priceObject);
+      }
+      return (priceCount === 1) ? id : false
+    }
 
 
   },
@@ -476,14 +544,14 @@ export default {
     },
 
     /**
-     * Возращает массив id цен для выбранных параметров
+     * Возвращает массив id цен для выбранных параметров
      */
     processesArr() {
       return this.serviceDetails.products[this.setup.duration.index] || []
     },
 
     /**
-     * Возращает готовый массив процессов с ценами
+     * Возвращает готовый массив процессов с ценами
      */
     prepareProductsPricesArr() {
       const tmpArr = [];
@@ -520,10 +588,8 @@ export default {
 
   },
   mounted() {
-
     this.$emit('active')
   }
-
 }
 </script>
 

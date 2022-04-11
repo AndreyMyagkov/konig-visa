@@ -190,6 +190,7 @@
             @update:price="updatePrice"
             @load:prices="loadPrices"
             @showModal="showModal"
+            ref="step2"
             v-if="currentStep === 2 && CONFIG.mode === 'default'"/>
         <!-- /STEP 2 -->
 
@@ -911,7 +912,7 @@ export default {
       this.setStep({step: step, block: null})
     },
     /**
-     * Проверка формы текущего шага
+     * Проверка формы текущего шага.
      * Проверяем формы 3, 5 шага на предмет незаполненных полей
      * Остальные шаги на предмет не выбранных опций
      */
@@ -923,6 +924,7 @@ export default {
       }
       if (this.currentStep === 2) {
         if (!this.allowNext) {
+          this.$refs.step2.checkForm();
           this.showModal(this.$lng('common.checkFormPopup'), this.$lng('common.error'))
         }
       }
@@ -1141,6 +1143,9 @@ export default {
           //this.calculate.amount = null
         } else {
           this.steps[1].allowOrder = true;
+          setTimeout(()=> {
+            this.$refs.step2.isSinglePrice();
+          }, 500)
         }
 
         this.isLoading = false;
@@ -1151,7 +1156,7 @@ export default {
     },
 
     /**
-     *  Возращает Цену по id продукта
+     *  Возвращает Цену по id продукта
      */
     getPriceByProductId(id) {
       if (!this.prices.prices.length) {
@@ -1451,9 +1456,17 @@ export default {
           await this.sendCalculateAndValidate()
         }
 
+        this.preselectPostalService();
+
       } catch (err) {
         this.isLoading = false;
         console.log(err)
+      }
+
+    },
+    preselectPostalService() {
+      if (this.postalServices.length === 1 && this.selectedPostalService.id === null) {
+        this.postalChange(this.postalServices[0])
       }
     },
 
@@ -1466,6 +1479,26 @@ export default {
       await this.loadServiceDetails();
       await this.loadNationalities();
       await this.loadPrices();
+      await this.preselectSingleDuration()
+    },
+
+    /**
+     * Предвыбор длительности визы, если они в единственном варианте и еще не выбраны
+     */
+    async preselectSingleDuration(){
+      // 1. Предвыбор срока визы
+      if (this.serviceDetails.durations &&  this.serviceDetails.durations.length === 1 && this.selectedDuration.index === null) {
+        await this.updateDuration(this.serviceDetails.durations[0]);
+      }
+    },
+
+    /**
+     * Предвыбор офиса где будут забраны визы, если офис только один
+     */
+    preselectSinglePickupPoints() {
+      if (this.delivery.type == 3 && this.delivery.branch.id === null && this.pickupPoints.length === 1) {
+        this.$refs.step5.changeBranch(this.pickupPoints[0])
+      }
     },
 
     async loadStep5Data() {
@@ -1500,7 +1533,7 @@ export default {
     },
 
     /**
-     *  Загрузка справочника достуных типов виз
+     *  Загрузка справочника доступных типов виз
      */
     async loadServices() {
       const selectedCountryId = this.selectedCountry.codeA3;
@@ -1518,98 +1551,7 @@ export default {
           throw new Error(services.Message);
         }
 
-        // services = {
-        //   "services": [
-        //     {
-        //       "srvGrpId": null,
-        //       "serviceId": "1",
-        //       "name": "Бизнес",
-        //       "description": "нет"
-        //     },
-        //     {
-        //       "srvGrpId": null,
-        //       "serviceId": "2",
-        //       "name": "Бизнес + Приглашение",
-        //       "description": "нет"
-        //     },
-        //     {
-        //       "srvGrpId": "100",
-        //       "serviceId": "3",
-        //       "name": "Отдых",
-        //       "description": "Туризм"
-        //     },
-        //     {
-        //       "srvGrpId": "100",
-        //       "serviceId": "4",
-        //       "name": "Автотуризм",
-        //       "description": "Туризм"
-        //     },
-        //     {
-        //       "srvGrpId": "200",
-        //       "serviceId": "5",
-        //       "name": "Отдых + Приглашение",
-        //       "description": ""
-        //     },
-        //     {
-        //       "srvGrpId": "200",
-        //       "serviceId": "6",
-        //       "name": "Автотуризм + Приглашение",
-        //       "description": ""
-        //     },
-        //     {
-        //       "srvGrpId": null,
-        //       "serviceId": "7",
-        //       "name": "Обучение",
-        //       "description": "нет"
-        //     },
-        //     {
-        //       "srvGrpId": "300",
-        //       "serviceId": "8",
-        //       "name": "Водитель грузового автомобиля",
-        //       "description": ""
-        //     },
-        //     {
-        //       "srvGrpId": "300",
-        //       "serviceId": "9",
-        //       "name": "Член экипажа",
-        //       "description": ""
-        //     },
-        //     {
-        //       "srvGrpId": "400",
-        //       "serviceId": "10",
-        //       "name": "Бизнес",
-        //       "description": ""
-        //     },
-        //     {
-        //       "srvGrpId": "100",
-        //       "serviceId": "11",
-        //       "name": "Охота",
-        //       "description": "Туризм"
-        //     }
-        //   ],
-        //   "serviceGroups": [
-        //     {
-        //       "id": "100",
-        //       "name": "Туризм",
-        //       "description": ""
-        //     },
-        //     {
-        //       "id": "200",
-        //       "name": "Туризм + Приглашение",
-        //       "description": ""
-        //     },
-        //     {
-        //       "id": "300",
-        //       "name": "Рабочая виза",
-        //       "description": ""
-        //     },
-        //     {
-        //       "id": "400",
-        //       "name": "Командировка",
-        //       "description": ""
-        //     }
-        //   ]
-        // }
+
         const srv = this.servicesPrepare(services.services)
 
         const grp = this.servicesPrepare(services.serviceGroups)
@@ -1725,7 +1667,7 @@ export default {
     },
   //  ПО выбору смотреть тип. Выбирать группу или сервис и открывать шаг
     /**
-     * Возращает сервисы игруппы, приведенные к единому типу: {id, srvGrpId, type,  name, description}
+     * Возвращает сервисы и группы, приведенные к единому типу: {id, srvGrpId, type,  name, description}
      */
     servicesPrepare(data) {
       return data.map(item => {
@@ -1741,7 +1683,7 @@ export default {
     },
 
     /**
-     * Возращает группы сервисов, плюс сервисы без группы
+     * Возвращает группы сервисов, плюс сервисы без группы
      */
     // servicesGroupsPrepare(groups, services) {
     //   services = services.filter(item => item.srvGrpId === null)
@@ -1749,8 +1691,8 @@ export default {
     // },
 
     /**
-     * Возращает сервисы без групп и группы в порядке следования сервисов
-     * Группы возращаются без дублирования
+     * Возвращает сервисы без групп и группы в порядке следования сервисов
+     * Группы возвращаются без дублирования
      * @param {*} grp
      * @param {*} srv
      */
@@ -1773,7 +1715,7 @@ export default {
     },
 
     async selectVisaType(item) {
-      // Идем на шаг 2, если выбрали тоже самое
+      // Идем на шаг 2, если выбрали то же самое
       if (item.type === 'group' && this.selectedServiceGroup.id === item.id) {
         return
       }
@@ -1838,7 +1780,7 @@ export default {
 
     /**
      * Формирует конфирм о сбросе данных при возврате с шага 7 на шаг 1, 2
-     * Возращает предупреждение о конкретных сбрасываемых данных (сервисный пакет | допуслуги | доставка)
+     * Возвращает предупреждение о конкретных сбрасываемых данных (сервисный пакет | допуслуги | доставка)
      */
     getResetConfirmMessage() {
       let content = this.$lng('step1.confirmReset.begin');
@@ -1878,7 +1820,7 @@ export default {
     },
 
     /**
-     * Возращает информацию по туристу для корзины
+     * Возвращает информацию по туристу для корзины
      */
     touristInfo(i) {
       if (this.tourists.length) {
@@ -1915,7 +1857,7 @@ export default {
       }
       // Убрал калькуляцию, т.к. она выполнится после добавления туриста
       //await this.sendCalculateAndValidate();
-      // Задержка автивности шага на тот случай, если
+      // Задержка активности шага на тот случай, если
       // не выбрана цена, что бы сразу не запускать проверку формы
      // setTimeout(()=> {
         this.steps[2].isActive = true;
@@ -1976,6 +1918,7 @@ export default {
       // если поменялся фактический адрес доставки и он заполнен полностью
       if (data.delivery.type == 3) {
         changePostalData = true
+
       }
 
       const postalDataNew = this.getPostalData(data.customer, data.delivery);
@@ -1989,7 +1932,7 @@ export default {
       console.log(changePostalData)
       if (changePostalData) {
         if ((postalDataNew !== null /*&& this.selectedPostalService.id*/) || data.delivery.type == 3) {
-
+          this.preselectSinglePickupPoints();
           this.resetStep6(true);
         } else {
 
@@ -2216,7 +2159,7 @@ export default {
 
 
     /**
-     *  Функцию возращает цепочку по текущему шагу
+     *  Функцию возвращает цепочку по текущему шагу
      *
      */
     crumbs() {
@@ -2224,7 +2167,7 @@ export default {
     },
 
     /**
-     * Можно ли преейти на следующий шаг из текущего
+     * Можно ли перейти на следующий шаг из текущего
      */
     allowNext() {
       if (this.currentStep === 1) {
@@ -2274,7 +2217,7 @@ export default {
     },
 
     /**
-     * Возращает информация по выбранной стране
+     * Возвращает информация по выбранной стране
      * @return {}
      */
     /*

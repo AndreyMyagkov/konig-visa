@@ -463,7 +463,8 @@
             <div class="kv-form__item-wrap kv-form__col_half"  v-for="item in row" :key="item.id" id="kv-delivery-field-branch">
               <div class="kv-form__item kv-form__item_chb kv_height-100" :data-i="item.id"  :data-vue="delivery.branch.id"
                    :class="{
-                'kv-form__item_border': item.id === delivery.branch.id
+                    'kv-form__item_border': item.id === delivery.branch.id,
+                    'kv-form__item_error': error.branch
               }">
                 <label class="kv-form-radio">
                   <!-- :checked="item.id === customer.branch.id" -->
@@ -542,6 +543,9 @@ export default {
     return {
       customer: Object.assign({}, this.customerDefault),
       delivery: Object.assign({}, this.deliveryDefault),
+      error: {
+        branch: false
+      }
     }
   },
   validations: {
@@ -649,6 +653,7 @@ export default {
      * Смена офиса доставки
      */
     changeBranch(value){
+      this.error.branch = false;
       this.delivery.branch = value;
       //this.$v.delivery.branch.$model = value;
       this.$v.delivery.$touch();
@@ -695,7 +700,6 @@ export default {
         this.$v.delivery.$touch();
       }
 
-
       if (!this.isFormCorrect()) {
         this.$emit('showModal', this.$lng('common.checkFormPopup'), this.$lng('common.error'));
       } else {
@@ -720,7 +724,9 @@ export default {
         }
       }
 
-      if (this.delivery.type == 3 && this.delivery.branch.id !== null) {
+      // было this.delivery.branch.id !== null
+      if (this.delivery.type == 3 && this.delivery.branch.id === null) {
+        this.error.branch = true
         this.$emit('scroll-to', `#kv-delivery-field-branch`)
       }
 
