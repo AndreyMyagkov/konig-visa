@@ -372,6 +372,7 @@
               @update:price="updatePrice"
               @load:prices="loadPrices"
               @showModal="showModal"
+              ref="step2"
               v-if="selectedService.id"/>
           <!-- /STEP 2 -->
         </div>
@@ -788,7 +789,7 @@ export default {
           }
         }
 
-        this.selectVisaType(service);
+        await this.selectVisaType(service);
       }
 
       // Повторно ставим продукт, т.к. он сбрасывается при смене типа виз
@@ -892,6 +893,9 @@ export default {
      * Переход к следующему шагу
      */
     nextStep() {
+      if (this.CONFIG.mode === 'price') {
+        return
+      }
       let step = this.currentStep + 1;
 
       if (this.skipStep(step)) {
@@ -1488,6 +1492,10 @@ export default {
     async preselectSingleDuration(){
       // 1. Предвыбор срока визы
       if (this.serviceDetails.durations &&  this.serviceDetails.durations.length === 1 && this.selectedDuration.index === null) {
+        await this.updateDuration(this.serviceDetails.durations[0]);
+      }
+      // Для режима прайс выбрать первое значение
+      if (this.serviceDetails.durations && this.selectedDuration.index === null && this.CONFIG.mode === 'price') {
         await this.updateDuration(this.serviceDetails.durations[0]);
       }
     },

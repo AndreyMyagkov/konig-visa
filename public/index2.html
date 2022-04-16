@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <link href="/js/app.js" rel="preload" as="script">
+  </head>
+  <body class="body">
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+
+    <style>
+        body {
+            padding: 0;
+        }
+        .kv-container {
+            width: 1250px;
+            max-width: 100%;
+            position: relative;
+            margin: 0 auto;
+            padding: 0 26px;
+            box-sizing: border-box;
+        }
+    </style>
+
+    <div class="kv-container">
+
+        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias atque corporis dolore eveniet facere inventore modi nostrum. Alias cupiditate eveniet facilis fuga hic impedit ipsam, nobis quibusdam repellat. Culpa, totam.</div>
+        <br><br>
+        <script>
+            (function (k, o, e, n, i, g) {
+                const config =  {
+                    elementId: "kt-visa-app-174",
+
+                    // "price", "success"
+                    //css: "/css/widgete.dev.css",
+                    "clientId": "{9BB2019B-794A-4E4E-A16A-9D89A2F5A691}",
+                    "mode": "price",
+                    "residenceRegions": "DEU\BE",
+                    "country": "RUS",
+                    "serviceGroup": "9e5040f9-e9e3-45dc-8379-e3627d7e1b9e",
+                    "service": "",
+                    "product": "",
+                    "order": "",
+                    "lng": "de",
+                    "API_URL": "https://apisrv.ideo-software.com/Ideo/KoenigCS/Srv/api/OrderPortal/",
+                    "nationality": "DE",
+                    "redirectUrl": "/beantragen"
+                }
+                k[o] = k[o] || [];
+                k[o].push(config);
+            })(window, "__KV_CONFIG");
+        </script>
+
+        <div id="kt-visa-app-174"></div>
+
+    </div>
+    <script type="text/javascript" src="/js/app.js"></script>
+  </body>
+</html>

@@ -455,7 +455,6 @@ export default {
      * Возвращает id единственно возможной цены для выбора, либо false, если доступно несколько вариантов цен
      */
     isSinglePrice() {
-      console.log('изме')
       let priceCount = 0;
       let id = null;
       let priceObject = {
@@ -484,7 +483,6 @@ export default {
           }
         });
 
-        console.log(priceCount);
         // Если нашли больше одной - это не наш случай
         if (priceCount > 1) {
           break
