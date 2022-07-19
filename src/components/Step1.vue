@@ -22,6 +22,7 @@
                     :placeholder="$lng('step1.countryPlaceholder')"
                     v-model="selectedCountry"
                     :clearable="false"
+                    id="kv-select-country"
                 />
                 <svg class="kv-form__sel-arrow"><use href="#kv-icons_select"></use></svg>
               </div>
@@ -42,6 +43,7 @@
               :selected="setup.serviceGroups"
               @change="selectVisaType"
               @showModal="showModal"
+              id="kv-service-groups"
           >
           </VisaTypes>
         </div>
@@ -57,6 +59,7 @@
               :selected="setup.service"
               @change="selectVisaType"
               @showModal="showModal"
+              id="kv-service"
           >
           </VisaTypes>
 

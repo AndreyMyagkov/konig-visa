@@ -10,7 +10,7 @@
             'kv-buch-chb_active': selected.indexOf(item.id) !== -1
           }"
       >
-        <span class="kv-buch-chb__title"  @click="change(item)">
+        <span class="kv-buch-chb__title"  :id="`kv-btn__${item.id}`" @click="change(item)">
           {{item.name}}
           <svg class="kv-buch-chb__icon"><use href="#kv-icons_next"></use></svg>
         </span>

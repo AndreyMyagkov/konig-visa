@@ -20,7 +20,7 @@
 
             <!-- item -->
             <slide class="story-carousel__slide" v-for="(item, index) in serviceDetails.durations" :key="item.name" :index="index">
-              <div class="kv-staying__item">
+              <div class="kv-staying__item" :id="`kv-btn-duration__${index}`">
                 <div class="kv-staying-chb"
                      :class="{
                         'kv-staying-chb__active' : item.name === setup.duration.name,
@@ -112,6 +112,7 @@
                     :placeholder="$lng('step2.nationalitiesPlaceholder')"
                     v-model="nationalitiesModel"
                     :clearable="false"
+                    id="kv-select-general-nationality"
                 />
                 <svg class="kv-form__sel-arrow"><use href="#kv-icons_select"></use></svg>
               </div>
@@ -135,6 +136,7 @@
                       :placeholder="$lng('step2.residenceRegionsPlaceholder')"
                       v-model="residenceRegionsModel"
                       :clearable="false"
+                      id="kv-select-general-residence-regions"
                   />
                   <svg class="kv-form__sel-arrow"><use href="#kv-icons_select"></use></svg>
                 </div>
@@ -184,7 +186,7 @@
                   <!-- item -->
                   <div class="kv-processing-day__item" v-for="(price, j) in item.prices" :key="`price-${j}`">
 
-                    <div class="kv-processing-day-chb" @click="setPrice({price: price, info: item.info, index: i})">
+                    <div class="kv-processing-day-chb" @click="setPrice({price: price, info: item.info, index: i})" :id="`kv-btn-product__${price.id}`">
                       <input type="radio"
                              name="kv-processing-day-chb"
                              aria-label="checkbox"

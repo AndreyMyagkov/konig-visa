@@ -12,7 +12,7 @@
         <div class="kv-step-values__inner">
           <div class="kv-step-values__row">
             <div class="kv-step-values__item" v-if="selectedCountry.name">
-              <span>{{selectedCountry.name}}</span>
+              <span id="kv-header__country-name">{{selectedCountry.name}}</span>
             </div>
             <div class="kv-step-values__item" v-if="CONFIG.mode === 'payment'">
               <span>{{ $lng('step8.ordernumber') }}: {{ CONFIG.order }}</span>
@@ -21,14 +21,20 @@
 
 
             <div class="kv-step-values__item" v-if="selectedService.name">
-              <span>{{selectedService.name}}</span>
+              <span id="kv-header__service-name">{{selectedService.name}}</span>
               <span v-if="selectedDuration.name">
-                {{selectedDuration.name}}
+                <span id="kv-header__duration-name">{{selectedDuration.name}}</span>
                 <span v-if="selectedPrice.price.m">|&nbsp;
-                    <template v-if="selectedPrice.price.m !== 'm'">{{selectedPrice.price.m}}-{{ $lng('step2.multiplicity') }}</template>
-                    <template v-else>{{ $lng('step2.multiplicities') }}</template>
+                    <span  id="kv-header__multiplicity-name">
+                      <template v-if="selectedPrice.price.m !== 'm'">{{selectedPrice.price.m}}-{{ $lng('step2.multiplicity') }}</template>
+                      <template v-else>{{ $lng('step2.multiplicities') }}</template>
+                      </span>
                 </span>
-                <span v-if="selectedPrice.info.quantity">| {{selectedPrice.info.quantity}} {{ $lng(`step2.dimension.${selectedPrice.info.dimension}`) }}</span>
+                <span v-if="selectedPrice.info.quantity">|
+                  <span id="kv-header__duration-name">
+                    {{selectedPrice.info.quantity}} {{ $lng(`step2.dimension.${selectedPrice.info.dimension}`) }}
+                  </span>
+                </span>
               </span>
             </div>
 
@@ -43,7 +49,7 @@
               <div class="kv-participants__multiply">
                 <svg><use href="#kv-icons_multiply"></use></svg>
               </div>
-              <div class="kv-participants__counter">{{calculate.calculation.participants.length}}</div>
+              <div class="kv-participants__counter" id="kv-header__participants-count">{{calculate.calculation.participants.length}}</div>
             </div>
 
             <div class="kv-cart drop">
@@ -51,7 +57,7 @@
               <div class="kv-cart__head">
                 <svg class="kv-cart__icon"><use href="#kv-icons_cart"></use></svg>
 
-                <div class="kv-price kv-cart__price"> {{totalAmount}} <span class="kv-price__currency">€</span></div>
+                <div class="kv-price kv-cart__price"> <span class="kv-cart__value" id="kv-header__amount">{{totalAmount}}</span> <span class="kv-price__currency">€</span></div>
                 <svg class="kv-cart__arrow drop__angle"><use href="#kv-icons_arrow_down"></use></svg>
               </div>
 
@@ -641,8 +647,11 @@ export default {
         API_URL: "https://apisrv.ideo-software.com/Ideo/KoenigVN/Web/api/OrderPortal/",
         lng: "de",
         order: "",
-        agnr: null
-      }
+        agnr: null,
+        allowBrowserHistory: true // Разрешить использовать историю браузера по шагам
+
+      },
+      browserTitle: document.querySelector('title').innerText,
     }
   },
   methods: {
@@ -715,10 +724,14 @@ export default {
       } else if (this.CONFIG.mode === "payment" && this.CONFIG.order) {
         this.currentStep = 8;
       } else {
-        this.currentStep = 1;
+        //this.currentStep = 1;
+        this.setStep({step: 1, block: null});
       }
 
-
+      // Обработчик
+      if (this.CONFIG.mode === "default" && this.CONFIG.allowBrowserHistory) {
+        this.browserHistoryListener();
+      }
 
       return true
     },
@@ -952,12 +965,40 @@ export default {
       }
       this.stepBlock = data.block || null;
 
+      if (this.CONFIG.allowBrowserHistory) {
+        this.browserHistorySet();
+      }
+
       setTimeout(
           () => {this.scrollTo(data.block)},
           500
       )
 
+    },
 
+    /**
+     * Запись в историю браузера нового шага
+     */
+    browserHistorySet() {
+      window.history.pushState({step: this.currentStep}, `Step ${this.currentStep}`);
+      // Смена Title Браузера
+      document.querySelector('title').innerText = `${this.browserTitle} ${this.$lng('common.step')} ${this.currentStep}`
+    },
+
+    /**
+     * Обработчик кнопок истории браузера (вперед/назад)
+     */
+    browserHistoryListener() {
+      window.onpopstate = (event) => {
+        if (event.state && event.state.step) {
+          const step = event.state.step;
+          const allowBrowserHistory = this.CONFIG.allowBrowserHistory;
+          this.CONFIG.allowBrowserHistory = false;
+          this.setStep({step: step, block: null});
+          this.CONFIG.allowBrowserHistory = allowBrowserHistory;
+
+        }
+      }
     },
 
     /**

@@ -7,7 +7,7 @@
         <button
             type="button"
             class="kv-step-button kv-step-button_left"
-
+            :id="`kv-step-button-${position}__prev`"
             @click="prev">
           <svg class="kv-step-button__icon"><use href="#kv-icons_back"></use></svg>
           <span class="kv-step-button__text">{{ $lng('common.btnPrev') }}</span>
@@ -27,6 +27,7 @@
                 'kv-step-button_success': allowNext,
                 'kv-step-button_disabled': !allowNext
               }"
+              :id="`kv-step-button-${position}__next`"
               :disabledd="!allowNext"
               @click="next"
               >
