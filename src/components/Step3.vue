@@ -45,14 +45,14 @@
           <div class="kv-form__item-wrap kv-form__col">
             <div class="kv-form__item kv-form__item_chb" :class="{ 'kv-form__item_error': item.gender.$error }">
               <label class="kv-form-radio">
-                <input type="radio" aria-label="checkbox" v-model="item.gender.$model" value="Herr" @change="isValid">
+                <input type="radio" aria-label="checkbox" v-model="item.gender.$model" value="Herr" @change="isValid" :id="`kv-participants-gender-herr__${index}`">
                 <span class="kv-form-radio__mark">
                    <svg><use href="#kv-icons_form_radio"></use></svg>
                 </span>
                 <span class="kv-form-radio__caption">{{ $lng('step3.gender.male') }}</span>
               </label>
               <label class="kv-form-radio">
-                <input type="radio" aria-label="checkbox" v-model="item.gender.$model"  value="Frau" @change="isValid">
+                <input type="radio" aria-label="checkbox" v-model="item.gender.$model"  value="Frau" @change="isValid" :id="`kv-participants-gender-frau__${index}`">
                 <span class="kv-form-radio__mark">
                   <svg><use href="#kv-icons_form_radio"></use></svg>
                 </span>
@@ -66,7 +66,14 @@
           </div>
 
           <div class="kv-form__item-wrap kv-form__item-wrap_right kv-form__col">
-            <div class="kv-form-title_hv" @click="deleteTourist(index)" v-if="tourists.length > 1">{{ $lng('step3.delete') }}</div>
+            <div
+                class="kv-form-title_hv"
+                :id="`kv-participants-remove__${index}`"
+                @click="deleteTourist(index)"
+                v-if="tourists.length > 1"
+            >
+              {{ $lng('step3.delete') }}
+            </div>
           </div>
 
         </div>
@@ -78,13 +85,13 @@
             <div class="kv-form__item" :class="{ 'kv-form__item_error': item.name.$error }">
               <input
                   type="text"
-                  :id="`name-${index}`"
+                  :id="`kv-participants-name__${index}`"
                   placeholder=" "
                   v-model.trim="item.name.$model"
                   @input="isValid"
                   @blur="item.name.$touch()"
               >
-              <label class="kv-form__label" :for="`name-${index}`">{{ $lng('step3.name') }}</label>
+              <label class="kv-form__label" :for="`kv-participants-name__${index}`">{{ $lng('step3.name') }}</label>
             </div>
           </div>
           <!-- /Name -->
@@ -94,13 +101,13 @@
             <div class="kv-form__item" :class="{ 'kv-form__item_error': item.sname.$error }">
               <input
                   type="text"
-                  :id="`sname-${index}`"
+                  :id="`kv-participants-sname__${index}`"
                   placeholder=" "
                   v-model.trim="item.sname.$model"
                   @input="isValid"
                   @blur="item.sname.$touch()"
               >
-              <label class="kv-form__label" :for="`sname-${index}`">{{ $lng('step3.sname') }}</label>
+              <label class="kv-form__label" :for="`kv-participants-sname__${index}`">{{ $lng('step3.sname') }}</label>
             </div>
           </div>
           <!-- /SName -->
@@ -125,7 +132,7 @@
               <v-select
                   :options="nationalities"
                   label="name"
-                  :inputId="`nationality-${index}`"
+                  :inputId="`kv-participants-nationality__${index}`"
                   placeholder=" "
                   v-model="item.nationality.$model"
                   :clearable="false"
@@ -135,7 +142,7 @@
               />
               <svg class="kv-form__sel-arrow"><use href="#kv-icons_select"></use></svg>
 <!-- @search:focus="tourists[index].nationalityIsFocused = true" -->
-              <label class="kv-form__label" :for="`nationality-${index}`">{{ $lng('step3.nationality') }}</label>
+              <label class="kv-form__label" :for="`kv-participants-nationality__${index}`">{{ $lng('step3.nationality') }}</label>
               </div>
 
             </div>
@@ -157,7 +164,7 @@
                 <v-select
                     :options="productDetails.servedResidenceRegions"
                     label="name"
-                    :inputId="`residenceRegion-${index}`"
+                    :inputId="`kv-participants-residenceRegion__${index}`"
                     placeholder=" "
                     v-model="item.residenceRegion.$model"
                     :clearable="false"
@@ -167,7 +174,7 @@
                     @search:blur="item.residenceRegionsFocused = false;item.residenceRegion.$touch();"
                     @option:selecting=""
                 />
-                <label class="kv-form__label" :for="`residenceRegion-${index}`">{{ $lng('step3.residenceRegions') }}</label>
+                <label class="kv-form__label" :for="`kv-participants-residenceRegion__${index}`">{{ $lng('step3.residenceRegions') }}</label>
                 <svg class="kv-form__sel-arrow"><use href="#kv-icons_select"></use></svg>
               </div>
             </div>
@@ -188,11 +195,11 @@
                   class="kv-form__sel"
                   v-model="item.discount.$model"
                   @change="calculateAndValidate"
-                  :id="`discount-${index}`">
+                  :id="`kv-participants-discount__${index}`">
                 <option value="null" label=" "></option>
                 <option :value="item.code" v-for="item in productDetails.discounts" :key="`${item.code}-${index}`">{{item.name}}</option>
               </select>
-              <label class="kv-form__label" :for="`discount-${index}`" style="pointer-events: none">{{ $lng('step3.discount') }}</label>
+              <label class="kv-form__label" :for="`kv-participants-discount__${index}`" style="pointer-events: none">{{ $lng('step3.discount') }}</label>
               <svg class="kv-form__sel-arrow">
                 <use href="#kv-icons_select"></use>
               </svg>
@@ -211,8 +218,8 @@
               <div class="kv-form__item kv-form__field-date"
                    :class="{ 'kv-form__item_error': item.birthDate.$error }"
               >
-                <input type="date" id="birthDate" v-model.trim="item.birthDate.$model" @input="isValid">
-                <label class="kv-form__label" for="birthDate">{{ $lng('step3.birthDate') }}</label>
+                <input type="date" :id="`kv-participants-birthDate__${index}`" v-model.trim="item.birthDate.$model" @input="isValid">
+                <label class="kv-form__label" :for="`kv-participants-birthDate__${index}`">{{ $lng('step3.birthDate') }}</label>
                 <svg class="kv-form__sel-arrow">
                   <use href="#kv-icons_select"></use>
                 </svg>
@@ -233,7 +240,7 @@
       </div>
       <!-- Form card-->
 
-      <div class="kv-add" @click="addTourist">
+      <div class="kv-add" @click="addTourist" id="kv-participants-add">
         <svg><use href="#kv-icons_plus"></use></svg>
         {{ $lng('step3.btnAdd') }}
       </div>

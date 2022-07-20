@@ -49,7 +49,7 @@
       </div>
       -->
       <div class="kv-content__btn kv-content__btn_lg" v-if="position === 'bottom'">
-        <button class="kv-step-button kv-step-button_book" type="button" @click="sendOrder">
+        <button class="kv-step-button kv-step-button_book" type="button" @click="sendOrder" id="kv-step-button__booking">
           <span class="kv-step-button__text">{{ $lng('common.btnOrderAndPay') }}</span>
         </button>
       </div>

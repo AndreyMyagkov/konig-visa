@@ -12,7 +12,7 @@
             }"
           >
             <label class="kv-form-radio">
-              <input type="radio" name="branch" :value="item.id" v-model="postalService" @change="postalChange(item)">
+              <input type="radio" name="branch" :value="item.id" v-model="postalService" @change="postalChange(item)" :id="`kv-postal__${item.id}`">
               <span class="kv-form-radio__mark">
                 <svg><use href="#kv-icons_form_radio"></use></svg>
               </span>

@@ -30,6 +30,7 @@
                    }"
                 v-for="(pcg, index) in data.servicePackages"
                 @click="showPackage(pcg)"
+
                 :key="`tab-top-${index}`">
 
               <div
@@ -73,6 +74,7 @@
                 <div
                     class="kv-services-price__btn"
                     @click="selectPackage(pcg)"
+                    :id="`kv-btn-package__${pcg.id}`"
                     v-if="packageSelected.id !== pcg.id">
                   Выбрать
                 </div>
@@ -195,6 +197,7 @@
                           type="checkbox"
                           name="suppService"
                           :value="item.id"
+                          :id="`kv-btn-suppService__${item.id}`"
                           v-model="serviceSelected"
                           @change="suppServiceChange"
                   >
