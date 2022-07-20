@@ -23,7 +23,16 @@
                     v-model="selectedCountry"
                     :clearable="false"
                     id="kv-select-country"
-                />
+                >
+                  <template #option="option" >
+                    <div
+                        :class="{'vs__dropdown-option_popular': option.popular}"
+                    >
+                      {{ option.name }}
+                    </div>
+                  </template>
+                </v-select>
+
                 <svg class="kv-form__sel-arrow"><use href="#kv-icons_select"></use></svg>
               </div>
             </div>

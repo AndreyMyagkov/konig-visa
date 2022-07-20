@@ -849,6 +849,10 @@
     white-space: initial;
 }
 
+.kv-app .vs__dropdown-option_popular {
+    font-weight: bold;
+}
+
 .kv-app .kv-processing .vs__selected {
     padding: 0 0.25em;
 }

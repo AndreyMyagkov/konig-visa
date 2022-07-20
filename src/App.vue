@@ -157,7 +157,7 @@
 
 
         <Step1
-            :countries="countries"
+            :countries="peparePopularList(mockPopularCountriesList(countries))"
             :serviceGroups="serviceGroups"
             :serviceGroupsSelected="serviceGroupsSelected"
             :setup="{
@@ -2181,7 +2181,29 @@ export default {
         this.isLoading = false;
         console.log(err)
       }
-    }
+    },
+
+    /**
+     * Моковые данные для тестирования популярных стран
+     * Россию делаем популярной
+     */
+    mockPopularCountriesList(countries) {
+      return countries.map(_ => {
+        return {
+          codeA2: _.codeA2,
+          codeA3: _.codeA3,
+          name: _.name,
+          popular: _.name === "Russland"
+        }
+      })
+    },
+    /**
+     *
+     */
+    peparePopularList(data) {
+      const popularItems = data.filter(_ => _.popular);
+      return [...popularItems, ...data]
+    },
 
   },
   computed: {
